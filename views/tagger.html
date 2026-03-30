@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Tagger — OutreachAI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0c0c10;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+            color: #f0f0f0;
+            min-height: 100vh;
+        }
+        /* ─── LOAD MODAL ─── */
+        
+        .load-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 15, 0.95);
+            z-index: 1000;
+        }
+        
+        .load-box {
+            background: #141418;
+            border: 1px solid #2a2a32;
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .load-box h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .load-box p {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .load-box code {
+            color: #4ECDC4;
+            background: #1a2a28;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .dropzone {
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+        
+        .dropzone.over {
+            border-color: #4ECDC4;
+            background: rgba(78, 205, 196, 0.05);
+        }
+        
+        .dropzone span {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .dropzone strong {
+            color: #aaa;
+        }
+        
+        .demo-btn {
+            background: linear-gradient(135deg, #1D3557, #264653);
+            color: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 28px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            font-weight: 600;
+            transition: transform 0.15s;
+        }
+        
+        .demo-btn:hover {
+            transform: scale(1.03);
+        }
+        /* ─── MAIN APP ─── */
+        
+        .app {
+            padding: 20px 20px 40px;
+            display: none;
+        }
+        
+        .app.active {
+            display: block;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .header .sub {
+            font-size: 11px;
+            color: #555;
+            margin-top: 4px;
+        }
+        
+        .export-btn {
+            background: #4ECDC4;
+            color: #0c0c10;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        /* Progress bar */
+        
+        .progress-track {
+            height: 3px;
+            background: #1a1a22;
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ECDC4, #F4A261);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+        /* Nav dots */
+        
+        .nav-dots {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid #2a2a32;
+            background: transparent;
+            color: #444;
+            font-size: 9px;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+        
+        .nav-dot.active {
+            border: 2px solid #4ECDC4;
+            background: #1a1a22;
+            color: #f0f0f0;
+            font-weight: 700;
+        }
+        
+        .nav-dot.tagged {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+        }
+        /* Two column layout */
+        
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1100px;
+        }
+        
+        @media (max-width: 800px) {
+            .columns {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: #141418;
+            border: 1px solid #2a2a32;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .card.scott {
+            border-color: #F4A261;
+        }
+        
+        .card-label {
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .card-label.scott {
+            color: #F4A261;
+        }
+        
+        .post-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ddd;
+            margin: 6px 0 2px;
+        }
+        
+        .post-category {
+            font-size: 10px;
+            color: #666;
+            background: #1a1a22;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .post-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+        
+        .post-body {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #999;
+            white-space: pre-wrap;
+        }
+        
+        .post-meta {
+            font-size: 10px;
+            color: #555;
+        }
+        
+        .response-text {
+            font-size: 13px;
+            line-height: 1.8;
+            color: #e8e8e8;
+            white-space: pre-wrap;
+        }
+        /* Thread display */
+        
+        .thread {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #1a1a22;
+            border-radius: 8px;
+        }
+        
+        .thread-comment {
+            margin-bottom: 8px;
+        }
+        
+        .thread-reply {
+            margin-left: 20px;
+            padding-left: 12px;
+            border-left: 2px solid #2a2a32;
+            margin-bottom: 6px;
+        }
+        
+        .thread-author {
+            font-size: 11px;
+            font-weight: 600;
+            color: #aaa;
+        }
+        
+        .thread-author.scott {
+            color: #F4A261;
+        }
+        
+        .thread-content {
+            font-size: 12px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-top: 2px;
+        }
+        /* Tone pills */
+        
+        .tone-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .tone-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+            background: transparent;
+        }
+        /* Intent cards */
+        
+        .intent-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 3px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #2a2a32;
+            background: transparent;
+            color: #888;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .intent-card.active {
+            border-color: #4ECDC4;
+            background: rgba(78, 205, 196, 0.08);
+            color: #4ECDC4;
+        }
+        
+        .intent-card .label {
+            font-weight: 600;
+            color: #aaa;
+        }
+        
+        .intent-card.active .label {
+            color: #f0f0f0;
+        }
+        
+        .intent-card .desc {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        /* Stage selector */
+        
+        .stage-row {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .stage-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1.5px solid #2a2a32;
+            background: transparent;
+            color: #666;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .stage-btn.active {
+            border-color: #F4A261;
+            background: rgba(244, 162, 97, 0.1);
+            color: #F4A261;
+        }
+        
+        .stage-btn .icon {
+            font-size: 20px;
+        }
+        /* Status badge */
+        
+        .status {
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status.complete {
+            background: rgba(78, 205, 196, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.19);
+            color: #4ECDC4;
+        }
+        
+        .status.incomplete {
+            background: rgba(255, 107, 53, 0.08);
+            border: 1px solid rgba(255, 107, 53, 0.19);
+            color: #FF6B35;
+        }
+        /* Bottom nav */
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            max-width: 1100px;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            border: 1px solid #2a2a32;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: #aaa;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        
+        .nav-btn:disabled {
+            color: #333;
+            cursor: default;
+        }
+        
+        .nav-btn.next {
+            background: linear-gradient(135deg, #4ECDC4, #2EC4B6);
+            border: none;
+            color: #0c0c10;
+            font-weight: 700;
+        }
+        
+        .nav-btn.next:disabled {
+            background: transparent;
+            border: 1px solid #2a2a32;
+            color: #333;
+        }
+        
+        .nav-info {
+            font-size: 12px;
+            color: #555;
+        }
+        /* Toast */
+        
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #4ECDC4;
+            color: #0c0c10;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            display: none;
+        }
+        
+        .toast.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .or-divider {
+            color: #444;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOAD MODAL -->
+    <div class="load-modal" id="loadModal">
+        <div class="load-box">
+            <div style="font-size:48px;margin-bottom:16px">🏷️</div>
+            <h1>Response Tagger</h1>
+            <p>Load your scraped <code>skool_data.json</code> to start tagging Scott's responses with tone, intent, and sales stage.</p>
+            <div class="dropzone" id="dropzone">
+                <span>Drop <strong>skool_data.json</strong> here or click to browse</span>
+            </div>
+            <div class="or-divider">or</div>
+            <button class="demo-btn" id="demoBtn">Use Demo Data (3 samples)</button>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app" id="app">
+        <div class="header">
+            <div>
+                <h1>🏷️ Response Tagger</h1>
+                <div class="sub" id="progressText">0/0 tagged · 0% complete</div>
+            </div>
+            <button class="export-btn" id="exportBtn">Export JSON ↓</button>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="nav-dots" id="navDots"></div>
+
+        <div class="columns">
+            <!-- LEFT -->
+            <div>
+                <div class="card" id="postCard">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+                        <div>
+                            <div class="card-label">Original Post</div>
+                            <div class="post-author" id="postAuthor"></div>
+                            <span class="post-category" id="postCategory"></span>
+                        </div>
+                        <div class="post-meta" id="postTimestamp"></div>
+                    </div>
+                    <div class="post-title" id="postTitle"></div>
+                    <div class="post-body" id="postBody"></div>
+                </div>
+
+                <div class="card scott" id="threadCard">
+                    <div class="card-label scott">Conversation Threads</div>
+                    <div id="threadsContainer"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div>
+                <div class="card">
+                    <div class="card-label">Tone Tags <span style="color:#333">(select all that apply)</span></div>
+                    <div class="tone-wrap" id="toneContainer"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Intent <span style="color:#333">(pick one)</span></div>
+                    <div id="intentContainer" style="display:flex;flex-direction:column;gap:6px"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Sales Stage</div>
+                    <div class="stage-row" id="stageContainer"></div>
+                </div>
+
+                <div class="status incomplete" id="statusBadge">◯ Incomplete — add missing tags above</div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-btn" id="prevBtn">← Previous</button>
+            <span class="nav-info" id="navInfo">1 / 1 · Use arrow keys</span>
+            <button class="nav-btn next" id="nextBtn">Next →</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">✓ Exported skool_data_tagged.json</div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────
+        const TONE_OPTIONS = [{
+            label: "Hype / Energy",
+            value: "hype",
+            color: "#FF6B35"
+        }, {
+            label: "Brotherhood",
+            value: "brotherhood",
+            color: "#4ECDC4"
+        }, {
+            label: "Empathy",
+            value: "empathy",
+            color: "#A8DADC"
+        }, {
+            label: "Authority",
+            value: "authority",
+            color: "#1D3557"
+        }, {
+            label: "Tough Love",
+            value: "tough-love",
+            color: "#E63946"
+        }, {
+            label: "Teasing Future Value",
+            value: "teasing-future-value",
+            color: "#F4A261"
+        }, {
+            label: "Vulnerability",
+            value: "vulnerability",
+            color: "#8D99AE"
+        }, {
+            label: "Humor / Playful",
+            value: "humor",
+            color: "#2EC4B6"
+        }, {
+            label: "Direct / No-BS",
+            value: "direct",
+            color: "#264653"
+        }, {
+            label: "Storytelling",
+            value: "storytelling",
+            color: "#E9C46A"
+        }, {
+            label: "Motivational",
+            value: "motivational",
+            color: "#F77F00"
+        }, {
+            label: "Casual / Chill",
+            value: "casual",
+            color: "#606C38"
+        }, ];
+
+        const INTENT_OPTIONS = [{
+            label: "Engagement / Nurture",
+            value: "engagement-nurture",
+            desc: "Building relationship, keeping them active"
+        }, {
+            label: "Value Delivery",
+            value: "value-delivery",
+            desc: "Teaching, sharing insights for free"
+        }, {
+            label: "Social Proof",
+            value: "social-proof",
+            desc: "Showcasing results, wins, testimonials"
+        }, {
+            label: "Pain Point Agitation",
+            value: "pain-agitation",
+            desc: "Surfacing or amplifying their problem"
+        }, {
+            label: "Objection Handling",
+            value: "objection-handling",
+            desc: "Addressing doubts or resistance"
+        }, {
+            label: "Close to Call",
+            value: "close-to-call",
+            desc: "Pushing toward booking a sales call"
+        }, {
+            label: "Community Building",
+            value: "community-building",
+            desc: "Making people feel part of something"
+        }, {
+            label: "Acknowledgement",
+            value: "acknowledgement",
+            desc: "Simple recognition, emoji, short reply"
+        }, {
+            label: "Redirect / Boundary",
+            value: "redirect",
+            desc: "Steering convo or setting limits"
+        }, ];
+
+        const SALES_STAGES = [{
+            label: "Awareness",
+            value: "awareness",
+            icon: "👁"
+        }, {
+            label: "Engagement",
+            value: "engagement",
+            icon: "💬"
+        }, {
+            label: "Nurture",
+            value: "nurture",
+            icon: "🌱"
+        }, {
+            label: "Close",
+            value: "close",
+            icon: "🎯"
+        }, ];
+
+        const DEMO_DATA = [{
+            id: "001",
+            original_post: {
+                author: "Kai Cerar",
+                title: "Congrats on the website!",
+                body: "This is amazing, you guys are really building something special here.",
+                category: "The Hero's Journey",
+                timestamp: "10h"
+            },
+            threads: [{
+                comment: {
+                    author: "Kai Cerar",
+                    content: "WOW Looks fire BROO!!!!",
+                    isTargetMember: false
+                },
+                replies: [{
+                    author: "Scott Northwolf",
+                    content: "@Kai Cerar thanks, brother. Wait until you see the FIRE content we are recording at our brand new villa...",
+                    isTargetMember: true
+                }, {
+                    author: "Kai Cerar",
+                    content: "@Scott Northwolf BROOO LETS FUCKIN GOOOO!!",
+                    isTargetMember: false
+                }, ]
+            }],
+            scott_involved: true,
+            tags: {
+                tone_tags: [],
+                intent: "",
+                sales_stage: ""
+            },
+        }, {
+            id: "002",
+            original_post: {
+                author: "Lea Newkirk",
+                title: "Moving Backward",
+                body: "I feel like I've been making progress for months but this week everything fell apart.",
+                category: "Holistic Self-Improvement",
+                timestamp: "3d"
+            },
+            threads: [{
+                comment: {
+                    author: "Scott Northwolf",
+                    content: "Listen, setbacks aren't the opposite of progress — they ARE part of progress. DM me if you want to talk through what's blocking you 💪",
+                    isTargetMember: true
+                },
+                replies: []
+            }],
+            scott_involved: true,
+            tags: {
+                tone_tags: [],
+                intent: "",
+                sales_stage: ""
+            },
+        }, {
+            id: "003",
+            original_post: {
+                author: "Marcus Chen",
+                title: "How do I start a coaching business?",
+                body: "I have expertise in fitness but zero business knowledge. Any advice?",
+                category: "Business & Monetization",
+                timestamp: "5d"
+            },
+            threads: [{
+                comment: {
+                    author: "Scott Northwolf",
+                    content: "Great question bro. You need ONE clear offer and ONE way to get in front of people. Book a call with my team — link in my bio 🔗",
+                    isTargetMember: true
+                },
+                replies: []
+            }],
+            scott_involved: true,
+            tags: {
+                tone_tags: [],
+                intent: "",
+                sales_stage: ""
+            },
+        }, ];
+
+        // ─── STATE ───────────────────────────────────────
+        let data = [];
+        let currentIndex = 0;
+
+        // ─── DOM ─────────────────────────────────────────
+        const $ = id => document.getElementById(id);
+
+        // ─── LOAD DATA ───────────────────────────────────
+        function loadData(raw) {
+            const interactions = raw.interactions || raw;
+            if (!Array.isArray(interactions)) {
+                alert("Invalid format");
+                return;
+            }
+
+            // Filter to only posts where Scott is involved, and add tags object
+            data = interactions
+                .filter(i => i.scott_involved)
+                .map(i => {
+                    if (!i.tags) i.tags = {
+                        tone_tags: [],
+                        intent: "",
+                        sales_stage: ""
+                    };
+                    return i;
+                });
+
+            if (data.length === 0) {
+                alert("No posts found where Scott is involved. Check your scraper output.");
+                return;
+            }
+
+            $("loadModal").style.display = "none";
+            $("app").classList.add("active");
+            currentIndex = 0;
+            render();
+        }
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    loadData(JSON.parse(e.target.result));
+                } catch (err) {
+                    alert("Failed to parse JSON: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Dropzone
+        const dz = $("dropzone");
+        dz.addEventListener("click", () => {
+            const inp = document.createElement("input");
+            inp.type = "file";
+            inp.accept = ".json";
+            inp.onchange = e => handleFile(e.target.files[0]);
+            inp.click();
+        });
+        dz.addEventListener("dragover", e => {
+            e.preventDefault();
+            dz.classList.add("over");
+        });
+        dz.addEventListener("dragleave", () => dz.classList.remove("over"));
+        dz.addEventListener("drop", e => {
+            e.preventDefault();
+            dz.classList.remove("over");
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        $("demoBtn").addEventListener("click", () => loadData(DEMO_DATA));
+
+        // ─── RENDER ──────────────────────────────────────
+        function render() {
+            const item = data[currentIndex];
+            const tags = item.tags;
+
+            // Post info
+            $("postAuthor").textContent = item.original_post.author;
+            $("postCategory").textContent = item.original_post.category || "";
+            $("postCategory").style.display = item.original_post.category ? "inline-block" : "none";
+            $("postTimestamp").textContent = item.original_post.timestamp || "";
+            $("postTitle").textContent = item.original_post.title || "";
+            $("postBody").textContent = item.original_post.body || "";
+
+            // Threads
+            const tc = $("threadsContainer");
+            tc.innerHTML = "";
+            (item.threads || []).forEach(thread => {
+                const div = document.createElement("div");
+                div.className = "thread";
+
+                // Top-level comment
+                const commentDiv = document.createElement("div");
+                commentDiv.className = "thread-comment";
+                commentDiv.innerHTML = `<div class="thread-author ${thread.comment.isTargetMember ? 'scott' : ''}">${thread.comment.author}</div><div class="thread-content">${escHtml(thread.comment.content)}</div>`;
+                div.appendChild(commentDiv);
+
+                // Replies
+                (thread.replies || []).forEach(r => {
+                    const replyDiv = document.createElement("div");
+                    replyDiv.className = "thread-reply";
+                    replyDiv.innerHTML = `<div class="thread-author ${r.isTargetMember ? 'scott' : ''}">↳ ${r.author}</div><div class="thread-content">${escHtml(r.content)}</div>`;
+                    div.appendChild(replyDiv);
+                });
+
+                tc.appendChild(div);
+            });
+
+            // Tone pills
+            const toneC = $("toneContainer");
+            toneC.innerHTML = "";
+            TONE_OPTIONS.forEach(opt => {
+                const active = (tags.tone_tags || []).includes(opt.value);
+                const btn = document.createElement("button");
+                btn.className = "tone-pill";
+                btn.style.border = `1.5px solid ${active ? opt.color : "#2a2a32"}`;
+                btn.style.background = active ? opt.color + "18" : "transparent";
+                btn.style.color = active ? opt.color : "#777";
+                btn.textContent = (active ? "✓ " : "") + opt.label;
+                btn.onclick = () => {
+                    toggleTone(opt.value);
+                    render();
+                };
+                toneC.appendChild(btn);
+            });
+
+            // Intent cards
+            const intC = $("intentContainer");
+            intC.innerHTML = "";
+            INTENT_OPTIONS.forEach(opt => {
+                const active = tags.intent === opt.value;
+                const btn = document.createElement("button");
+                btn.className = "intent-card" + (active ? " active" : "");
+                btn.innerHTML = `<span class="label">${opt.label}</span><span class="desc">${opt.desc}</span>`;
+                btn.onclick = () => {
+                    tags.intent = opt.value;
+                    render();
+                };
+                intC.appendChild(btn);
+            });
+
+            // Sales stage
+            const stC = $("stageContainer");
+            stC.innerHTML = "";
+            SALES_STAGES.forEach(s => {
+                const active = tags.sales_stage === s.value;
+                const btn = document.createElement("button");
+                btn.className = "stage-btn" + (active ? " active" : "");
+                btn.innerHTML = `<span class="icon">${s.icon}</span><span>${s.label}</span>`;
+                btn.onclick = () => {
+                    tags.sales_stage = s.value;
+                    render();
+                };
+                stC.appendChild(btn);
+            });
+
+            // Status
+            const complete = (tags.tone_tags || []).length > 0 && tags.intent && tags.sales_stage;
+            const badge = $("statusBadge");
+            badge.className = "status " + (complete ? "complete" : "incomplete");
+            badge.textContent = complete ? "✓ Fully tagged" : "◯ Incomplete — add missing tags above";
+
+            // Nav dots
+            const dots = $("navDots");
+            dots.innerHTML = "";
+            data.forEach((d, i) => {
+                const t = d.tags;
+                const tagged = (t.tone_tags || []).length > 0 && t.intent && t.sales_stage;
+                const btn = document.createElement("button");
+                btn.className = "nav-dot" + (i === currentIndex ? " active" : "") + (tagged ? " tagged" : "");
+                btn.textContent = i + 1;
+                btn.onclick = () => {
+                    currentIndex = i;
+                    render();
+                };
+                dots.appendChild(btn);
+            });
+
+            // Progress
+            const totalTagged = data.filter(d => {
+                const t = d.tags;
+                return (t.tone_tags || []).length > 0 && t.intent && t.sales_stage;
+            }).length;
+            const pct = Math.round((totalTagged / data.length) * 100);
+            $("progressText").textContent = totalTagged + "/" + data.length + " tagged · " + pct + "% complete";
+            $("progressBar").style.width = pct + "%";
+
+            // Nav buttons
+            $("prevBtn").disabled = currentIndex === 0;
+            $("nextBtn").disabled = currentIndex === data.length - 1;
+            if (currentIndex === data.length - 1) $("nextBtn").className = "nav-btn next";
+            $("navInfo").textContent = (currentIndex + 1) + " / " + data.length + " · Use arrow keys";
+        }
+
+        function escHtml(str) {
+            const div = document.createElement("div");
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function toggleTone(value) {
+            const tags = data[currentIndex].tags;
+            if (!tags.tone_tags) tags.tone_tags = [];
+            const idx = tags.tone_tags.indexOf(value);
+            if (idx === -1) tags.tone_tags.push(value);
+            else tags.tone_tags.splice(idx, 1);
+        }
+
+        // ─── NAVIGATION ──────────────────────────────────
+        $("prevBtn").addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                render();
+            }
+        });
+        $("nextBtn").addEventListener("click", () => {
+            if (currentIndex < data.length - 1) {
+                currentIndex++;
+                render();
+            }
+        });
+
+        document.addEventListener("keydown", e => {
+            if (!data.length) return;
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                e.preventDefault();
+                if (currentIndex < data.length - 1) {
+                    currentIndex++;
+                    render();
+                }
+            }
+            if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    render();
+                }
+            }
+        });
+
+        // ─── EXPORT ──────────────────────────────────────
+        $("exportBtn").addEventListener("click", () => {
+            const output = {
+                interactions: data
+            };
+            const blob = new Blob([JSON.stringify(output, null, 2)], {
+                type: "application/json"
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "skool_data_tagged.json";
+            a.click();
+            URL.revokeObjectURL(url);
+            const toast = $("toast");
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
+        });
+    </script>
+</body>
+
+</html>

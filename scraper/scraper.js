@@ -6,14 +6,12 @@ require("dotenv").config();
 const CONFIG = {
   email: process.env.SKOOL_EMAIL,
   password: process.env.SKOOL_PASSWORD,
-  communityUrl: process.env.SKOOL_COMMUNITY_URL || "https://www.skool.com/your-community",
+  communityUrl: process.env.SKOOL_COMMUNITY_URL || "https://www.skool.com/self-improvement-nation-3104",
   targetMember: process.env.TARGET_MEMBER || "Scott Northwolf",
-  scrollPauseMs: 2000,
-  maxScrollAttempts: 50,
-  headless: false,
+  outputFile: process.env.OUTPUT_FILE || "skool_data.json",
+  headless: true,
   outputDir: "./output",
-  outputFile: "skool_data.json",
-  rawPostsFile: "raw_posts.json",
+  parallel: 3,
 };
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -25,350 +23,366 @@ function ensureOutputDir() {
 function saveJSON(filename, data) {
   const fp = path.join(CONFIG.outputDir, filename);
   fs.writeFileSync(fp, JSON.stringify(data, null, 2));
-  console.log("Saved " + fp);
+}
+
+function formatTime(ms) {
+  var secs = Math.floor(ms / 1000);
+  var mins = Math.floor(secs / 60);
+  secs = secs % 60;
+  if (mins > 0) return mins + "m " + secs + "s";
+  return secs + "s";
 }
 
 async function login(page) {
-  console.log("Logging into Skool...");
+  console.log("🔐 Logging in...");
   await page.goto("https://www.skool.com/login", { waitUntil: "networkidle" });
-  await sleep(2000);
+  await sleep(800);
   await page.fill('input[name="email"], input[type="email"]', CONFIG.email);
-  await sleep(500);
   await page.fill('input[name="password"], input[type="password"]', CONFIG.password);
-  await sleep(500);
   await page.click('button[type="submit"]');
-  await sleep(5000);
+  await sleep(3000);
   if (page.url().includes("login")) throw new Error("Login failed");
-  console.log("Logged in");
+  console.log("✅ Logged in");
 }
 
-async function scrollToLoadAllPosts(page) {
-  console.log("Scrolling to load all posts...");
-  let prevH = 0, attempts = 0;
-  while (attempts < CONFIG.maxScrollAttempts) {
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await sleep(CONFIG.scrollPauseMs);
-    const curH = await page.evaluate(() => document.body.scrollHeight);
-    if (curH === prevH) {
-      await sleep(3000);
-      const finalH = await page.evaluate(() => document.body.scrollHeight);
-      if (finalH === prevH) break;
-    }
-    prevH = curH;
-    attempts++;
-  }
-  console.log("All content loaded after " + attempts + " scrolls");
-}
+async function collectAllPosts(page) {
+  console.log("\n📋 Phase 1: Collecting posts...");
+  var phase1Start = Date.now();
+  var allPosts = [];
+  var pageNum = 1;
 
-async function extractPostCards(page) {
-  console.log("Extracting post cards...");
-  const posts = await page.evaluate(() => {
-    const cards = [];
-    const allDivs = document.querySelectorAll("div");
-    const elements = Array.from(allDivs).filter(div => {
-      const text = div.textContent || "";
-      const hasAuthor = div.querySelector("a[href*='/u/']");
-      const hasTime = text.includes("ago") || text.includes("hr") || text.includes("min") || text.includes("day");
-      const okSize = div.offsetHeight > 100 && div.offsetHeight < 800;
-      return hasAuthor && hasTime && okSize;
-    });
-    elements.forEach((el, i) => {
-      try {
-        const authorEl = el.querySelector("a[href*='/u/']");
-        const author = authorEl ? authorEl.textContent.trim() : "Unknown";
-        const postLink = el.querySelector("a[href*='/post/']");
-        const postUrl = postLink ? postLink.href : null;
-        const titleEl = el.querySelector("h2, h3, strong, [class*='title'], [class*='Title']");
-        const title = titleEl ? titleEl.textContent.trim() : "";
-        const bodyEl = el.querySelector("p, [class*='body'], [class*='content']");
-        const body = bodyEl ? bodyEl.textContent.trim() : "";
-        const categoryEl = el.querySelector("[class*='category'], [class*='topic'], [class*='badge']");
-        const category = categoryEl ? categoryEl.textContent.trim() : "";
-        const likeEl = el.querySelector("[class*='like'], [class*='Like']");
-        const commentEl = el.querySelector("[class*='comment'], [class*='Comment']");
-        const likes = likeEl ? parseInt(likeEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        const comments = commentEl ? parseInt(commentEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        const timeEl = el.querySelector("time, [class*='time'], [class*='ago']");
-        const timestamp = timeEl ? timeEl.textContent.trim() : "";
-        cards.push({ index: i, author, title, body, category, likes, comments, timestamp, postUrl, fullText: el.textContent.trim().substring(0, 500) });
-      } catch(e) {}
-    });
-    return cards;
-  });
-  console.log("Found " + posts.length + " posts");
-  return posts;
-}
-
-async function extractPostWithComments(page, postUrl, idx) {
-  if (!postUrl) return null;
-  try {
-    await page.goto(postUrl, { waitUntil: "networkidle" });
-    await sleep(2000);
-    let prevH = 0;
-    for (let i = 0; i < 10; i++) {
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await sleep(1000);
-      const h = await page.evaluate(() => document.body.scrollHeight);
-      if (h === prevH) break;
-      prevH = h;
-    }
-    return await page.evaluate((targetName) => {
-      const postBody = document.querySelector("[class*='PostBody'], [class*='post-body'], article, [class*='post-content']") || document.querySelector("main");
-      const mainContent = postBody ? postBody.textContent.trim() : "";
-      const commentEls = document.querySelectorAll("[class*='Comment'], [class*='comment'], [class*='Reply'], [class*='reply']");
-      const comments = [];
-      commentEls.forEach(el => {
-        const authorEl = el.querySelector("a[href*='/u/']");
-        const author = authorEl ? authorEl.textContent.trim() : "Unknown";
-        const content = el.textContent.trim();
-        const isTarget = author.toLowerCase() === targetName.toLowerCase();
-        const likeEl = el.querySelector("[class*='like'], [class*='Like']");
-        const likes = likeEl ? parseInt(likeEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        comments.push({ author, content: content.substring(0, 2000), likes, isTargetMember: isTarget });
+  while (true) {
+    var posts = await page.evaluate(function() {
+      var cards = [];
+      var wrappers = document.querySelectorAll('[class*="PostItemWrapper"]');
+      var base = window.location.origin + "/" + window.location.pathname.split("/")[1];
+      wrappers.forEach(function(el) {
+        var links = Array.from(el.querySelectorAll("a")).map(function(a) {
+          return { href: a.href, text: a.textContent.trim() };
+        });
+        var profileLinks = links.filter(function(l) { return l.href.includes("/@"); });
+        var author = "Unknown";
+        for (var i = 0; i < profileLinks.length; i++) {
+          if (!/^\d+$/.test(profileLinks[i].text)) { author = profileLinks[i].text; break; }
+        }
+        var postLink = links.find(function(l) {
+          return l.href.startsWith(base + "/") && !l.href.includes("/@") && !l.href.includes("?c=") && !l.href.includes("?p=") && l.href.split("/").length > 4;
+        });
+        var categoryEl = el.querySelector('[class*="GroupFeedLinkLabel"]');
+        var timeEl = el.querySelector('[class*="PostTimeContent"]');
+        var contentEl = el.querySelector('[class*="PostItemCardContent"]');
+        cards.push({
+          author: author,
+          title: postLink ? postLink.text : "",
+          category: categoryEl ? categoryEl.textContent.trim() : "",
+          timestamp: timeEl ? timeEl.textContent.trim().replace(".", "").trim() : "",
+          postUrl: postLink ? postLink.href : null,
+          body: contentEl ? contentEl.textContent.trim().substring(0, 1000) : "",
+        });
       });
-      return { fullContent: mainContent.substring(0, 5000), comments, targetResponses: comments.filter(c => c.isTargetMember), commentCount: comments.length };
-    }, CONFIG.targetMember);
-  } catch(e) {
-    console.error("Error on post " + idx + ": " + e.message);
-    return null;
+      return cards;
+    });
+    console.log("  Page " + pageNum + ": " + posts.length + " posts");
+    allPosts = allPosts.concat(posts);
+    var wentNext = await page.evaluate(function() {
+      var btns = document.querySelectorAll("button, a");
+      for (var i = 0; i < btns.length; i++) {
+        var txt = btns[i].textContent.trim();
+        if (txt === ">" || txt === "Next" || txt === "›") {
+          if (!btns[i].disabled) { btns[i].click(); return true; }
+        }
+      }
+      return false;
+    });
+    if (!wentNext) break;
+    await sleep(600);
+    pageNum++;
+    if (pageNum > 20) break;
   }
+
+  var phase1Time = Date.now() - phase1Start;
+  console.log("✅ " + allPosts.length + " posts collected in " + formatTime(phase1Time));
+  return allPosts;
 }
 
-function buildDataset(feedPosts, detailedPosts) {
-  const dataset = { metadata: { community: CONFIG.communityUrl, targetMember: CONFIG.targetMember, scrapedAt: new Date().toISOString(), totalPosts: feedPosts.length, postsWithTargetResponses: 0 }, interactions: [] };
-  feedPosts.forEach((fp, i) => {
-    const detail = detailedPosts[i];
-    if (!detail) return;
-    const targetResponses = detail.targetResponses || [];
-    if (targetResponses.length > 0) dataset.metadata.postsWithTargetResponses++;
-    dataset.interactions.push({
-      id: String(i + 1).padStart(3, "0"),
-      original_post: { author: fp.author, title: fp.title, body: fp.body || detail.fullContent.substring(0, 1000), category: fp.category, timestamp: fp.timestamp, likes: fp.likes, comment_count: fp.comments, url: fp.postUrl },
-      target_responses: targetResponses.map(r => ({ content: r.content, likes: r.likes, tone_tags: [], intent: "", sales_stage: "" })),
-      all_comments: detail.comments,
+async function extractThreadedComments(page, postUrl, targetName) {
+  await page.goto(postUrl, { waitUntil: "domcontentloaded", timeout: 15000 });
+  await sleep(1500);
+
+  // Scroll to load all comments
+  for (var i = 0; i < 6; i++) {
+    await page.evaluate(function() { window.scrollTo(0, document.body.scrollHeight); });
+    await sleep(500);
+  }
+
+  // Expand all collapsed reply threads — try multiple rounds
+  for (var attempt = 0; attempt < 5; attempt++) {
+    var clicked = await page.evaluate(function() {
+      var count = 0;
+      // Strategy 1: class-based selectors for reply expand buttons
+      var expandBtns = document.querySelectorAll('[class*="ViewRepl"], [class*="viewRepl"], [class*="ShowRepl"], [class*="showRepl"], [class*="ExpandRepl"], [class*="expandRepl"], [class*="view-repl"], [class*="show-repl"]');
+      expandBtns.forEach(function(el) {
+        try { el.click(); count++; } catch(e) {}
+      });
+      // Strategy 2: text-based — look for small elements mentioning replies with a count
+      if (count === 0) {
+        var allEls = document.querySelectorAll('button, a, span[role="button"], div[role="button"], [class*="Repl"] span, [class*="repl"] span');
+        for (var i = 0; i < allEls.length; i++) {
+          var txt = allEls[i].textContent.trim();
+          if (txt.length > 50) continue;
+          if (/\d+\s*repl/i.test(txt) || /view.*repl/i.test(txt) || /show.*repl/i.test(txt)) {
+            try { allEls[i].click(); count++; } catch(e) {}
+          }
+        }
+      }
+      return count;
     });
-  });
-  return dataset;
+    if (clicked === 0) break;
+    await sleep(800);
+  }
+
+  // Scroll again after expanding replies
+  await page.evaluate(function() { window.scrollTo(0, document.body.scrollHeight); });
+  await sleep(300);
+
+  return await page.evaluate(function(targetName) {
+    var conversations = [];
+    var allBubbles = document.querySelectorAll('[class*="CommentItemBubble"]');
+    var seen = new Set();
+
+    function getAuthor(bubble) {
+      var links = Array.from(bubble.querySelectorAll('a[href*="/@"]'));
+      for (var i = 0; i < links.length; i++) {
+        var txt = links[i].textContent.trim();
+        if (/^\d+$/.test(txt) || txt.startsWith("@")) continue;
+        return txt;
+      }
+      return "Unknown";
+    }
+
+    function getContent(bubble) {
+      var text = bubble.textContent.trim();
+      var author = getAuthor(bubble);
+      var idx = text.indexOf(author);
+      if (idx !== -1) text = text.substring(idx + author.length).trim();
+      text = text.replace(/^[^\w@]*[·•]\s*\d+[hmd]\s*/i, "").trim();
+      text = text.replace(/^[^\w@]*[·•]\s*\w+\s+\d+\s*/i, "").trim();
+      return text;
+    }
+
+    function isTarget(author) {
+      return author.trim() === targetName;
+    }
+
+    // Check if a bubble is a reply (nested inside a reply container)
+    var replyClassPattern = /Reply|reply|Replies|replies|Nested|nested|Child|child/;
+    function isReplyBubble(bubble) {
+      var el = bubble.parentElement;
+      for (var i = 0; i < 10; i++) {
+        if (!el) break;
+        var cls = el.className || "";
+        if (replyClassPattern.test(cls)) return true;
+        el = el.parentElement;
+      }
+      return false;
+    }
+
+    // Find replies for a top-level comment bubble
+    function findReplies(bubble) {
+      var replies = [];
+      // Walk up parent chain and look for a sibling that contains reply bubbles
+      var node = bubble;
+      for (var i = 0; i < 10; i++) {
+        if (!node || !node.parentElement) break;
+        node = node.parentElement;
+        // Check next sibling
+        var sibling = node.nextElementSibling;
+        if (sibling) {
+          var cls = sibling.className || "";
+          if (replyClassPattern.test(cls)) {
+            var replyBubbles = sibling.querySelectorAll('[class*="CommentItemBubble"]');
+            replyBubbles.forEach(function(rb) {
+              var rAuthor = getAuthor(rb);
+              if (rAuthor === "Unknown") return;
+              var rContent = getContent(rb);
+              var rKey = rAuthor + "|" + rContent.substring(0, 50);
+              if (!seen.has(rKey)) {
+                seen.add(rKey);
+                replies.push({ author: rAuthor, content: rContent, isTargetMember: isTarget(rAuthor) });
+              }
+            });
+            if (replies.length > 0) return replies;
+          }
+        }
+        // Also check all subsequent siblings (reply container might not be immediately next)
+        var nextSib = node.nextElementSibling;
+        while (nextSib) {
+          var nCls = nextSib.className || "";
+          if (nCls && replyClassPattern.test(nCls)) {
+            var rbs = nextSib.querySelectorAll('[class*="CommentItemBubble"]');
+            rbs.forEach(function(rb) {
+              var rAuthor = getAuthor(rb);
+              if (rAuthor === "Unknown") return;
+              var rContent = getContent(rb);
+              var rKey = rAuthor + "|" + rContent.substring(0, 50);
+              if (!seen.has(rKey)) {
+                seen.add(rKey);
+                replies.push({ author: rAuthor, content: rContent, isTargetMember: isTarget(rAuthor) });
+              }
+            });
+            if (replies.length > 0) return replies;
+          }
+          nextSib = nextSib.nextElementSibling;
+        }
+      }
+      return replies;
+    }
+
+    allBubbles.forEach(function(bubble) {
+      if (isReplyBubble(bubble)) return;
+      var author = getAuthor(bubble);
+      if (author === "Unknown") return;
+      var content = getContent(bubble);
+      var key = author + "|" + content.substring(0, 50);
+      if (seen.has(key)) return;
+      seen.add(key);
+      var thread = {
+        comment: { author: author, content: content, isTargetMember: isTarget(author) },
+        replies: findReplies(bubble),
+      };
+      conversations.push(thread);
+    });
+    return conversations;
+  }, targetName);
 }
 
 async function main() {
-  console.log("SKOOL COMMUNITY SCRAPER");
-  if (!CONFIG.email || !CONFIG.password) { console.error("Missing credentials in .env"); process.exit(1); }
+  var totalStart = Date.now();
+  console.log("🚀 SKOOL SCRAPER (parallel mode)");
+  console.log("=================================");
+  console.log("Target: " + CONFIG.targetMember);
+  console.log("Community: " + CONFIG.communityUrl);
+  console.log("Parallel tabs: " + CONFIG.parallel);
+  console.log("");
+
+  if (!CONFIG.email || !CONFIG.password) { console.error("Missing .env"); process.exit(1); }
   ensureOutputDir();
-  const browser = await chromium.launch({ headless: CONFIG.headless, slowMo: 100 });
-  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-  const page = await context.newPage();
+
+  var browser = await chromium.launch({ headless: CONFIG.headless, slowMo: 0 });
+  var context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  var mainPage = await context.newPage();
+
   try {
-    await login(page);
-    console.log("Navigating to " + CONFIG.communityUrl);
-    await page.goto(CONFIG.communityUrl, { waitUntil: "networkidle" });
-    await sleep(3000);
-    await scrollToLoadAllPosts(page);
-    const feedPosts = await extractPostCards(page);
-    saveJSON(CONFIG.rawPostsFile, feedPosts);
-    console.log("Visiting individual posts...");
-    const detailed = [];
-    for (let i = 0; i < feedPosts.length; i++) {
-      process.stdout.write("  Post " + (i+1) + "/" + feedPosts.length + "...\r");
-      detailed.push(await extractPostWithComments(page, feedPosts[i].postUrl, i));
-      await sleep(1000);
-    }
-    console.log("\nScraped " + detailed.filter(Boolean).length + " posts in detail");
-    const dataset = buildDataset(feedPosts, detailed);
-    saveJSON(CONFIG.outputFile, dataset);
-    console.log("DONE!");
-  } catch(e) {
-    console.error("Error: " + e.message);
-    await page.screenshot({ path: path.join(CONFIG.outputDir, "error_screenshot.png") });
-  } finally {
-    await browser.close();
-  }
-}
+    await login(mainPage);
+    await mainPage.goto(CONFIG.communityUrl, { waitUntil: "networkidle" });
+    await sleep(500);
 
-main();
-SCRAPER_EOFcat << 'SCRAPER_EOF' > scraper.js
-const { chromium } = require("playwright");
-const fs = require("fs");
-const path = require("path");
-require("dotenv").config();
+    var allPosts = await collectAllPosts(mainPage);
 
-const CONFIG = {
-  email: process.env.SKOOL_EMAIL,
-  password: process.env.SKOOL_PASSWORD,
-  communityUrl: process.env.SKOOL_COMMUNITY_URL || "https://www.skool.com/your-community",
-  targetMember: process.env.TARGET_MEMBER || "Scott Northwolf",
-  scrollPauseMs: 2000,
-  maxScrollAttempts: 50,
-  headless: false,
-  outputDir: "./output",
-  outputFile: "skool_data.json",
-  rawPostsFile: "raw_posts.json",
-};
+    var dataset = {
+      metadata: {
+        community: CONFIG.communityUrl,
+        targetMember: CONFIG.targetMember,
+        scrapedAt: new Date().toISOString(),
+        totalPosts: allPosts.length,
+        postsWithTargetResponses: 0,
+        totalThreads: 0,
+      },
+      interactions: new Array(allPosts.length),
+    };
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    var totalBatches = Math.ceil(allPosts.length / CONFIG.parallel);
+    var phase2Start = Date.now();
+    var batchTimes = [];
 
-function ensureOutputDir() {
-  if (!fs.existsSync(CONFIG.outputDir)) fs.mkdirSync(CONFIG.outputDir, { recursive: true });
-}
+    console.log("\n💬 Phase 2: Extracting comments...");
+    console.log("  " + allPosts.length + " posts / " + CONFIG.parallel + " parallel = " + totalBatches + " batches\n");
 
-function saveJSON(filename, data) {
-  const fp = path.join(CONFIG.outputDir, filename);
-  fs.writeFileSync(fp, JSON.stringify(data, null, 2));
-  console.log("Saved " + fp);
-}
+    for (var batch = 0; batch < allPosts.length; batch += CONFIG.parallel) {
+      var batchStart = Date.now();
+      var batchNum = Math.floor(batch / CONFIG.parallel) + 1;
+      var batchEnd = Math.min(batch + CONFIG.parallel, allPosts.length);
+      var batchPosts = allPosts.slice(batch, batchEnd);
 
-async function login(page) {
-  console.log("Logging into Skool...");
-  await page.goto("https://www.skool.com/login", { waitUntil: "networkidle" });
-  await sleep(2000);
-  await page.fill('input[name="email"], input[type="email"]', CONFIG.email);
-  await sleep(500);
-  await page.fill('input[name="password"], input[type="password"]', CONFIG.password);
-  await sleep(500);
-  await page.click('button[type="submit"]');
-  await sleep(5000);
-  if (page.url().includes("login")) throw new Error("Login failed");
-  console.log("Logged in");
-}
+      // Elapsed time
+      var elapsed = Date.now() - phase2Start;
 
-async function scrollToLoadAllPosts(page) {
-  console.log("Scrolling to load all posts...");
-  let prevH = 0, attempts = 0;
-  while (attempts < CONFIG.maxScrollAttempts) {
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await sleep(CONFIG.scrollPauseMs);
-    const curH = await page.evaluate(() => document.body.scrollHeight);
-    if (curH === prevH) {
-      await sleep(3000);
-      const finalH = await page.evaluate(() => document.body.scrollHeight);
-      if (finalH === prevH) break;
-    }
-    prevH = curH;
-    attempts++;
-  }
-  console.log("All content loaded after " + attempts + " scrolls");
-}
+      // ETA prediction
+      var eta = "calculating...";
+      if (batchTimes.length > 0) {
+        var avgBatchTime = batchTimes.reduce(function(a,b){return a+b}, 0) / batchTimes.length;
+        var remainingBatches = totalBatches - batchNum + 1;
+        var etaMs = avgBatchTime * remainingBatches;
+        eta = formatTime(etaMs);
+      }
 
-async function extractPostCards(page) {
-  console.log("Extracting post cards...");
-  const posts = await page.evaluate(() => {
-    const cards = [];
-    const allDivs = document.querySelectorAll("div");
-    const elements = Array.from(allDivs).filter(div => {
-      const text = div.textContent || "";
-      const hasAuthor = div.querySelector("a[href*='/u/']");
-      const hasTime = text.includes("ago") || text.includes("hr") || text.includes("min") || text.includes("day");
-      const okSize = div.offsetHeight > 100 && div.offsetHeight < 800;
-      return hasAuthor && hasTime && okSize;
-    });
-    elements.forEach((el, i) => {
-      try {
-        const authorEl = el.querySelector("a[href*='/u/']");
-        const author = authorEl ? authorEl.textContent.trim() : "Unknown";
-        const postLink = el.querySelector("a[href*='/post/']");
-        const postUrl = postLink ? postLink.href : null;
-        const titleEl = el.querySelector("h2, h3, strong, [class*='title'], [class*='Title']");
-        const title = titleEl ? titleEl.textContent.trim() : "";
-        const bodyEl = el.querySelector("p, [class*='body'], [class*='content']");
-        const body = bodyEl ? bodyEl.textContent.trim() : "";
-        const categoryEl = el.querySelector("[class*='category'], [class*='topic'], [class*='badge']");
-        const category = categoryEl ? categoryEl.textContent.trim() : "";
-        const likeEl = el.querySelector("[class*='like'], [class*='Like']");
-        const commentEl = el.querySelector("[class*='comment'], [class*='Comment']");
-        const likes = likeEl ? parseInt(likeEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        const comments = commentEl ? parseInt(commentEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        const timeEl = el.querySelector("time, [class*='time'], [class*='ago']");
-        const timestamp = timeEl ? timeEl.textContent.trim() : "";
-        cards.push({ index: i, author, title, body, category, likes, comments, timestamp, postUrl, fullText: el.textContent.trim().substring(0, 500) });
-      } catch(e) {}
-    });
-    return cards;
-  });
-  console.log("Found " + posts.length + " posts");
-  return posts;
-}
+      var titles = batchPosts.map(function(p) { return (p.title || "?").substring(0, 18); }).join(" | ");
+      console.log("  Batch " + batchNum + "/" + totalBatches + "  [" + formatTime(elapsed) + " elapsed | ETA: " + eta + "]");
+      console.log("    → " + titles);
 
-async function extractPostWithComments(page, postUrl, idx) {
-  if (!postUrl) return null;
-  try {
-    await page.goto(postUrl, { waitUntil: "networkidle" });
-    await sleep(2000);
-    let prevH = 0;
-    for (let i = 0; i < 10; i++) {
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await sleep(1000);
-      const h = await page.evaluate(() => document.body.scrollHeight);
-      if (h === prevH) break;
-      prevH = h;
-    }
-    return await page.evaluate((targetName) => {
-      const postBody = document.querySelector("[class*='PostBody'], [class*='post-body'], article, [class*='post-content']") || document.querySelector("main");
-      const mainContent = postBody ? postBody.textContent.trim() : "";
-      const commentEls = document.querySelectorAll("[class*='Comment'], [class*='comment'], [class*='Reply'], [class*='reply']");
-      const comments = [];
-      commentEls.forEach(el => {
-        const authorEl = el.querySelector("a[href*='/u/']");
-        const author = authorEl ? authorEl.textContent.trim() : "Unknown";
-        const content = el.textContent.trim();
-        const isTarget = author.toLowerCase() === targetName.toLowerCase();
-        const likeEl = el.querySelector("[class*='like'], [class*='Like']");
-        const likes = likeEl ? parseInt(likeEl.textContent.replace(/\D/g, "")) || 0 : 0;
-        comments.push({ author, content: content.substring(0, 2000), likes, isTargetMember: isTarget });
+      var promises = batchPosts.map(async function(post, idx) {
+        var globalIdx = batch + idx;
+        var threads = [];
+        if (post.postUrl) {
+          var pg = await context.newPage();
+          try {
+            threads = await extractThreadedComments(pg, post.postUrl, CONFIG.targetMember);
+          } catch(e) {
+            try { threads = await extractThreadedComments(pg, post.postUrl, CONFIG.targetMember); } catch(e2) {}
+          }
+          await pg.close();
+        }
+        var scottInvolved = false;
+        threads.forEach(function(t) {
+          if (t.comment.isTargetMember) scottInvolved = true;
+          t.replies.forEach(function(r) { if (r.isTargetMember) scottInvolved = true; });
+        });
+        return {
+          idx: globalIdx,
+          interaction: {
+            id: String(globalIdx + 1).padStart(3, "0"),
+            original_post: { author: post.author, title: post.title, body: post.body, category: post.category, timestamp: post.timestamp, url: post.postUrl },
+            threads: threads,
+            scott_involved: scottInvolved,
+          },
+          scottInvolved: scottInvolved,
+          threadCount: threads.length,
+        };
       });
-      return { fullContent: mainContent.substring(0, 5000), comments, targetResponses: comments.filter(c => c.isTargetMember), commentCount: comments.length };
-    }, CONFIG.targetMember);
-  } catch(e) {
-    console.error("Error on post " + idx + ": " + e.message);
-    return null;
-  }
-}
 
-function buildDataset(feedPosts, detailedPosts) {
-  const dataset = { metadata: { community: CONFIG.communityUrl, targetMember: CONFIG.targetMember, scrapedAt: new Date().toISOString(), totalPosts: feedPosts.length, postsWithTargetResponses: 0 }, interactions: [] };
-  feedPosts.forEach((fp, i) => {
-    const detail = detailedPosts[i];
-    if (!detail) return;
-    const targetResponses = detail.targetResponses || [];
-    if (targetResponses.length > 0) dataset.metadata.postsWithTargetResponses++;
-    dataset.interactions.push({
-      id: String(i + 1).padStart(3, "0"),
-      original_post: { author: fp.author, title: fp.title, body: fp.body || detail.fullContent.substring(0, 1000), category: fp.category, timestamp: fp.timestamp, likes: fp.likes, comment_count: fp.comments, url: fp.postUrl },
-      target_responses: targetResponses.map(r => ({ content: r.content, likes: r.likes, tone_tags: [], intent: "", sales_stage: "" })),
-      all_comments: detail.comments,
-    });
-  });
-  return dataset;
-}
+      var results = await Promise.all(promises);
 
-async function main() {
-  console.log("SKOOL COMMUNITY SCRAPER");
-  if (!CONFIG.email || !CONFIG.password) { console.error("Missing credentials in .env"); process.exit(1); }
-  ensureOutputDir();
-  const browser = await chromium.launch({ headless: CONFIG.headless, slowMo: 100 });
-  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-  const page = await context.newPage();
-  try {
-    await login(page);
-    console.log("Navigating to " + CONFIG.communityUrl);
-    await page.goto(CONFIG.communityUrl, { waitUntil: "networkidle" });
-    await sleep(3000);
-    await scrollToLoadAllPosts(page);
-    const feedPosts = await extractPostCards(page);
-    saveJSON(CONFIG.rawPostsFile, feedPosts);
-    console.log("Visiting individual posts...");
-    const detailed = [];
-    for (let i = 0; i < feedPosts.length; i++) {
-      process.stdout.write("  Post " + (i+1) + "/" + feedPosts.length + "...\r");
-      detailed.push(await extractPostWithComments(page, feedPosts[i].postUrl, i));
-      await sleep(1000);
+      var batchThreads = 0;
+      var batchScott = 0;
+      results.forEach(function(r) {
+        dataset.interactions[r.idx] = r.interaction;
+        if (r.scottInvolved) { dataset.metadata.postsWithTargetResponses++; batchScott++; }
+        dataset.metadata.totalThreads += r.threadCount;
+        batchThreads += r.threadCount;
+      });
+
+      var batchTime = Date.now() - batchStart;
+      batchTimes.push(batchTime);
+
+      console.log("    ✓ " + formatTime(batchTime) + " — " + batchThreads + " threads, " + batchScott + " with Scott");
+
+      saveJSON(CONFIG.outputFile, dataset);
     }
-    console.log("\nScraped " + detailed.filter(Boolean).length + " posts in detail");
-    const dataset = buildDataset(feedPosts, detailed);
-    saveJSON(CONFIG.outputFile, dataset);
-    console.log("DONE!");
+
+    var totalTime = Date.now() - totalStart;
+
+    console.log("\n=================================");
+    console.log("🎉 DONE in " + formatTime(totalTime));
+    console.log("");
+    console.log("  Posts scraped:    " + dataset.interactions.length);
+    console.log("  Total threads:   " + dataset.metadata.totalThreads);
+    console.log("  Scott involved:  " + dataset.metadata.postsWithTargetResponses);
+    console.log("  Avg per batch:   " + formatTime(batchTimes.reduce(function(a,b){return a+b},0) / batchTimes.length));
+    console.log("=================================");
+
   } catch(e) {
     console.error("Error: " + e.message);
-    await page.screenshot({ path: path.join(CONFIG.outputDir, "error_screenshot.png") });
+    await mainPage.screenshot({ path: path.join(CONFIG.outputDir, "error.png") });
   } finally {
     await browser.close();
   }
