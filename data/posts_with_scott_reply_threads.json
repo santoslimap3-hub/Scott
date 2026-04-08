@@ -6717,10 +6717,11 @@
             "isTargetMember": false,
             "tags": {
               "tone_tags": [
-                "hype"
+                "authority",
+                "direct"
               ],
-              "intent": "",
-              "sales_stage": ""
+              "intent": "value-delivery",
+              "sales_stage": "awareness"
             }
           },
           {
@@ -6736,9 +6737,12 @@
           "content": "Alright! So let me break this down.For clarity and simplicities' sake I'll omit some details and break it down into a simplistic model developed by the ancient Hermetics.Reality is structured in different layers of organization.1-Source consciousness (the void, the one, what ancient Greeks in the Pythagorean tradition used to call the Monad).2-The Mental Plain (The Duat).3-The causal plain (where there's an observer, an object and a subject, you need three elements to have an experience, you need an object, a subject and an option, an experience itself).4-The Astral Plain (what's called the Quantum Field of Possibilities, where ideas, language, feelings and imagination exist as components of reality we can percieve).5-Physical reality (the manifestation and integration of all the above components).To understand identity and the soul we need to understand first this structure because it's foundational to the understanding that flows from this. If we don't take this as the basis the rest will not make sense and to explain why this is so it will take... well, a lot of time, so let's just suspend disbelief and accept this framework as a precodition for the following knowledge to unfold itself.If you want to get the full explanation just let me know and I'll write the second part of this...",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "direct"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": [
@@ -6875,9 +6879,11 @@
             "content": "@Mark Santos exactly! I love your bio by the way... absolute personal responsability will make you the most powerful version possible of yourself.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -6894,8 +6900,8 @@
           "isTargetMember": false,
           "tags": {
             "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": [
