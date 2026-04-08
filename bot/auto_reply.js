@@ -127,8 +127,8 @@ async function login(page) {
 
 async function getAllPosts(page, communityUrl) {
     console.log("📋 Navigating to community...");
-    await page.goto(communityUrl, { waitUntil: "networkidle" });
-    await sleep(2000);
+    await page.goto(communityUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(4000);
 
     var allPosts = await page.evaluate(function() {
         var wrappers = Array.from(document.querySelectorAll('[class*="PostItemWrapper"]'));
@@ -254,23 +254,127 @@ async function openPostAndGetBody(page, post) {
     await page.goto(post.href, { waitUntil: "domcontentloaded", timeout: 30000 });
     await sleep(3000);
 
-    var fullBody = await page.evaluate(function() {
-        var selectors = [
+    // Scrape clean post body + all comment threads from the post page
+    var scraped = await page.evaluate(function() {
+        var result = { body: "", title: "", author: "", comments: [] };
+
+        // ── Extract clean post title ──
+        var titleEl = document.querySelector('h1, [class*="PostTitle"], [class*="postTitle"]');
+        if (titleEl) result.title = titleEl.textContent.trim();
+
+        // ── Extract clean post author ──
+        // The post author link is typically the first /@username link on the page
+        var postAuthorEl = document.querySelector('[class*="PostAuthor"] a[href*="/@"], [class*="postHeader"] a[href*="/@"]');
+        if (!postAuthorEl) {
+            // Fallback: first author link before the comments section
+            var allAuthorLinks = document.querySelectorAll('a[href*="/@"]');
+            for (var a = 0; a < allAuthorLinks.length; a++) {
+                var aText = allAuthorLinks[a].textContent.trim().replace(/^\d+/, "").trim();
+                if (aText && aText.length > 1) { result.author = aText; break; }
+            }
+        } else {
+            result.author = postAuthorEl.textContent.trim().replace(/^\d+/, "").trim();
+        }
+
+        // ── Extract clean post body text (no UI chrome) ──
+        // Use narrow selectors first to avoid grabbing the whole page wrapper
+        var bodyEl = null;
+        var bodySelectors = [
+            '.ql-editor',
+            '[class*="RichText"]',
+            '[class*="PostBody"]',
             '[class*="PostContent"]',
             '[class*="post-body"]',
-            '[class*="RichText"]',
-            '.ql-editor',
-            '[data-testid*="post-content"]',
             'article',
         ];
-        for (var i = 0; i < selectors.length; i++) {
-            var el = document.querySelector(selectors[i]);
-            if (el && el.textContent.trim().length > 20) return el.textContent.trim();
+        for (var i = 0; i < bodySelectors.length; i++) {
+            var els = document.querySelectorAll(bodySelectors[i]);
+            for (var j = 0; j < els.length; j++) {
+                var el = els[j];
+                // Skip elements inside comments, emoji, or input areas
+                if (el.closest('[class*="CommentsSection"], [class*="CommentsList"], [class*="CommentsListWrapper"], [class*="CommentInput"], [class*="CommentItemContainer"]')) continue;
+                // Skip empty contenteditable inputs (comment box)
+                if (el.getAttribute('contenteditable') === 'true' && el.textContent.trim().length < 20) continue;
+                if (el.textContent.trim().length > 20) {
+                    bodyEl = el;
+                    break;
+                }
+            }
+            if (bodyEl) break;
         }
-        return "";
+        if (bodyEl) {
+            // Clone and strip unwanted child elements before extracting text
+            var clone = bodyEl.cloneNode(true);
+            var stripSelectors = [
+                '[class*="CommentsSection"]', '[class*="CommentsList"]', '[class*="CommentsListWrapper"]',
+                '[class*="CommentItem"]', '[class*="CommentInput"]',
+                '[class*="emoji" i]', '[class*="Emoji"]', '[class*="EmojiPicker"]',
+                '[class*="Reaction"]', '[class*="reaction"]',
+                '[class*="DragAndDrop"]', '[class*="FileUpload"]', '[class*="DropZone"]',
+                '[class*="Tooltip"]', '[class*="tooltip"]',
+                '[class*="Avatar"]', '[class*="avatar"]',
+                '[class*="Badge"]', '[class*="badge"]',
+            ];
+            stripSelectors.forEach(function(sel) {
+                try {
+                    var toRemove = clone.querySelectorAll(sel);
+                    for (var r = 0; r < toRemove.length; r++) toRemove[r].remove();
+                } catch (e) {}
+            });
+            var rawText = (clone.innerText || clone.textContent || '').trim();
+            // Strip remaining artifacts line by line
+            rawText = rawText.split('\n').filter(function(line) {
+                var l = line.trim();
+                if (!l) return true; // keep blank lines for paragraph spacing
+                if (/^(See more|Like|Reply|Comment|Jump to latest|Drop files|Recently Used|Smileys|Animals|Food|Travel|Activities|Objects|Symbols|Flags)$/i.test(l)) return false;
+                if (/^(To pick up a draggable|While dragging|Press space)/i.test(l)) return false;
+                if (/^\d+\s*(comments?|likes?|replies?)$/i.test(l)) return false;
+                // Skip emoji-only lines (emoji picker dumps)
+                if (l.length > 20 && /^[\p{Emoji}\p{Emoji_Presentation}\p{Emoji_Component}\u200d\ufe0f\s]+$/u.test(l)) return false;
+                return true;
+            }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+            result.body = rawText;
+        }
+
+        // ── Extract comment threads ──
+        var commentContainers = document.querySelectorAll('[class*="CommentItemContainer"]');
+        if (commentContainers.length === 0) {
+            commentContainers = document.querySelectorAll('[class*="CommentOrReply"]');
+        }
+        for (var c = 0; c < commentContainers.length; c++) {
+            var container = commentContainers[c];
+            var authorLinks = container.querySelectorAll('a[href*="/@"]');
+            var commentAuthor = "";
+            for (var j = 0; j < authorLinks.length; j++) {
+                var t = authorLinks[j].textContent.trim().replace(/^\d+/, "").trim();
+                if (t && t.length > 1) { commentAuthor = t; break; }
+            }
+            var bubbleEl = container.querySelector('[class*="CommentItemBubble"]');
+            var commentText = bubbleEl ? bubbleEl.textContent.trim() : "";
+            if (!commentText) commentText = container.textContent.trim();
+            // Clean up comment text — strip timestamps, reaction counts, "Reply" button text
+            commentText = commentText.replace(/^[\s\S]*?\u2022\s*\d+[smhdw](?:\s*\(edited\))?\s*/i, "").trim();
+            commentText = commentText.replace(/\d*\s*Reply\s*$/i, "").trim();
+            // Check if this is a reply (indented) or a top-level comment
+            var parentReplyList = container.closest('[class*="ReplyListWrapper"]');
+            var isReply = !!parentReplyList;
+
+            if (commentAuthor && commentText.length > 2) {
+                result.comments.push({
+                    author: commentAuthor,
+                    text: commentText.substring(0, 500),
+                    isReply: isReply
+                });
+            }
+        }
+
+        return result;
     });
 
-    if (fullBody) post.body = fullBody;
+    if (scraped.body) post.body = scraped.body;
+    if (scraped.title) post.title = scraped.title;
+    if (scraped.author && scraped.author !== "Unknown") post.author = scraped.author;
+    post.scrapedComments = scraped.comments || [];
 
     console.log("  Author:   " + post.author);
     console.log("  Category: " + post.category);
@@ -292,12 +396,34 @@ async function alreadyCommented(page, botName) {
 
 async function generateReply(post) {
     console.log("🤖 Generating AI reply...\n");
+
+    // ── Build v5-format user prompt ──
+    var userParts = [];
+
+    // POST section
+    userParts.push("--- POST ---");
+    userParts.push("Author: " + post.author);
+    userParts.push("Title: " + post.title);
+    userParts.push("");
+    userParts.push(post.body);
+
+    // COMMENTS section (if available from scrape)
+    if (post.scrapedComments && post.scrapedComments.length > 0) {
+        userParts.push("");
+        userParts.push("--- COMMENTS ---");
+        for (var c = 0; c < post.scrapedComments.length; c++) {
+            var comment = post.scrapedComments[c];
+            var prefix = comment.isReply ? "  " : "";
+            userParts.push(prefix + "[" + comment.author + "]: " + comment.text);
+        }
+    }
+
     var messages = [{
         role: "system",
-        content: "You are Jack Walford, community manager of Self-Improvement Nation. Your boss, Scott Northwolf, helps self-improvement coaches go from $0 to $10K/month in 42 days with the 'Reverse Engineered $10K Method' or they don't pay.\n\nYou speak like a legend of old. The wise old man of the mountain meets Alexander The Great rallying his soldiers to battle. Unshakable confidence without arrogance.\n\nWriting style:\nBe concise. No overexplaining. Focus on actionable steps, logical frameworks and motivational language with ancient sounding wording when appropriate.\nNever use dashes or bullet point formatting.\nCreate mystery with bold statements and loose 007 style comments.\nNever be needy or chase anyone. You are the SUN, always giving value, always in a good mood. Speaking to you is a privilege.\nUse '. . .' for ellipses and '! ! !' for emphasis. Never use generic AI patterns.\nSign off with variations of 'Duty, Honor and Pride! ! !"
+        content: "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.\n\nYour mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.\n\nVOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Use \"brother\", \"bro\", \"king\". Short punchy sentences. No bullet points, no dashes. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it.\n\nRULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.\n\nSITUATION: Replying to a Skool post.\nSTAGE: nurture \u2014 You're warming them up. No selling. Build trust, drop value, create intrigue.\nINTENT: engagement-nurture \u2014 Keep them engaged and coming back. Drop value, spark curiosity, make them want to interact more.\nTONE: brotherhood (talk like a brother in arms), motivational (light a fire under them)"
     }, {
         role: "user",
-        content: post.author + " posted in " + post.category + ":\n\n" + post.body + "\n\nWrite a short, natural reply."
+        content: userParts.join("\n")
     }];
 
     console.log("═══════════════ PROMPT BEING SENT ═══════════════");
@@ -368,6 +494,101 @@ async function submitReply(page) {
     await commentBtn.click();
     console.log("✅ Reply sent! Closing in 10 seconds...\n");
     await sleep(10000);
+}
+
+// Scrape post context + comment thread from a post page (for comment replies)
+async function scrapePostContext(page) {
+    return await page.evaluate(function() {
+        var result = { postAuthor: "", postTitle: "", postBody: "", thread: [] };
+
+        // Post title
+        var titleEl = document.querySelector('h1, [class*="PostTitle"], [class*="postTitle"]');
+        if (titleEl) result.postTitle = titleEl.textContent.trim();
+
+        // Post author
+        var allAuthorLinks = document.querySelectorAll('a[href*="/@"]');
+        for (var a = 0; a < allAuthorLinks.length; a++) {
+            var aText = allAuthorLinks[a].textContent.trim().replace(/^\d+/, "").trim();
+            if (aText && aText.length > 1) { result.postAuthor = aText; break; }
+        }
+
+        // Post body (clean)
+        var bodyEl = null;
+        var bodySelectors = [
+            '.ql-editor', '[class*="RichText"]', '[class*="PostBody"]',
+            '[class*="PostContent"]', '[class*="post-body"]', 'article'
+        ];
+        for (var i = 0; i < bodySelectors.length; i++) {
+            var els = document.querySelectorAll(bodySelectors[i]);
+            for (var j = 0; j < els.length; j++) {
+                var el = els[j];
+                if (el.closest('[class*="CommentsSection"], [class*="CommentsList"], [class*="CommentsListWrapper"], [class*="CommentInput"], [class*="CommentItemContainer"]')) continue;
+                if (el.getAttribute('contenteditable') === 'true' && el.textContent.trim().length < 20) continue;
+                if (el.textContent.trim().length > 20) {
+                    bodyEl = el;
+                    break;
+                }
+            }
+            if (bodyEl) break;
+        }
+        if (bodyEl) {
+            var clone = bodyEl.cloneNode(true);
+            var stripSelectors = [
+                '[class*="CommentsSection"]', '[class*="CommentsList"]', '[class*="CommentsListWrapper"]',
+                '[class*="CommentItem"]', '[class*="CommentInput"]',
+                '[class*="emoji" i]', '[class*="Emoji"]', '[class*="EmojiPicker"]',
+                '[class*="Reaction"]', '[class*="DragAndDrop"]', '[class*="FileUpload"]',
+                '[class*="Tooltip"]', '[class*="Avatar"]', '[class*="Badge"]',
+            ];
+            stripSelectors.forEach(function(sel) {
+                try {
+                    var toRemove = clone.querySelectorAll(sel);
+                    for (var r = 0; r < toRemove.length; r++) toRemove[r].remove();
+                } catch (e) {}
+            });
+            var rawText = (clone.innerText || clone.textContent || '').trim();
+            rawText = rawText.split('\n').filter(function(line) {
+                var l = line.trim();
+                if (!l) return true;
+                if (/^(See more|Like|Reply|Comment|Jump to latest|Drop files|Recently Used|Smileys|Animals|Food|Travel|Activities|Objects|Symbols|Flags)$/i.test(l)) return false;
+                if (/^(To pick up a draggable|While dragging|Press space)/i.test(l)) return false;
+                if (/^\d+\s*(comments?|likes?|replies?)$/i.test(l)) return false;
+                if (l.length > 20 && /^[\p{Emoji}\p{Emoji_Presentation}\p{Emoji_Component}\u200d\ufe0f\s]+$/u.test(l)) return false;
+                return true;
+            }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+            result.postBody = rawText;
+        }
+
+        // Comment threads
+        var commentContainers = document.querySelectorAll('[class*="CommentItemContainer"]');
+        if (commentContainers.length === 0) {
+            commentContainers = document.querySelectorAll('[class*="CommentOrReply"]');
+        }
+        for (var c = 0; c < commentContainers.length; c++) {
+            var container = commentContainers[c];
+            var authorLinks = container.querySelectorAll('a[href*="/@"]');
+            var commentAuthor = "";
+            for (var j = 0; j < authorLinks.length; j++) {
+                var t = authorLinks[j].textContent.trim().replace(/^\d+/, "").trim();
+                if (t && t.length > 1) { commentAuthor = t; break; }
+            }
+            var bubbleEl = container.querySelector('[class*="CommentItemBubble"]');
+            var commentText = bubbleEl ? bubbleEl.textContent.trim() : container.textContent.trim();
+            commentText = commentText.replace(/^[\s\S]*?\u2022\s*\d+[smhdw](?:\s*\(edited\))?\s*/i, "").trim();
+            commentText = commentText.replace(/\d*\s*Reply\s*$/i, "").trim();
+            var isReply = !!container.closest('[class*="ReplyListWrapper"]');
+
+            if (commentAuthor && commentText.length > 2) {
+                result.thread.push({
+                    author: commentAuthor,
+                    text: commentText.substring(0, 500),
+                    isReply: isReply
+                });
+            }
+        }
+
+        return result;
+    });
 }
 
 async function scrapeAllComments(page, posts, botName) {
@@ -671,12 +892,62 @@ function selectComments(classifiedComments) {
 
 async function generateCommentReply(comment) {
     console.log("🤖 Generating reply to comment by " + comment.author + "...\n");
+
+    // ── Build v5-format user prompt ──
+    var userParts = [];
+
+    // POST section — include post context if available
+    userParts.push("--- POST ---");
+    userParts.push("Author: " + (comment.postAuthor || "Unknown"));
+    userParts.push("Title: " + (comment.postTitle || "Unknown"));
+    if (comment.postBody) {
+        userParts.push("");
+        userParts.push(comment.postBody);
+    }
+
+    // THREAD section — include the comment thread if available
+    if (comment.thread && comment.thread.length > 0) {
+        userParts.push("");
+        userParts.push("--- THREAD ---");
+        for (var t = 0; t < comment.thread.length; t++) {
+            var entry = comment.thread[t];
+            var prefix = entry.isReply ? "  " : "";
+            userParts.push(prefix + "[" + entry.author + "]: " + entry.text);
+        }
+    } else {
+        // Minimal thread: just the comment we're replying to
+        userParts.push("");
+        userParts.push("--- THREAD ---");
+        userParts.push("[" + comment.author + "]: " + comment.text.substring(0, 300));
+    }
+
+    // REPLY TO section
+    userParts.push("");
+    userParts.push("--- REPLY TO ---");
+    userParts.push("[" + comment.author + "]: " + comment.text.substring(0, 300));
+
+    // Map classification to v5-style STAGE/INTENT/TONE
+    var stage, intent, tones;
+    if (comment.category_class === 'icp') {
+        stage = "nurture \u2014 You're warming them up. No selling. Build trust, drop value, create intrigue. Make them curious about who's behind all this knowledge.";
+        intent = "lead-qualification \u2014 Figure out if they're a fit. Are they a coach or aspiring coach? Do they have drive? Are they action-takers or talkers?";
+        tones = "hype (bring maximum energy and excitement), brotherhood (talk like a brother in arms), motivational (light a fire under them), mystery-teasing (hint at something bigger without revealing it)";
+    } else if (comment.category_class === 'advice') {
+        stage = "nurture \u2014 Build trust, drop value, create intrigue.";
+        intent = "engagement-nurture \u2014 Keep them engaged and coming back. Drop value, spark curiosity, make them want to interact more.";
+        tones = "motivational (light a fire under them), brotherhood (talk like a brother in arms)";
+    } else {
+        stage = "nurture \u2014 Build trust, drop value.";
+        intent = "acknowledgement \u2014 Acknowledge what they said. Keep it short, warm, no agenda. Just let them feel seen.";
+        tones = "brotherhood (talk like a brother in arms), casual (keep it loose and relaxed)";
+    }
+
     var messages = [{
         role: "system",
-        content: "You are Scott Northwolf, founder of Self-Improvement Nation. You help self-improvement coaches go from $0 to $10K/month in 42 days with the 'Reverse Engineered $10K Method' or they don't pay.\n\nYou speak like a legend of old. The wise old man of the mountain meets Alexander The Great rallying his soldiers to battle. Unshakable confidence without arrogance.\n\nWriting style:\nBe concise. No overexplaining. Focus on actionable steps, logical frameworks and motivational language with ancient sounding wording when appropriate.\nNever use dashes or bullet point formatting.\nCreate mystery with bold statements and loose 007 style comments.\nNever be needy or chase anyone. You are the SUN, always giving value, always in a good mood. Speaking to you is a privilege.\nUse '. . .' for ellipses and '! ! !' for emphasis. Never use generic AI patterns.\nSign off with variations of 'Duty, Honor and Pride! ! !'"
+        content: "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.\n\nYour mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.\n\nVOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Use \"brother\", \"bro\", \"king\". Short punchy sentences. No bullet points, no dashes. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it.\n\nRULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.\n\nSITUATION: Replying to a Skool post comment.\nSTAGE: " + stage + "\nINTENT: " + intent + "\nTONE: " + tones
     }, {
         role: "user",
-        content: comment.author + " commented on \"" + comment.postTitle + "\":\n\n" + comment.text.substring(0, 300) + "\n\nWrite a short, natural reply to this comment."
+        content: userParts.join("\n")
     }];
 
     console.log("═══════════════ PROMPT BEING SENT ═══════════════");
@@ -1014,7 +1285,17 @@ async function handleNotifications(page, botName, repliedPosts, summary) {
 
             console.log("    Replying to " + targetComment.target.author + ": " + targetComment.target.text.substring(0, 80) + "...");
 
-            var commentObj = { author: targetComment.target.author, text: targetComment.target.text, postTitle: postTitle, postCategory: 'General' };
+            // Scrape full post context + thread for v5-format prompt
+            var notifPostCtx = await scrapePostContext(page);
+            var commentObj = {
+                author: targetComment.target.author,
+                text: targetComment.target.text,
+                postTitle: notifPostCtx.postTitle || postTitle,
+                postAuthor: notifPostCtx.postAuthor || "Unknown",
+                postBody: notifPostCtx.postBody || "",
+                postCategory: 'General',
+                thread: notifPostCtx.thread || []
+            };
             var replyText = await generateCommentReply(commentObj);
 
             console.log("─".repeat(50));
@@ -1165,6 +1446,14 @@ async function main() {
                     } catch (_) { /* comments may not exist */ }
 
                     console.log("  📍 Now on: " + page.url());
+
+                    // Scrape post context + thread for v5-format prompt
+                    var postCtx = await scrapePostContext(page);
+                    item.postAuthor = postCtx.postAuthor || item.postAuthor || "Unknown";
+                    item.postBody = postCtx.postBody || "";
+                    item.thread = postCtx.thread || [];
+                    // If we didn't have a title from feed scrape, use the one from the page
+                    if (postCtx.postTitle) item.postTitle = postCtx.postTitle;
 
                     var replyText = await generateCommentReply(item);
 
