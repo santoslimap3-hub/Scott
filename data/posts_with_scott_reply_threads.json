@@ -6716,7 +6716,9 @@
             "content": "@Michael Pluszek here's part 2: https://www.skool.com/synthesizer/whats-the-soul",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
+              "tone_tags": [
+                "hype"
+              ],
               "intent": "",
               "sales_stage": ""
             }
