@@ -11611,9 +11611,14 @@
           "content": "I wouldn't say anything is good or bad... I'd say the AI slop is simply changing the landscape and we must see how to adapt to it and be mindful and aware of it, because by doing that we'll be able to capitilize on the great opportunities that'll bring (not for us to join mindlessly to the trend and become another portal through which AI garbage comes through to the internet but perhaps to find a way to thrive amongst this whole new enviroment).\nAuthenticity is definetely key, I'd say.\nAI is programmed in such a way that is super politically correct, anyone that knows me knows also how insanely \"politically incorrect\" I am.\nThank God there's no way of shutting me up unless you have a gun a better aiming that me.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "humor",
+              "motivational",
+              "teasing-future-value"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "engagement"
           }
         },
         "replies": []
@@ -11755,9 +11760,13 @@
             "content": "@Ryan Grant holy shit! Mike Mentzer is my father's favorite bodybuilder. That's the OG, the actual Bodybuilder Philosopher. He was very deep into Ayn Rand's objetivism which I love.\nThe fact that you mention this makes me wonder... are you doing Heavy Duty?",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "important",
+                "bonding-rapport",
+                "hype"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement"
             }
           },
           {
