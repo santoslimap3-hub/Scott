@@ -11789,9 +11789,12 @@
             "content": "@Ryan Grant have you read Muscles' in Minutes by Mike Mentzer? That one blew my mind...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "questions",
+                "hype"
+              ],
+              "intent": "info-gathering",
+              "sales_stage": "engagement"
             }
           }
         ]
@@ -12366,9 +12369,14 @@
           "content": "It's not a loop... it's a spiral...\nIt keeps progressing over time.\nWe flood our unconscious mind with knowledge until the unconscious surface to the conscious.\nThis is a good insight but there is no right or wrong approach, there's just different approaches depending on your ultimate goal.\nDo you want to get results quicker?\nApply the scientific method.\nAcquire enough knowledge so you can formulate a theory.\nGrab that theory and go out there and test it.\nTrack the data you get out of it.\nAnalayze the feedback and readjust accordingly for the next reiteration to improve.\nThere are 3 components to the META-skill, they are:\n1-Deliberate practice.\n2-Reflection upon your practice.\n3-Theoretical knowledge applied to your practice.\nApplying correctly and consistently these 3 components you'll be able to gain mastery over ANY skill that you desire over time.\nAll you need to be sucessful is: Clarity (at least enough so you can take action intentionally), Commitment (a firm decision to follow through until you hit your goal) and consistency.\n1-Set a goal and craft a theory with a minimum amount of critical knowledge.\n2-Commit to such goal so you know you'll hit it sooner or later and decide not to stop until you do so.\n3-Take action relentlessly to hit such goal and pay attention to the feedback by simply tracking what you are doing, analyzing your intentionality and understanding if it's beeing fulfilled or not and why so you can reiterate and improve your theory with such data.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "direct",
+              "motivational",
+              "important"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": []
@@ -12491,9 +12499,14 @@
           "content": "This is how legends are made.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "brotherhood",
+              "motivational",
+              "authority",
+              "praise"
+            ],
+            "intent": "acknowledgement",
+            "sales_stage": "nurture"
           }
         },
         "replies": [
@@ -12680,9 +12693,12 @@
             "content": "@Harrison Todd that's a man with good reading habits right there!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -13189,9 +13205,11 @@
           "content": "How is your nutrition, bro? 🤨",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "questions"
+            ],
+            "intent": "info-gathering",
+            "sales_stage": "nurture"
           }
         },
         "replies": [
@@ -13205,9 +13223,12 @@
             "content": "@Kasparas Stancikas is the fight on YT or something already? I got to see that, man!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "curiosity"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -13220,9 +13241,13 @@
             "content": "@Kasparas Stancikas I'll look for it now, brother.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "brotherhood",
+                "bonding-rapport",
+                "helpful-supportive"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -13531,9 +13556,13 @@
           "content": "I agree completely.\nFirst thing to understand is where people are amongst the 3 awareness levels.\nAre they?\n1-No awareness (they are in pain but don't know what's their problem).\n2-Problem aware (they know they are in pain and know at least on a high level view what's their problem and starting to activeley look for solutions).\n3-Solution awareness (know they have a problem and know what's the solution, now they are ready to take action on it).\nLevel 2 and 3 are the best parts.\nThat's the warmest leads you'll get.\nFunnel structure:\n1-At level one you call out their pain and attract them to your community (or YT channel or whatever).\n2-At level 2 you get them inside your community and give them declarative knowledge so they start seeing what's their \"enemy\", their problem.\n3-At level 3 you present them with the solution and they are ready to start taking actionable steps in order to solve it, usually this is best done on a sales' call already.\nDelusion backed up just by words it's just delusion but delusion backed up by relentless action... that's called FAITH, brother! Remember: Duty, Honor and Pride!!!",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "direct",
+              "authority",
+              "important"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": []
@@ -13907,9 +13936,13 @@
           "content": "I couldn't agree more, low-ticket is going to be harder to pull off, especially in the beginning because it requires massive amounts of traffic. With leverage and money you can build up that traffic and if you get that from high ticket that's the best way to go.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "important",
+              "authority",
+              "direct"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "awareness"
           }
         },
         "replies": [
@@ -14185,9 +14218,12 @@
             "content": "@Jack Shiller oh, God! Now I need to know!!!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "humor",
+                "hype"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -14198,9 +14234,13 @@
           "content": "I post 3 times per week and engage once every two days, but I do have a community manager that posts every single day and engages with my community members every single day. Regardless I'm going back to engaging every single day even if I just post once per week or so because engagement on comments is far more valuable than posts (at least in my experience so far).",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "casual",
+              "authority",
+              "self-aggrandization"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "engagement"
           }
         },
         "replies": [
@@ -14214,9 +14254,13 @@
             "content": "@Dani Rabinovich I made more money. Got more sales' calls... more people responded to me... I also realized I was chosing who I wanted to talk to instead of getting anyone who might not be really aligned with what I do. So I could target better the leads. And also have more fun talking to the people I really wanted to talk to.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "authority",
+                "self-aggrandization",
+                "direct"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "awareness"
             }
           },
           {
@@ -14229,9 +14273,15 @@
             "content": "@Dani Rabinovich I seek to connect very deeply with people instead of doing random outreach and volume. That makes it all way more intentional and it feels like actual real conversations, it's more fun... and if you're work is not fun then you don't have that competitive advantage. How do you do it yourself?",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "questions",
+                "important",
+                "teasing-future-value",
+                "motivational",
+                "authority"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "awareness"
             }
           },
           {
@@ -14304,9 +14354,13 @@
           "content": "I'd expand on this:\n\"A simple structure looks like this:\nAttention → content, posts, videos\nCapture → something valuable in exchange for contact\nTrust → consistency, follow-up, useful content\nOffer → clear, relevant solution\nMore value → upsells, deeper or faster outcomes\nThat’s the system.\"\nIn the following way:\nTo actually draw attention consistently instead of posting into the void and hoping it will work or spending a lot of time honing your skills to guess what people like... I personally do this:\nSelect a niche (a group of people without stating their \"problem\", at this point I don't really know what their most painful percieved problem is).\nConduct niche research interviews (minimum from 14 to 30 but the more the better, but do not procrastinate by elongating this stage) using a script with questions to figure out what's their biggest percieved problem and their desired outcome (you'll pick up on the niche's language as well, this is important).\nBuild high ticekt offer with the knowledge that you now possess (you should have picked up on the most recurrent patterns) [you can use Alex Hormozi's framework from his book $100M Offers, that's a very good one for getting started].\nDevelop the methodology on the back-end of your offer in order to help people attain their desired outcome, if it feels like you don't even know if you'll be able to do it that's good, it means you'll have to grow and learn to be able to deliver consistently.\nAfter selecting the niche properly and finding where they hang out and approaching them to get them on a niche research interview... guess what? You already have the skeleton of your outbound system. You just need to go back to the same place and ask them to jump on a call with you, if possible also gather them in one place like a skool community, an instagram page or an email list (this is where content for nurturing your audience becomes important, not saying that starting with content is a bad approach but this is just how I do it and it works for me).\nCreate sales' script (test for 30 reiterations minimum to know what are your conversion rates with a big enough data sample and when you make a change test always for 30 reiterations) [Jordan Belfort's The Way of Wolf is an amazing book for getting started creating your own sales' script].\nRun structured sales' calls consistently and record them in order to optimize.\nTrack your KPIs (ABR, SUR, GFR and SCR).\nReverse engineer the numbers to your desired monthly income (I think I'll make a post about that soon).\nOk, so then to summerize:\nSelect niche.\nRun niche research interviews (14 to 30).\nGrand slam offer.\nMethodology development.\nAppointment setting (outbound system).\nSales' script development.\nRecord and optimize sales' calls.\nTrack your KPIs.\nReverse engineer your desired monthly income periodically using the KPIs data.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "important",
+              "authority",
+              "direct"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": []
@@ -14373,9 +14427,12 @@
           "content": "Infusing spirit into matter.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "motivational",
+              "mystery-teasing"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "engagement"
           }
         },
         "replies": [
@@ -15341,9 +15398,16 @@
           "content": "Wake up, read my self transcendence document, meditate for 1 hour, do gratitude journaling, read for 1 hour, workout (usually for 1 hour), jump into my pool for 20 minutes or so and get some extra sunlinght, growding and sprints, shower and then sit down to do deep work.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "important",
+              "motivational",
+              "direct",
+              "authority",
+              "teasing-future-value",
+              "self-aggrandization"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "engagement"
           }
         },
         "replies": []
@@ -16224,9 +16288,14 @@
           "content": "80% pull, 20% push. It was the reverse a couple of months ago...",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "casual",
+              "direct",
+              "authority",
+              "teasing-future-value"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "engagement"
           }
         },
         "replies": [
@@ -16240,9 +16309,14 @@
             "content": "@Brandon Maloney I stopped being broke. lol 😂",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "teasing-future-value",
+                "mystery-teasing",
+                "casual",
+                "humor"
+              ],
+              "intent": "pain-agitation",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -16689,9 +16763,14 @@
             "content": "@Kai Cerar yeah, I know... got some requests to talk about it... hope you got something useful out of it. I rather give actionable steps on how to use all of this for practical purposes but maybe this post will spark that kind of questions and I'd be glad to answer them.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "self-aggrandization",
+                "authority",
+                "casual",
+                "mystery-teasing"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16704,9 +16783,13 @@
             "content": "@Kai Cerar one of the most powerful things this can do for you is first of all shifting the mindset from the victim's perspective to the main character's perspective.\nHow would your life change if you knew that EVRYTHING that happens in your life is not happening TO you but FOR you and that you have chosen it all from your higher perspective in order for you to learn a lesson and grow through awareness.\nWouldn't it lift a huge weight from your shoulders to start 'playing' at life instead of struggling though it?\nDetatchment from outcome creates a kind of confident and playful relaxation that allows us to face challenges with an unexorable and relentless mental fortitude...\nThis allows us to actually dream big and set huge goals but also reverse engineer them into actionable steps that we can undertake daily in order to acheive such dreams.\nIf you want you can share what's you ultimate goal for your life and we can map it into your current day to day to see how you are making progress consistently towards such goal.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "direct",
+                "motivational",
+                "authority"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16724,9 +16807,15 @@
             "content": "@Kai Cerar maybe taking one full day to do a full-blown dopamine detox and journal very deeply about what you want out of this life will help.\nI do an exercise with my clients for goal setting which is VERY powerful.\nWe humans are like ships, we set sail and go into the ocean, a lot of people end up stranded on a desert island wondering why they didn't become millionaires or something like that (let's say becoming a millionaire would be in this metaphor arriving at Bristol, England and let's say you set sail from Boston).\nWell... did you ever set a goal to actually get there?\nImagine a ship going into the ocean without compass, without a map or a port of destination...\nHard to see meaning on the voyage if you don't really know where you are going.\nEnjoying the process is a very important part of it but having a powerful motivation is a game changer.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "helpful-supportive",
+                "authority",
+                "motivational",
+                "teasing-future-value",
+                "important"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16749,9 +16838,14 @@
             "content": "@James Bargeron that's a beautiful insight, James. I'm quite interested on the divine essence within inspiration and how it is undoubtably connected to the soul. Definetely that's a topic we should expand on...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "important",
+                "praise",
+                "bonding-rapport",
+                "curiosity"
+              ],
+              "intent": "funneling",
+              "sales_stage": "ask"
             }
           },
           {
@@ -16773,9 +16867,11 @@
             "content": "@Michael Pluszek you're welcome, Michael!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16797,9 +16893,16 @@
             "content": "@Lea Newkirk there's a lot more to talk about this subject but I tried to summerize it as best I could and explain it in the most simple terms possible. Still is a very complex subject. Love that you can assimilate it, it speaks highly of your cognitive abilities, Lea.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "self-aggrandization",
+                "authority",
+                "praise",
+                "mystery-teasing",
+                "important",
+                "casual"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16812,9 +16915,14 @@
             "content": "@Lea Newkirk I can see it happening VERY soon, Lea. You are a killer! Keep going, don't stop!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "motivational",
+                "hype",
+                "helpful-supportive",
+                "praise"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -16836,9 +16944,14 @@
             "content": "@Jack Shiller yeah, when I came across it for the first time I thought the same and I saw some traditions differing about it but i opted for the model of the Ancient Greeks (Pythagorians, Platonists, Neo-Platonists) and the Hermetics (as well as the Mediaval Alchemists, but those guys went crazy overcomplicating the whole thing)...\nThey explain that the structure is the following:\n1-Monad (source, void).\n2-Duat (Mental plain).\n3-Triad (Causal plain: it would sound logical that if you have two things you can see cause an effect but in reality is not possible because if there's not a third 'thing', an observer then there's no choice to be made, there's no distinction between you and the other thing because there's no awareness of you as such if there's no separation, if there's no YOU, let's say, and also an awareness or consiousness component within you that is observing yourself and the other 'thing' with which you are interacting then there's no causality, I hope I explained myself correctly there).\n4-Tetrad (Astral plain, the inifinte realm of possibilities, the quantum field of possibilities, ideas, concepts, emotions, imaginations, all that we can percieve through the third eye).\n5-Pentad (Physical plain, 'material' reality, what Buddhists call Maya, illusion, the realm we percieve through our senses).\nPS: That's the Tree of Life representing the Ten Sefirot from the Jewish Kabbalah. The Jewish Kabbalah is an esoteric tradition taken from the ancient Egyptian Prists and Farohs by Moses and revealed trough him to the Jewish people. It's good stuff. Most pathways lead to the top of the mountain. From the top the view is always the same.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "authority",
+                "helpful-supportive",
+                "direct",
+                "important"
+              ],
+              "intent": "redirect",
+              "sales_stage": "nurture"
             }
           },
           {
