@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DM Tagger — OutreachAI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0c0c10;
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            color: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        /* ─── LOAD MODAL ─── */
+        .load-modal {
+            position: fixed; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(10, 10, 15, 0.97); z-index: 1000;
+        }
+        .load-box {
+            background: #141418; border: 1px solid #2a2a32;
+            border-radius: 16px; padding: 48px; max-width: 560px;
+            width: 90%; text-align: center;
+        }
+        .load-box h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+        .load-box p { color: #888; font-size: 12px; margin-bottom: 28px; line-height: 1.7; }
+        .load-box code { color: #4ECDC4; background: #1a2a28; padding: 2px 6px; border-radius: 4px; }
+        .dropzone {
+            border: 2px dashed #333; border-radius: 12px;
+            padding: 32px; cursor: pointer; transition: all 0.2s; margin-bottom: 8px;
+        }
+        .dropzone.over { border-color: #4ECDC4; background: rgba(78,205,196,0.05); }
+        .dropzone span { color: #666; font-size: 13px; }
+        .dropzone strong { color: #aaa; }
+        .load-hint { font-size: 11px; color: #444; margin-bottom: 20px; }
+
+        /* ─── MAIN APP ─── */
+        .app { padding: 16px 20px 40px; display: none; }
+        .app.active { display: block; }
+
+        .header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+        }
+        .header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.5px; }
+        .header .sub { font-size: 11px; color: #555; margin-top: 3px; }
+
+        .btn-row { display: flex; gap: 8px; }
+        .export-btn {
+            background: #4ECDC4; color: #0c0c10; border: none;
+            border-radius: 8px; padding: 8px 18px; font-size: 12px;
+            font-family: inherit; font-weight: 700; cursor: pointer;
+        }
+        .skip-btn {
+            background: transparent; color: #555; border: 1px solid #2a2a32;
+            border-radius: 8px; padding: 8px 14px; font-size: 12px;
+            font-family: inherit; cursor: pointer;
+        }
+
+        /* Progress */
+        .progress-track { height: 3px; background: #1a1a22; border-radius: 2px; margin-bottom: 18px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #4ECDC4, #F4A261); border-radius: 2px; transition: width 0.4s; }
+
+        /* Nav dots */
+        .nav-dots { display: flex; gap: 3px; margin-bottom: 18px; flex-wrap: wrap; }
+        .nav-dot {
+            width: 22px; height: 22px; border-radius: 5px; border: 1px solid #2a2a32;
+            background: transparent; color: #444; font-size: 8px; font-family: inherit;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+        }
+        .nav-dot.active { border: 2px solid #4ECDC4; background: #1a1a22; color: #f0f0f0; font-weight: 700; }
+        .nav-dot.tagged { background: rgba(78,205,196,0.18); color: #4ECDC4; }
+        .nav-dot.skipped { background: rgba(100,100,120,0.2); color: #555; }
+
+        /* Two columns */
+        .columns { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; max-width: 1200px; }
+        @media (max-width: 900px) { .columns { grid-template-columns: 1fr; } }
+
+        .card { background: #141418; border: 1px solid #2a2a32; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+
+        .card-label {
+            font-size: 10px; color: #555; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 12px; font-weight: 700;
+        }
+        .card-label .contact-name { color: #4ECDC4; font-size: 11px; text-transform: none; letter-spacing: 0; }
+
+        /* Chat bubbles */
+        .chat-scroll { max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .chat-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #2a2a32; border-radius: 4px; }
+
+        .bubble-row { display: flex; flex-direction: column; gap: 2px; }
+        .bubble-row.lead { align-items: flex-start; }
+        .bubble-row.scott { align-items: flex-end; }
+
+        .bubble-speaker { font-size: 10px; color: #555; padding: 0 4px; }
+        .bubble-row.scott .bubble-speaker { color: #F4A261; }
+
+        .bubble {
+            max-width: 82%; padding: 9px 13px; border-radius: 12px;
+            font-size: 12px; line-height: 1.65; white-space: pre-wrap; word-break: break-word;
+        }
+        .bubble-row.lead .bubble { background: #1e1e28; color: #ccc; border-radius: 12px 12px 12px 3px; }
+        .bubble-row.scott .bubble { background: #1a2a26; color: #ddd; border-radius: 12px 12px 3px 12px; }
+        .bubble-row.scott.target .bubble {
+            background: rgba(244,162,97,0.1); border: 1.5px solid #F4A261;
+            color: #f0f0f0; border-radius: 12px 12px 3px 12px;
+        }
+        .bubble-time { font-size: 9px; color: #333; padding: 0 4px; }
+
+        .divider { text-align: center; font-size: 10px; color: #333; margin: 4px 0; letter-spacing: 1px; }
+
+        /* ─── RIGHT PANEL ─── */
+
+        /* DM Workflow stage — numbered list */
+        .dm-stages { display: flex; flex-direction: column; gap: 5px; }
+        .dm-stage-btn {
+            display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px;
+            border-radius: 9px; border: 1.5px solid #2a2a32; background: transparent;
+            color: #777; font-family: inherit; font-size: 12px; cursor: pointer;
+            transition: all 0.15s; text-align: left; width: 100%;
+        }
+        .dm-stage-btn:hover { border-color: #444; color: #aaa; }
+        .dm-stage-btn.active {
+            border-color: #F4A261; background: rgba(244,162,97,0.09); color: #F4A261;
+        }
+        .dm-stage-num {
+            min-width: 20px; height: 20px; border-radius: 50%;
+            border: 1.5px solid #333; display: flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 700; color: #555;
+            margin-top: 1px; flex-shrink: 0;
+        }
+        .dm-stage-btn.active .dm-stage-num { border-color: #F4A261; color: #F4A261; }
+        .dm-stage-text .dm-stage-title { font-weight: 600; }
+        .dm-stage-text .dm-stage-desc { font-size: 10px; opacity: 0.65; margin-top: 2px; }
+        .dm-stage-btn.case-a .dm-stage-num { border-color: #4ECDC4; color: #4ECDC4; }
+        .dm-stage-btn.case-a.active { border-color: #4ECDC4; background: rgba(78,205,196,0.09); color: #4ECDC4; }
+        .dm-stage-btn.case-b .dm-stage-num { border-color: #8D99AE; color: #8D99AE; }
+        .dm-stage-btn.case-b.active { border-color: #8D99AE; background: rgba(141,153,174,0.09); color: #8D99AE; }
+
+        /* Tone pills */
+        .tone-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tone-pill {
+            display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px;
+            border-radius: 20px; font-size: 11px; font-family: inherit; font-weight: 500;
+            cursor: pointer; transition: all 0.15s; white-space: nowrap; background: transparent;
+        }
+
+        /* Intent cards */
+        .intent-card {
+            display: flex; flex-direction: column; gap: 2px; padding: 8px 12px;
+            border-radius: 9px; border: 1.5px solid #2a2a32; background: transparent;
+            color: #888; font-size: 11px; font-family: inherit; cursor: pointer;
+            transition: all 0.15s; text-align: left; width: 100%;
+        }
+        .intent-card.active { border-color: #4ECDC4; background: rgba(78,205,196,0.08); color: #4ECDC4; }
+        .intent-card .label { font-weight: 600; color: #aaa; }
+        .intent-card.active .label { color: #f0f0f0; }
+        .intent-card .desc { font-size: 10px; opacity: 0.65; }
+
+        /* Stage buttons */
+        .stage-row { display: flex; gap: 6px; }
+        .stage-btn {
+            flex: 1; padding: 10px 6px; border-radius: 9px; border: 1.5px solid #2a2a32;
+            background: transparent; color: #666; font-size: 11px; font-family: inherit;
+            font-weight: 500; cursor: pointer; transition: all 0.15s;
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+        }
+        .stage-btn.active { border-color: #F4A261; background: rgba(244,162,97,0.1); color: #F4A261; }
+        .stage-btn .icon { font-size: 16px; }
+
+        /* Status */
+        .status {
+            padding: 10px 14px; border-radius: 9px; text-align: center;
+            font-size: 11px; font-weight: 600;
+        }
+        .status.complete { background: rgba(78,205,196,0.08); border: 1px solid rgba(78,205,196,0.2); color: #4ECDC4; }
+        .status.incomplete { background: rgba(255,107,53,0.06); border: 1px solid rgba(255,107,53,0.18); color: #FF6B35; }
+
+        /* Bottom nav */
+        .bottom-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 20px; max-width: 1200px;
+        }
+        .nav-btn {
+            background: transparent; border: 1px solid #2a2a32; border-radius: 8px;
+            padding: 9px 18px; color: #aaa; font-size: 12px; font-family: inherit; cursor: pointer;
+        }
+        .nav-btn:disabled { color: #333; cursor: default; }
+        .nav-btn.next {
+            background: linear-gradient(135deg, #4ECDC4, #2EC4B6);
+            border: none; color: #0c0c10; font-weight: 700;
+        }
+        .nav-btn.next:disabled { background: transparent; border: 1px solid #2a2a32; color: #333; }
+        .nav-info { font-size: 11px; color: #555; text-align: center; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            background: #4ECDC4; color: #0c0c10; padding: 11px 18px;
+            border-radius: 10px; font-size: 12px; font-weight: 700;
+            font-family: inherit; display: none;
+        }
+        .toast.show { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section-title {
+            display: block; font-size: 10px; color: #555; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 700; margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOAD MODAL -->
+<div class="load-modal" id="loadModal">
+    <div class="load-box">
+        <div style="font-size:48px;margin-bottom:14px">💬</div>
+        <h1>DM Tagger</h1>
+        <p>
+            Tag Scott's DM replies with workflow stage, tone, intent, and sales stage.<br>
+            Drop your <code>dm-classified.csv</code> file below to begin.<br><br>
+            The tagger will randomly shuffle DMs across conversations so you're not spending the first 100 labels on the same chat.
+        </p>
+        <div class="dropzone" id="dropzone">
+            <span>Drop <strong>dm-classified.csv</strong> here or click to browse</span>
+        </div>
+        <div class="load-hint" id="loadStatus">Awaiting file…</div>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app" id="app">
+    <div class="header">
+        <div>
+            <h1>💬 DM Tagger</h1>
+            <div class="sub" id="progressText">0/0 tagged · 0% complete</div>
+        </div>
+        <div class="btn-row">
+            <button class="skip-btn" id="skipBtn">Skip →</button>
+            <button class="export-btn" id="exportBtn">Export JSON ↓</button>
+        </div>
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+    </div>
+    <div class="nav-dots" id="navDots"></div>
+
+    <div class="columns">
+
+        <!-- LEFT: Conversation -->
+        <div>
+            <div class="card">
+                <div class="card-label">
+                    Conversation with <span class="contact-name" id="contactName"></span>
+                    <span style="float:right;color:#333" id="msgDate"></span>
+                </div>
+                <div class="chat-scroll" id="chatScroll"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Labels -->
+        <div>
+
+            <!-- DM Workflow Stage -->
+            <div class="card">
+                <div class="card-label">DM Workflow Stage <span style="color:#333">(pick one)</span></div>
+                <div class="dm-stages" id="stageContainer"></div>
+            </div>
+
+            <!-- Tone Tags -->
+            <div class="card">
+                <div class="card-label">Tone Tags <span style="color:#333">(select all that apply)</span></div>
+                <div class="tone-wrap" id="toneContainer"></div>
+            </div>
+
+            <!-- Intent -->
+            <div class="card">
+                <div class="card-label">Intent <span style="color:#333">(pick one)</span></div>
+                <div id="intentContainer" style="display:flex;flex-direction:column;gap:5px"></div>
+            </div>
+
+            <!-- Sales Stage -->
+            <div class="card">
+                <div class="card-label">Sales Stage</div>
+                <div class="stage-row" id="salesStageContainer"></div>
+            </div>
+
+            <div class="status incomplete" id="statusBadge">◯ Select workflow stage + at least one tone tag</div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn" id="prevBtn">← Previous</button>
+        <span class="nav-info" id="navInfo">1 / 1 · Arrow keys to navigate</span>
+        <button class="nav-btn next" id="nextBtn">Next →</button>
+    </div>
+</div>
+
+<div class="toast" id="toast">✓ Exported dm_labeled.json</div>
+
+<script>
+// ─── DM WORKFLOW STAGES ──────────────────────────────────────────────────────
+const DM_STAGES = [
+    { num: 1, value: "connect",        title: "Connect",            desc: "Open with something specific to them — shared interest, their post, a reference",   cls: "" },
+    { num: 2, value: "gather-intel",   title: "Gather Intel",       desc: "Soft qualify — learn their history, pain, current situation",                        cls: "" },
+    { num: 3, value: "share-authority",title: "Share Authority",    desc: "Vulnerability, personal story, current life, expertise, future vision",              cls: "" },
+    { num: 4, value: "frame-outcome",  title: "Frame Dream Outcome",desc: "More intel — steer conversation toward their goals and business situation",          cls: "" },
+    { num: 5, value: "offer-call",     title: "Offer the Call",     desc: "Invite them to a diagnostic call — frame it as exploring, not coaching",             cls: "" },
+    { num: 6, value: "pre-qualify",    title: "Pre-Qualify",        desc: "Are they exploratory or committed? Do they have $1K–$5K to invest?",                 cls: "" },
+    { num: "A", value: "send-calendly",title: "Case A — Calendly",  desc: "Qualified + committed → send Calendly link, ask them to confirm",                   cls: "case-a" },
+    { num: "B", value: "nurture-free", title: "Case B — Nurture Out",desc: "Exploratory or no budget → send Skool link, free resources, check back when ready",cls: "case-b" },
+];
+
+// ─── TONE OPTIONS ────────────────────────────────────────────────────────────
+const TONE_OPTIONS = [
+    { label: "Hype / Energy",       value: "hype",               color: "#FF6B35" },
+    { label: "Brotherhood",         value: "brotherhood",         color: "#4ECDC4" },
+    { label: "Chit-chat",           value: "chit-chat",           color: "#4ECDC4" },
+    { label: "Curiosity",           value: "curiosity",           color: "#4ECDC4" },
+    { label: "Empathy",             value: "empathy",             color: "#A8DADC" },
+    { label: "Authority",           value: "authority",           color: "#5E9BBA" },
+    { label: "Tough Love",          value: "tough-love",          color: "#E63946" },
+    { label: "Mystery / Teasing",   value: "mystery-teasing",     color: "#F4A261" },
+    { label: "Teasing Future Value",value: "teasing-future-value",color: "#F4A261" },
+    { label: "Vulnerability",       value: "vulnerability",       color: "#8D99AE" },
+    { label: "Humor / Playful",     value: "humor",               color: "#2EC4B6" },
+    { label: "Bonding / Rapport",   value: "bonding-rapport",     color: "#2EC4B9" },
+    { label: "Self-Aggrandization", value: "self-aggrandization", color: "#264653" },
+    { label: "Direct / No-BS",      value: "direct",              color: "#888" },
+    { label: "Storytelling",        value: "storytelling",        color: "#E9C46A" },
+    { label: "Motivational",        value: "motivational",        color: "#F77F00" },
+    { label: "Praise",              value: "praise",              color: "#98C1D9" },
+    { label: "Gratitude",           value: "gratitude",           color: "#A8DADC" },
+    { label: "Casual / Chill",      value: "casual",              color: "#606C38" },
+];
+
+// ─── INTENT OPTIONS ──────────────────────────────────────────────────────────
+const INTENT_OPTIONS = [
+    { label: "Engagement / Nurture",  value: "engagement-nurture",  desc: "Build relationship, keep them active" },
+    { label: "Value Delivery",        value: "value-delivery",       desc: "Share insight, teach something useful" },
+    { label: "Info Gathering",        value: "info-gathering",       desc: "Ask questions to learn their situation" },
+    { label: "Lead Qualification",    value: "lead-qualification",   desc: "Probe budget, commitment, fit" },
+    { label: "Authority-Proofing",    value: "authority-proofing",   desc: "Demonstrate expertise naturally" },
+    { label: "Pain Agitation",        value: "pain-agitation",       desc: "Surface or amplify their problem" },
+    { label: "Objection Handling",    value: "objection-handling",   desc: "Address doubt or resistance" },
+    { label: "Close to Call",         value: "close-to-call",        desc: "Push toward booking a sales call" },
+    { label: "Funneling",             value: "funneling",            desc: "Guide toward Skool community / resources" },
+    { label: "Social Proof",          value: "social-proof",         desc: "Share results, wins, transformations" },
+    { label: "Acknowledgement",       value: "acknowledgement",      desc: "Short reaction, no agenda" },
+    { label: "Community Building",    value: "community-building",   desc: "Make them feel part of something" },
+    { label: "Redirect",              value: "redirect",             desc: "Steer conversation or set boundary" },
+];
+
+// ─── SALES STAGES ─────────────────────────────────────────────────────────────
+const SALES_STAGES = [
+    { label: "Awareness",  value: "awareness",  icon: "👁" },
+    { label: "Engagement", value: "engagement", icon: "💬" },
+    { label: "Nurture",    value: "nurture",    icon: "🌱" },
+    { label: "Ask",        value: "ask",        icon: "🎯" },
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let entries = [];       // array of tagging units (shuffled)
+let currentIndex = 0;
+
+const $ = id => document.getElementById(id);
+
+// ─── CSV PARSER (handles quoted fields with commas/newlines) ─────────────────
+function parseCSV(text) {
+    const rows = [];
+    let i = 0;
+    while (i < text.length) {
+        const row = [];
+        while (i < text.length) {
+            if (text[i] === '"') {
+                // Quoted field
+                i++;
+                let field = "";
+                while (i < text.length) {
+                    if (text[i] === '"' && text[i+1] === '"') { field += '"'; i += 2; }
+                    else if (text[i] === '"') { i++; break; }
+                    else { field += text[i++]; }
+                }
+                row.push(field.trim());
+                if (text[i] === ',') i++;
+                else if (text[i] === '\r') i++;
+                else if (text[i] === '\n') { i++; break; }
+            } else {
+                let field = "";
+                while (i < text.length && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+                    field += text[i++];
+                }
+                row.push(field.trim());
+                if (text[i] === ',') i++;
+                else if (text[i] === '\r') i++;
+                else if (text[i] === '\n') { i++; break; }
+                else break;
+            }
+        }
+        if (row.length > 1 || (row.length === 1 && row[0] !== "")) rows.push(row);
+    }
+    return rows;
+}
+
+// ─── LOAD DATA ───────────────────────────────────────────────────────────────
+function loadCSV(text) {
+    const rows = parseCSV(text);
+    if (rows.length < 2) { alert("No data found in CSV."); return; }
+
+    // Detect header row — skip if first row looks like column names
+    let startRow = 0;
+    const firstRow = rows[0];
+    if (/date|time|contact|speaker|message/i.test(firstRow.join(","))) startRow = 1;
+
+    // Build per-contact conversation maps
+    // Expected columns: Date, Time, Contact, Original_Sender, Speaker, Message, ...
+    // Speaker = "Scott" or "Lead"
+    const convos = {}; // contact -> [{date, time, speaker, message}]
+
+    for (let r = startRow; r < rows.length; r++) {
+        const row = rows[r];
+        if (row.length < 6) continue;
+        const date    = row[0] || "";
+        const time    = row[1] || "";
+        const contact = (row[2] || "").trim();
+        const speaker = (row[4] || "").trim();
+        const message = (row[5] || "").trim();
+        if (!contact || !message) continue;
+
+        if (!convos[contact]) convos[contact] = [];
+        convos[contact].push({ date, time, speaker, message });
+    }
+
+    // Build tagging units: one per Scott message
+    const units = [];
+    for (const contact of Object.keys(convos)) {
+        const msgs = convos[contact];
+        for (let m = 0; m < msgs.length; m++) {
+            if (msgs[m].speaker.toLowerCase() !== "scott") continue;
+
+            // Get up to 8 messages of context before this one
+            const contextStart = Math.max(0, m - 8);
+            const context = msgs.slice(contextStart, m); // excludes Scott's message itself
+
+            units.push({
+                contact,
+                scottMsg: msgs[m],
+                context,
+                tags: {
+                    dm_stage:    "",
+                    tone_tags:   [],
+                    intent:      "",
+                    sales_stage: "",
+                },
+                skipped: false,
+            });
+        }
+    }
+
+    if (units.length === 0) {
+        alert("No Scott messages found. Check that the Speaker column contains 'Scott'.");
+        return;
+    }
+
+    // ── Shuffle so consecutive entries come from different contacts ──
+    // Strategy: interleave by contact (round-robin within shuffled contacts),
+    // then do a final light shuffle to break any remaining patterns.
+    const byContact = {};
+    for (const u of units) {
+        if (!byContact[u.contact]) byContact[u.contact] = [];
+        byContact[u.contact].push(u);
+    }
+    // Shuffle each contact's list individually
+    for (const contact of Object.keys(byContact)) {
+        fisherYates(byContact[contact]);
+    }
+    // Round-robin interleave
+    const contactKeys = fisherYatesCopy(Object.keys(byContact));
+    const interleaved = [];
+    let added = true;
+    const indices = {};
+    for (const k of contactKeys) indices[k] = 0;
+    while (added) {
+        added = false;
+        for (const k of contactKeys) {
+            if (indices[k] < byContact[k].length) {
+                interleaved.push(byContact[k][indices[k]++]);
+                added = true;
+            }
+        }
+    }
+
+    entries = interleaved;
+    currentIndex = 0;
+
+    $("loadModal").style.display = "none";
+    $("app").classList.add("active");
+    render();
+
+    $("loadStatus").textContent = `✓ Loaded ${units.length} Scott messages from ${Object.keys(convos).length} conversations`;
+}
+
+function fisherYates(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+function fisherYatesCopy(arr) { return fisherYates([...arr]); }
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function render() {
+    const entry = entries[currentIndex];
+    const tags  = entry.tags;
+
+    // Contact name + date
+    $("contactName").textContent = entry.contact;
+    $("msgDate").textContent = entry.scottMsg.date ? entry.scottMsg.date + " " + (entry.scottMsg.time || "") : "";
+
+    // ── Chat bubbles ──
+    const scroll = $("chatScroll");
+    scroll.innerHTML = "";
+
+    // Context messages
+    entry.context.forEach(msg => {
+        const isScott = msg.speaker.toLowerCase() === "scott";
+        const row = document.createElement("div");
+        row.className = "bubble-row " + (isScott ? "scott" : "lead");
+
+        const speaker = document.createElement("div");
+        speaker.className = "bubble-speaker";
+        speaker.textContent = isScott ? "Scott" : entry.contact;
+        row.appendChild(speaker);
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = msg.message;
+        row.appendChild(bubble);
+
+        if (msg.time) {
+            const time = document.createElement("div");
+            time.className = "bubble-time";
+            time.textContent = msg.time;
+            row.appendChild(time);
+        }
+        scroll.appendChild(row);
+    });
+
+    // Divider before target message
+    const divider = document.createElement("div");
+    divider.className = "divider";
+    divider.textContent = "▼ LABELING THIS REPLY ▼";
+    scroll.appendChild(divider);
+
+    // Target Scott message
+    const targetRow = document.createElement("div");
+    targetRow.className = "bubble-row scott target";
+
+    const tSpeaker = document.createElement("div");
+    tSpeaker.className = "bubble-speaker";
+    tSpeaker.textContent = "Scott";
+    targetRow.appendChild(tSpeaker);
+
+    const tBubble = document.createElement("div");
+    tBubble.className = "bubble";
+    tBubble.textContent = entry.scottMsg.message;
+    targetRow.appendChild(tBubble);
+
+    if (entry.scottMsg.time) {
+        const tTime = document.createElement("div");
+        tTime.className = "bubble-time";
+        tTime.textContent = entry.scottMsg.time;
+        targetRow.appendChild(tTime);
+    }
+    scroll.appendChild(targetRow);
+
+    // Auto-scroll to bottom so target is visible
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 0);
+
+    // ── DM Workflow Stage ──
+    const stageC = $("stageContainer");
+    stageC.innerHTML = "";
+    DM_STAGES.forEach(s => {
+        const active = tags.dm_stage === s.value;
+        const btn = document.createElement("button");
+        btn.className = "dm-stage-btn " + s.cls + (active ? " active" : "");
+        btn.innerHTML = `
+            <div class="dm-stage-num">${s.num}</div>
+            <div class="dm-stage-text">
+                <div class="dm-stage-title">${s.title}</div>
+                <div class="dm-stage-desc">${s.desc}</div>
+            </div>`;
+        btn.onclick = () => { tags.dm_stage = s.value; render(); };
+        stageC.appendChild(btn);
+    });
+
+    // ── Tone pills ──
+    const toneC = $("toneContainer");
+    toneC.innerHTML = "";
+    TONE_OPTIONS.forEach(opt => {
+        const active = (tags.tone_tags || []).includes(opt.value);
+        const btn = document.createElement("button");
+        btn.className = "tone-pill";
+        btn.style.border  = `1.5px solid ${active ? opt.color : "#2a2a32"}`;
+        btn.style.background = active ? opt.color + "18" : "transparent";
+        btn.style.color   = active ? opt.color : "#777";
+        btn.textContent   = (active ? "✓ " : "") + opt.label;
+        btn.onclick = () => {
+            if (!tags.tone_tags) tags.tone_tags = [];
+            const idx = tags.tone_tags.indexOf(opt.value);
+            if (idx === -1) tags.tone_tags.push(opt.value);
+            else tags.tone_tags.splice(idx, 1);
+            render();
+        };
+        toneC.appendChild(btn);
+    });
+
+    // ── Intent ──
+    const intC = $("intentContainer");
+    intC.innerHTML = "";
+    INTENT_OPTIONS.forEach(opt => {
+        const active = tags.intent === opt.value;
+        const btn = document.createElement("button");
+        btn.className = "intent-card" + (active ? " active" : "");
+        btn.innerHTML = `<span class="label">${opt.label}</span><span class="desc">${opt.desc}</span>`;
+        btn.onclick = () => { tags.intent = opt.value; render(); };
+        intC.appendChild(btn);
+    });
+
+    // ── Sales Stage ──
+    const ssC = $("salesStageContainer");
+    ssC.innerHTML = "";
+    SALES_STAGES.forEach(s => {
+        const active = tags.sales_stage === s.value;
+        const btn = document.createElement("button");
+        btn.className = "stage-btn" + (active ? " active" : "");
+        btn.innerHTML = `<span class="icon">${s.icon}</span><span>${s.label}</span>`;
+        btn.onclick = () => { tags.sales_stage = s.value; render(); };
+        ssC.appendChild(btn);
+    });
+
+    // ── Status badge ──
+    const complete = tags.dm_stage && (tags.tone_tags || []).length > 0 && tags.intent && tags.sales_stage;
+    const badge = $("statusBadge");
+    badge.className = "status " + (complete ? "complete" : "incomplete");
+    badge.textContent = complete
+        ? "✓ Fully tagged — next or export"
+        : "◯ Select workflow stage, tone, intent, and sales stage";
+
+    // ── Nav dots ──
+    const dots = $("navDots");
+    dots.innerHTML = "";
+    const maxDots = Math.min(entries.length, 200); // cap to avoid DOM overload
+    for (let i = 0; i < maxDots; i++) {
+        const e = entries[i];
+        const t = e.tags;
+        const tagged = t.dm_stage && (t.tone_tags || []).length > 0 && t.intent && t.sales_stage;
+        const btn = document.createElement("button");
+        btn.className = "nav-dot"
+            + (i === currentIndex ? " active" : "")
+            + (tagged ? " tagged" : "")
+            + (e.skipped ? " skipped" : "");
+        btn.textContent = i + 1;
+        btn.onclick = () => { currentIndex = i; render(); };
+        dots.appendChild(btn);
+    }
+    if (entries.length > maxDots) {
+        const more = document.createElement("span");
+        more.style.cssText = "font-size:10px;color:#444;padding:0 4px;line-height:22px;";
+        more.textContent = "+" + (entries.length - maxDots) + " more";
+        dots.appendChild(more);
+    }
+
+    // ── Progress ──
+    const totalTagged = entries.filter(e => {
+        const t = e.tags;
+        return t.dm_stage && (t.tone_tags || []).length > 0 && t.intent && t.sales_stage;
+    }).length;
+    const pct = Math.round((totalTagged / entries.length) * 100);
+    $("progressText").textContent = totalTagged + "/" + entries.length + " tagged · " + pct + "% complete";
+    $("progressBar").style.width = pct + "%";
+
+    // ── Nav buttons ──
+    $("prevBtn").disabled = currentIndex === 0;
+    $("nextBtn").disabled = currentIndex === entries.length - 1;
+    $("navInfo").textContent = (currentIndex + 1) + " / " + entries.length + " · Arrow keys to navigate";
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+$("prevBtn").addEventListener("click", () => { if (currentIndex > 0) { currentIndex--; render(); } });
+$("nextBtn").addEventListener("click", () => { if (currentIndex < entries.length - 1) { currentIndex++; render(); } });
+$("skipBtn").addEventListener("click", () => {
+    entries[currentIndex].skipped = true;
+    if (currentIndex < entries.length - 1) { currentIndex++; render(); }
+});
+
+document.addEventListener("keydown", e => {
+    if (!entries.length) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        if (currentIndex < entries.length - 1) { currentIndex++; render(); }
+    }
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        if (currentIndex > 0) { currentIndex--; render(); }
+    }
+});
+
+// ─── EXPORT ──────────────────────────────────────────────────────────────────
+$("exportBtn").addEventListener("click", () => {
+    // Export only tagged entries (skip untagged and skipped)
+    const tagged = entries.filter(e => {
+        const t = e.tags;
+        return t.dm_stage && (t.tone_tags || []).length > 0 && t.intent && t.sales_stage;
+    });
+
+    const output = tagged.map(e => ({
+        contact:      e.contact,
+        date:         e.scottMsg.date,
+        time:         e.scottMsg.time,
+        scott_message: e.scottMsg.message,
+        context:      e.context.map(m => ({ speaker: m.speaker, message: m.message })),
+        tags: {
+            dm_stage:    e.tags.dm_stage,
+            tone_tags:   e.tags.tone_tags,
+            intent:      e.tags.intent,
+            sales_stage: e.tags.sales_stage,
+        }
+    }));
+
+    const blob = new Blob([JSON.stringify(output, null, 2)], { type: "application/json" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = "dm_labeled.json";
+    a.click();
+    URL.revokeObjectURL(url);
+
+    const toast = $("toast");
+    toast.textContent = `✓ Exported ${tagged.length} tagged DMs as dm_labeled.json`;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+});
+
+// ─── FILE LOADING ─────────────────────────────────────────────────────────────
+function handleFile(file) {
+    if (!file) return;
+    $("loadStatus").textContent = "Reading " + file.name + "…";
+    const reader = new FileReader();
+    reader.onload = e => {
+        try {
+            loadCSV(e.target.result);
+        } catch (err) {
+            $("loadStatus").textContent = "Error: " + err.message;
+            alert("Failed to parse file: " + err.message);
+        }
+    };
+    reader.readAsText(file);
+}
+
+const dz = $("dropzone");
+dz.addEventListener("click", () => {
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = ".csv";
+    inp.onchange = e => handleFile(e.target.files[0]);
+    inp.click();
+});
+dz.addEventListener("dragover",  e => { e.preventDefault(); dz.classList.add("over"); });
+dz.addEventListener("dragleave", () => dz.classList.remove("over"));
+dz.addEventListener("drop", e => {
+    e.preventDefault(); dz.classList.remove("over");
+    handleFile(e.dataTransfer.files[0]);
+});
+</script>
+</body>
+</html>
