@@ -289,3 +289,44 @@ All problems encountered and their solutions are logged here for reference.
 **Root Cause:** The `getAllPosts` function used `waitUntil: "networkidle"` which waits for zero active network connections for 500ms. Skool maintains persistent WebSocket connections, analytics pings, and background API requests that never fully stop, so the "networkidle" condition is never satisfied.
 
 **Fix:** Changed `waitUntil: "networkidle"` to `waitUntil: "domcontentloaded"` in `getAllPosts`, increased timeout to 60s, and added a 4s static delay to ensure the feed has rendered. The `domcontentloaded` event fires once the HTML is parsed, which is sufficient since the post feed is server-rendered.
+
+---
+
+## Modular Classify System (`bot/classify/`)
+
+Built a pre-classification step that runs before every reply is generated. The classifier reads the post/comment context, calls `gpt-4o-mini`, and returns `{ tone_tags, intent, sales_stage, reasoning }`. These tags are then injected into the system prompt sent to the generation model.
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `tag_classifier.js` | Main export. Calls gpt-4o-mini, validates output, falls back gracefully. |
+| `tags.js` | Single source of truth for all valid tags with Scott-specific definitions. |
+| `examples.js` | 13 few-shot examples (one per intent) from real labeled interactions. |
+
+### Usage (in auto_reply.js)
+```js
+const classifyReply = require("./classify/tag_classifier");
+var tags = await classifyReply({ postAuthor, postTitle, postBody, commentAuthor, commentText, thread });
+// tags = { tone_tags: ["hype", "brotherhood"], intent: "engagement-nurture", sales_stage: "nurture", reasoning: "..." }
+```
+
+### To customize behavior
+- **Add/rename tags**: Edit `tags.js`
+- **Add/edit examples**: Edit `examples.js` (one example per intent is enough; more is fine)
+- **Change the model or temperature**: Edit `tag_classifier.js` — search for `gpt-4o-mini`
+- **Change the fallback**: Edit `FALLBACK_TAGS` at the top of `tag_classifier.js`
+
+### PROBLEM 005: tag_classifier.js was a stub — no real LLM call (2025-04-09)
+
+**Symptom:** After building the classify module, `tag_classifier.js` was written as a stub that returned hardcoded defaults without calling the API. The classifier ran but produced the same tags for every post.
+
+**Root Cause:** The file was created with placeholder logic rather than being fully implemented.
+
+**Fix:** Rewrote `tag_classifier.js` to:
+1. Import OpenAI, `tags.js`, and `examples.js`
+2. Build the full system prompt once at startup (from tag definitions + few-shot examples)
+3. Call `gpt-4o-mini` with `response_format: json_object` and `temperature: 0.2`
+4. Validate the response against the valid tag lists from `tags.js`
+5. Fall back to `FALLBACK_TAGS` on any error
+
