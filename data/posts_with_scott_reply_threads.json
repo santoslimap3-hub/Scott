@@ -18070,9 +18070,16 @@
           "content": "brooooooo, so amazing to see! Really glad for you, man! Keep up the good work. Also… please expand… how did it happen? What’s the story, what’s the offer? How was the sales’ call and how did you arrived at that? I’d love to know it ALL!!!",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "hype",
+              "motivational",
+              "helpful-supportive",
+              "curiosity",
+              "questions"
+            ],
+            "intent": "engagement-nurture",
+            "sales_stage": "engagement",
+            "workflow_stage": "gather-intel"
           }
         },
         "replies": [
@@ -18086,9 +18093,12 @@
             "content": "@Piyush Mahankal brooooooooooooo, that's sooooo epic! Love it! I'm really glad for you, brother. Keep up the good work!!!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "engagement",
+              "workflow_stage": "gather-intel"
             }
           },
           {
@@ -18101,9 +18111,15 @@
             "content": "@Piyush Mahankal 3 high ticket clients closed this month, I do believe I'll close another one before the end of the month. 2 weeks ago hired my first employee on my company as my community manager and appointment setter... she's a rising star, I couldn't be happier with her. And... yeah... I'd say that's pretty much it. Not bad. I'm really glad, this has been a good month, can't complain.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "authority",
+                "direct",
+                "casual",
+                "important"
+              ],
+              "intent": "social-proof",
+              "sales_stage": "engagement",
+              "workflow_stage": "share-authority"
             }
           },
           {
@@ -18116,9 +18132,13 @@
             "content": "@Piyush Mahankal take a look at my bio... 😉",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "important",
+                "mystery-teasing"
+              ],
+              "intent": "funneling-to-dms",
+              "sales_stage": "engagement",
+              "workflow_stage": "funneling-to-dms"
             }
           }
         ]
@@ -18581,9 +18601,11 @@
             "content": "@Lea Newkirk thank you, Lea.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "casual"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18625,9 +18647,14 @@
             "content": "@Lea Newkirk yeah, I keep repeating my own quote to drill it into EVERYONE's minds... hopefully it'll make a powerful and lasting impact, like a seed growing from the unconscious into the conscious mind and manifesting through actions into the physical realm.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "self-aggrandization",
+                "motivational",
+                "authority",
+                "teasing-future-value"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18649,9 +18676,15 @@
             "content": "@Kenneth Khamphiphone I'm very careful with what I say, because I have managed to make my word so valuable that IT IS LAW. If I say something will happen... it always happens. Imagine developing such power... trust me when I tell you it's one of the most fulfilling things you can experience as a man.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "self-aggrandization",
+                "direct",
+                "authority",
+                "important",
+                "teasing-future-value"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -18683,9 +18716,13 @@
             "content": "@Harrison Todd exactly! Stay on course, brother.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "motivational",
+                "brotherhood"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18707,9 +18744,12 @@
             "content": "@Evan Smith stay hard!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "motivational"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -18726,9 +18766,11 @@
             "content": "@Robert Hayes without a shadow of a doubt.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "motivational"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -18745,9 +18787,16 @@
             "content": "@Joshua Portelli man is \"doing\". In action we find meaning...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "motivational",
+                "authority",
+                "teasing-future-value",
+                "direct",
+                "self-aggrandization",
+                "important"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -18764,9 +18813,12 @@
             "content": "@James Bargeron wonderful reflection, James. Thank you for this...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "gratitude"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18788,9 +18840,16 @@
             "content": "@Jeremiah Bergeron time to conquer the world.\nThe one thousand miles journey begins with one single step...\nLet's stay on course.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "brotherhood",
+                "important",
+                "hype",
+                "motivational",
+                "authority"
+              ],
+              "intent": "community-building",
+              "sales_stage": "engagement",
+              "workflow_stage": "frame-outcome"
             }
           },
           {
@@ -18812,9 +18871,14 @@
             "content": "@Andrew Ng exactly! Time to go back to work. Let's stay focused!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "motivational",
+                "authority"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture",
+              "workflow_stage": "frame-outcome"
             }
           }
         ]
@@ -18831,9 +18895,15 @@
             "content": "@Kasparas Stancikas Kasparas is on the HOUSE! Glad to see you, brother! You're a fucking killer! Keep up that warrior's spirit, you are meant for greatness, my friend. Looking forward seeing you next Saturday on our community call. It's going to be a banger!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "brotherhood",
+                "praise",
+                "motivational",
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "ask",
+              "workflow_stage": "frame-outcome"
             }
           },
           {
@@ -18855,9 +18925,15 @@
             "content": "@Darion Rae brother, you couldn't be saying MORE TRUTHFUL WORDS! Exaclty my experience as well.\nReally cool name by the way...\nWhere are you from?",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "questions",
+                "praise",
+                "hype",
+                "bonding-rapport"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement",
+              "workflow_stage": "gather-intel"
             }
           },
           {
@@ -18870,9 +18946,14 @@
             "content": "@Darion Rae Bali, Indonesia, brother. Living in the Island of Gods.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "self-aggrandization",
+                "hype",
+                "motivational"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "engagement",
+              "workflow_stage": "share-authority"
             }
           },
           {
@@ -18894,9 +18975,13 @@
             "content": "@Brennan Thompson Brennan!!!! Brother! How are you? Long time no see. Yeah, I have been great, just very busy with the business, but I couldn't be better! Whenever I'm a little bit less busy I'm dropping by and surprising you, guys!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "brotherhood",
+                "bonding-rapport"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -18913,9 +18998,12 @@
             "content": "@Justin Yip thanks, brother!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype",
+                "gratitude"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -18932,9 +19020,14 @@
             "content": "@Nick Banik yeah, I've seen your habit tracker, brother! You are on FIRE! 🔥\nKeep up the good work!!!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "brotherhood",
+                "hype",
+                "motivational"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18947,9 +19040,15 @@
             "content": "@Nick Banik infinite gratitude, brother. Is always a pleasure to have you around. Your energy is really powerful!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "brotherhood",
+                "gratitude",
+                "motivational",
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -18971,9 +19070,12 @@
             "content": "@Guus van Rees you've got level 5 but I haven't seen you around here a lot, bro.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "curiosity"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -18986,9 +19088,13 @@
             "content": "@Guus van Rees me too. More than a year now… it’s funny that we haven’t seen each other yet.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "curiosity",
+                "bonding-rapport"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           }
         ]
@@ -19043,9 +19149,12 @@
             "content": "@Billy Harcourt good question...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "mystery-teasing"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -19087,9 +19196,12 @@
             "content": "@Om Patel it does improves you capacity for focus.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "authority",
+                "teasing-future-value"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "awareness"
             }
           }
         ]
@@ -19106,9 +19218,14 @@
             "content": "@Felix Urbanek mine would have to be:\n1-Hard Times Create Strong Men by Stephan Aarnio.\n2-Bronze Age Mindset.\n3-The Way of Men.\n4-The Way of the Superior Man.\n5-The Secret History of the World.\n6-The Alchemist.\n7-Atomic Habits by James Clear.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "direct",
+                "helpful-supportive",
+                "important"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "awareness",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -19121,9 +19238,12 @@
             "content": "@Felix Urbanek that’s a banger!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -19131,9 +19251,12 @@
             "content": "@Felix Urbanek you’ll love Fire in the Dark by Jack Donovan then…",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "helpful-supportive"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "nurture",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -19155,9 +19278,12 @@
             "content": "@Thomas El Nadir I couldn't agree more...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -19170,9 +19296,14 @@
             "content": "@Thomas El Nadir can't argue with that, Thomas! Stay on course, brother! Appreciate you.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "brotherhood",
+                "motivational",
+                "bonding-rapport",
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -19213,9 +19344,13 @@
             "content": "@Benedek Santa I got to read that one... probably my next one after I finish up with Principles by Ray Dalio.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "authority",
+                "curiosity"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement"
             }
           },
           {
@@ -19282,9 +19417,15 @@
           "content": "Books are food for your mind.\nMeditation is food for yous soul.\nWorking out is food for your body.\nPS: also nutrition, which is ACTUALLY food for you body but you have to know and understand nutrition in real depth, most knolwdge and nutritional advice out there is straight up untrue and damaging to the body",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "important",
+              "authority",
+              "direct",
+              "self-aggrandization",
+              "motivational"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness"
           }
         },
         "replies": []
@@ -19367,9 +19508,15 @@
             "content": "@Stan Morrish exactly! What's too aboundant becomes valueless, what is rare is always more valuable.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "bonding-rapport",
+                "praise",
+                "motivational",
+                "important"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -19396,9 +19543,15 @@
             "content": "@Jack Shiller thanks, brother. Effectively I’m the most humble man in the universe… 😂",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "humor",
+                "self-aggrandization",
+                "brotherhood",
+                "important",
+                "gratitude"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -19856,9 +20009,11 @@
             "content": "@Harry Montford thanks, brother.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "gratitude"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -19903,9 +20058,16 @@
           "content": "Vitamin D by getting sunlight in the morning.\nGrounding to release ionic radiation accumulated in the body.\nSprints that boost your testosterone and growth hormone.\nAll possible vitamins consumed through a biodegradable source like animal organs.\nNo carbs, no poisonous foods. Avoiding Lectins, Phytic Acid and Oxalates.\nYou achieve more by removing what's holding you down and it's unnatural, not by adding weird shit made in a lab by skinny neck low testosterone bug-men.\nAlso meditation and full-blown \"dopamine detox\" is going to reseat your dopamine baseline and will allow you to focus and even have fun doing the \"boring\" work.\nFunny enough the solution is boring yourself to death so you change your perspective and entering into a flow state because quite easy because there's quite literally nothing as fun as the work and the good habits in your day.\nReading is literally the highlight and reward of my day.\nEverything else \"feels\" so hard at times that just sitting down and reading is actually super easy compared to the rest.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "direct",
+              "motivational",
+              "important",
+              "teasing-future-value"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness",
+            "workflow_stage": "connect"
           }
         },
         "replies": [
@@ -20770,9 +20932,18 @@
           "content": "Also in war. It's the same on all mortal games of cooperation.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "teasing-future-value",
+              "authority",
+              "motivational",
+              "self-aggrandization",
+              "direct",
+              "tough-love",
+              "important"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "awareness",
+            "workflow_stage": "connect"
           }
         },
         "replies": []
@@ -21128,9 +21299,14 @@
           "content": "Gratitude is the fastlane to abundance... abundance of life, of joy and of everything you can desire from a place of fullness intead of from a place of lack.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "motivational",
+              "authority",
+              "teasing-future-value"
+            ],
+            "intent": "authority-proofing",
+            "sales_stage": "awareness",
+            "workflow_stage": "connect"
           }
         },
         "replies": [
@@ -21397,9 +21573,18 @@
             "content": "@Krista Melanson I'm the father of a very large family of children. This community IRL, is truly magic for me and the way we show up for each other, the way we take care of each other, not just on our weekly meetings here in Bali but on a day to day basis, some of us live together in the same villas, go for lunch every day, work together, go for trips together... not even on my wildest dreams could I have imagined being blessed with this... but commitment rewards you with people who truly appreciate you and are there for you through the highs and the lows.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "authority",
+                "self-aggrandization",
+                "motivational",
+                "vulnerability",
+                "storytelling",
+                "important",
+                "teasing-future-value"
+              ],
+              "intent": "social-proof",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -21412,9 +21597,14 @@
             "content": "@Krista Melanson since I arrived in Bali Tony and I started with Let's Be Real. It has been aroung 8 months now...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "direct",
+                "motivational",
+                "self-aggrandization"
+              ],
+              "intent": "authority-proofing",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           },
           {
@@ -21454,9 +21644,18 @@
           "content": "I love this reflection... precisely today I was thinking about the relationships I have built with my clients over the last couple of years and how crucial those relationships have been for all the incredible things we have built together and we are still currently building and I realize that just like on an adventure book or a story... these are my allies on this epic journey and we are facing the unknown together and shooting for massive goals, staying loyal to each other and trusting this vision bigger and higher than any of us individually but that brings profound meaning and direction to our lives and individual stories...",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "storytelling",
+              "vulnerability",
+              "authority",
+              "bonding-rapport",
+              "important",
+              "gratitude",
+              "motivational"
+            ],
+            "intent": "social-proof",
+            "sales_stage": "awareness",
+            "workflow_stage": "connect"
           }
         },
         "replies": []
@@ -21663,9 +21862,15 @@
           "content": "The work works more on you than you work on it... by simply writing it you are solidifying the knowledge in your mind and the more you do it the stronger those core teachings become to your toolkit of critical knowledge to deply and help people and more people will see it the more persistent your are in your endeavour of spreading such message and you will be extremely persistent if you truly believe that such knowledge has transformed your life and can potentially transform others.\nSo I'm quite detatched from the outcome of the process of me sharing my knowledge, I simply do it and if nobody listens that's fine... eventually the right person will come across it if I just keep putting it out there and will benefit massively from it and it'll all be worth it in the end.\nThat's my approach to it.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "tough-love",
+              "teasing-future-value",
+              "motivational",
+              "important"
+            ],
+            "intent": "redirect",
+            "sales_stage": "engagement"
           }
         },
         "replies": [
@@ -21679,9 +21884,11 @@
             "content": "@Jack Shiller exactly!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "hype"
+              ],
+              "intent": "acknowledgement",
+              "sales_stage": "nurture"
             }
           }
         ]
@@ -21821,9 +22028,15 @@
           "content": "I conducted a shitload of niche reseach interviews and asked people without assuming what they wanted it and from their feedback I built my offer in accordance to what they themselves said they wanted to ensure not to mess this part up.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "important",
+              "authority",
+              "direct",
+              "motivational"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness",
+            "workflow_stage": "share-authority"
           }
         },
         "replies": [
@@ -21837,9 +22050,14 @@
             "content": "@Paul Neri no, I actually jumped in calls with people and ran them through my niche research script and analayzed each transcript and each call to actually understand exactly what they wanted and compared all the data to find the most repetitive patterns...",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "important",
+                "authority",
+                "direct"
+              ],
+              "intent": "value-delivery",
+              "sales_stage": "engagement",
+              "workflow_stage": "connect"
             }
           }
         ]
@@ -22136,9 +22354,11 @@
             "content": "@Ethan Shahan everything can be reframed. Thanks to me your sister got a few more minutes of freedom before jumping into the indoctrination camp. lol I'm sure she'd thank me. 😂",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "humor"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -22146,9 +22366,11 @@
             "content": "@Ethan Shahan it's all a matter of perspective, bro!",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "humor"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "nurture"
             }
           },
           {
@@ -22161,9 +22383,12 @@
             "content": "@Christy Sanderson thank you for opening the door to such an interesting conversation, I'm glad to add to it and help however I can.",
             "isTargetMember": false,
             "tags": {
-              "tone_tags": [],
-              "intent": "",
-              "sales_stage": ""
+              "tone_tags": [
+                "praise",
+                "gratitude"
+              ],
+              "intent": "engagement-nurture",
+              "sales_stage": "engagement"
             }
           }
         ]
@@ -22174,9 +22399,19 @@
           "content": "Raw action solves it all.\nGoal -> Daily actionable plan (reverse engineered) -> Outputs -> Feedback and reiteration (tracking)\nAlso understanding yourself and how your mind works makes a massive difference because of the following:\nExperiences create beliefs, beliefs conform your identity (there are three kinds of beliefs but I'm not getting into that now, ask @Ethan Shahan lol 😂), your identity builds your paradigm, your paradigm (the lenses through which you actually observe components of reality [tangible and intangible]) will inform your percieved options and from your percieved options you will make a decision and that decision will turn into action, enough action will install on your unconscious mind a certain program as a behaviour solidifying it (not permanently, neuroplasticity is a thing), with enough awareness you can have a saying to make such behaviour (routine) intentional or unintentional.\nThank you for this post. I really appreciate it.\nI wouldn't have believed all of this if I hadn't tested it myself and I am so fucking glad I have always been a mad scientist of sorts running experiements on myself and choosing to try things out to see if they actually work. To it I owe my success.",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "authority",
+              "important",
+              "hype",
+              "direct",
+              "motivational",
+              "gratitude",
+              "praise",
+              "self-aggrandization"
+            ],
+            "intent": "value-delivery",
+            "sales_stage": "awareness",
+            "workflow_stage": "share-authority"
           }
         },
         "replies": [
@@ -24125,9 +24360,13 @@
           "content": "What is going on here? It feels like you are changing the world silently...",
           "isTargetMember": false,
           "tags": {
-            "tone_tags": [],
-            "intent": "",
-            "sales_stage": ""
+            "tone_tags": [
+              "praise",
+              "gratitude",
+              "important"
+            ],
+            "intent": "acknowledgement",
+            "sales_stage": "nurture"
           }
         },
         "replies": []
