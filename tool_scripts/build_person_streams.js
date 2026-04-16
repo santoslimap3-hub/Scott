@@ -106,6 +106,31 @@ function normalizeDisplay(name) {
         .replace(/[^\w\s]/g, " ").replace(/\s+/g, " ").trim();
 }
 
+/**
+ * Returns true if Scott directly participated in a thread — either as the
+ * top-level commenter or as one of the replies.
+ *
+ * Used to filter out noise: a lead's comment on a post Scott touched is only
+ * meaningful training context if Scott was actually IN that specific thread.
+ * Without this filter, any two people who happened to comment on the same post
+ * as Scott would have random cross-talk added to their history.
+ *
+ * Works for both v2 (slug-based) and legacy (display-name-based) thread shapes.
+ */
+function threadHasScott(th, scottId) {
+    var SCOTT_NORM = normalizeDisplay("Scott Northwolf");
+    function isScott(authorSlug, authorDisplay) {
+        if (authorSlug && authorSlug.toLowerCase() === scottId) return true;
+        if (normalizeDisplay(authorDisplay || "") === SCOTT_NORM) return true;
+        return false;
+    }
+    var c = th.comment || {};
+    if (isScott(c.authorSlug, c.authorDisplay || c.author)) return true;
+    return (th.replies || []).some(function(r) {
+        return isScott(r.authorSlug, r.authorDisplay || r.author);
+    });
+}
+
 function parseCSV(text) {
     var rows = [],
         row = [],
@@ -360,6 +385,12 @@ function build() {
 
             // iterate threads in array order — used for fallback ordering
             postData.threads.forEach(function(th, tIdx) {
+                // Only process threads where Scott directly participated.
+                // Skipping threads he didn't touch avoids adding unrelated
+                // cross-talk (two random leads commenting on the same post)
+                // to either person's history stream.
+                if (!threadHasScott(th, scottId)) return;
+
                 // top-level comment
                 var tIso = parseIsoOrTitle(th.comment.timestampAbsolute) ||
                     offsetIso(postIso, 60 * (tIdx + 1));
@@ -481,6 +512,9 @@ function build() {
             var postAuthorId = resolvePersonId(persons, postAuthorDisplay, null);
 
             (postData.threads || []).forEach(function(th, tIdx) {
+                // Same filter as v2: skip threads Scott wasn't directly in.
+                if (!threadHasScott(th, scottId)) return;
+
                 var comment = th.comment || {};
                 var commentAuthorDisplay = comment.author || "";
                 if (!commentAuthorDisplay) return;
