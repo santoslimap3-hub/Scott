@@ -1,0 +1,6 @@
+{
+    "_description": "Manual overrides that win over automated inference. Key = canonical person ID (slug preferred; fall back to normalized display name with prefix 'name:'). Set gender or role here when the default inference is wrong. Gender defaults to 'male' per project rules — only add entries for FEMALE or unknown people, not for males.",
+    "overrides": {
+        "lea-newkirk": { "gender": "female" }
+    }
+}

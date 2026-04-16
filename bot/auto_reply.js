@@ -23,6 +23,13 @@ const sessionLog = require("./logger/session_log");
 // Used to build a fine-tuning dataset; Scott fills in the "feedback" field per entry.
 const trainingLog = require("./logger/training_log");
 
+// ── BUBBLE helpers ─────────────────────────────────────────────────────────────
+// Post / comment replies on Skool cannot be multi-bubble — the platform posts
+// whatever is in the input as ONE comment. So for this file we collapse any
+// ⟨BUBBLE⟩ markers the model might emit into a single-line reply. Bubble
+// splitting is strictly a DM-channel feature (see dm_reply.js).
+const { collapseBubbles, BUBBLE_DELIM } = require("./bubble");
+
 const REPLIED_FILE = path.join(__dirname, "replied_posts.json");
 
 // ── Shared reply-generation system prompt builder ──────────────────────────────
@@ -524,6 +531,14 @@ async function generateReply(post) {
 }
 
 async function typeReply(page, replyText) {
+    // Post/comment channel — collapse ⟨BUBBLE⟩ delimiters into a single
+    // space. Skool comments are single-bubble; a model that was trained on
+    // the DM multi-bubble format may still emit markers here.
+    if (replyText && replyText.indexOf(BUBBLE_DELIM) !== -1) {
+        console.log("  ⚠  model emitted " + BUBBLE_DELIM + " in a post/comment reply — collapsing to single bubble");
+        replyText = collapseBubbles(replyText);
+    }
+
     // Skool uses an input with placeholder "Your comment"
     var replyBox = await page.$('input[placeholder="Your comment"]');
 

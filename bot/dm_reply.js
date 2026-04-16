@@ -14,6 +14,7 @@ const classifyDM   = dmClassifier;
 const sessionLog   = require("./logger/session_log");
 const trainingLog  = require("./logger/training_log");
 const { INTENTS: INTENT_DEFS, SALES_STAGES: STAGE_DEFS } = require("./classify/tags");
+const { splitBubbles, interBubbleDelayMs, BUBBLE_DELIM } = require("./bubble");
 
 const STATE_FILE = path.join(__dirname, "conversation_state.json");
 
@@ -976,27 +977,64 @@ async function pollAndReply(page, botName, convState) {
                 '[class*="chat"] [contenteditable="true"]'
             );
             if (dmInput) {
+                // ── BUBBLE-AWARE SEND ──────────────────────────────────
+                // The model may emit multiple bubbles separated by ⟨BUBBLE⟩.
+                // We type + Enter each bubble as a distinct message, with a
+                // human-variable pause between them that scales with the
+                // NEXT bubble's length (reading + thinking + typing prep).
+                var bubbles = splitBubbles(dmReply);
+                if (bubbles.length === 0) bubbles = [dmReply];
+
+                console.log("    → sending " + bubbles.length + " bubble" + (bubbles.length === 1 ? "" : "s"));
+
                 await dmInput.click({ force: true });
                 await sleep(randomBetween(200, 500)); // pause before first keystroke
 
-                // Type with human-like variable speed
-                await humanType(page, dmReply);
-                await sleep(randomBetween(200, 600)); // brief pause before hitting send
+                var lastSendOk = false;
+                for (var bi = 0; bi < bubbles.length; bi++) {
+                    var bubble = bubbles[bi];
 
-                if (CONFIG.dryRun) {
-                    console.log("    DRY RUN — typed but NOT sent");
-                    await page.keyboard.press('Escape');
-                } else {
-                    await page.keyboard.press('Enter');
+                    // Re-focus the input each time in case Skool re-renders it after send
+                    if (bi > 0) {
+                        var freshInput = await page.$(
+                            'textarea[placeholder*="Message"], ' +
+                            '[class*="ChatTextArea"] textarea, ' +
+                            '[class*="ChatInput"] textarea, ' +
+                            '[class*="Chat"] [contenteditable="true"], ' +
+                            '[class*="chat"] [contenteditable="true"]'
+                        );
+                        if (freshInput) { try { await freshInput.click({ force: true }); } catch(_){} }
+                    }
 
-                    // ── Verify the message actually appeared in the conversation ──
+                    await humanType(page, bubble);
+                    await sleep(randomBetween(180, 500)); // brief pause before hitting send
+
+                    if (CONFIG.dryRun) {
+                        console.log("      [" + (bi+1) + "/" + bubbles.length + "] DRY RUN — typed: " + bubble.substring(0, 60));
+                        await page.keyboard.press('Escape');
+                        lastSendOk = true;
+                    } else {
+                        await page.keyboard.press('Enter');
+                        console.log("      [" + (bi+1) + "/" + bubbles.length + "] sent: " + bubble.substring(0, 60));
+                        lastSendOk = true;
+
+                        // Inter-bubble pause — skip after the last bubble
+                        if (bi < bubbles.length - 1) {
+                            var delay = interBubbleDelayMs(bubbles[bi + 1]);
+                            await sleep(delay);
+                        }
+                    }
+                }
+
+                if (!CONFIG.dryRun) {
+                    // ── Verify the final message actually appeared in the conversation ──
                     await sleep(1500);
                     var verify = await readFullConversation(page, botName);
                     var lastMsg = verify.messages.length > 0 ? verify.messages[verify.messages.length - 1] : null;
                     if (lastMsg && lastMsg.role === 'bot') {
-                        console.log("    ✓ Sent and confirmed!");
+                        console.log("    ✓ Sent and confirmed (" + bubbles.length + " bubbles)!");
                     } else {
-                        console.log("    ⚠ Could not confirm send — message may not have gone through");
+                        console.log("    ⚠ Could not confirm send — last bubble may not have gone through");
                     }
                 }
 

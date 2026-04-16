@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-04-16T02:46:30.067Z",
+  "examplesWritten": 2653,
+  "perChannel": {
+    "dm": 2653,
+    "comment": 0,
+    "post": 0
+  },
+  "droppedCompanyCompanyStreams": 0,
+  "droppedEmptyAssistant": 0,
+  "droppedMasculineToFemale": 0,
+  "droppedOther": 0,
+  "sampleDroppedExamples": [],
+  "bubbleDelimiter": "⟨BUBBLE⟩"
+}

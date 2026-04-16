@@ -1,0 +1,17 @@
+{
+    "_description": "Hand-curated list of company members. Matched by slug first (preferred, stable), then by normalized display name. Anyone not in this list is treated as a lead. Add Jack Walford here once the persona account exists. Roles: company-member:ceo | company-member:appointment-setter | company-member:other.",
+    "members": [
+        {
+            "slug": "scott-northwolf",
+            "displayName": "Scott Northwolf",
+            "role": "company-member:ceo",
+            "gender": "male"
+        },
+        {
+            "slug": "lea-newkirk",
+            "displayName": "Lea Newkirk",
+            "role": "company-member:appointment-setter",
+            "gender": "female"
+        }
+    ]
+}
