@@ -993,5 +993,39 @@
       "intent": "acknowledgement",
       "sales_stage": "nurture"
     }
+  },
+  {
+    "correction_id": "0__Don_t_worry_there_are_students_who_fail",
+    "timestamp": "2026-04-19T11:38:35.211Z",
+    "lead_name": "Lead",
+    "scott_reply": "Don’t worry, there are students who failed their exams and are going to extraordinaries now still so they need tutoring desperately…\nAnd it’s such a huge market that we will get more than enough for one teacher. Trust me. We just got to make the posts…",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "great"
+      },
+      {
+        "role": "assistant",
+        "text": "How fast can you get him his first students?\nAre you inside the UK, Australian, American and New Zeelands’ tutoring groups?\nTo make the posts?\nOr do you have to join now and wait 3 days?"
+      },
+      {
+        "role": "user",
+        "text": "I don't know since the school just finished, so I don't know how many students we'll be able to get\nI'm in a couple of those groups\nnow will join more"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    }
   }
 ]
