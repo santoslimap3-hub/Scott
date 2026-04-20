@@ -1,0 +1,97 @@
+[
+  {
+    "pid": "arthur-maddocks-brown-1945",
+    "event_idx": 19,
+    "post_title": "Introducing Myself!!",
+    "post_url": "https://www.skool.com/self-improvement-nation-3104/introducing-myself",
+    "scott_reply": "Broooooooooooo, your story gave me the chills.WOW!To call it epic would be an understatment.I truly resonate soooooooooo hard with your story.The Hero's Journey indeed!",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ]
+    },
+    "reasoning": "fallback — classifier error",
+    "confidence": "low",
+    "error": "Connection error.",
+    "review_flag": true
+  },
+  {
+    "pid": "name:kamil a",
+    "event_idx": 0,
+    "post_title": "Intro",
+    "post_url": "https://www.skool.com/self-improvement-nation-3104/intro",
+    "scott_reply": "Self-Improvement is truly the cure to depression (after only two weeks that I built my timetable and started meditating, reading and working out consistently I overcame a 4 years long chronic depression).I find it truly crazy how in the Western world and the US especially they just don't talk about ",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ]
+    },
+    "reasoning": "fallback — classifier error",
+    "confidence": "low",
+    "error": "Connection error.",
+    "review_flag": true
+  },
+  {
+    "pid": "aeon",
+    "event_idx": 4,
+    "post_title": "What do you do to keep being social?",
+    "post_url": "https://www.skool.com/self-improvement-nation-3104/what-do-you-do-to-keep-being-social",
+    "scott_reply": "I'm not really social with people who are not into self-improvement to be honest. The beauty about Bali is that EVERYONE (or at least most people) are into self-improvement so that makes it perfect but I know this is a very rare place, that's also the reason I moved here.Back in the day, when I was ",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ]
+    },
+    "reasoning": "fallback — classifier error",
+    "confidence": "low",
+    "error": "Connection error.",
+    "review_flag": true
+  },
+  {
+    "pid": "aeon",
+    "event_idx": 6,
+    "post_title": "Hi I'm Aeon, It's my first time here",
+    "post_url": "https://www.skool.com/self-improvement-nation-3104/hi-im-aeon-its-my-first-time-here",
+    "scott_reply": "Broooooooooooooooooooooo, such an epic intro! You're rocking it already, Aeon. Really glad to have you with us.I'm going to take it easy and not tell you all about what we are building here in one go or you might be tempted to swim all the way from the Philipines to Bali right after our conversation",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ]
+    },
+    "reasoning": "fallback — classifier error",
+    "confidence": "low",
+    "error": "Connection error.",
+    "review_flag": true
+  },
+  {
+    "pid": "name:siebe de gelas",
+    "event_idx": 19,
+    "post_title": "INTRODUCTION",
+    "post_url": "https://www.skool.com/self-improvement-nation-3104/introduction",
+    "scott_reply": "That's the way to go, brother!To make space for the higher version of yourself you must sacrifice the old one.I had long hair and right before my greatest breaktrugh to this date, when I finally lifted my coaching business off the ground I shaved my long hair that I had had for years and went full b",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ]
+    },
+    "reasoning": "fallback — classifier error",
+    "confidence": "low",
+    "error": "Connection error.",
+    "review_flag": true
+  }
+]

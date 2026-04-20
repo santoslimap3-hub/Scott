@@ -12,7 +12,10 @@
       "Bash(ruby tool_scripts/post_reply_only_filtering.rb)",
       "Bash(ruby tool_scripts/convert_to_jsonl.rb)",
       "Bash(python3 -c ':*)",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "Bash(node -e \"require\\('c:/Users/santo/Documents/Scott/Scott/data/person_streams.json'\\); console.log\\('valid JSON'\\)\")",
+      "Bash('/c/Program Files/Python312/python' -c ' *)",
+      "Bash(ruby fine_tune_streams_builder.rb)"
     ]
   }
 }
