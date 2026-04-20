@@ -993,5 +993,296 @@
       "intent": "acknowledgement",
       "sales_stage": "nurture"
     }
+  },
+  {
+    "correction_id": "0__Don_t_worry_there_are_students_who_fail",
+    "timestamp": "2026-04-19T11:42:52.275Z",
+    "lead_name": "Lead",
+    "scott_reply": "Don’t worry, there are students who failed their exams and are going to extraordinaries now still so they need tutoring desperately…\nAnd it’s such a huge market that we will get more than enough for one teacher. Trust me. We just got to make the posts…",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "great"
+      },
+      {
+        "role": "assistant",
+        "text": "How fast can you get him his first students?\nAre you inside the UK, Australian, American and New Zeelands’ tutoring groups?\nTo make the posts?\nOr do you have to join now and wait 3 days?"
+      },
+      {
+        "role": "user",
+        "text": "I don't know since the school just finished, so I don't know how many students we'll be able to get\nI'm in a couple of those groups\nnow will join more"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "1__I_don_t_think_so_Nick_I_ll_have_to_sit",
+    "timestamp": "2026-04-19T11:43:27.562Z",
+    "lead_name": "Lead",
+    "scott_reply": "I don't think so, Nick.\nI'll have to sit this one out. But we'll have more adventures soon, this is just one of many.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Yeah I’ll be there around 1\nNon refundable bro, gotta love it\nYo Scott, funny thing… I checked my booking at my hostel here and it says it ends on sunday (don’t know why i thought it was tomorrow😂). I was able to get the dates changed so i’m not wasting money and my booking will start 3 days after you.\nHope that’s fine bro, I’m glad she changed it. Hope you move in smoothly. Let me know what the people are like there 😉"
+      },
+      {
+        "role": "assistant",
+        "text": "😂 Don’t worry about it, Nick, I’ll explore uncharted territory on my own and clear the jungle before you come in. I’ll know my way around the place by the time you arrive."
+      },
+      {
+        "role": "user",
+        "text": "Yeah I know the territory could be very hostile, check for sharks in the pool, hobos in the room above you and ants under your pillow. Let me know when it’s safe👶"
+      },
+      {
+        "role": "assistant",
+        "text": "I don’t know about sharks in the pool, but every single hot girl there that could be a terrible distraction for you, brother. Don’t even worry about it, don’t even sweat about it… I’ll take care of all those bad bitches for you, man, I won’t let a single one disturb you while you go hard on monk mode. I’ll sacrifice my heart and soul for you, my dear friend, and no women in a red dress will keep you trapped in the Matrix. Those are the dangers I was referring to."
+      },
+      {
+        "role": "user",
+        "text": "Take care of those bad bitches😂😂\nYo Scott are you coming tomorrow?\nThat film guy is expensive aha"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "humor",
+        "direct"
+      ],
+      "intent": "redirect",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "2__I_ll_see_you_in_9_minutes_bro_",
+    "timestamp": "2026-04-19T11:44:20.074Z",
+    "lead_name": "Lead",
+    "scott_reply": "I'll see you in 9 minutes, bro.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "oooh I see, that's cool\nwell def talk, I wanna hear how Bali is going for you\ndo you have a lot of social contact there are less than you imagined?"
+      },
+      {
+        "role": "assistant",
+        "text": "Social life here in Canggu is anything but scarse."
+      },
+      {
+        "role": "user",
+        "text": "are u down to have a 15 min chat about your experience there? Id love to hear more lol"
+      },
+      {
+        "role": "assistant",
+        "text": "sure, bro, let's schedule a call for next week: ====calendly_link====="
+      },
+      {
+        "role": "user",
+        "text": "yeah I scheduled one, its in 2 weeks but well talk bro"
+      },
+      {
+        "role": "assistant",
+        "text": "Awesome, I saw it, man.\nAre you still good for our call? I think I sent you already my number, feel free to shoot me a text on WhatsApp, I’m way more active there, I’ll add you."
+      },
+      {
+        "role": "user",
+        "text": "yess its planned on Jan 7"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "direct",
+        "authority"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "3__So_you_re_not_going_back_to_your_old_job",
+    "timestamp": "2026-04-19T11:44:51.922Z",
+    "lead_name": "Lead",
+    "scott_reply": "So you're not going back to your old job, right?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Only if you tell me you love me alot ‎<This message was edited>"
+      },
+      {
+        "role": "assistant",
+        "text": "what does aloy means?\noh\nArousha, I love you. We are family. Do you love yourself?"
+      },
+      {
+        "role": "user",
+        "text": "Hahahahahhaa\nOf course I love myself, because you love me and we are one\nAnd we will take over Texas"
+      },
+      {
+        "role": "assistant",
+        "text": "I'm working on building a rock solid methodology right now. I'll have the offer ready soon and then all I have to do is focus on sales. I already got my niche. Self-improvement coaches (mainly fitness, mindset and spirituality coaches)."
+      },
+      {
+        "role": "user",
+        "text": "Im gonna launch meditation program soon, I see a possibility of collaboration or referral business as I intend to help men a lot - women are already masters of the spiritual world"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "curiosity",
+        "questions"
+      ],
+      "intent": "pain-agitation",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "4__Flo_jumped_off_the_program_I_just_gave_",
+    "timestamp": "2026-04-19T11:45:21.187Z",
+    "lead_name": "Lead",
+    "scott_reply": "Flo jumped off the program. I just gave him a full refund, he decided not to finish up. He doesn't believe in the program... resistance got to him hard. This was to be expected at some point. No reason to worry, just data. I'm just informing you so you are aware of it. Changes nothing but only adds fuel to our success in the form of knowledge.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Thank youu"
+      },
+      {
+        "role": "assistant",
+        "text": "https://drive.google.com/drive/folders/10rdnrlcPxEgTzq5SE_24qBCj_XTD4NL_?ths=true\nToday's exercise...\nhttps://fathom.video/share/jKx3fTBwVvo6jMmyjPsGfujmPmyF-5Wq\nToday's recording."
+      },
+      {
+        "role": "user",
+        "text": "Thank you very very much\nEven though my nervous system is resisting, I know it will be worth it\nclock in"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "motivational"
+      ],
+      "intent": "",
+      "sales_stage": ""
+    }
+  },
+  {
+    "correction_id": "5__community_call_in_12_minutes_https_ww",
+    "timestamp": "2026-04-19T11:46:13.746Z",
+    "lead_name": "Lead",
+    "scott_reply": "community call in 12 minutes: https://www.skool.com/self-improvement-nation-3104/calendar?eid=cd4a592bc365433f9c2c7e1fc983f533&eoid=1774090800",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Yup exacrly\nFrom Texas to Cali long ass drive"
+      },
+      {
+        "role": "assistant",
+        "text": "Epic! Are you in Cali now?"
+      },
+      {
+        "role": "user",
+        "text": "Nah in Texas now\nlol my phone died"
+      },
+      {
+        "role": "assistant",
+        "text": "Don't worry, bro. Check out Whatsapp, I texted you there."
+      },
+      {
+        "role": "user",
+        "text": "Ok"
+      },
+      {
+        "role": "assistant",
+        "text": "I got to run now, I have a lot of calls today and I haven't eaten anything (since 42 hours ago because yesterday it was Bali's Day of Silence) and we did fasting and meditation and shit..."
+      },
+      {
+        "role": "user",
+        "text": "Ok"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "nurture-free",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    }
+  },
+  {
+    "correction_id": "6__Great_man_I_still_don_t_understand_how",
+    "timestamp": "2026-04-19T11:46:43.411Z",
+    "lead_name": "Lead",
+    "scott_reply": "Great, man. I still don't understand how do you want the payment but I guess you'll explain me tomorrow with more time.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "atomiumjae\nfire call man\nreally appreciated talking to you\nyou could just send $100 to the kofi but i want to give you maximum value possible\nnot gonna keep you up, goodnight bro\nim gonna finish up the educational editing course i showed you\nenjoy your holiday, we grind when you get back on monday\ntmr i'll just get to know you more, so i can really personalise the advice"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [],
+      "intent": "",
+      "sales_stage": ""
+    }
   }
 ]
