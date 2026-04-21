@@ -31,9 +31,35 @@
 const fs   = require("fs");
 const path = require("path");
 
+// ─── Proxy setup (sandbox routes HTTPS through localhost:3128) ────────────────
+// NODE_TLS_REJECT_UNAUTHORIZED=0 is required because the sandbox proxy does SSL
+// inspection — this is safe inside the sandboxed environment.
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 // ─── Load from rag/node_modules (avoids needing a separate install) ───────────
-const RAG_MODULES = path.join(__dirname, "../rag/node_modules");
-const Anthropic   = require(path.join(RAG_MODULES, "@anthropic-ai/sdk"));
+const RAG_MODULES  = path.join(__dirname, "../rag/node_modules");
+const Anthropic    = require(path.join(RAG_MODULES, "@anthropic-ai/sdk"));
+const nodeFetch    = require(path.join(RAG_MODULES, "node-fetch/lib/index.js"));
+
+// Resolve https-proxy-agent — installed alongside this script's dependencies
+const PROXY_HELPER = "/tmp/proxy-helper/node_modules/https-proxy-agent/dist/index.js";
+const { HttpsProxyAgent } = fs.existsSync(PROXY_HELPER)
+    ? require(PROXY_HELPER)
+    : { HttpsProxyAgent: null };
+
+// Build a proxy-aware fetch for the Anthropic SDK
+// Falls back to global fetch if no proxy agent is available (user's own machine)
+function buildFetch() {
+    var proxyUrl = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY;
+    if (proxyUrl && HttpsProxyAgent) {
+        var agent = new HttpsProxyAgent(proxyUrl);
+        return function(url, init) {
+            return nodeFetch(url, Object.assign({}, init || {}, { agent: agent }));
+        };
+    }
+    // No proxy needed — use native fetch (works on user's machine)
+    return undefined;
+}
 
 // Manual .env parser — dotenv.config() can silently fail in some environments
 (function loadEnv(envPath) {
@@ -440,7 +466,13 @@ async function main() {
     }
 
     // ── 7. Initialize Anthropic client ────────────────────────────────────────
-    var client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    var clientOpts = { apiKey: process.env.ANTHROPIC_API_KEY };
+    var proxyFetch = buildFetch();
+    if (proxyFetch) {
+        clientOpts.fetch = proxyFetch;
+        console.log("    Using proxy fetch: " + (process.env.HTTPS_PROXY || process.env.HTTP_PROXY));
+    }
+    var client = new Anthropic(clientOpts);
 
     // ── 8. Classify in batches ────────────────────────────────────────────────
     console.log("\n🤖  Classifying with " + MODEL + " (concurrency=" + CONCURRENCY + ")...\n");

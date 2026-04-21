@@ -1,97 +1,1011 @@
 [
   {
-    "pid": "arthur-maddocks-brown-1945",
-    "event_idx": 19,
-    "post_title": "Introducing Myself!!",
-    "post_url": "https://www.skool.com/self-improvement-nation-3104/introducing-myself",
-    "scott_reply": "Broooooooooooo, your story gave me the chills.WOW!To call it epic would be an understatment.I truly resonate soooooooooo hard with your story.The Hero's Journey indeed!",
+    "pid": "garrett",
+    "event_idx": 1,
+    "post_title": "$200 → $10K MRR 🚀",
+    "post_url": "https://www.skool.com/synthesizer/200-10k-mrr",
+    "scott_reply": "What's MRR?",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "info-gathering",
+      "tone_tags": [
+        "casual",
+        "curiosity"
+      ]
+    },
+    "reasoning": "Scott asks a straightforward clarifying question about terminology, showing genuine interest in understanding the post without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "tylae-westervelt-7744",
+    "event_idx": 1,
+    "post_title": "$200 → $10K MRR 🚀",
+    "post_url": "https://www.skool.com/synthesizer/200-10k-mrr",
+    "scott_reply": "@Abdul Akram oh, thanks!",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual"
+      ]
+    },
+    "reasoning": "Scott gives a brief, low-key thanks in response to what appears to be a compliment or tag, with no agenda or value delivery.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "fausto-rodriguez-7848",
+    "event_idx": 1,
+    "post_title": "How long did it take you to make $1k-$2 online?👨‍💻",
+    "post_url": "https://www.skool.com/synthesizer/how-long-did-it-take-you-to-make-1k-2-online",
+    "scott_reply": "It depends when you start counting... my story is long and with a lot of challenges along the way, a lot of mistakes and above all a lot of learning lessons... but if we talk about my current offer and business, since I already had a LOT of experience it took me 3 months to go from absolute 0 to mor",
     "auto_tags": {
       "stage": "nurture",
-      "intent": "engagement-nurture",
+      "intent": "authority-proofing",
+      "tone_tags": [
+        "authority",
+        "storytelling",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott establishes credibility by sharing his timeline and emphasizing experience, positioning himself as an authority who can guide others through the same journey.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "arindam",
+    "event_idx": 2,
+    "post_title": "Genuine question for y’all",
+    "post_url": "https://www.skool.com/synthesizer/genuine-question-for-yall",
+    "scott_reply": "@Argo Asper definetely! Sounds pretty cool, man. I'd love to have a chat with you, seems like you're cooking something amazing. Behavioral and identity change as well as self-improvement and the rewiring of the unconscious mind are things that have changed my life forever, this is one of my favorite",
+    "auto_tags": {
+      "stage": "ask",
+      "intent": "close-to-call",
       "tone_tags": [
         "brotherhood",
+        "curiosity",
         "motivational"
       ]
     },
-    "reasoning": "fallback — classifier error",
-    "confidence": "low",
-    "error": "Connection error.",
-    "review_flag": true
+    "reasoning": "Scott identifies alignment on a shared topic, expresses genuine interest, and directly invites a conversation via call or DM—clear buying signal with warm rapport-building.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
   },
   {
-    "pid": "name:kamil a",
-    "event_idx": 0,
-    "post_title": "Intro",
-    "post_url": "https://www.skool.com/self-improvement-nation-3104/intro",
-    "scott_reply": "Self-Improvement is truly the cure to depression (after only two weeks that I built my timetable and started meditating, reading and working out consistently I overcame a 4 years long chronic depression).I find it truly crazy how in the Western world and the US especially they just don't talk about ",
+    "pid": "juris-gallardo-4005",
+    "event_idx": 2,
+    "post_title": "Whats your wish for yourself?",
+    "post_url": "https://www.skool.com/synthesizer/whats-your-wish-for-yourself",
+    "scott_reply": "My true desire isn't really there but I'll take the $100K, it won't hurt...",
     "auto_tags": {
-      "stage": "nurture",
+      "stage": "engagement",
       "intent": "engagement-nurture",
       "tone_tags": [
-        "brotherhood",
-        "motivational"
+        "casual",
+        "humor",
+        "self-aggrandization"
       ]
     },
-    "reasoning": "fallback — classifier error",
-    "confidence": "low",
-    "error": "Connection error.",
-    "review_flag": true
+    "reasoning": "Scott deflects the deeper question with light humor and a quip about money, staying relatable while hinting at having bigger aspirations than listed—classic casual brotherhood banter that keeps conversation warm without pushing agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
   },
   {
-    "pid": "aeon",
+    "pid": "lukas-kulbis-9237",
+    "event_idx": 1,
+    "post_title": "Stuck in Analysis Paralysis?",
+    "post_url": "https://www.skool.com/synthesizer/stuck-in-analysis-paralysis",
+    "scott_reply": "It's the very principle of meditation... you focus on your anchor, lose focus, wonder into thought and bring it back gently back to the anchor without judgment. Every time you do it you shorten the time between the moment you lose focus and you become aware of it and bring it back to the anchor grow",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "storytelling",
+        "motivational",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott delivers a specific framework (meditation principle) and references philosophical sources to provide actionable insight on overcoming analysis paralysis through awareness.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "juris-gallardo-4005",
     "event_idx": 4,
-    "post_title": "What do you do to keep being social?",
-    "post_url": "https://www.skool.com/self-improvement-nation-3104/what-do-you-do-to-keep-being-social",
-    "scott_reply": "I'm not really social with people who are not into self-improvement to be honest. The beauty about Bali is that EVERYONE (or at least most people) are into self-improvement so that makes it perfect but I know this is a very rare place, that's also the reason I moved here.Back in the day, when I was ",
+    "post_title": "Alcohol, serbesa, cervesa",
+    "post_url": "https://www.skool.com/synthesizer/alcohol-serbesa-cervesa",
+    "scott_reply": "My favorite drink is the blood of my enemies.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "humor",
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott uses dark humor to deflect a casual social question while maintaining his raw, edgy persona without any sales agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "shea-hammond-3378",
+    "event_idx": 1,
+    "post_title": "finally 300 subs !",
+    "post_url": "https://www.skool.com/synthesizer/finally-300-subs",
+    "scott_reply": "If you don't know where you want to go... how do you expect to get there? Setting a goal is for a man the same as deciding on a port of destination for a ship. Simple as that.\nCongratulations, brother! Love to see how the application of sound principles pay off when action is consistent and determin",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "motivational",
+        "praise",
+        "brotherhood",
+        "authority"
+      ]
+    },
+    "reasoning": "Scott recognizes Shea's win with genuine praise, uses a philosophical metaphor to reinforce the principle, and builds brotherhood—classic acknowledgement with motivational reinforcement.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "lukas-kulbis-9237",
+    "event_idx": 3,
+    "post_title": "😼 what makes a skooler?",
+    "post_url": "https://www.skool.com/synthesizer/what-makes-a-skooler",
+    "scott_reply": "@Lukas Kulbis that's impossible. You are the entirety of existence. Everything is YOU. Everything is just ONE THING. But I get your point.",
     "auto_tags": {
       "stage": "nurture",
       "intent": "engagement-nurture",
       "tone_tags": [
-        "brotherhood",
-        "motivational"
+        "direct",
+        "authority",
+        "teasing-future-value"
       ]
     },
-    "reasoning": "fallback — classifier error",
-    "confidence": "low",
-    "error": "Connection error.",
+    "reasoning": "Scott deflects the literal question with philosophical depth, then acknowledges the person's intent—classic authority-proofing wrapped in engagement that keeps conversation alive.",
+    "confidence": "medium",
+    "error": null,
     "review_flag": true
   },
   {
-    "pid": "aeon",
+    "pid": "cat",
+    "event_idx": 3,
+    "post_title": "😼 what makes a skooler?",
+    "post_url": "https://www.skool.com/synthesizer/what-makes-a-skooler",
+    "scott_reply": "I'd say being obssesed with skool but above all being obssesed with people. Truly caring about changing their lives and connecting very deeply with them, fostering community and actually forming a TRIBE.",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "community-building",
+      "tone_tags": [
+        "authority",
+        "motivational",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott defines what makes a great community member by emphasizing deep human connection, tribe-building, and genuine care—reinforcing SIN's core values and culture.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "bensherry",
+    "event_idx": 2,
+    "post_title": "As a millionaire living my best life...",
+    "post_url": "https://www.skool.com/synthesizer/as-a-millionaire-living-my-best-life",
+    "scott_reply": "🤣😂😂",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "humor",
+        "casual"
+      ]
+    },
+    "reasoning": "Scott reacts with pure laughter emojis to a humble-brag post—light, social, no agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "lukas-kulbis-9237",
+    "event_idx": 5,
+    "post_title": "😼 what makes a skooler?",
+    "post_url": "https://www.skool.com/synthesizer/what-makes-a-skooler",
+    "scott_reply": "@Lukas Kulbis wise words. I like that...",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "praise"
+      ]
+    },
+    "reasoning": "Scott briefly recognizes Lukas's contribution with genuine appreciation, no agenda, keeping the conversation warm and inclusive.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "bensherry",
+    "event_idx": 4,
+    "post_title": "As a millionaire living my best life...",
+    "post_url": "https://www.skool.com/synthesizer/as-a-millionaire-living-my-best-life",
+    "scott_reply": "I was kind of curious what was the scam strategy behind that wave of bots that recently flooded skool with that. Anybody found out? Anybody recieved their $20K? 🤣",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "humor",
+        "direct",
+        "teasing-future-value"
+      ]
+    },
+    "reasoning": "Scott calls out obvious bot spam with sarcasm and humor, staying present in community without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "mehdimqt",
+    "event_idx": 3,
+    "post_title": "😼 what makes a skooler?",
+    "post_url": "https://www.skool.com/synthesizer/what-makes-a-skooler",
+    "scott_reply": "@Mehdi Mouqtadir can't argue with that logic.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "humor"
+      ]
+    },
+    "reasoning": "Scott briefly validates someone's point with light humor and no agenda—pure social presence in the community.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "mehdimqt",
+    "event_idx": 1,
+    "post_title": "Without a timetable you are wasting your life 💀",
+    "post_url": "https://www.skool.com/synthesizer/without-a-timetable-you-are-wasting-your-life",
+    "scott_reply": "@Jason Benson you cannot know if you are making progress or not if you are not tracking, that's why is so powerful... without a goal there's no intention and without intention there's no deliberate movement...",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "direct",
+        "motivational"
+      ]
+    },
+    "reasoning": "Scott delivers a specific actionable insight about tracking and intention as the mechanism for progress, building on his post's framework with expert certainty.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "adam-vest-7895",
+    "event_idx": 1,
+    "post_title": "What's your take on value posts?",
+    "post_url": "https://www.skool.com/synthesizer/whats-your-take-on-value-posts",
+    "scott_reply": "@Jeremiah Bergeron the kind of thinking that is conductive to getting results.\nA millionaire I met not so long ago here in Bali once told me \"The most successful people are the ones with the most accurate mental model of reality.\" and that's a very clear, obvious and undeniable truth to me.\nThe more",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "storytelling",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott delivers a framework about mental models and accuracy of perception to answer Jeremiah's question about value posts, using a personal anecdote from Bali to establish authority while providing actionable thinking.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "bensherry",
     "event_idx": 6,
-    "post_title": "Hi I'm Aeon, It's my first time here",
-    "post_url": "https://www.skool.com/self-improvement-nation-3104/hi-im-aeon-its-my-first-time-here",
-    "scott_reply": "Broooooooooooooooooooooo, such an epic intro! You're rocking it already, Aeon. Really glad to have you with us.I'm going to take it easy and not tell you all about what we are building here in one go or you might be tempted to swim all the way from the Philipines to Bali right after our conversation",
+    "post_title": "As a millionaire living my best life...",
+    "post_url": "https://www.skool.com/synthesizer/as-a-millionaire-living-my-best-life",
+    "scott_reply": "No, seriously... what was going on with that?",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "info-gathering",
+      "tone_tags": [
+        "curiosity",
+        "casual",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott is asking a genuine question to understand Ben's situation better, using casual tone without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "adam-vest-7895",
+    "event_idx": 2,
+    "post_title": "What's your take on value posts?",
+    "post_url": "https://www.skool.com/synthesizer/whats-your-take-on-value-posts",
+    "scott_reply": "@Jeremiah Bergeron but also... by seeing and understanding the kind of thinking proccesses that lead people to make bad decisions, be stuck and not obtain what they want helps you to do some damn good pattern recognition on what you definetely shouldn't do as well, so taking unsucessful people as an",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "direct",
+        "motivational"
+      ]
+    },
+    "reasoning": "Scott delivers a specific insight about learning from negative examples and pattern recognition, framed as expert wisdom without being asked.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "mirthapena",
+    "event_idx": 1,
+    "post_title": "Follow-up frequency",
+    "post_url": "https://www.skool.com/synthesizer/follow-up-frequency",
+    "scott_reply": "@T Nkosi thanks, bro. This is very useful!",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott briefly recognizes the post value with gratitude and brotherhood language, no deeper engagement or sales intent.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "nkosi",
+    "event_idx": 2,
+    "post_title": "Follow-up frequency",
+    "post_url": "https://www.skool.com/synthesizer/follow-up-frequency",
+    "scott_reply": "I believe what we don't track we don't really make progress on.\nI'm not tracking my follow ups to be honest... 😂\nDo you have a system for doing that and make it systematic?",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "info-gathering",
+      "tone_tags": [
+        "casual",
+        "curiosity",
+        "humor"
+      ]
+    },
+    "reasoning": "Scott admits he doesn't track follow-ups (vulnerability + humor), then asks a genuine question to learn about the person's system—classic info-gathering to understand their stage and needs.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "yuktakandhari",
+    "event_idx": 1,
+    "post_title": "Without a timetable you are wasting your life 💀",
+    "post_url": "https://www.skool.com/synthesizer/without-a-timetable-you-are-wasting-your-life",
+    "scott_reply": "@Yukta Kandhari thanks, Yukta, for taking the time of copying my post, pasting it on ChatGPT and producing this response for me. 😂",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "humor",
+        "teasing-future-value",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott catches someone using AI to engage with his content, responds with light sarcasm and humor rather than criticism, keeping it playful and present.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "cautiousmarlon",
+    "event_idx": 1,
+    "post_title": "Do You Struggle With Anxiety, Overthinking, or Overwhelm?",
+    "post_url": "https://www.skool.com/synthesizer/do-you-struggle-with-anxiety-overthinking-or-overwhelm",
+    "scott_reply": "Good question...\nI'd say overwhelm.\nWhat triggers it the most?\nLack of grounding in my self-improvement routine or waking up to jump on a sales' call directly... 😂\nWhat decisions or tasks make you feel stuck?\nAppointment setting...\nHow does it show up in your daily business life?\nNot enough time to ",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "vulnerability",
+        "casual"
+      ]
+    },
+    "reasoning": "Scott shares personal struggles authentically to build rapport and normalize challenges within the community, keeping conversation warm and relatable.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "blake-zocher-7897",
+    "event_idx": 1,
+    "post_title": "Without a timetable you are wasting your life 💀",
+    "post_url": "https://www.skool.com/synthesizer/without-a-timetable-you-are-wasting-your-life",
+    "scott_reply": "@Blake Zocher thanks, bro. I hope you got some value out of it.",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott briefly thanks Blake for engagement and hopes value was delivered—a low-key, present moment with no agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ebay",
+    "event_idx": 1,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Jason Benson thanks, Jason!",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "gratitude"
+      ]
+    },
+    "reasoning": "Scott briefly thanks Jason for engagement on his personal story post with minimal elaboration, a simple presence-based response.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ebay",
+    "event_idx": 3,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Vamsi Krishna 100%, Atomic Habits it's truly an amazing book, the very first one I read when I got into self-improvement.",
     "auto_tags": {
       "stage": "nurture",
       "intent": "engagement-nurture",
       "tone_tags": [
         "brotherhood",
-        "motivational"
+        "authority",
+        "praise"
       ]
     },
-    "reasoning": "fallback — classifier error",
-    "confidence": "low",
-    "error": "Connection error.",
+    "reasoning": "Scott validates Vamsi's reference to Atomic Habits with genuine agreement, shares his personal connection to the book, and builds rapport through shared foundational knowledge in self-improvement.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ebay",
+    "event_idx": 8,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Jason Benson thanks, Jason!",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "gratitude"
+      ]
+    },
+    "reasoning": "Scott gives a brief, genuine thanks for Jason sharing his story—no agenda, just being present and appreciative in the community.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ellis",
+    "event_idx": 1,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Ellis Sargent I bent but I don't break, brother, I'm made of steel.",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "brotherhood",
+        "direct",
+        "self-aggrandization"
+      ]
+    },
+    "reasoning": "Scott responds to Ellis's concern about a physical accident with raw, stoic confidence—characteristic brotherhood language ('brother'), minimal words, and subtle self-aggrandization ('made of steel') that reinforces his resilient persona.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ebay",
+    "event_idx": 6,
+    "post_title": "Without a timetable you are wasting your life 💀",
+    "post_url": "https://www.skool.com/synthesizer/without-a-timetable-you-are-wasting-your-life",
+    "scott_reply": "@Kiam Majzels that's why you should always lower the bar to success enough so you can hit it daily and start doing progressive overload from that point onwards, leaning just beyond your edge, so you get into the learning curve just at the right spot at which you'll be more likely to achive flow stat",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott delivers a specific actionable framework (lower the bar, progressive overload, flow state) that directly addresses the post's theme about timetables and systems, demonstrating expertise without being asked.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ellis",
+    "event_idx": 3,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Ellis Sargent I'll be back...",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "mystery-teasing",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott drops a cryptic 'I'll be back' that hints at something bigger coming without revealing details, creating intrigue and FOMO while staying brief and punchy.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "ebay",
+    "event_idx": 4,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Vamsi Krishna the hype was justified for once, truth be told...",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "humor",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott briefly validates Vamsi's enthusiasm with light teasing humor, keeping the interaction warm and social without pushing any agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "sanvil-nor",
+    "event_idx": 3,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Sanvil Noronha destiny won't allow it, and if it does... it was DESTINY! I will what God wills, brother. I live with no fear. It doesn't mean you need to take absurdly unnecesary risks or do insane stuff like jumping off a cliff when you know with 99.9% of accuracy that you are going to die, but it",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "motivational",
+        "brotherhood",
+        "direct"
+      ]
+    },
+    "reasoning": "Scott delivers a philosophical framework on destiny and fearlessness while addressing Sanvil's concern, using raw conviction and brotherhood language to push forward action.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "elvis-rivera-7837",
+    "event_idx": 1,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Elvis Rivera that's probably TikTok, bro, stop watching it, it shortens your attention span.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "direct",
+        "casual",
+        "humor"
+      ]
+    },
+    "reasoning": "Scott gives direct, casual advice with light humor to redirect Elvis away from TikTok, building rapport without sales agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "sanvil-nor",
+    "event_idx": 1,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Sanvil Noronha careful is a word that doesn't show up on my dictionary...",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "casual",
+        "humor",
+        "self-aggrandization"
+      ]
+    },
+    "reasoning": "Scott responds to Sanvil's caution with a playful, self-referential quip that builds rapport while subtly reinforcing his bold, fearless persona—classic brotherhood banter that keeps the conversation warm without pushing any agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "thomas-webb-7574",
+    "event_idx": 1,
+    "post_title": "Raw Tribal Accident at Canggu Bali",
+    "post_url": "https://www.skool.com/synthesizer/raw-tribal-accident-at-canggu-bali",
+    "scott_reply": "@Dr Thomas Webb I write a lot. To jump on my posts is to realize you'll be training your attention span for real while you're at it.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "direct",
+        "casual",
+        "humor"
+      ]
+    },
+    "reasoning": "Scott acknowledges Thomas's engagement with a light, self-aware joke about his writing length—no sales agenda, just being present and building rapport.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "alex-p-8658",
+    "event_idx": 1,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Alex P yeah, it is, 100%. It's a fun game. I just like bigger games. But there's nothing inherently wrong with it, or with the level of ambition someone has. I think Buddhist monks are pretty cool. Still I'm not interested on stripping away from my ego all worldly desires. I guess this is a reflect",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "direct",
+        "casual",
+        "self-aggrandization"
+      ]
+    },
+    "reasoning": "Scott validates the questioner's observation while revealing his own philosophy and ambition level, building rapport through honest self-reflection without pushing any agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "elvis-rivera-7837",
+    "event_idx": 5,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Manisha Peddinti your grandfather sounds like a great man. What was his name?",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "info-gathering",
+      "tone_tags": [
+        "curiosity",
+        "casual",
+        "bonding-rapport"
+      ]
+    },
+    "reasoning": "Scott asks a personal question about Manisha's grandfather to deepen connection and learn more about her values and background.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "elvis-rivera-7837",
+    "event_idx": 3,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Elvis Rivera yeah, you're kind of right, actually, I just changed it. Take a look to see if it's more comprehensible now?",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "direct",
+        "casual"
+      ]
+    },
+    "reasoning": "Scott briefly acknowledges Elvis's feedback, makes a small edit, and invites him to review—building rapport without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "elvis-rivera-7837",
+    "event_idx": 6,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Manisha Peddinti names are important. I know I will probably don’t find info of him online. I wasn’t asking because of that. It is important to remember the people. The names. What they did. That’s why I ask.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "info-gathering",
+      "tone_tags": [
+        "direct",
+        "authority",
+        "curiosity"
+      ]
+    },
+    "reasoning": "Scott asks a clarifying question about a name mentioned, demonstrating his philosophy on remembering people and their contributions—characteristic of his authority-building through genuine interest.",
+    "confidence": "medium",
+    "error": null,
     "review_flag": true
   },
   {
-    "pid": "name:siebe de gelas",
-    "event_idx": 19,
-    "post_title": "INTRODUCTION",
-    "post_url": "https://www.skool.com/self-improvement-nation-3104/introduction",
-    "scott_reply": "That's the way to go, brother!To make space for the higher version of yourself you must sacrifice the old one.I had long hair and right before my greatest breaktrugh to this date, when I finally lifted my coaching business off the ground I shaved my long hair that I had had for years and went full b",
+    "pid": "elvis-rivera-7837",
+    "event_idx": 8,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Vamsi Krishna I might be reading too much! 😂 I remember when I started reading consistenly my father was so glad and he used to compliment me a lot on it and one day we were talking about the books on Philosophy I was reading, how the law is truly nothing but what we humans build to keep a social c",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "storytelling",
+        "vulnerability",
+        "humor",
+        "casual"
+      ]
+    },
+    "reasoning": "Scott shares a personal anecdote about his father and reading philosophy, using humor and vulnerability to build rapport while keeping the conversation warm and relatable.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "elvis-rivera-7837",
+    "event_idx": 9,
+    "post_title": "Is entrepeneurship just another level of the rat-race? 🐀",
+    "post_url": "https://www.skool.com/synthesizer/is-entrepeneurship-just-another-level-of-the-rat-race",
+    "scott_reply": "@Vamsi Krishna I believe in putting in effort on every single thing you do. How you do one thing is how you do all things! If you get used to lazyness, even if it's about washing the dishes, making your bed in the morning, you'll get lazy at doing your job, you'll get lazy at your relationships, you",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "value-delivery",
+      "tone_tags": [
+        "motivational",
+        "authority",
+        "direct",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott delivers a specific actionable framework about discipline and consistency, using his characteristic direct style and philosophical conviction to address the underlying question about meaningful work versus rat-race mediocrity.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "manisha",
+    "event_idx": 1,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Manisha Peddinti thank you so much, Manisha, I really appreciate it. If you ever come to the South Asian East and I'm still around here don't doubt on hit me up, I'd love to connect with other digital nomads and aventurers on the road. It's really good that we have these kinds of places to connect ",
     "auto_tags": {
       "stage": "nurture",
       "intent": "engagement-nurture",
       "tone_tags": [
         "brotherhood",
-        "motivational"
+        "casual",
+        "vulnerability",
+        "empathy"
       ]
     },
-    "reasoning": "fallback — classifier error",
-    "confidence": "low",
-    "error": "Connection error.",
-    "review_flag": true
+    "reasoning": "Scott acknowledges Manisha's support warmly, extends a genuine invitation to connect, and briefly reveals the loneliness of the entrepreneurial journey—building rapport and deepening the relationship without sales pressure.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "maxwell-riseman-8024",
+    "event_idx": 1,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Maxwell Riseman thank you so much, Maxwell. I hope you are doing better now. If you want to talk or anything let me know. I'd love to share and contrast experiences about all of this, man.",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "empathy",
+        "brotherhood",
+        "vulnerability"
+      ]
+    },
+    "reasoning": "Scott acknowledges Maxwell's vulnerability with genuine care, offers personal connection, and invites deeper conversation to build trust and rapport.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "theteacherboss",
+    "event_idx": 1,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Paula Soito thanks, Paula! Happy to be here!",
+    "auto_tags": {
+      "stage": "awareness",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott briefly thanks Paula for her introduction post and welcomes her to the community with minimal elaboration—pure presence without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "maxwell-riseman-8024",
+    "event_idx": 3,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Maxwell Riseman oh, bro, I’m so sorry, crazy day of work yesterday. But you are totally right! Being spontaneous about it, jumping on calls whenever someone is online and you find them truly interesting and want to connect further it’s truly powerful. There’s quite nothing like building true raw la",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "brotherhood",
+        "empathy",
+        "vulnerability",
+        "storytelling"
+      ]
+    },
+    "reasoning": "Scott acknowledges Maxwell's point about spontaneous connection-building, shares his own struggle with the word 'community' being overused, and emphasizes authentic relationship-building—classic engagement that deepens trust without selling.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "manisha",
+    "event_idx": 3,
+    "post_title": "✍️This is not an intro post, this is my story... (it's long, so take a sit to read it)",
+    "post_url": "https://www.skool.com/synthesizer/this-is-not-an-intro-post-this-is-my-story-its-long-so-take-a-sit-to-read-it",
+    "scott_reply": "@Manisha Peddinti I'll be meeting some friends in Thailand in the winter, let me know the dates you're planning to travel there, we might get a chance to hang out.",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "casual",
+        "brotherhood",
+        "chit-chat"
+      ]
+    },
+    "reasoning": "Scott responds to Manisha's story with a casual, friendly invitation to meet up in Thailand, building personal rapport without any sales agenda or value delivery.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "montoya-espinosa-barrera-2242",
+    "event_idx": 1,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Montoya Espinosa Barrera thank you so much! I really appreciate it. That line at the end I wrote it 6 months ago as a response to a comment on one of my Youtube videos. Someone was calling me delusional about my plans and hopes for the future, my vision. And that was my response. It stuck to me and",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "engagement-nurture",
+      "tone_tags": [
+        "storytelling",
+        "vulnerability",
+        "motivational",
+        "gratitude"
+      ]
+    },
+    "reasoning": "Scott shares a personal origin story of the quoted line, showing vulnerability about past criticism and gratitude for the comment, deepening connection without selling.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "montoya-espinosa-barrera-2242",
+    "event_idx": 5,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Montoya Espinosa Barrera thank you! You're too kind!",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "gratitude"
+      ]
+    },
+    "reasoning": "Scott briefly thanks someone for a compliment with genuine but low-key appreciation, no value delivery or sales agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "clara-whitmore-1943",
+    "event_idx": 1,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Meeit Pawar thanks, bro!",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott gives a brief, warm thank-you with 'bro' — pure acknowledgement of engagement with no agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "montoya-espinosa-barrera-2242",
+    "event_idx": 3,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Montoya Espinosa Barrera thank you so much. My YT is actually linked on my skool profile, but here's the link to my channel: https://www.youtube.com/@scottnorthwolf4598",
+    "auto_tags": {
+      "stage": "engagement",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "direct",
+        "casual"
+      ]
+    },
+    "reasoning": "Scott provides a simple, helpful response to a request for his YouTube link—no sales agenda, just being present and helpful to community member.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "luiz-campos-8872",
+    "event_idx": 1,
+    "post_title": "The mind is the General🎖️, the body is the soldier 💂‍♂️",
+    "post_url": "https://www.skool.com/synthesizer/the-mind-is-the-general-the-body-is-the-soldier",
+    "scott_reply": "@Luiz Campos thanks, Luiz.",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "casual",
+        "gratitude"
+      ]
+    },
+    "reasoning": "Scott gives a brief, genuine thanks with no agenda—pure presence and recognition.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
+  },
+  {
+    "pid": "lamine",
+    "event_idx": 1,
+    "post_title": "Yesterday, I Won the Skool Games",
+    "post_url": "https://www.skool.com/synthesizer/yesterday-i-won-the-skool-games",
+    "scott_reply": "Congrats, man! That's amazing!",
+    "auto_tags": {
+      "stage": "nurture",
+      "intent": "acknowledgement",
+      "tone_tags": [
+        "praise",
+        "casual",
+        "brotherhood"
+      ]
+    },
+    "reasoning": "Scott gives genuine, brief recognition of Lamine's win with warmth and authenticity—classic acknowledgement without agenda.",
+    "confidence": "high",
+    "error": null,
+    "review_flag": false
   }
 ]
