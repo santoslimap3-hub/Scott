@@ -79,30 +79,32 @@ function parseDMs(filePath) {
     const lines = fs.readFileSync(filePath, 'utf8').trim().split('\n');
     const dms = [];
 
+    let lineIdx = 0;
     for (const line of lines) {
         let d;
-        try { d = JSON.parse(line.trim()); } catch (e) { continue; }
+        try { d = JSON.parse(line.trim()); } catch (e) { lineIdx++; continue; }
 
         const msgs = d.messages || [];
-        if (msgs.length < 2) continue;
+        if (msgs.length < 2) { lineIdx++; continue; }
 
         // Skip post/comment and new-member entries
         const firstUser = (msgs[1] || {}).content || '';
-        if (firstUser.includes('--- POST ---') || firstUser.includes('--- NEW MEMBER ---')) continue;
+        if (firstUser.includes('--- POST ---') || firstUser.includes('--- NEW MEMBER ---')) { lineIdx++; continue; }
 
         // The last assistant message is what we classify
         let lastAssistantIdx = -1;
         for (let i = msgs.length - 1; i >= 0; i--) {
             if (msgs[i].role === 'assistant') { lastAssistantIdx = i; break; }
         }
-        if (lastAssistantIdx < 0) continue;
+        if (lastAssistantIdx < 0) { lineIdx++; continue; }
 
         const lastMsg    = msgs[lastAssistantIdx];
         const scottReply = (lastMsg.content || '').trim();
-        if (!scottReply) continue;
+        if (!scottReply) { lineIdx++; continue; }
 
-        const key = scottReply.substring(0, 80).replace(/\s+/g, ' ').trim();
-        if (!key) continue;
+        // Use line index as the key — reply content is NOT unique (Scott sends
+        // identical short replies to many different people, causing collisions).
+        const key = `line_${String(lineIdx).padStart(5, '0')}`;
 
         // Full conversation text (for WhatsApp detection)
         const allText = msgs.map(m => m.content || '').join('\n');
@@ -126,6 +128,8 @@ function parseDMs(filePath) {
             reply: scottReply.substring(0, 400),
             whatsapp: isWhatsApp(allText),
         });
+
+        lineIdx++;
     }
 
     return dms;
@@ -378,6 +382,6 @@ function saveResults(results, total) {
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 main().catch(err => {
-    console.error('\nFatal error:', err.message);
+    console.error('\nFatal error:', err);
     process.exit(1);
 });
