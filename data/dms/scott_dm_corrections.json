@@ -1284,5 +1284,861 @@
       "intent": "",
       "sales_stage": ""
     }
+  },
+  {
+    "correction_id": "1__https_www_youtube_com_watch_v_xlRKXtIg",
+    "timestamp": "2026-04-21T02:32:00.309Z",
+    "lead_name": "Lead",
+    "scott_reply": "https://www.youtube.com/watch?v=xlRKXtIg080\nthere's nothing more rewarding than hard work, that's for sure!",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "is that yours?"
+      },
+      {
+        "role": "assistant",
+        "text": "yeah! 😂\nWhat's up, bro?\nI just saw your comment!"
+      },
+      {
+        "role": "user",
+        "text": "I'm just chilling on Skool bro, wbu?\nLet's gooo\nI finally had the time to reply"
+      },
+      {
+        "role": "assistant",
+        "text": "Same... just listening to some motivational music and chilling here after I finished up my last coaching call of the day."
+      },
+      {
+        "role": "user",
+        "text": "I love it man, I just got off a call with a prospect and booked a sales call out of it\nWe both be working on our goals on Sunday"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "bonding-rapport",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "bonding-rapport",
+        "hype",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "2__Ray_I_m_in_Ubud_Any_good_place_to_eat_",
+    "timestamp": "2026-04-21T02:32:33.157Z",
+    "lead_name": "Lead",
+    "scott_reply": "Ray! I’m in Ubud! Any good place to eat that’s not vegan bullshit around here?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "https://maps.app.goo.gl/NAcz883h1t983hoSA\nMorabito Art Villa, Saturday, 8.00am\nSilenced voice call. ‎Focus mode"
+      },
+      {
+        "role": "assistant",
+        "text": "Voice call. ‎1 min\nI’m going to Darwin’s now…"
+      },
+      {
+        "role": "user",
+        "text": "https://maps.app.goo.gl/TnPNtMoyYranp4pEA?g_st=aw"
+      },
+      {
+        "role": "assistant",
+        "text": "Thanks, bro!\nRich Garage? Are you sure that’s the place?"
+      },
+      {
+        "role": "user",
+        "text": "Yeah hahahah\nIts above the garage\nThey also have a very good cheap dimsum"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "",
+      "nonsales": false,
+      "tone_tags": [
+        "chit-chat",
+        "teasing-future-value"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "teasing-future-value"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "3__sticker_omitted",
+    "timestamp": "2026-04-21T02:32:46.989Z",
+    "lead_name": "Lead",
+    "scott_reply": "sticker omitted",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "ooooh ok\nperfect"
+      },
+      {
+        "role": "assistant",
+        "text": "The content creator's house won't be running next weekend. We have a mayor event coming up in which we are flying more than 30 people from all over the world, content creators and entrepreneurs here to Bali to spend 10 days at a mansion in Ubud for a mastermind and a content creation luxury experience."
+      },
+      {
+        "role": "user",
+        "text": "big ting bro\ngood one"
+      },
+      {
+        "role": "assistant",
+        "text": "Here are all the pictures from the last content creator's house: https://drive.google.com/drive/folders/15P3vckpMKlUMGGyXG8blx8JS0kTvxLSV?usp=sharing"
+      },
+      {
+        "role": "user",
+        "text": "that hair growing at the back of your head bro😂\ncant forget that\nlooks nice asl tho\ndefinitely wanna see the next one"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "6__Cool_What_are_you_doing_there_Family_o",
+    "timestamp": "2026-04-21T02:34:18.973Z",
+    "lead_name": "Lead",
+    "scott_reply": "Cool! What are you doing there? Family or business?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "insane brother the level of detail and explanation is definitely there! with that said it is still unclear what exactly do you offer when it comes to the results you get for these young men?\nalso will look at the post soon\nabout to head on a flight"
+      },
+      {
+        "role": "assistant",
+        "text": "How was the flight man? Where did you go?"
+      },
+      {
+        "role": "user",
+        "text": "Appreciate you reaching out I’m out in airzona rn"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "chit-chat",
+        "questions"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "chit-chat",
+        "questions"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "8__Ready_for_our_call_in_half_an_hour_Rob_",
+    "timestamp": "2026-04-21T02:35:09.885Z",
+    "lead_name": "Lead",
+    "scott_reply": "Ready for our call in half an hour, Rob?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "What’s up brother?! Everything good?"
+      },
+      {
+        "role": "assistant",
+        "text": "Do you know any crazy ass investors with 20 to 60 millions to invest? I got a huge thing cooking...\nI know it sounds kind of crazy but I'm 1000% serious about it, I'll hit you up with all the info if you know any potential guys..."
+      },
+      {
+        "role": "user",
+        "text": "I wish I did brother! Sounds exciting"
+      },
+      {
+        "role": "assistant",
+        "text": "Happy New Year, Rob!\nAlready scheduled it..."
+      },
+      {
+        "role": "user",
+        "text": "Looking forward to catching up brother"
+      },
+      {
+        "role": "assistant",
+        "text": "Sorry I couldn’t make it, Rob, at thar hour I’m sleeping already.\nBut I'll see you at our upcoming call."
+      },
+      {
+        "role": "user",
+        "text": "See you soon brother"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "brotherhood"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    },
+    "new_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "brotherhood",
+        "questions"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "9__Cool_They_are_doing_what_they_think_is_b",
+    "timestamp": "2026-04-21T02:36:03.005Z",
+    "lead_name": "Lead",
+    "scott_reply": "Cool\nThey are doing what they think is best for you… but most of the times parents don’t have a fucking clue of what’s actually best for their children since they don’t know what’s best for themselves or they’d have their life figured out, they’d be rich, happy, fulfilled, healthy and basically perfect or at least consistently making progress in their own lives.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "but my parents dont wanna rent me a scooter lol😂\nill have to dig in to the food budget\nyes\nstill wating for the visa\nbut if it doesnt come ill get the visa on arrival"
+      },
+      {
+        "role": "assistant",
+        "text": "Will you do visa on arrival only for 30 days? My recommendation is to get the 1 year visa with multiple entries, the D-12, is only 500$."
+      },
+      {
+        "role": "user",
+        "text": "but yeah mine is like 2.5km from you"
+      },
+      {
+        "role": "assistant",
+        "text": "This is my visa agent…\nContact card omitted"
+      },
+      {
+        "role": "user",
+        "text": "*only* 500 pounds😂"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "teasing-future-value",
+        "authority",
+        "direct",
+        "bonding-rapport",
+        "motivational"
+      ],
+      "intent": "redirect",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "teasing-future-value",
+        "authority",
+        "direct",
+        "bonding-rapport",
+        "motivational"
+      ],
+      "intent": "redirect",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "10__Thank_you_it_s_very_reassuring_to_hear_",
+    "timestamp": "2026-04-21T02:37:03.549Z",
+    "lead_name": "Lead",
+    "scott_reply": "Thank you… it’s very reassuring to hear that, brother. By the way, I’m planning to start going to the Brotherhood thing on Saturdays… you’re going, right?\nWill you come to my pool party from 2 PM to 9 PM tomorrow?\nhttps://summer.prayoga.io/event?referral=SP136828\nIf not share the link for the guest’s list with your friend, bro. Or sign up, get your own referral link and share it (even better because you make 5% commission with it like I told you).",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Appreciate it brother 🤜💥🤛\n[21/9/25, 13:38:20] Tony Palmer:"
+      },
+      {
+        "role": "assistant",
+        "text": "Voice call. ‎No answer\nI’m on my way…"
+      },
+      {
+        "role": "user",
+        "text": "Voice call. ‎2 min"
+      },
+      {
+        "role": "assistant",
+        "text": "Bro"
+      },
+      {
+        "role": "user",
+        "text": "Broo"
+      },
+      {
+        "role": "assistant",
+        "text": "When are you coming back? Are we still going to have our Let’s be real event this Sunday?"
+      },
+      {
+        "role": "user",
+        "text": "I’ll be back Saturday - let’s be real is still on"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "questions",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "questions",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "11__Definetely_I_m_going_to_lock_in_with_the",
+    "timestamp": "2026-04-21T02:37:24.389Z",
+    "lead_name": "Lead",
+    "scott_reply": "Definetely I'm going to lock in with the free community funnel and start upsales from there...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "sweet sounds good Scott, just curious what specifically are you committed to, is it building out your community? or growing it"
+      },
+      {
+        "role": "assistant",
+        "text": "I've been opening and closing my community for a while because I woudn't get sales on it. I need to get better at growing it and getting traffic for it."
+      },
+      {
+        "role": "user",
+        "text": "what were you trying to do to get sales in your community?"
+      },
+      {
+        "role": "assistant",
+        "text": "Direct traffic from my YT channel and doing outbound sales, but I wasn’t very consistent with it. I’m getting better at that and doubling down on my YT channel. I just hired a coach for YT that has more than 70K subs and has videos with millions of views. Hopefully it’ll workout."
+      },
+      {
+        "role": "user",
+        "text": "Is your community low ticket or is it free with upsells inside the community?"
+      },
+      {
+        "role": "assistant",
+        "text": "I had first a sort of low ticket for 250$ but I didn't get any sales on it. Now I'm thinking on turning it into a free community and make it part of my funnel and upsale there maybe coaching and some other upsales like exclusive IRL meetups and that kind of stuff all over the world."
+      },
+      {
+        "role": "user",
+        "text": "yeah I would focus on that, that works out for us. Free community -> low ticket workshop -> invite to higher ticket, allow them to know like and trust you"
+      },
+      {
+        "role": "assistant",
+        "text": "yeah, in the end anything can work as long as you give it enough time and stay consistent with it."
+      },
+      {
+        "role": "user",
+        "text": "what mode are you looking to specifically stay consistent with?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "12__Are_you_still_here_",
+    "timestamp": "2026-04-21T02:38:02.509Z",
+    "lead_name": "Lead",
+    "scott_reply": "Are you still here?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "suppppppppppp"
+      },
+      {
+        "role": "assistant",
+        "text": "I’ll be chilling by the pool, maybe order some delivery. Good music, good reading… until 14:00. Then back to work. You can join me. Here’s the location: ‎image omitted\nI’ll be chilling by the pool, maybe order some delivery. Good music, good reading… until 14:00. Then back to work. You can join me. Here’s the location: ‎image omitted\nhttps://maps.app.goo.gl/L2dcJjHEpUEYKNGy8?g_st=ic"
+      },
+      {
+        "role": "user",
+        "text": "nice nice. i’m at my favorite cafe doing some work. tobi wants me to be at the villa by 5 doing some opening stuff. so i’ll stay in pererenan until then ‎<This message was edited>\nif u need a break im here https://maps.app.goo.gl/SmPV6samS9nDupZ48?g_st=ic\nsticker omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "The internet is really good here and I got a big desk… if not today we can use it any other day as well. It’s a really cool spot to work with nature vibes. It feels like you are so far away from all the noise and busyness of Canggu, creativity flows here like nowhere else."
+      },
+      {
+        "role": "user",
+        "text": "sticker omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "curiosity",
+        "questions"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "curiosity",
+        "questions"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "13__Great_Stephen_is_awesome_Right_now_I_m",
+    "timestamp": "2026-04-21T02:38:43.237Z",
+    "lead_name": "Lead",
+    "scott_reply": "Great, Stephen is awesome. Right now I'm working in sales, my community is not generating anything right now. I'm also more focused on a longer term project I'm developing with it.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Hey hey! I just realized I never officially said hi 😅 I’m Gabby Roberts one of the Client Success Coaches on Jamie & Dr. Stephen’s team here in Magnetic Memberships! Just wanted to pop in and say hey! So good to meet you! What have you been working on lately? I saw you had a call with Steve on July 8th how did that go? (:"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "chit-chat"
+      ],
+      "intent": "authority-proofing",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "14__Meeting_with_Vlad_Monday_2_Feb_16_00_",
+    "timestamp": "2026-04-21T02:39:33.789Z",
+    "lead_name": "Lead",
+    "scott_reply": "Meeting with Vlad Monday, 2 Feb · 16:00 – 17:00 Canggu Pinpoint Rooms View details and RSVP https://calendar.app.google/Drp2MCxbE3X9N9RLA\nThe location is included in the description. It’s my favorite rooftop here in Canggu.\nhttps://www.youtube.com/watch?v=G6Rf774GCIc\nListen carefully to these words... they encompass my \"ideology\"... it's something you feel it in your blood and no amount of empty words or abstractions could ever describe this primal and overwhelming energy.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Scott, I have an adventurous idea and I’ll deliver it clean, without marketing illusions\nIt would genuinely excite me to make your transformation my personal project for one month\nThe full price is the same as your light program: 3333 dollars. A commitment fee of 700 upfront, and the rest only if you’re happy with the results after the month\nThis would be fully tailored personal experience, no rigid frameworks. You’d be my main focus for that month\nThis isn’t something I usually propose, the idea itself excites me. If it’s a no, nothing changes between us. I have several projects to focus on\nAlso, the nature of this work would be a mutual exploratory process. No power games, no dominance dynamics, just honest collaboration. I will push and insist when needed, but only for the results\nAnd this work would be fully private. No publicity, content, or audience. The focus would be you\nIf you are interested, we should sit and discuss it at some cafe"
+      },
+      {
+        "role": "assistant",
+        "text": "You liked the number, right?\nsticker omitted\nIt’s a very interesting proposition. I do believe it’d be a good idea to talk about it. Can’t promise anything because I’m carrying the weight of many responsibilities and my time is very limited. But I’d like to hear more, I know the value you are able to produce and I greatly appreciate it, Vlad. Let’s find a time to sit down and talk about it."
+      },
+      {
+        "role": "user",
+        "text": "Excellent, what is your availability for this new week? We need one hour midday (except friday and saturday, I will be outside Bali)"
+      },
+      {
+        "role": "assistant",
+        "text": "Visa run?\nThis next week is fully booked between meetings and sales’ calls. At the current moment I’m having to schedule 1 week in advance any new meeting. So basically I’ll be available from the 2nd of February and onwards at the moment. Monday the 2nd works for me if you are available then as well. I know a good cafe in Canggu. Let me know if 4 PM to 6 PM works for you and I’ll block that time on my calendar for our meeting before it gets taken."
+      },
+      {
+        "role": "user",
+        "text": "Excellent, monday 2nd, 4 pm it is then, I am anticipating"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "casual"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "casual"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "15__Yeah_it_does_helps_bro_Let_me_know_wh",
+    "timestamp": "2026-04-21T02:40:38.533Z",
+    "lead_name": "Lead",
+    "scott_reply": "Yeah, it does helps, bro. Let me know when will be our call then... or send my way a new calendaly link or something to set it up...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "To book a call?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yeah, bro, that would be great, thanks... send me the link."
+      },
+      {
+        "role": "user",
+        "text": "Gotcha man!\nhttps://calendly.com/pepijn-verheijen/network"
+      },
+      {
+        "role": "assistant",
+        "text": "I added the meeting to my calendar already, bro. See you next Saturday."
+      },
+      {
+        "role": "user",
+        "text": "Sweet man! I'll see you saturday!\nYoo, how you been man!"
+      },
+      {
+        "role": "assistant",
+        "text": "Hey, man! I've just been really busy..."
+      },
+      {
+        "role": "user",
+        "text": "Gotcha man!! See ya later this weekend!\nhttps://www.loom.com/share/b7af8e557f4043a19a26bf81d1e0c910?sid=14bacd89-b161-4913-90b4-6ec55a0d02ce"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "brotherhood"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    },
+    "new_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "brotherhood",
+        "gratitude"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "16__The_fairy_dust_is_within_you_it_s_not",
+    "timestamp": "2026-04-21T02:41:31.725Z",
+    "lead_name": "Lead",
+    "scott_reply": "The fairy dust is within you... it's not in her... she's is within you... every moment you shared with her is imprinted in your soul...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I have dreams of being back there\nAs tinkerbell says, \"have it all in the 5D\"\n😆"
+      },
+      {
+        "role": "assistant",
+        "text": "Miss you too, love. After I come back from Europe I'm going to the US to pay you a visit.\nThis is truly a magical place... it's hard to even put it into words...\nCatch some of that fairy dust..."
+      },
+      {
+        "role": "user",
+        "text": "I trrryyyyy\nShe's so hard to catcchhh\nGIF omitted\nSpank her so hard her glitter reaches me here"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "praise",
+        "motivational"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "praise",
+        "motivational"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "17__I_just_posted_it_and_boosted_the_fuck_ou",
+    "timestamp": "2026-04-21T02:42:06.029Z",
+    "lead_name": "Lead",
+    "scott_reply": "I just posted it and boosted the fuck out of it to get maximum reach, it's going to show up on Instagram and will be pin to the top of the fee on Nomeo: https://nomeo.io/m/4GRzo\nRead it and let me know what you think...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Appreciate the update. The hostel experiment sounds solid for your journey. I'm planning to move mid-September and looking for a private villa setup with other builders serious about leveling up. If you know of anything, I'm open. Also down to build bigger platforms together. Let's grow this tribe 💪🏻💪🏻💪🏻"
+      },
+      {
+        "role": "assistant",
+        "text": "I have learnt throughout my recent journey the importance of striking the balance between intuition and structure for optimal performance. Too much structure suffocates divergent thinking, creativity and becomes a roadblock for tapping into flow state and achieving what we call deep work consistently. Too much chaos becomes unmanageable and without structure and order we drift into the lack of direction and when we don’t have the end goal and the intentionality behind what we are doing we are like a ship drifting at sea. Set a goal, a destination port but never be afraid of going through the storm and immersing yourself into the chaos in order to bring forth the rejuvenating powers from it embodying the heroic attitude, the heroic ethos must be our anchor at all times. Principles must guide us. Without honor we are nothing. Degeneracy and meaninglessness settles in and poisons our hearts and souls, drags them to the void.\nWhen’s the end date of your current accommodations so we can sync properly?"
+      },
+      {
+        "role": "user",
+        "text": "13 Sep but I can move earlier if the right opportunity arises ‎<This message was edited>"
+      },
+      {
+        "role": "assistant",
+        "text": "I was thinking something similar with regards to the next place I’m going the 16th. I’m prepared to adapt my plan to seize the right opportunity. “Luck is when preparation meets opportunity” and I can see very clearly how we are preparing just for that. You’re coming to Canggu this weekend? Tell me when and we’ll arrange a meeting. There’s a lot to discuss…"
+      },
+      {
+        "role": "user",
+        "text": "Yes how about Sunday?"
+      },
+      {
+        "role": "assistant",
+        "text": "I’m going to throw an event on Saturday, 12 PM at my villa, to attract all the wolves and pitch them the idea, our course of action.\nI was going to send you over more info but I realized it’s better if we speak about it in person. Before the weekend you have time?"
+      },
+      {
+        "role": "user",
+        "text": "Ok I'm in\nSure let's talk"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "hype",
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "hype",
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "18__No_problem_",
+    "timestamp": "2026-04-21T02:42:45.813Z",
+    "lead_name": "Lead",
+    "scott_reply": "No problem.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "You are perceptive, enthusiasm is magic. And her enthusiasm is also resilient, which is even rarer magic. Requires appreciation and recognition to be maintained tho, as it should be. We are humans\n1. I met her in small group at lunch, as light social interaction lasting half an hour, discussing surface level spirituality. During the same day afterwards, I processed the encounter, and recognised the rarity of her light. Naturally I kidnapped her into my evening, subjecting her to my sorcery, mentorship and hypnosis\nShe just kept asking what to do and did it right away. Even my long paying clients are fighting themselves, Lea on the other hand fights along herself and consistently progresses\nThe very next day I was extremely busy, so she got heartbroken with my sudden absence (irregular rewarding is highly addictive, which is why casinos are so irresistible for weak people). What did Lea do with it? Instead of being dramatic, annoying or withdrawing, she utilized my psychological tools from the day before, to find out why is she heartbroken by herself, to harmonize her nervous system and be happy. She self-regulated and then send me a voice message thanking me for the tools and wishing me an exciting evening\nSo we get on the same page here, that time I hypnotized a woman called Lea, she learned one of my unique techniques from inside the dreamy state and used it on herself the very next day, so not to annoy me\nThat signals that 1) she is respectful towards my time and attention 2) she is capable of self-regulation when her emotions are chaotic 3) she quickly learns from doing things, even if she never encountered them before 4) she is self-growth oriented 5) she is easy to get along with and is forgiving\n2. Our relationship has two contexts. First one is my heart being taken, I already have a woman of two years. Second one is me having experienced electric romance with my apprentices before, and it always closed the doors due to biology. I tried many times, and being lovers overshadows everything. So eventually you become lovers that didnt work out, and any growth and any light becomes just a story around the old romance. Outdated, despite the value\nMe and Lea have master to apprentice relationship. She has huge potential in what excites me most: nervous system hacks, dreams, hypnosis, energy work, transformation. But this is my light, and she has to find her own. This includes mastering many sides of herself, which she will do quickest working with you, while bringing value in return\nIdeally I would  train her and employ her later in several years, to be one of my nervous system sorcerers, for her to do scientific and esoteric practices on myself and on my clients. But if she will find her own different light, I will be more than satisfied\nQuick notes:\n1. Lea is still growing, everything excites her. Would you kindly reset her priorities when needed, in loving and respectful form? Just tell her what to focus on, and how to do it, she will follow\n2. She has enormous feminine energy, soft, caring and sunlit. Feminine energy needs praise to bloom. Few sentences will ignite her enthusiasm. Simple as: \"Lea, I have noticed you did well today, your effort is appreciated. You are bright, you are the best, keep going\" or whichever is your style. You can see it as her soul salary, she deserves it already\n3. Lea is on a too humble side right now, her nervous system is growing. She will ask for little. Would you kindly be fair to her money-wise? You will know what is her worth. It is time for universe to reward her light (I am talking to your higher self, above the game) It would be even more lovely, if it would be percentage based (if it is sales) so she is rewarded for tenacity and creativity. She needs to learn this lesson\n4. Lea is highly conscious and easy to deal with if you are clear, respectful and loving. If you have any issue, just talk to her directly and navigate it together\nBut in the end this is your business, your empire, and it will be a valuable lesson for all of us, one way or another\nLet me know if any other question rises"
+      },
+      {
+        "role": "assistant",
+        "text": "I love the depth and effort placed into this message, Vlad. Appreciate the honesty and the valuable advice, I agree with it and you have actually reassured me on the amazing potential that lies with Lea and I believe this will be a wonderful experience for growth for all of us, and rest assured that I'll take care of her properly, not only being extremely generous monetarily but also caring and loving with the way I shall approach her training and show appreciation in order to allow her feminine energy to keep growing through this experience instead of quenching it with harsh remarks and emotionally uncalibrated feedback. I appreciate your invaluable help.\nWords cannot express the gratitude I'm experiencing. This beautiful synchronicity is nothing short of PURE MAGIC. Thank you, brother. Lea is hired. We got our onboarding call on Monday, she is officially the new Community Manager of Self-Improvement Nation."
+      },
+      {
+        "role": "user",
+        "text": "Amazing development, the stars are aligning into a powerful story\nI’m still in Bali, looks like the universe wants me here a bit longer\nLet’s hang out, what is your availability this Thursday or Friday?"
+      },
+      {
+        "role": "assistant",
+        "text": "You've been scheduled into my calendar for Friday 1 PM for lunch, here's the link with the address: https://calendar.app.google/XSPLBDJcf4EWGCzd8"
+      },
+      {
+        "role": "user",
+        "text": "Excellent, witness your presence there\nAnd of course I came to Tiflis, 15 minutes in advance\nMy apologies, heading to Victory eatery"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "empathy"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "empathy"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "21__I_still_got_a_long_way_to_go_I_m_not_ev",
+    "timestamp": "2026-04-21T02:44:05.893Z",
+    "lead_name": "Lead",
+    "scott_reply": "I still got a long way to go, I’m not even close to my real potential, but that’s the beauty… having room to grow and to improve, keep leveling up. I’m hungry for glory, my friend. This is just the beginning. We were born to live truly epic adventures.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "how are you cooking them?"
+      },
+      {
+        "role": "assistant",
+        "text": "Like I said, I’m cooking them with tallow. But the pan is teflon which is still not optimal but there’s nothing else here and buying a new pan and carrying it around while traveling it’s quite a hassle. I’m having trouble carrying all my stuff as it is each time I’m moving every month. But hopefully I’ll start looking to get settled for a while in one place. Probably in Bali. The tallow was stored on plastic which is not optimal either. But it’s over already I got to buy more tomorrow. Hopefully I’ll find it on a properly stored.\nThere’s nothing quite like discipline and consistency. Stay on course, brother. ‎image omitted\nWhat are you doing to grow and make progress daily? Are you following your timetable? Do you have a goal right now and are you making consistent progress towards it with daily action? What’s your actionable plan to overcome progressively your fears and limiting beliefs? When are you coming to Bali with me, brother? I’m arriving there in a week now and my guy from Spain is coming over to stay there as well and grind at making money online and self-improvement! I’ll make of him a fucking beast! Come on, you’ve got to come an join us!!! This is gonna be wild!!!"
+      },
+      {
+        "role": "user",
+        "text": "you're a machine\nI'm mainly reading and listening to podcasts, training and the basic stuff\nalso approaching and talking to girls sometimes"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "motivational",
+        "brotherhood",
+        "bonding-rapport",
+        "casual",
+        "self-aggrandization"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "motivational",
+        "brotherhood",
+        "bonding-rapport",
+        "casual",
+        "self-aggrandization"
+      ],
+      "intent": "authority-proofing",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "23__That_s_a_fixed_mindset_brother_Sad_to_",
+    "timestamp": "2026-04-21T02:46:39.054Z",
+    "lead_name": "Lead",
+    "scott_reply": "That’s a fixed mindset, brother. Sad to see that. That’s not what I taught you. We see the world not as it is but as we are. Never turn into a cynic, viewing the world with such skepticism means that you do not believe in yourself and there’s no sadder thing that rejecting yourself before the world even gets to experience you.\nWhat place? Tribal? Not exactly. I just go for lunch with the people from my network or jump on a call with new potential clients I get online from Adonis’ Library, 50 / 50 between online and IRL.\nDon’t fall either for the trap that some self-improvement gurus promote without any real understanding of how human consciousness works. The idea that by acquiring knowledge on an specific field without doing anything about it (this course is action oriented by the way, it’s like manual, a set if instructions, but never mind that, I’m talking about the broader concept and not about this specific piece of information) is a form of procrastination is complete insanity and a very clear sign that they do not understand how the structure of reality itself works. This is how it works: Ideas spark emotions (emotion means energy in motion), emotions fuel our actions.\nBy acquiring knowledge you build a new paradigm, we must see the world in a different way before we can act upon it in a different way. Seeing, being, doing. You first see, then become and then do.\nWe cannot do that which is unaligned with what we perceive ourselves to be, and we cannot perceive ourselves to be something without seeing the ideas, values and principles that guide us, even if some people in their unconsciousness and lack of awareness allow other people to project onto them this identity instead of building it consciously by themselves.\nEnthusiasm is a powerful kind of magic.\nI hope this opens your eyes, brother, you know better than this, don’t forget what you already know… you know this! WAKE UP!!! That’s the Matrix taking over your mind!!! Don’t allow it!!!\nEverything flows from the fucking mind! You want to move your arm? Guess how you’re doing it. How do you expect to gain motivation towards something if you don’t consume information about it that inspires you and stir your emotions, emotions are the ones that will fuel your actions.\nAnd there’s something else really important I want you to understand:\nDon’t sit there and wait for your purpose or passion to find you. It won’t come magically to you out of nowhere. That’s not how it works. You got to choose to love something, because loving is an action, it’s not a magical emotion that shows up out of nowhere. As a man you must understand that you are the catalyst in the world, this world doesn’t happen TO you, YOU happen to this world. Just like as a woman the world doesn’t happen TO you, instead the world happens FOR you. Understanding this will show you how can women be passive and get the feeling of love (produced by a man) while the man decides to love, feels this boundless lust over a women and becomes the catalyst of this love. But a man’s love dedicated to anything (a woman, a trait, an idea, an object, a skill, a country, a land…) becomes a catalyst for his relentless actions, and you can produce this love… guess how… by making a conscious decision to commit to it, to learn and understand that thing.\nThis is real!\nBe a man!\nDon’t wait like a woman for the world to MAKE you feel something. That’s the very basis of feminine energy and by doing that you are growing your feminine instead of becoming more of what you are, which is a MAN.\nDon’t allow this world to happen to you or even for you…\nYOU ARE THE ONE HAPPENING TO THIS WORLD.\nBE PROACTIVE.\nNot reactive.\nDelusion backed up just by words it’s just delusion but delusion backed up by relentless action… that’s called FAITH, brother. Remember: Duty, Honor and Pride.\n.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "yeah it definitely sounds like a book you really liked\nhow many clients have you got so far bro"
+      },
+      {
+        "role": "assistant",
+        "text": "I have only pitched to two people so far. If I had 1 client that would be 50% closing rates. If I had those numbers I’d be a millionaire by now. But I’ll get there soon enough… I got now all the tools I need…\nhttps://youtu.be/iqlkxhJAIX4?si=fiVa96R39yr0M6OU\nIf you want to join me at the top of the mountain here’s the path… but it takes motivation and commitment.\nThis upcoming week I’ll close my first client. A lot of the calls I booked were no-shows, that’s why I only got 2 pitches right now and one of them was unqualified as fuck, no money to actually pay for my program and the other one told me he wasn’t looking for coaching but if I were to open a high ticket community he’d buy on the spot. So is good that I have him on my network, also he’s a very skilled Educational Content Creator and a good reliable friend. I’m very close. I just got to stay on course and 100% focused on one thing and one thing only, no distractions, just discipline and pure focus, like a laser, tunnel vision.\nTalk to you soon, brother."
+      },
+      {
+        "role": "user",
+        "text": "so you didn't go to that place you went last time and pitched your service to the people around?\nyes!!! finally another course where I can procrastinate for hours while watching it thinking to be productive"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "authority",
+        "teasing-future-value",
+        "hype",
+        "bonding-rapport",
+        "tough-love",
+        "brotherhood",
+        "supportive-helpful",
+        "direct",
+        "motivational"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "authority",
+        "teasing-future-value",
+        "hype",
+        "bonding-rapport",
+        "tough-love",
+        "brotherhood",
+        "supportive-helpful",
+        "direct",
+        "motivational"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture"
+    }
   }
 ]
