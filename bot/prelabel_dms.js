@@ -19,7 +19,7 @@
  * for tone/intent/sales_stage, but dm_stage is forced to null (nonsales=true).
  */
 
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const fs   = require('fs');
 const path = require('path');
 const { OpenAI } = require('openai');
