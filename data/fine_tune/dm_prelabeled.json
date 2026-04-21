@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-04-21T05:15:25.247Z",
+  "generated_at": "2026-04-21T05:15:31.834Z",
   "model": "gpt-5.4",
   "total_dms": 4810,
-  "labeled": 2655,
+  "labeled": 2680,
   "labels": {
     "25": {
       "nonsales": true,
@@ -33127,6 +33127,340 @@
       ],
       "intent": "info-gathering",
       "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "what was it?": {
+      "nonsales": false,
+      "dm_stage": "gather-intel",
+      "tone_tags": [
+        "curiosity",
+        "casual",
+        "brotherhood",
+        "direct"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "I'm thinking about using this as my wallpaper from now on... I wasn't kidding, I": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "humor",
+        "bonding-rapport",
+        "casual"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "give me a sec, I'm on a call, I'll get back to you done Can I give you a quick c": {
+      "nonsales": false,
+      "dm_stage": "offer-call",
+      "tone_tags": [
+        "casual",
+        "direct"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "I can't make soulless shit.": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "direct",
+        "casual",
+        "humor"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "auto_whatsapp": true,
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Something like: Hey, Digital Nomads, are you tired of spending 10 hours per day": {
+      "nonsales": false,
+      "dm_stage": "value-delivery",
+      "tone_tags": [
+        "authority",
+        "direct",
+        "motivational",
+        "teasing-future-value"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "I'm getting better at writting copy.. Perfect! Let's go with that.": {
+      "nonsales": false,
+      "dm_stage": "connect",
+      "tone_tags": [
+        "casual",
+        "acknowledgement",
+        "praise"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "On the group chats, at the networking events IRL, on my free lead magnet to the": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "curiosity"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "bro Ad-tivity’s payment came my way. ‎image omitted": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "chit-chat",
+        "bonding-rapport"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "audio omitted Yeah, he is, because he is into flow state. So it’s not hard… it’s": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "bonding-rapport",
+        "chit-chat"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Thank you, brother, for relentlessly applying… that’s the way to go!!! You are u": {
+      "nonsales": false,
+      "dm_stage": "connect",
+      "tone_tags": [
+        "praise",
+        "brotherhood",
+        "motivational",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Disappointing… 📆 *TOMORROW* 📆 *The Hero's Journey: The Call To Adventure* 📆 S": {
+      "nonsales": false,
+      "dm_stage": "nurture-free",
+      "tone_tags": [
+        "direct",
+        "brotherhood",
+        "casual",
+        "teasing-future-value"
+      ],
+      "intent": "funneling",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "WHAT? That's true progress, brother! How?": {
+      "nonsales": false,
+      "dm_stage": "connect",
+      "tone_tags": [
+        "brotherhood",
+        "praise",
+        "curiosity",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Give me until Thursday to figure out all the finances and we’ll set a deadline t": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "chit-chat",
+        "brotherhood"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "epic!": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "praise",
+        "bonding-rapport"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "how are you feeling without a timetable?": {
+      "nonsales": false,
+      "dm_stage": "gather-intel",
+      "tone_tags": [
+        "curiosity",
+        "casual",
+        "direct"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "You do what you believe to be the best for you, brother. I can only offer you th": {
+      "nonsales": false,
+      "dm_stage": "nurture-free",
+      "tone_tags": [
+        "brotherhood",
+        "empathy",
+        "direct",
+        "casual"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "We just rented a villa for a birthday party / go away party for some friends of": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "chit-chat",
+        "casual",
+        "bonding-rapport"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Are you up, bro?": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "chit-chat",
+        "brotherhood"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Volevo solo fare un po' di pratica in italiano con te, ma è già un po' tardi e h": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "casual",
+        "chit-chat",
+        "bonding-rapport"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "I said I’d pay you back, no matter what. I’m going back into coaching. Full blow": {
+      "nonsales": false,
+      "dm_stage": "share-authority",
+      "tone_tags": [
+        "brotherhood",
+        "direct",
+        "casual"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Holy shit. How much did you make in the end from this job in total? I do get it.": {
+      "nonsales": false,
+      "dm_stage": "gather-intel",
+      "tone_tags": [
+        "empathy",
+        "curiosity",
+        "casual",
+        "direct"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "We need more people like him in the world, sharing truth and doing such huge ser": {
+      "nonsales": false,
+      "dm_stage": "connect",
+      "tone_tags": [
+        "praise",
+        "bonding-rapport",
+        "casual",
+        "gratitude"
+      ],
+      "intent": "community-building",
+      "sales_stage": "engagement",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Don't forget to let me know if we'll do our call tomorrow at 5 PM Bali time.": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "direct",
+        "casual"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "auto_whatsapp": true,
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "No worries. We’ll find an hour. Let’s see if I can fit it into my calendar. Next": {
+      "nonsales": false,
+      "dm_stage": "offer-call",
+      "tone_tags": [
+        "casual",
+        "direct",
+        "bonding-rapport"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "ai_suggested": true,
+      "lead_name": "Lead"
+    },
+    "Bro, send me over the course you make for online tutoring, I got a friend. I rea": {
+      "nonsales": true,
+      "dm_stage": null,
+      "tone_tags": [
+        "brotherhood",
+        "casual",
+        "direct"
+      ],
+      "intent": "redirect",
+      "sales_stage": "nurture",
       "ai_suggested": true,
       "lead_name": "Lead"
     }
