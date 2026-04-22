@@ -99,7 +99,7 @@ data["streams"].each do |stream_id, stream|
     response = group
       .map { |e| e["text"].to_s.strip.gsub(NOT_NAME_PATTERN, "").gsub(/\A[,\s]+/, "") }
       .join("⟨BUBBLE⟩")
-    system_prompt = "#{SYSTEM_PROMPT} "
+    system_prompt = "#{SYSTEM_PROMPT}"
     user_prompt = "--- PERSON --- \nName: #{person_name}\nGender: #{person["gender"]}\nRole: #{person["role"]}"
     user_prompt += "\n------history------\n"
     user_prompt += prior_events[0...-1].map { |e| format_event(e, person_name) }.join("\n")
