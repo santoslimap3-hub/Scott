@@ -2786,5 +2786,1470 @@
       "intent": "funneling",
       "sales_stage": "engagement"
     }
+  },
+  {
+    "correction_id": "12__Wow_you_got_a_lot_of_subs_and_views_An",
+    "timestamp": "2026-04-22T08:48:41.311Z",
+    "lead_name": "Lead",
+    "scott_reply": "Wow, you got a lot of subs and views.\nAnd on a faceless channel... that's pretty good.\nAre you making money with it right now?\nDo you have any high ticket offer? I imagine you do have at least a low ticket one...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "i mean the koures community are you also running a YT channel?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yeap, there's a link to it on my profile.\nI've been uploading consistently for the last 4 months. So far I got 132 subs.\nWhat about you?"
+      },
+      {
+        "role": "user",
+        "text": "And about my view and engagement everting is going well\nIf you dont mind can you send you yt channel?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "curiosity",
+        "praise",
+        "questions"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "curiosity",
+        "praise",
+        "questions",
+        "casual"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "13__bro_Ad_tivity_s_payment_came_my_way_im",
+    "timestamp": "2026-04-22T08:49:14.240Z",
+    "lead_name": "Lead",
+    "scott_reply": "bro\nAd-tivity’s payment came my way. ‎image omitted",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "where are affirmations?\nand visualization?"
+      },
+      {
+        "role": "assistant",
+        "text": "not yet, this is level one."
+      },
+      {
+        "role": "user",
+        "text": "I think they should be on level one"
+      },
+      {
+        "role": "assistant",
+        "text": "That comes in level 2 with deep journaling and goal setting.\noverwhelming, not yet. they need to get acostumed to their timetable"
+      },
+      {
+        "role": "user",
+        "text": "bro it only takes them 1 minute to read them\nI believe it will speed up their process, especially if they're well tailored"
+      },
+      {
+        "role": "assistant",
+        "text": "I'm counting on affirmations to carry them on on a second wind, basically to boost motivation after the motivation of the first week with the timetable wears off. If I spend the 4 days boost on motivation that the affirmations gives to them at the same time they are hyped up with the timetable and the new habits then I'm wasting a source of motivation to consolidate their habits through repetition."
+      },
+      {
+        "role": "user",
+        "text": "ok"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "14__sticker_omitted",
+    "timestamp": "2026-04-22T08:50:06.488Z",
+    "lead_name": "Lead",
+    "scott_reply": "sticker omitted",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "image omitted\nthis shits insane to me"
+      },
+      {
+        "role": "assistant",
+        "text": "Bro, there’s no competition for me. Lol 😂 you should have seen the face of this Russian guy that came to try to rizz the Brazilian model and found me there… bro literally told me I should go to Moscow, with my charisma (his words, not mine, but I think the same multiplied by 100000000) they’ll be throwing themselves at me. He said “Bro, I was interested on the girl but after seeing how she’s looking at you I retire from this competition.” A gentleman, no doubt, I take my hat off for such a distinguished way of exiting a losing match."
+      },
+      {
+        "role": "user",
+        "text": "hahahahahahahah\nwe will see brotha\nwill definitelly need to learn form you with this charisma part"
+      },
+      {
+        "role": "assistant",
+        "text": "Well, I must accept she’s truly beautiful. But that’s just not my thing. Call me a romantic if you will, but Western women, pure blood European girls… they are the pinnacle of beauty and perfection. The only thing better in this world than them… is the experience of drinking the blood of your enemies from their skulls while you hear the cries of sorrow of their widows and the smell of burning ashes while their cities aré consumed by the flames. ‎<This message was edited>"
+      },
+      {
+        "role": "user",
+        "text": "getchu bro\nyou like them white tings\nyes"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "15__Ready_for_our_call_in_19_minutes_",
+    "timestamp": "2026-04-22T08:50:42.912Z",
+    "lead_name": "Lead",
+    "scott_reply": "Ready for our call in 19 minutes?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Thank you. 😀"
+      },
+      {
+        "role": "assistant",
+        "text": "https://calendar.app.google/o1CWKxQNFFqdmWxy8\nthere you go...\nit should have landed on your email as well just in case.\nIt's gonna be epic!\nI'm looking forward to it..."
+      },
+      {
+        "role": "user",
+        "text": "Looking forward to it too. Especially because this the 2nd day in a row I have been told the answer is 42..."
+      },
+      {
+        "role": "assistant",
+        "text": "There are no coincidences in this world, Kerry, only synchronicities... the key is to be aware of them. Thank you so much for your invaluable presence. Tomorrow we'll meet."
+      },
+      {
+        "role": "user",
+        "text": "Looking forward to it Scott. ☺️"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "questions"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "questions"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "16__Bro_you_there_Read_this_I_just_had_th",
+    "timestamp": "2026-04-22T08:51:59.247Z",
+    "lead_name": "Lead",
+    "scott_reply": "Bro, you there?\nRead this…\nI just had this genius idea. I actually told Andrea to implement it but he was too fearful and untrained on social skills to even try. But I could pull it off myself! I could go to the local High Schools around here, talk to teachers and as long as they can speak good English I could hire them to do online tutoring! Working full-time as online tutors they could be generating easily 1 to 2K per month. Dollars! Let me do the math real quick…\nAlright, let’s say we charge students 24$ per hour. Which it’s fair for professional teachers, international experts! That’s how I’ll market them! Andrea and I will get 40% for ourselves. 15% to him, 15% to me and 10% for the company’s fund, to have cashflow and be able to reinvest. 60% for the teacher.\nT x % : 100 = t\n24$ x 60% : 100 = t\n14,4$ = t\nThe teachers would be making 14,4$ per hour. That’s 60 RM per hour. That’s a lot for them (I hope, I believe, and on top of that online! With their own hours, they decide, well, kind of, I’ll be a flexible and cool boss).\nAlright. Let’s say these teachers in the beginning are afraid of leaving their normal jobs and going full-blown online mode. And they decided to do 3 hours daily. Which is feasible even with a 9 to 5.\n3 hours 5 days per week. That’s 210$ per week. In 4 weeks that make up a month that’s… 840$ in a month! Just working 3 fucking hours daily and only 5 days per week!!! Now imagine if they were to actually work 9 hours per day, 5 days per week!!! $2.5K per month!!! That’s millionaire status here in Malaysia! They could have a butler at home even!!! How much is that in RM!? 10K RM!!! Fucking huge!!! They could travel through the South Asian East and even to the Caribbean and South American for the holidays with that kind of money!!! And they would be making that money online!!!\nHow much do Andrea and I make from one teacher by the way?\nAlright! Let’s do the full math!!!\nWorking only 3 hours per day, at 24$ per hour, 5 days per week… that’s 1440$ per month.\n40% of that would be?\n576$ per month.\n15%?\n216$ per month for Andrea and the same for me.\n144$ monthly for the fund.\nNow multiply that by 3 if that teacher goes full-time with us?\n648$ per month for Andrea and the same for me.\nAnd that’s with only one teacher!!! Fuck!!! I’ll hire 10!!!\nImagine just getting 3… one for Math, one for Physics and one for English or programming or something like that. Full-time all of them!!!\n$1.9K per month without having to lift a finger after the whole system it’s set up. Fuck!!! That’s pretty good. If I hire 10 I hit $6K per month!!! I got to do this shit…",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Missed video call. ‎Tap to call back\nThis message was deleted.\nbro???\nare you there?\nI don't have much time"
+      },
+      {
+        "role": "assistant",
+        "text": "Video call. ‎18 min"
+      },
+      {
+        "role": "user",
+        "text": "bro I'm going to sleep right now"
+      },
+      {
+        "role": "assistant",
+        "text": "What do you mean? Is it that you are going to sleep really late? Remember that for me shows the hours of my timezone…\nI’ll assume it means we won’t have our call today but anyways I’ll try to reach out to you later, bro."
+      },
+      {
+        "role": "user",
+        "text": "no I'm awake don't worry"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "motivational",
+        "hype",
+        "direct",
+        "teasing-future-value",
+        "mystery-teasing"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "motivational",
+        "hype",
+        "direct",
+        "teasing-future-value",
+        "mystery-teasing"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "17__I_don_t_think_I_like_the_idea_of_hiring_",
+    "timestamp": "2026-04-22T08:53:02.847Z",
+    "lead_name": "Lead",
+    "scott_reply": "I don’t think I like the idea of hiring women.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "posts published."
+      },
+      {
+        "role": "assistant",
+        "text": "Thank you, brother, that’s my mission in life.\nAwesome! Our interview is in 2 hours and 43 minutes from the moment I sent this message, right?"
+      },
+      {
+        "role": "user",
+        "text": "right"
+      },
+      {
+        "role": "assistant",
+        "text": "Perfect! I’ll see you in precisely 1 hour and 4 minutes, then…"
+      },
+      {
+        "role": "user",
+        "text": "image omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "That could work. We could get him students from Spain. Where is he from?"
+      },
+      {
+        "role": "user",
+        "text": "image omitted\nThis message was deleted.\nMessenger_creation_E13EB3B5-2AD5-46A3-9046-72902F26C1DA.jpeg ‎document omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "teasing-future-value",
+        "direct"
+      ],
+      "intent": "redirect",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "teasing-future-value",
+        "direct"
+      ],
+      "intent": "redirect",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "18__Are_you_working_at_something_at_the_mome",
+    "timestamp": "2026-04-22T08:53:43.848Z",
+    "lead_name": "Lead",
+    "scott_reply": "Are you working at something at the moment? Like a 9 to 5 or something like that or are you at your parents house?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I had my community for a few months but I only added coaching around a month ago\nSo far I've had no sales and no clients"
+      },
+      {
+        "role": "assistant",
+        "text": "What are you doing to get traffic?"
+      },
+      {
+        "role": "user",
+        "text": "Youtube"
+      },
+      {
+        "role": "assistant",
+        "text": "How many people on average see your videos? Are you posting daily or weekly? What's the frequency?"
+      },
+      {
+        "role": "user",
+        "text": "Daily uploads I got around 100 subs so around 20-30 people per vid"
+      },
+      {
+        "role": "assistant",
+        "text": "And retention?\nwhat percentage sees the whole video?"
+      },
+      {
+        "role": "user",
+        "text": "I don't really spend much time looking at the analytics, but it's pretty low"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "curiosity",
+        "questions",
+        "direct"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "curiosity",
+        "questions",
+        "direct"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "19__I_m_not_quite_sure_brother_check_my_ca",
+    "timestamp": "2026-04-22T08:54:37.568Z",
+    "lead_name": "Lead",
+    "scott_reply": "I'm not quite sure, brother, check my calendar:  ====calendly_link=====",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "a lot of progress actually, but not in business\nI'm not going to either anymore\nI confessed to my parents my plan to leave Belgium and go to any of these places with no plan or remote income because I hate Belgium and they finally took it seriously and they allowed me to quit university and search for other options with their support\nfor now I'm going back to Portugal, maybe gonna do a 2 months ai coding bootcamp ‎<This message was edited>\nthat's the fastest \"traditional\" route twords remote income with my skill set\nI'll tell you more in the call but right now I'm torn between that or the Loa way of making money. Nothing seems guaranteed, it bogs my brain"
+      },
+      {
+        "role": "assistant",
+        "text": "the secret nobody knows is that in reality, if you put the work and do not quit no matter what... EVERYTHING IS GUARANTEED TO WORK. Trust me... I had to learn that the hard way. Don't make the same mistake, pick one thing and stick to it. Be willing to spend however long it takes..."
+      },
+      {
+        "role": "user",
+        "text": "valid bro\nare you free this saturday?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "authority"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "authority"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "20__Around_1K_per_month_some_of_the_cheapes",
+    "timestamp": "2026-04-22T08:55:36.680Z",
+    "lead_name": "Lead",
+    "scott_reply": "Around €1K per month some of the cheapest private villas (1 room). €3K and above the good ones (3 to 8 bedrooms). Guesthouses still with private room around €300 to below €1K. Bike rental and gas is pretty cheap, there are even some bikes you can rent for 50€ or so per month if you’re good with anything. I’d say lowest tier for living cost can be €1.2K per month overall. If you want to be comfortable €3K to €5K per month is the sweet spot and you’ll get to save some money even… God tier is obviously €10K and above.\nD-12 (Digital Nomad’s visa) for 1 year is $500 and for 2 years is 750$ or so. Here’s the contact of my visa agent. It takes around 2 weeks to process and it’s really easy:\nContact card omitted\nFor cheap bike rentals this is the guy:\nContact card omitted\nAnd the best areas are Canggu (for the perfect crossroad between Self-Improvement, Spirituality and Online Business), Mengwi is near Canggu but quieter and better for locking in near the beach and around nature and Sesseh the same. Uluwatu is cool for the beaches but it’s a touristy area, Ubud is toooooo spiritual to the point that people are entirely disconnected from reality, it’s worth visiting it but there’s a weird spiritual ego and density going on around the area and a lot of dumb vegetarianism going on as well there.\nThat’s the full Bali Guide right there. More info when you land (like best and coolest co-working places, coolest weekly and monthly events self-improvement aligned and not degenerate parties and stuff, but if you’re into that… well, you can ask someone else, I’m definitely not the guy for that but I hear there’s quite a party culture here in Bali and specifically in Canggu but it’s like a different dimension to me, haven’t come across it in the last 8 months I’ve been here).",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Full day\nIll start telling it 2morow (:\nThis message was deleted.\naudio omitted\naudio omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "Bro, I have always been fascinated by my family and my father and I have always been digging about family history because we have a lot of records, old letters, documents and all the good stuff so we had a lot of material to go through on many of my family's branches. Even on my mother's part we have some information (not as much, but still some good stuff).\nMy great grand father, my mother's grandfather was a German who went to the Caribbean after the war with his wife (she was from Norway, so I have Norwegian blood from my mother's side and from my father at the same time). He literally NEVER spoke about the war or anything like that. He bought a big chunk of land and built a villa and set up a business selling and repairing Harley Davidsons, you know, cool motorcycles. After his death his sons and daughters dug out a metal box he had burry beneath a big tree in the villa. On the box they found a uniform of the SS, a luger and a Hitlerian Youth's knife. He was a captain of the SS. Funny enough his daughter, my grandmother married a Russian soldier trained at the KGB that went on to become a General during the cold war times and fought in Afghanistan during the Soviet occupation and on many black ops in Africa.\nThat's a truly FUCKING long story. Have you heard about Sæmingr?\nMost Hålogaland Jarls descend from him. Like I said that's a very long story but I do love to talk about it, let me know when you're up for it..."
+      },
+      {
+        "role": "user",
+        "text": "Interesting. Not too read up on this no, Sæmingr.\nCool\nFor sure. We should do that irl seaside 😎\nSay what do you pay for housing over there?\nStarting to plot my moves from june.\nStarting to explore possibilities (;"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "authority",
+        "direct",
+        "supportive-helpful",
+        "hype",
+        "teasing-future-value"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "authority",
+        "direct",
+        "supportive-helpful",
+        "hype",
+        "teasing-future-value"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "21__I_m_parking_",
+    "timestamp": "2026-04-22T08:56:10.672Z",
+    "lead_name": "Lead",
+    "scott_reply": "I’m parking…",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I booked the conference room from 11am to 1pm on Wednesday"
+      },
+      {
+        "role": "assistant",
+        "text": "Epic!"
+      },
+      {
+        "role": "user",
+        "text": "Good morning Scott!\nMeeting confirmed for this morning?"
+      },
+      {
+        "role": "assistant",
+        "text": "My word is my bond. I never fall back on it, brother. Honor is my core principle.\nI’ll see you soon. I’m getting ready for the trip as we speak."
+      },
+      {
+        "role": "user",
+        "text": "💪🏻💯"
+      },
+      {
+        "role": "assistant",
+        "text": "I’m starting the trip now…\nLocation: https://maps.google.com/?q=-8.639506,115.152046"
+      },
+      {
+        "role": "user",
+        "text": "👍🏻"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "22__image_omitted_Contact_card_omitted",
+    "timestamp": "2026-04-22T08:56:48.384Z",
+    "lead_name": "Lead",
+    "scott_reply": "image omitted\nContact card omitted",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "exactly\nI'm ready"
+      },
+      {
+        "role": "assistant",
+        "text": "This is truly sad… ‎image omitted\nPerfect, I’ll send you the link now…"
+      },
+      {
+        "role": "user",
+        "text": "tonight I will test this app too"
+      },
+      {
+        "role": "assistant",
+        "text": "It’s pretty good…\nthe link is in your inbox..."
+      },
+      {
+        "role": "user",
+        "text": "Trina 25-26 Resume.pdf • ‎2 pages ‎document omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "23__Let_me_give_it_a_thought_and_I_ll_get_ba",
+    "timestamp": "2026-04-22T08:57:20.264Z",
+    "lead_name": "Lead",
+    "scott_reply": "Let me give it a thought and I'll get back to you if someone comes to mind. What kind of brands? Could you give me some examples?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Testimonialll 🥹😂\nI need great energy and cool answers 🌚 ‎image omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "I’m so fucking rusty making content! Lol 😂 anyways, let me know if this work or if you want me to record more. ‎video omitted"
+      },
+      {
+        "role": "user",
+        "text": "audio omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "I’ll record another one, but it has to be tomorrow, I got a lot of work today."
+      },
+      {
+        "role": "user",
+        "text": "Thank you br\nBroo\nBig money now"
+      },
+      {
+        "role": "assistant",
+        "text": "I couldn't be happier, brother! That's amazing. We are finally making it!"
+      },
+      {
+        "role": "user",
+        "text": "audio omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "chit-chat",
+        "supportive-helpful"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "chit-chat",
+        "supportive-helpful"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "25__yes_Do_you_want_me_to_send_you_the_link_",
+    "timestamp": "2026-04-22T09:02:03.024Z",
+    "lead_name": "Lead",
+    "scott_reply": "yes\nDo you want me to send you the link to a google meet?\nhttps://meet.google.com/hbf-kcsi-dfq",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "It’s alright if not\nbut on weekdays I’ll only be free in the morning for you"
+      },
+      {
+        "role": "assistant",
+        "text": "That's great! But I think I'll be able to make it to our call. 10:39, right? That's exactly one hour after your message.\nBasically in 29 minutes"
+      },
+      {
+        "role": "user",
+        "text": "you free now?\nlet me set up some stuff"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "questions"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "casual",
+        "questions"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "26__Fucking_G_That_s_how_it_s_done_How_was",
+    "timestamp": "2026-04-22T09:02:57.808Z",
+    "lead_name": "Lead",
+    "scott_reply": "Fucking G! That’s how it’s done! How was the walk? Relaxing right? I won’t judge you if you listened to music on the way but the best way is to be alone with your thoughts on these kinds of walks, the best ideas come on such moments.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "no call today either"
+      },
+      {
+        "role": "assistant",
+        "text": "Ok\nReady for our call in 1 hour and 19 minutes?"
+      },
+      {
+        "role": "user",
+        "text": "Yes"
+      },
+      {
+        "role": "assistant",
+        "text": "We’ve got to start working on consistency, motivation and discipline towards your goals. I think that’s the biggest challenge now we need to overcome… but don’t worry, I got a strategy."
+      },
+      {
+        "role": "user",
+        "text": "definitely brother"
+      },
+      {
+        "role": "assistant",
+        "text": "Sorry I got here late. I thought I had the alarm set on but it was off. You've got the link on your inbox already."
+      },
+      {
+        "role": "user",
+        "text": "image omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "hype",
+        "authority",
+        "teasing-future-value",
+        "empathy",
+        "motivational"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "hype",
+        "authority",
+        "teasing-future-value",
+        "empathy",
+        "motivational"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "27__Perfect_Rob_brother_Actionable_steps_",
+    "timestamp": "2026-04-22T09:04:03.232Z",
+    "lead_name": "Lead",
+    "scott_reply": "Perfect!\nRob, brother! Actionable steps, let's get the ball rolling! Let's schedule a call to start working towards FREEDOM. I want to see you in Bali with us ASAP. Let's fucking gooooooooooooooooooooooo, brother! ====calendly_link=====",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I know, but yeah, I have to slow down. I am at my sis house recovering. As the recovery is more challenging living in a car, as I do. Everything works out perfectly fine with ease and grace. Grateful for the things I have."
+      },
+      {
+        "role": "assistant",
+        "text": "Will I see you on our community call today, bro?\nBy the way, whenever you are feeling better, let's jump on a call, man, we still got a lot to talk about: ====calendly_link===== I'll make sure we have 3 to 4 hours minimum to spare... 😂"
+      },
+      {
+        "role": "user",
+        "text": "When is the community call?"
+      },
+      {
+        "role": "assistant",
+        "text": "15 hours from now...\nhttps://www.skool.com/self-improvement-nation-3104/3rd-community-call-today-saturday"
+      },
+      {
+        "role": "user",
+        "text": "I'll try!"
+      },
+      {
+        "role": "assistant",
+        "text": "Don't force yourself to it, Rob. I'm not going anywhere, we'll have a thousand weekly community calls, each one more epic than the last one, so don't worry if you can't make it. With regards to our upcoming meeting (I imagine before our upcoming podcast, you still got to send me a link to the software you mentioned for recording by the way) just let me know whenever you have scheduled in so I can confirm it shows up on my calendar as well, bro, this is the link again in case you missed it: ====calendly_link====="
+      },
+      {
+        "role": "user",
+        "text": "I just sended you the link to the podcast and the instructions. Please download Riverside. (you are going to love it)"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "hype",
+        "motivational",
+        "brotherhood",
+        "teasing-future-value",
+        "self-aggrandization",
+        "direct",
+        "authority"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "offer-call",
+      "nonsales": false,
+      "tone_tags": [
+        "hype",
+        "motivational",
+        "brotherhood",
+        "teasing-future-value",
+        "self-aggrandization",
+        "direct",
+        "authority"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "28__No_worries_brother_Are_you_home_alread",
+    "timestamp": "2026-04-22T09:04:26.872Z",
+    "lead_name": "Lead",
+    "scott_reply": "No worries, brother.\nAre you home already?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Video call. ‎Answered on other device\n[21/2/26, 23:38:38] Tony Palmer:"
+      },
+      {
+        "role": "assistant",
+        "text": "Voice call. ‎14 sec\nVoice call. ‎No answer"
+      },
+      {
+        "role": "user",
+        "text": "Voice call. ‎3 min\nThank you again, brother. Please don’t mention anything to anyone – I don’t want to take away from Arheta and Deane’s performance tonight."
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "questions",
+        "empathy"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "send-calendly",
+      "nonsales": false,
+      "tone_tags": [
+        "questions",
+        "empathy"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask"
+    }
+  },
+  {
+    "correction_id": "29__How_do_you_know_For_all_I_know_he_hasn_",
+    "timestamp": "2026-04-22T09:06:35.288Z",
+    "lead_name": "Lead",
+    "scott_reply": "How do you know? For all I know he hasn’t even started writing it.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "have you realized the secret method to make $100M in a month??\nbro you can't have fallen again come on ahahahahhah"
+      },
+      {
+        "role": "assistant",
+        "text": "luckily I'm made of steel. I haven't broke anything.\nbro, WTF are you talking about? Not even Hormozi is doing that... 🤣🤣\nBut let's not get trapped on limiting beliefs... where there's a will there's a way. It's certainly not impossible but it will probably take some time to get to that place...\nI want to get $100M Leads, I haven't read that one yet, Hormozi is about to launch his new book."
+      },
+      {
+        "role": "user",
+        "text": "there is someone who is doing more actually. WAY more than that\nyeah I saw, $100M money models\nbut the next one will actually be the best one, $100M Sales"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "curiosity",
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "30__That_s_chatgpt_talking_shit_I_don_t_lik",
+    "timestamp": "2026-04-22T09:07:24.824Z",
+    "lead_name": "Lead",
+    "scott_reply": "That's chatgpt talking shit. I don't like it's offer.\nThis is my latest version son far: Grand Slam Offer Version 1.2: Imagine working 3 hours per day instead of 10 and achieving 10x the results you're getting now? Imagine instead of feeling 90 years old actually having energy, motivation and excitement about your life, like if you were 9 years old again all of the sudden. We'll go through a 5 days bootcamp for productivity in which I'll teach you how to 10x your productivity free up your time and gain back the excitement and motivation about life that you have lost along the way. Deep Work Method + Mindful Awareness + Flow State on command. This is how you unlock your full potential! I got 5 spots left for the group sessions that start tomorrow at 10 AM every day for 5 days. If you're curios about it hit me up in the DMs.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "this is a good starting point, but I feel we can improve it in some parts. For example at the beginning it's not very clear what \"10-hour days\" is referred to: does it mean wasting 10 hours every day or the opposite? (working only 10 hours). I like the rest, maybe the beach part would be improved but I'm not sure how"
+      },
+      {
+        "role": "assistant",
+        "text": "08:00 - 9:00: Free meditation + group coaching session (and opportunity of timetable built)\n10:00 - 11:00: Group coaching session in person (142$, 5 spots available)."
+      },
+      {
+        "role": "user",
+        "text": "I'm not sure about telling the price directly on the offer because people usually never do it, but I always have the sensation that they're trying to scam me doing that\nbut probably that's only me"
+      },
+      {
+        "role": "assistant",
+        "text": "12:00 - 13:00: Google Meet Group Coaching Session (97$, 5 spots available).\nI'm not going to tell the price on the offer, I'm telling you."
+      },
+      {
+        "role": "user",
+        "text": "great"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "hype",
+        "authority",
+        "tough-love",
+        "direct",
+        "self-aggrandization",
+        "teasing-future-value"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "chit-chat",
+        "hype",
+        "authority",
+        "tough-love",
+        "direct",
+        "self-aggrandization",
+        "teasing-future-value"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "31__yes_it_s_fire_",
+    "timestamp": "2026-04-22T09:07:46.928Z",
+    "lead_name": "Lead",
+    "scott_reply": "yes, it's fire!",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Just scheduled\nFor the 29th"
+      },
+      {
+        "role": "assistant",
+        "text": "Perfect!"
+      },
+      {
+        "role": "user",
+        "text": "Romania indeed is beautiful\nvideo omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "I’d love to go there. Probably next year, I got scheduled to visit the area, mainly Serbia, so it’s not that faraway.\nBrooooo, you can tell Count Dracula lives nearby… imagine that place at night… it’s truly beautiful.\nready for our call, bro?"
+      },
+      {
+        "role": "user",
+        "text": "Hi mate\nDid you read the script?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "hype"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "hype"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "32__Jonathon_bro_sorry_for_the_late_respon",
+    "timestamp": "2026-04-22T09:09:07.009Z",
+    "lead_name": "Lead",
+    "scott_reply": "Jonathon, bro, sorry for the late response, crazy couple of weeks lately with all the IRL events and stuff I've been running here in Bali. It's a true blessing to be surrounded by so many like-minded wonderful people.\nSo you've got a self-improvement community dedicated to Christian overthinkers, right? Do you have already an offer?\nLike... a coaching offer?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Hey man!"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "connect",
+      "nonsales": false,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "teasing-future-value",
+        "motivational",
+        "brotherhood"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": "connect",
+      "nonsales": false,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "teasing-future-value",
+        "motivational",
+        "brotherhood",
+        "questions"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "33__So_basically_I_ll_do_holistic_self_impr",
+    "timestamp": "2026-04-22T09:11:26.369Z",
+    "lead_name": "Lead",
+    "scott_reply": "So, basically I'll do holistic self-improvement coaching (focus on the three key aspects, body, mind and soul, workouts [and nutrition, health maxing in depth on more advanced modules], reading and meditation) and online business consulting for\neducational content creators.\nI teach them to scale up their brand, start making money with coaching (on their niche) even with a very small following and some of my clients have been asking me a lot for sales training... WTF?! I'm getting sales training here with you, guys! 🤣\nI might make a course on my specific method, though. But I'm already starting to think...\nwith the kind of results I'm getting for my clients...\nbro, I could charge even higher prices! I've been literally thinking about chatging 10K per month per client. I'm not even kidding...\nI got this client that has a thematic event's planning business and is kind of IG famous, almost 5K followers on one account made only a 4 months ago. These events get sometimes 700+ people. 700+ people paying 50 bucks per entrance that's 35K on one event, and she does this with sponsor's money, not even investing herself! I got her as a client and I'm going to turn her business from event planning to high ticket coaching for thematic events planners. But while I was thinking about it... I realize, if I want to do this I might need feedback or help from a real pro at sales, so I thought of you.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Oh sorry bro, the times are always UK time\nOr maybe you got the wrong day?"
+      },
+      {
+        "role": "assistant",
+        "text": "Bro, yes those clients are for my coaching program.\nI recently started charging 1K per month per client, this other coach I was talking to a couple of days ago opened up my eyes...\nI was charging too little! And I was getting better results with my clients than him! And he was charging 1K, I was literally charging pennies!\nBut when it truly hit me was when I said confindently my new price (1K) on a discovery call to one prospect. They guy was already so impressed by me (for some reason) that he agreed immediatly!\nThat was quite a \"holy fuck!\" moment for me..."
+      },
+      {
+        "role": "user",
+        "text": "Yeah that's great to hear bro, it's always normal to undervalue yourself with these things at first but now you've got great testimonials and proof\nWhats your offer bro?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "praise",
+        "curiosity",
+        "direct",
+        "storytelling",
+        "vulnerability",
+        "motivational",
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "praise",
+        "curiosity",
+        "direct",
+        "storytelling",
+        "vulnerability",
+        "motivational",
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "34__do_you_have_100_euros_on_wise_and_I_send",
+    "timestamp": "2026-04-22T09:12:02.409Z",
+    "lead_name": "Lead",
+    "scott_reply": "do you have 100 euros on wise and I send it over to you as soon as I get paid?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I was at the beach, do you need something?"
+      },
+      {
+        "role": "assistant",
+        "text": "I went to the ATM to take some money out of the card and realized I'm short to book the new place now 😂\nI should have charged that girl...\nI'm supposed to get paid from the sales' job today later, but that might take a day to get proccessed\nand I found the perfect place"
+      },
+      {
+        "role": "user",
+        "text": "how much do you need"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "direct"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "direct"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "35__Rob",
+    "timestamp": "2026-04-22T09:12:41.441Z",
+    "lead_name": "Lead",
+    "scott_reply": "Rob",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Haha, we did!"
+      },
+      {
+        "role": "assistant",
+        "text": "Rob, let's schedule our next call, bro. Money loves speed: ====calendly_link====="
+      },
+      {
+        "role": "user",
+        "text": "https://calendly.com/disorganizedproductions/podcast\nI do every podcast with Riverside. After you scheduled, I send you the link. Please download riverside as it records on your and my side. Once it is uploaded I can edit it"
+      },
+      {
+        "role": "assistant",
+        "text": "Scheduled for Saturday the 22nd."
+      },
+      {
+        "role": "user",
+        "text": "Whoohoo! Great! Love to talk too you! Have you found my podcast?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, on YT channel, right?\nyou've got 42 episodes."
+      },
+      {
+        "role": "user",
+        "text": "Much more. On Rumble and Spotify \"Chaos creates Harmony\" Disorganized Productions"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    },
+    "new_tags": {
+      "dm_stage": "gather-intel",
+      "nonsales": false,
+      "tone_tags": [
+        "casual"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "36__Bro_where_are_you_We_are_at_open_house",
+    "timestamp": "2026-04-22T09:13:17.961Z",
+    "lead_name": "Lead",
+    "scott_reply": "Bro, where are you? We are at open house.\nimage omitted\nimage omitted",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "image omitted\nimage omitted\nimage omitted\nvideo omitted\nHaa\nvideo omitted\nimage omitted\nimage omitted\nHaha\nLOL"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement"
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "37__This_is_not_ordinary_ritual_performed_at",
+    "timestamp": "2026-04-22T09:13:51.928Z",
+    "lead_name": "Lead",
+    "scott_reply": "This is not ordinary ritual performed at home in the disgrace of the tained modern world that surrounds us.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "I want to do a ritual\nI love rituals\nyou gave me the spark\nI want to do a ritual to start this season\nfuck the only thing holding me back is the thought that I have to leave my girl, I mean, I'd do it now"
+      },
+      {
+        "role": "assistant",
+        "text": "Do you want to hear about a ritual?"
+      },
+      {
+        "role": "user",
+        "text": "both cause I want to wait the 9th as we said (this is also the time we said I'll choose what I want regarding this redpill)\nyes go\nI'm excited"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "self-aggrandization",
+        "motivational",
+        "teasing-future-value",
+        "authority"
+      ],
+      "intent": "redirect",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "self-aggrandization",
+        "motivational",
+        "teasing-future-value",
+        "authority"
+      ],
+      "intent": "redirect",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "38__Good_morning_Lea_That_s_actually_prett",
+    "timestamp": "2026-04-22T09:14:29.481Z",
+    "lead_name": "Lead",
+    "scott_reply": "Good morning, Lea.\nThat's actually pretty good! You're asking! Now, the more you ask the more natural it will come to you. Don't worry about it. This guy? Well... you can use one of your weekly DMs and DM him directly to signal real intent and actual interest. Why? Because the last two sentences of your comment sound kind of forced, but like I said... that's normal.\nThe more you repeat the better you'll get.\nDo not worry about \"fucking up\". There's infinite prospects out there...\nI repeat...\nDO NOT WORRY ABOUT \"FUCKING UP\".\nThere's not such a thing.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "You're making me want to clock back in but I will not do it I have a document to finish\n31/03/2026\nPosts made: 2\nValue comments: 10\nLeads into the DMs: 3\nLeads into your community: 0\nLeads into WhatsApp: 0\nCalls scheduled: 1\nSales' Calls Conducted: 0\nUnqualified: 0\nCloses: 0\n2h 13min\nAnother failed attempt for the sleep schedule but this the end of the moon cycle so tomorrow I am new\nGoodnight and sweet dreams 🫶🏻✨"
+      },
+      {
+        "role": "assistant",
+        "text": "Good night, Lea."
+      },
+      {
+        "role": "user",
+        "text": "Gooood morning, Scott\nAnd happy best day ever!\nApparently I don't have any classes today and tomorrow so Ill be focusing on making the document even better and some engagement on the comnunity\nClock in\nQuestion for whenever you have the time, I did what you said and got this far with this guy but he never actually sent the dm. Do you have any advice for a response please so I dont fuck it up 😂 ‎image omitted"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "gratitude",
+        "motivational",
+        "hype",
+        "supportive-helpful"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "praise",
+        "gratitude",
+        "motivational",
+        "hype",
+        "supportive-helpful"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "39__not_really_call_happening_in_1_hou",
+    "timestamp": "2026-04-22T09:15:11.561Z",
+    "lead_name": "Lead",
+    "scott_reply": "not really... 🤣\ncall happening in 1 hour and 50 minutes...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Clock in\nI also just saw my note about the contract, I will send it to you before the end of the day 🙈"
+      },
+      {
+        "role": "assistant",
+        "text": "Amazing, thank you, Lea."
+      },
+      {
+        "role": "user",
+        "text": "Clock out\nClock in"
+      },
+      {
+        "role": "assistant",
+        "text": "Hey, Lea, just approved your brother's membership request. Make sure to let him know how to join our upcoming call..."
+      },
+      {
+        "role": "user",
+        "text": "Thank you so much Scott!! I appreciate that sooo much\nWill let him know\nAlso might be a silly question but does Adam count as a lead into dm?😂\nI messaged him this morning some time but no response which is fine just forgot to update you"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "casual",
+        "direct",
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "40__Just_approved_him_We_got_to_let_him_in_",
+    "timestamp": "2026-04-22T09:15:50.033Z",
+    "lead_name": "Lead",
+    "scott_reply": "Just approved him. We got to let him in and talk to him to find out. I already sent him a message, reach out to him as well when you get to him and walk him through our roadmap inside our skool community. We'll talk about onboarding new members tomorrow, don't worry about that... also about warming up the leads. Super fun stuff is coming up...",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Yes/no, if you have one you like better then I will wait for it before making the post ‎image omitted"
+      },
+      {
+        "role": "assistant",
+        "text": "It's perfect. Go ahead. Thank you, Lea. You're the best!"
+      },
+      {
+        "role": "user",
+        "text": "Amazeballs\nIt is an absolute pleasure! This is my favourite game so far"
+      },
+      {
+        "role": "assistant",
+        "text": "I'm good at selecting fun games, what can I say? Happy to have you as my ally on this adventure. The best is yet to come..."
+      },
+      {
+        "role": "user",
+        "text": "I am starting to see it all come together in that way, can't wait!\nI have used heros journey as this category because it was the most suitable\nFrom his profile, there isnt any indication that he is a coach, basically not much information but I am leaving this with you to decide (celebrating the fact that there is a request regardless though) ‎image omitted\nClock out\nClock in"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "direct",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture"
+    }
+  },
+  {
+    "correction_id": "41__Social_life_here_in_Canggu_is_anything_b",
+    "timestamp": "2026-04-22T09:16:42.649Z",
+    "lead_name": "Lead",
+    "scott_reply": "Social life here in Canggu is anything but scarse.",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "Yooo wsup bro"
+      },
+      {
+        "role": "assistant",
+        "text": "How far are you into the course, brother?\nI'm finishing up 2.8 action steps now..."
+      },
+      {
+        "role": "user",
+        "text": "Literally dropped courses from $700 to do this lol, and Im not talking about Hamza's courses, cause imo theyre shit for money\ndo you speak dutch?"
+      },
+      {
+        "role": "assistant",
+        "text": "Don't speak Dutch, only English, Italian and Spanish sadly. This is my whatsapp if you want to talk, brother: +60 1167761397"
+      },
+      {
+        "role": "user",
+        "text": "oooh I see, that's cool\nwell def talk, I wanna hear how Bali is going for you\ndo you have a lot of social contact there are less than you imagined?"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "teasing-future-value",
+        "mystery-teasing"
+      ],
+      "intent": "authority-proofing",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": "frame-outcome",
+      "nonsales": false,
+      "tone_tags": [
+        "self-aggrandization",
+        "authority",
+        "teasing-future-value",
+        "mystery-teasing"
+      ],
+      "intent": "authority-proofing",
+      "sales_stage": "engagement"
+    }
+  },
+  {
+    "correction_id": "42__Several_What_s_the_idea_",
+    "timestamp": "2026-04-22T09:17:12.641Z",
+    "lead_name": "Lead",
+    "scott_reply": "Several…\nWhat’s the idea?",
+    "last_10_messages": [
+      {
+        "role": "user",
+        "text": "No, LinkedIn is not the only place. We've had a Hollywood guy who's doing AI for filmmaking and he barely has a profile\nBut info about the guest is needed to make a decision for the podcast\nThere's lots of faceless landing pages that claim to be a company that's doing cool stuff in AI ‎<This message was edited>\nPS. One of the principles that I liked the most from the 7 Habits book is \"Try to understand before being understood\". I this case, asking a clarifying question and waiting for the response before concluding that something is dumb and limiting could go a long way! ‎<This message was edited>"
+      },
+      {
+        "role": "assistant",
+        "text": "I can ask him if he has social media like YT or IG.\nAgree."
+      },
+      {
+        "role": "user",
+        "text": "Hey man\nHave you met anyone who's running a marketing / AI automation agency? I have a collaboration opportunity"
+      }
+    ],
+    "previous_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "curiosity",
+        "direct",
+        "mystery-teasing"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": ""
+    },
+    "new_tags": {
+      "dm_stage": null,
+      "nonsales": true,
+      "tone_tags": [
+        "questions",
+        "curiosity",
+        "direct",
+        "mystery-teasing"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement"
+    }
   }
 ]
