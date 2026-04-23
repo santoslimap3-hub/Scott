@@ -23,6 +23,7 @@ const FALLBACK_TAGS = {
     tone_tags:   ["brotherhood", "motivational"],
     intent:      "engagement-nurture",
     sales_stage: "nurture",
+    gender:      "unknown",
     reasoning:   "fallback defaults",
 };
 
@@ -105,8 +106,12 @@ function buildSystemPrompt() {
     });
     lines.push("");
 
+    // ── Gender detection ──
+    lines.push('GENDER: infer from the author\'s first name. Use "male", "female", or "unknown".');
+    lines.push("");
+
     // ── Output format ──
-    lines.push('Output: {"tone_tags":[...],"intent":"...","sales_stage":"...","reasoning":"one sentence"}');
+    lines.push('Output: {"tone_tags":[...],"intent":"...","sales_stage":"...","gender":"male|female|unknown","reasoning":"one sentence"}');
 
     return lines.join("\n");
 }
@@ -198,8 +203,9 @@ async function classifyReply(context) {
         var intent = validIntents.includes(parsed.intent) ? parsed.intent : FALLBACK_TAGS.intent;
         var salesStage = validStages.includes(parsed.sales_stage) ? parsed.sales_stage : FALLBACK_TAGS.sales_stage;
         var reasoning = parsed.reasoning || "";
+        var gender = ["male","female","unknown"].includes(parsed.gender) ? parsed.gender : "unknown";
 
-        return { tone_tags: toneTags, intent: intent, sales_stage: salesStage, reasoning: reasoning };
+        return { tone_tags: toneTags, intent: intent, sales_stage: salesStage, gender: gender, reasoning: reasoning };
 
     } catch (err) {
         // Print the full error so it's easy to diagnose

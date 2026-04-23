@@ -1,0 +1,60 @@
+[
+  {
+    "id": "comment_2026-04-23T03-36-52-217Z_Lucas_Premat",
+    "timestamp": "2026-04-23T03:36:52.217Z",
+    "type": "comment",
+    "community": "Self Improvement Nation",
+    "post": {
+      "author": "Andreas Leijonmarck",
+      "title": "Where do you wish to live, now and in the future?",
+      "body": "19d  • General 💭Where do you wish to live, now and in the future?I myself long for both sea and altitude0:34",
+      "url": null
+    },
+    "comment": {
+      "author": "Lucas Premat",
+      "text": "I long for lattitude. Needs to be near the equator and sea",
+      "thread": [
+        {
+          "author": "Scott Northwolf",
+          "text": "Bali, of course!Climbing volcanoes on a suit with my boys is my passion!0:190:22\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.",
+          "isReply": false
+        },
+        {
+          "author": "Andreas Leijonmarck",
+          "text": "@Scott Northwolf Looks real nice! :D",
+          "isReply": true
+        },
+        {
+          "author": "Harry Oram",
+          "text": "@Scott Northwolf awesome you're already living your dream.",
+          "isReply": true
+        },
+        {
+          "author": "Lucas Premat",
+          "text": "I long for lattitude. Needs to be near the equator and sea",
+          "isReply": false
+        }
+      ]
+    },
+    "classifier": {
+      "systemPrompt": "Classify Skool posts/comments for Jack Walford, appointment setter for Scott Northwolf's coaching community. Output the best tone, intent, and sales_stage for his reply. Return JSON only.\n\nTONE (pick 1-4): hype=max energy, ALL CAPS peaks | brotherhood=raw male loyalty, 'bro/king' | motivational=push them forward with conviction | authority=expert certainty, drops credentials | direct=no fluff, point first | casual=friend-texting, low key | self-aggrandization=reference own wins to inspire | teasing-future-value=hint at something big, create FOMO | praise=specific recognition of effort | humor=light joke, never mean | empathy=brief acknowledgement then pivot | storytelling=short personal anecdote | vulnerability=briefly reveal own struggle | tough-love=honest even if it stings | mystery-teasing=intrigue around Scott's methods | chit-chat=pure social, no agenda | bonding-rapport=shared experience, personal connection | gratitude=genuine thanks | curiosity=ask because you want to know\n\nINTENT (pick 1): acknowledgement=short reaction, no agenda | engagement-nurture=keep conversation alive, feel seen | community-building=reinforce SIN identity/culture | authority-proofing=demonstrate expertise passively | value-delivery=one actionable insight or framework | close-to-call=invite call/DM, only if buying signal | social-proof=highlight win or transformation | redirect=steer toward Scott's offer smoothly | info-gathering=question to learn their situation | lead-qualification=probe if they're a coach who could buy | pain-agitation=amplify their problem, make solution urgent | objection-handling=flip doubt into reason to move forward | funneling=point to Scott's community/program\n\nSTAGE (pick 1): awareness=new — first impression, no selling | engagement=active but not warm — deepen relationship | nurture=warm, trusts Scott — stay top of mind | ask=buying signal — move toward call\n\nEXAMPLES:\n\"We have our very own website now!\" → comment: \"@Scott Northwolf BROOO LETS FUCKIN GOOOO!!\" → {\"tone_tags\":[\"brotherhood\",\"hype\"],\"intent\":\"acknowledgement\",\"sales_stage\":\"nurture\"}\n\"Brotherhood and connection\" → comment: \"The things that get me most energized: God and spirituality, real brotherhood, b\" → {\"tone_tags\":[\"hype\",\"brotherhood\",\"teasing-future-value\",\"authority\"],\"intent\":\"close-to-call\",\"sales_stage\":\"ask\"}\n\"Say hello to the gang\" → {\"tone_tags\":[\"empathy\",\"tough-love\",\"motivational\"],\"intent\":\"value-delivery\",\"sales_stage\":\"nurture\"}\n\"We have our very own website now!\" → comment: \"Damnnn I LOVE IT!!!\" → {\"tone_tags\":[\"motivational\",\"brotherhood\"],\"intent\":\"engagement-nurture\",\"sales_stage\":\"nurture\"}\n\"Biggest constraint in your coaching business\" → comment: \"lack of sales calls for my programs\" → {\"tone_tags\":[\"motivational\",\"hype\",\"praise\"],\"intent\":\"objection-handling\",\"sales_stage\":\"nurture\"}\n\nOutput: {\"tone_tags\":[...],\"intent\":\"...\",\"sales_stage\":\"...\",\"reasoning\":\"one sentence\"}",
+      "userMessage": "--- POST ---\nAuthor: Andreas Leijonmarck\nTitle: Where do you wish to live, now and in the future?\n19d  • General 💭Where do you wish to live, now and in the future?I myself long for both sea and altitude0:34\n\nTHREAD:\n  [Andreas Leijonmarck]: @Scott Northwolf Looks real nice! :D\n  [Harry Oram]: @Scott Northwolf awesome you're already living your dream.\n[Lucas Premat]: I long for lattitude. Needs to be near the equator and sea\n\n--- REPLY TO ---\n[Lucas Premat]: I long for lattitude. Needs to be near the equator and sea\n\nRespond with a JSON object only.",
+      "tags": {
+        "tone_tags": [
+          "bonding-rapport"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "reasoning": "Lucas is a member of Scott's program and this is a bonding moment."
+      }
+    },
+    "generation": {
+      "systemPrompt": "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.\n\nYour mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.\n\nVOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Use \"brother\", \"bro\", \"king\". Short punchy sentences. No bullet points, no dashes. Speak like a man who's been through darkness and found the light.\n\nRULES: Never be needy. Never overexplain. Never use dashes or bullets. Create intrigue. Be the sun, not the chaser.\n\nSITUATION: Replying to a comment on a Skool post.\nSTAGE: nurture — Person is warm and trusts Scott. Stay top of mind, deliver value.\nINTENT: engagement-nurture — Keeping the conversation alive and building warmth. Makes the person feel seen and come back.\nTONE: bonding-rapport",
+      "userMessage": "--- POST ---\nAuthor: Andreas Leijonmarck\nTitle: Where do you wish to live, now and in the future?\n\n19d  • General 💭Where do you wish to live, now and in the future?I myself long for both sea and altitude0:34\n\n--- THREAD ---\n[Scott Northwolf]: Bali, of course!Climbing volcanoes on a suit with my boys is my passion!0:190:22\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.\n  [Andreas Leijonmarck]: @Scott Northwolf Looks real nice! :D\n  [Harry Oram]: @Scott Northwolf awesome you're already living your dream.\n[Lucas Premat]: I long for lattitude. Needs to be near the equator and sea\n\n--- REPLY TO ---\n[Lucas Premat]: I long for lattitude. Needs to be near the equator and sea\n\nWrite a short, natural reply to this comment.",
+      "model": "ft:gpt-4.1-2025-04-14:answer42:scott:DPnrD7IB",
+      "reply": "Me too, Lucas. Equator and ocean is the dream."
+    },
+    "sent": true,
+    "feedback": ""
+  }
+]

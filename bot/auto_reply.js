@@ -36,6 +36,15 @@ const { collapseBubbles, BUBBLE_DELIM } = require("./bubble");
 // inject prior context into the generation prompt.
 const personsDb = require("./db/persons_db");
 
+// ── Prompt builders ────────────────────────────────────────────────────────────
+// Builds the v6-format user-turn messages matching the fine-tuned model's
+// training data (--- PERSON --- / --- HISTORY --- / --- REPLY TO --- blocks).
+const promptBuilders = require("./prompt_builders");
+
+// ── Gender detector fallback ───────────────────────────────────────────────────
+// Used when the LLM classifier doesn't return a gender (rare).
+const { guessGender } = require("./util/gender_detector");
+
 const REPLIED_FILE = path.join(__dirname, "replied_posts.json");
 
 // ── Shared reply-generation system prompt builder ──────────────────────────────
@@ -45,7 +54,7 @@ const { INTENTS: INTENT_DEFS, SALES_STAGES: STAGE_DEFS } = require("./classify/t
 
 function buildReplySystemPrompt(tags, situation) {
     var situationLabel = situation === "comment" ?
-        "Replying to a comment on a Skool post." :
+        "Replying to a Skool post comment." :
         "Replying to a Skool post.";
 
     return [
@@ -53,14 +62,17 @@ function buildReplySystemPrompt(tags, situation) {
         "",
         "Your mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.",
         "",
-        "VOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Use \"brother\", \"bro\", \"king\". Short punchy sentences. No bullet points, no dashes. Speak like a man who's been through darkness and found the light.",
+        "VOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it. Short punchy sentences. No bullet points, no dashes.",
         "",
-        "RULES: Never be needy. Never overexplain. Never use dashes or bullets. Create intrigue. Be the sun, not the chaser.",
+        "RULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.",
         "",
-        "SITUATION: " + situationLabel,
-        "STAGE: " + tags.sales_stage + " — " + (STAGE_DEFS[tags.sales_stage] || tags.sales_stage),
-        "INTENT: " + tags.intent + " — " + (INTENT_DEFS[tags.intent] || tags.intent),
+        "PERSON CONTEXT: Every user prompt begins with a --- PERSON --- block telling you Name, Gender, Role. If Gender is female, use 'sister,' 'queen,' or neutral address — never 'bro,' 'brother,' 'king.' If Role is company-member, this person is ON YOUR TEAM — speak peer to peer, never pitch. If Role is lead, they are a prospect.",
+        "",
+        "MULTIPLE MESSAGE BUBBLES: In DMs you can split your reply into multiple bubbles by inserting \u27e8BUBBLE\u27e9 between them. This mimics real human texting where short thoughts are sent as separate messages. Use it when Scott would: two or three short hits beat one paragraph. Never use \u27e8BUBBLE\u27e9 in post/comment replies — only in DMs.",
+        "STAGE: " + tags.sales_stage,
+        "INTENT: " + tags.intent,
         "TONE: " + tags.tone_tags.join(", "),
+        "SITUATION: " + situationLabel,
     ].join("\n");
 }
 
@@ -449,10 +461,10 @@ async function alreadyCommented(page, botName) {
     }, botName);
 }
 
-async function generateReply(post, personHistory) {
+async function generateReply(post, persons, botName) {
     console.log("🤖 Classifying post...");
 
-    // ── Step 1: Classify the post to determine tone/intent/stage ──
+    // ── Step 1: Classify to get tone/intent/stage/gender ──
     var classifierContext = {
         postAuthor: post.author,
         postTitle: post.title,
@@ -460,38 +472,23 @@ async function generateReply(post, personHistory) {
         thread: post.scrapedComments || [],
     };
     var tags = await classifyReply(classifierContext);
-    console.log("  🏷️  intent=" + tags.intent + " | stage=" + tags.sales_stage + " | tone=" + tags.tone_tags.join(", "));
+    console.log("  🏷️  intent=" + tags.intent + " | stage=" + tags.sales_stage + " | tone=" + tags.tone_tags.join(", ") + " | gender=" + tags.gender);
     if (tags.reasoning) console.log("  💭 " + tags.reasoning);
     console.log("");
 
-    // ── Step 2: Build v5-format user prompt ──
-    var userParts = [];
+    // ── Step 2: Resolve gender and role ──
+    var gender = tags.gender !== "unknown" ? tags.gender : guessGender(post.author);
+    if (persons) personsDb.setPersonGender(persons, post.author, gender);
+    var role = personsDb.isCompanyMember(persons, post.author)
+        ? "company-member (" + personsDb.getCompanyRole(persons, post.author) + ")"
+        : "lead (prospect)";
 
-    // Inject prior interaction history if this person is already known
-    if (personHistory) {
-        userParts.push(personHistory);
-        userParts.push("");
-    }
+    // ── Step 3: Build v6-format user prompt ──
+    var dbHistory = persons ? personsDb.getPersonHistory(persons, post.author) : [];
+    var userMessage = promptBuilders.buildPostUserPrompt(post, dbHistory, botName, gender, role);
 
-    userParts.push("--- POST ---");
-    userParts.push("Author: " + post.author);
-    userParts.push("Title: " + post.title);
-    userParts.push("");
-    userParts.push(post.body);
-
-    if (post.scrapedComments && post.scrapedComments.length > 0) {
-        userParts.push("");
-        userParts.push("--- COMMENTS ---");
-        for (var c = 0; c < post.scrapedComments.length; c++) {
-            var comment = post.scrapedComments[c];
-            var prefix = comment.isReply ? "  " : "";
-            userParts.push(prefix + "[" + comment.author + "]: " + comment.text);
-        }
-    }
-
-    // ── Step 3: Build system prompt with classified tags injected ──
+    // ── Step 4: Build system prompt ──
     var systemPrompt = buildReplySystemPrompt(tags, "post");
-    var userMessage  = userParts.join("\n") + "\n\nWrite a short, natural reply to this post.";
 
     var messages = [
         { role: "system", content: systemPrompt },
@@ -514,7 +511,7 @@ async function generateReply(post, personHistory) {
     });
     var replyText = completion.choices[0].message.content;
 
-    // ── Log this entry for client review (session file) ──
+    // ── Log for client review (session file) ──
     sessionLog.addEntry({
         type: "post",
         postAuthor: post.author,
@@ -998,61 +995,36 @@ function selectComments(classifiedComments) {
     return selected;
 }
 
-async function generateCommentReply(comment, personHistory) {
+async function generateCommentReply(comment, persons, botName) {
     console.log("🤖 Classifying comment by " + comment.author + "...");
 
-    // ── Step 1: Classify the comment to determine tone/intent/stage ──
+    // ── Step 1: Classify the comment to determine tone/intent/stage/gender ──
     var classifierContext = {
         postAuthor: comment.postAuthor || "Unknown",
-        postTitle: comment.postTitle || "Unknown",
-        postBody: comment.postBody || "",
+        postTitle:  comment.postTitle  || "Unknown",
+        postBody:   comment.postBody   || "",
         commentAuthor: comment.author,
-        commentText: comment.text,
+        commentText:   comment.text,
         thread: comment.thread || [],
     };
     var tags = await classifyReply(classifierContext);
-    console.log("  🏷️  intent=" + tags.intent + " | stage=" + tags.sales_stage + " | tone=" + tags.tone_tags.join(", "));
+    console.log("  🏷️  intent=" + tags.intent + " | stage=" + tags.sales_stage + " | tone=" + tags.tone_tags.join(", ") + " | gender=" + tags.gender);
     if (tags.reasoning) console.log("  💭 " + tags.reasoning);
     console.log("");
 
-    // ── Step 2: Build v5-format user prompt ──
-    var userParts = [];
+    // ── Step 2: Resolve gender and role ──
+    var gender = tags.gender !== "unknown" ? tags.gender : guessGender(comment.author);
+    if (persons) personsDb.setPersonGender(persons, comment.author, gender);
+    var role = personsDb.isCompanyMember(persons, comment.author)
+        ? "company-member (" + personsDb.getCompanyRole(persons, comment.author) + ")"
+        : "lead (prospect)";
 
-    // Inject prior interaction history if this person is already known
-    if (personHistory) {
-        userParts.push(personHistory);
-        userParts.push("");
-    }
+    // ── Step 3: Build v6-format user prompt ──
+    var dbHistory  = persons ? personsDb.getPersonHistory(persons, comment.author) : [];
+    var userMessage = promptBuilders.buildCommentUserPrompt(comment, dbHistory, botName, gender, role);
 
-    userParts.push("--- POST ---");
-    userParts.push("Author: " + (comment.postAuthor || "Unknown"));
-    userParts.push("Title: " + (comment.postTitle || "Unknown"));
-    if (comment.postBody) {
-        userParts.push("");
-        userParts.push(comment.postBody);
-    }
-
-    if (comment.thread && comment.thread.length > 0) {
-        userParts.push("");
-        userParts.push("--- THREAD ---");
-        for (var t = 0; t < comment.thread.length; t++) {
-            var entry = comment.thread[t];
-            var prefix = entry.isReply ? "  " : "";
-            userParts.push(prefix + "[" + entry.author + "]: " + entry.text);
-        }
-    } else {
-        userParts.push("");
-        userParts.push("--- THREAD ---");
-        userParts.push("[" + comment.author + "]: " + comment.text.substring(0, 300));
-    }
-
-    userParts.push("");
-    userParts.push("--- REPLY TO ---");
-    userParts.push("[" + comment.author + "]: " + comment.text.substring(0, 300));
-
-    // ── Step 3: Build system prompt with classified tags injected ──
+    // ── Step 4: Build system prompt ──
     var systemPrompt = buildReplySystemPrompt(tags, "comment");
-    var userMessage  = userParts.join("\n") + "\n\nWrite a short, natural reply to this comment.";
 
     var messages = [
         { role: "system", content: systemPrompt },
@@ -1078,11 +1050,11 @@ async function generateCommentReply(comment, personHistory) {
     // ── Log this entry for client review (session file) ──
     sessionLog.addEntry({
         type: "comment",
-        postAuthor: comment.postAuthor || "Unknown",
-        postTitle: comment.postTitle || "Unknown",
+        postAuthor:    comment.postAuthor || "Unknown",
+        postTitle:     comment.postTitle  || "Unknown",
         commentAuthor: comment.author,
-        commentText: comment.text.substring(0, 300),
-        tags: tags,
+        commentText:   comment.text.substring(0, 300),
+        tags:  tags,
         reply: replyText,
     });
 
@@ -1442,15 +1414,11 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
                 postCategory: 'General',
                 thread: notifPostCtx.thread || []
             };
-            // Build person history context for notification reply
-            var notifPersonHistory = personsDb.formatHistoryForPrompt(
-                personsDb.getPersonHistory(persons, targetComment.target.author)
-            );
-            if (notifPersonHistory) {
+            if (personsDb.personExists(persons, targetComment.target.author)) {
                 console.log("    ℹ️  [PersonsDB] Known person — history will be injected into prompt");
             }
 
-            var replyText = await generateCommentReply(commentObj, notifPersonHistory || undefined);
+            var replyText = await generateCommentReply(commentObj, persons, botName);
             // Patch the last log entry type so it shows as a notification reply
             sessionLog.patchLastType("notif-comment");
 
@@ -1473,7 +1441,7 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
             personsDb.addInteraction(persons, targetComment.target.author, {
                 type: "scott_reply",
                 post_title: commentObj.postTitle || "(no title)",
-                author: "Scott Northwolf",
+                author: botName,
                 text: replyText,
                 timestamp: new Date().toISOString(),
             });
@@ -1586,8 +1554,7 @@ async function main() {
                         continue;
                     }
 
-                    // No prior history for new persons — pass undefined so no PERSON HISTORY block is added
-                    var replyText = await generateReply(post, undefined);
+                    var replyText = await generateReply(post, persons, botName);
 
                     console.log("─".repeat(50));
                     console.log("GENERATED REPLY:");
@@ -1609,7 +1576,7 @@ async function main() {
                     personsDb.addInteraction(persons, post.author, {
                         type: "scott_reply",
                         post_title: post.title,
-                        author: "Scott Northwolf",
+                        author: botName,
                         text: replyText,
                         timestamp: new Date().toISOString(),
                     });
@@ -1656,12 +1623,7 @@ async function main() {
                     // If we didn't have a title from feed scrape, use the one from the page
                     if (postCtx.postTitle) item.postTitle = postCtx.postTitle;
 
-                    // Build person history context (empty string for new persons)
-                    var commentPersonHistory = personsDb.formatHistoryForPrompt(
-                        personsDb.getPersonHistory(persons, item.author)
-                    );
-
-                    var replyText = await generateCommentReply(item, commentPersonHistory || undefined);
+                    var replyText = await generateCommentReply(item, persons, botName);
 
                     console.log("─".repeat(50));
                     console.log("GENERATED REPLY TO COMMENT:");
@@ -1683,7 +1645,7 @@ async function main() {
                     personsDb.addInteraction(persons, item.author, {
                         type: "scott_reply",
                         post_title: item.postTitle || "(no title)",
-                        author: "Scott Northwolf",
+                        author: botName,
                         text: replyText,
                         timestamp: new Date().toISOString(),
                     });

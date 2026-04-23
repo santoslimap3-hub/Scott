@@ -19,6 +19,7 @@ const FALLBACK_TAGS = {
     tone_tags:   ["brotherhood", "curiosity"],
     intent:      "info-gathering",
     sales_stage: "engagement",
+    gender:      "unknown",
     reasoning:   "fallback defaults",
 };
 
@@ -104,7 +105,9 @@ function buildSystemPrompt() {
     lines.push("SALES_STAGE (pick 1): " + Object.keys(stageShort).map(function(k) { return k + "=" + stageShort[k]; }).join(" | "));
     lines.push("");
 
-    lines.push('Output: {"dm_stage":"..."or null,"tone_tags":[...],"intent":"...","sales_stage":"...","reasoning":"one sentence"}');
+    lines.push("GENDER: infer from the partner's first name. Use \"male\", \"female\", or \"unknown\".");
+    lines.push("");
+    lines.push('Output: {"dm_stage":"..."or null,"tone_tags":[...],"intent":"...","sales_stage":"...","gender":"male|female|unknown","reasoning":"one sentence"}');
 
     return lines.join("\n");
 }
@@ -166,8 +169,9 @@ async function classifyDM(partnerName, messages) {
         var intent     = VALID_INTENTS.includes(parsed.intent)      ? parsed.intent      : FALLBACK_TAGS.intent;
         var salesStage = VALID_SALES.includes(parsed.sales_stage)   ? parsed.sales_stage : FALLBACK_TAGS.sales_stage;
         var reasoning  = parsed.reasoning || "";
+        var gender     = ["male","female","unknown"].includes(parsed.gender) ? parsed.gender : "unknown";
 
-        return { dm_stage: dmStage, nonsales: nonsales, tone_tags: toneTags, intent: intent, sales_stage: salesStage, reasoning: reasoning };
+        return { dm_stage: dmStage, nonsales: nonsales, tone_tags: toneTags, intent: intent, sales_stage: salesStage, gender: gender, reasoning: reasoning };
 
     } catch (err) {
         console.error("\n⚠️  DM CLASSIFIER ERROR — falling back to defaults");

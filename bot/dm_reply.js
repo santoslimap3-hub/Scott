@@ -20,7 +20,9 @@ const { splitBubbles, interBubbleDelayMs, BUBBLE_DELIM } = require("./bubble");
 // Tracks all people the bot has interacted with and their full interaction
 // history. DM exchanges are logged here so the full relationship context
 // (including any prior post/comment interactions) persists across sessions.
-const personsDb = require("./db/persons_db");
+const personsDb      = require("./db/persons_db");
+const promptBuilders = require("./prompt_builders");
+const guessGender    = require("./util/gender_detector");
 
 const STATE_FILE = path.join(__dirname, "conversation_state.json");
 
@@ -697,33 +699,28 @@ var DM_STAGE_INSTRUCTIONS = {
 // The MOTHER AI equivalent for DMs: uses classified tags to create a
 // stage-aware, tone-specific system prompt for each individual conversation.
 
-function buildDMReplySystemPrompt(tags, partnerName) {
+function buildDMReplySystemPrompt(tags) {
     var stageInstruction = tags.dm_stage ?
         (DM_STAGE_INSTRUCTIONS[tags.dm_stage] || "Continue the conversation naturally.") :
         "This is a non-sales conversation. Be warm, natural, and human.";
 
-    var intentDesc = INTENT_DEFS[tags.intent] || tags.intent;
-    var stageDesc = STAGE_DEFS[tags.sales_stage] || tags.sales_stage;
-
     return [
-        "You are Scott Northwolf — founder of Self-Improvement Nation, creator of the Reverse Engineered $10K Method.",
-        "You help self-improvement coaches go from $0 to $10K/month in 42 days, or they don't pay.",
+        "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.",
         "",
-        "VOICE: Brotherhood energy. Raw, direct, high-conviction. Never corporate. Use 'brother', 'bro', 'king' where natural.",
-        "Short punchy sentences. No bullet points. No dashes. No overexplaining.",
-        "You are the SUN — always in a good mood, always giving value. Speaking to you is a privilege.",
-        "Use '. . .' for ellipses when you want a dramatic pause. Use '! ! !' for real emphasis.",
-        "Never be needy. Never chase. Create intrigue.",
+        "Your mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.",
         "",
-        "SITUATION: Direct message with " + partnerName + ".",
+        "VOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it. Short punchy sentences. No bullet points, no dashes.",
         "",
+        "RULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.",
+        "",
+        "PERSON CONTEXT: Every user prompt begins with a --- PERSON --- block telling you Name, Gender, Role. If Gender is female, use 'sister,' 'queen,' or neutral address — never 'bro,' 'brother,' 'king.' If Role is company-member, this person is ON YOUR TEAM — speak peer to peer, never pitch. If Role is lead, they are a prospect.",
+        "",
+        "MULTIPLE MESSAGE BUBBLES: In DMs you can split your reply into multiple bubbles by inserting \u27e8BUBBLE\u27e9 between them. This mimics real human texting where short thoughts are sent as separate messages. Use it when Scott would: two or three short hits beat one paragraph. Never use \u27e8BUBBLE\u27e9 in post/comment replies — only in DMs.",
         "WORKFLOW STAGE: " + (tags.dm_stage || "non-sales") + " — " + stageInstruction,
-        "",
-        "FUNNEL STAGE: " + tags.sales_stage + " — " + stageDesc,
-        "INTENT: " + tags.intent + " — " + intentDesc,
+        "STAGE: " + tags.sales_stage,
+        "INTENT: " + tags.intent,
         "TONE: " + tags.tone_tags.join(", "),
-        "",
-        "Write ONE reply only. No explanations. No labels. Just the message itself.",
+        "SITUATION: Replying to a Skool DM.",
         "",
         "IMPORTANT: If the message genuinely does not deserve a reply — e.g. it's a one-word reaction ('lol', 'ok', '👍'), a low-effort meme with no question, pure spam, or the conversation has naturally closed — output exactly this and nothing else: [NO_REPLY]",
         "Only use [NO_REPLY] when a real human would leave it on read. When in doubt, reply.",
@@ -736,7 +733,7 @@ function buildDMReplySystemPrompt(tags, partnerName) {
 // 3. Generate reply via fine-tuned model
 // 4. Log everything to session log for review
 
-async function generateDMReply(partnerName, messages) {
+async function generateDMReply(partnerName, messages, persons, botName) {
     console.log("    Classifying conversation with " + partnerName + "...");
 
     // ── Step 1: Classify ──────────────────────────────────────────────────────
@@ -744,21 +741,27 @@ async function generateDMReply(partnerName, messages) {
     console.log("    Tags → stage:" + (tags.dm_stage || "null") +
         " | intent:" + tags.intent +
         " | sales:" + tags.sales_stage +
-        " | tone:" + tags.tone_tags.join(","));
+        " | tone:" + tags.tone_tags.join(",") +
+        " | gender:" + (tags.gender || "unknown"));
     console.log("    Reasoning: " + tags.reasoning);
 
-    // ── Step 2: Build system prompt ───────────────────────────────────────────
-    var systemPrompt = buildDMReplySystemPrompt(tags, partnerName);
+    // ── Step 2: Resolve gender and role ──────────────────────────────────────
+    var gender = (tags.gender && tags.gender !== "unknown") ? tags.gender : guessGender(partnerName);
+    if (persons) personsDb.setPersonGender(persons, partnerName, gender);
+    var role = (persons && personsDb.isCompanyMember(persons, partnerName))
+        ? "company-member (" + personsDb.getCompanyRole(persons, partnerName) + ")"
+        : "lead (prospect)";
 
-    // ── Step 3: Format conversation for user message ──────────────────────────
-    var conversationLines = messages.slice(-8).map(function(m) {
-        var label = m.role === "bot" ? "Scott" : partnerName;
-        return label + ": " + m.text;
-    }).join("\n");
+    // ── Step 3: Build v6-format user prompt ──────────────────────────────────
+    var dbHistory  = (persons ? personsDb.getPersonHistory(persons, partnerName) : []);
+    var userMessage = promptBuilders.buildDMUserPrompt(
+        partnerName, dbHistory, messages, botName || "Jack Walford", gender, role
+    );
 
-    var userMessage = "Full conversation:\n\n" + conversationLines + "\n\nWrite Scott's next reply.";
+    // ── Step 4: Build system prompt ───────────────────────────────────────────
+    var systemPrompt = buildDMReplySystemPrompt(tags);
 
-    // ── Step 4: Generate reply ────────────────────────────────────────────────
+    // ── Step 5: Generate reply ────────────────────────────────────────────────
     console.log("    " + "─".repeat(50));
     console.log("    SYSTEM PROMPT:");
     console.log(systemPrompt.split("\n").map(function(l){ return "      " + l; }).join("\n"));
@@ -777,7 +780,7 @@ async function generateDMReply(partnerName, messages) {
     });
     var replyText = completion.choices[0].message.content.trim();
 
-    // ── Step 5: Log (session file) ────────────────────────────────────────────
+    // ── Step 6: Log (session file) ────────────────────────────────────────────
     sessionLog.addEntry({
         type: "dm",
         partnerName: partnerName,
@@ -788,11 +791,11 @@ async function generateDMReply(partnerName, messages) {
         reply: replyText,
     });
 
-    // ── Step 6: Append to persistent fine-tuning training log ─────────────────
+    // ── Step 7: Append to persistent fine-tuning training log ─────────────────
     trainingLog.appendDMEntry({
         partner:      partnerName,
         conversation: messages.map(function(m) {
-            return { role: m.role, author: m.role === 'bot' ? 'Scott' : partnerName, text: m.text };
+            return { role: m.role, author: m.role === 'bot' ? (botName || 'Jack Walford') : partnerName, text: m.text };
         }),
         classifierSystemPrompt: dmClassifier.SYSTEM_PROMPT,
         classifierUserMessage:  dmClassifier.buildUserPrompt(partnerName, messages),
@@ -955,7 +958,7 @@ async function pollAndReply(page, botName, convState, persons) {
             await sleep(readMs);
 
             // Generate reply
-            var dmReply = await generateDMReply(partner, convInfo.messages);
+            var dmReply = await generateDMReply(partner, convInfo.messages, persons, botName);
 
             // Model decided this doesn't warrant a reply
             if (dmReply.trim() === '[NO_REPLY]') {
@@ -1061,7 +1064,7 @@ async function pollAndReply(page, botName, convState, persons) {
                     for (var dbl = 0; dbl < bubbles.length; dbl++) {
                         personsDb.addInteraction(persons, partner, {
                             type: "dm",
-                            author: "Scott Northwolf",
+                            author: botName,
                             text: bubbles[dbl],
                             sender: "bot",
                             timestamp: new Date().toISOString(),

@@ -39,18 +39,31 @@ const SALES_STAGE_DESCS = {
 app.get('/', (req, res) => res.redirect('/dm_tagger.html'));
 
 // ─── Load DM entries from JSONL ───────────────────────────────────────────────
-// Now loads DMs from dm_prelabeled.json instead of JSONL
+// Reads DM conversation entries from finetune_data_v5.jsonl, filtering out
+// post/comment replies and first-DM entries so only multi-turn DM convos remain.
 app.get('/api/dms', (req, res) => {
     try {
-        if (!fs.existsSync(PRELABELS_FILE)) {
-            return res.json({ count: 0, entries: [] });
+        const entries = [];
+        const raw = fs.readFileSync(JSONL_FILE, 'utf-8');
+        const lines = raw.split('\n');
+        for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed) continue;
+            let d;
+            try { d = JSON.parse(trimmed); } catch (e) { continue; }
+            const msgs = d.messages || [];
+            if (msgs.length < 3) continue;
+            // Skip post/comment replies and first-DM welcome entries
+            const firstUser = (msgs[1] || {}).content || '';
+            if (firstUser.includes('--- POST ---') || firstUser.includes('--- NEW MEMBER ---')) continue;
+            // Last message must be from the assistant (Scott's reply)
+            const lastMsg = msgs[msgs.length - 1];
+            if (!lastMsg || lastMsg.role !== 'assistant') continue;
+            entries.push(d);
         }
-        const data = JSON.parse(fs.readFileSync(PRELABELS_FILE, 'utf-8'));
-        // data.labels is an object: key → label object. Convert to array.
-        const entries = Object.values(data.labels || {});
         res.json({ count: entries.length, entries });
     } catch (err) {
-        console.error('Error reading dm_prelabeled.json:', err.message);
+        console.error('Error reading JSONL:', err.message);
         res.status(500).json({ error: err.message });
     }
 });

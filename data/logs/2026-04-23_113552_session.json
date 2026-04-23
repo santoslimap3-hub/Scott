@@ -1,0 +1,19 @@
+[
+  {
+    "type": "comment",
+    "postAuthor": "Andreas Leijonmarck",
+    "postTitle": "Where do you wish to live, now and in the future?",
+    "commentAuthor": "Lucas Premat",
+    "commentText": "I long for lattitude. Needs to be near the equator and sea",
+    "tags": {
+      "tone_tags": [
+        "bonding-rapport"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "reasoning": "Lucas is a member of Scott's program and this is a bonding moment."
+    },
+    "reply": "Me too, Lucas. Equator and ocean is the dream.",
+    "timestamp": "2026-04-23T03:36:52.217Z"
+  }
+]
