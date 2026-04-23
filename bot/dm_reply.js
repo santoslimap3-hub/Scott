@@ -16,6 +16,12 @@ const trainingLog  = require("./logger/training_log");
 const { INTENTS: INTENT_DEFS, SALES_STAGES: STAGE_DEFS } = require("./classify/tags");
 const { splitBubbles, interBubbleDelayMs, BUBBLE_DELIM } = require("./bubble");
 
+// ── Persons database ────────────────────────────────────────────────────────
+// Tracks all people the bot has interacted with and their full interaction
+// history. DM exchanges are logged here so the full relationship context
+// (including any prior post/comment interactions) persists across sessions.
+const personsDb = require("./db/persons_db");
+
 const STATE_FILE = path.join(__dirname, "conversation_state.json");
 
 const CONFIG = {
@@ -803,7 +809,7 @@ async function generateDMReply(partnerName, messages) {
 
 // ─── SINGLE POLL: check for unreads and reply ────────────
 
-async function pollAndReply(page, botName, convState) {
+async function pollAndReply(page, botName, convState, persons) {
     var handled = 0;
 
     // Make sure we're on Skool
@@ -1038,6 +1044,31 @@ async function pollAndReply(page, botName, convState) {
                     }
                 }
 
+                // ── Log DM exchange to persons DB ─────────────────────────
+                // Log their message first, then each of Scott's bubbles.
+                if (persons) {
+                    var isNewDMPerson = !personsDb.personExists(persons, partner);
+                    if (isNewDMPerson) {
+                        console.log("    👤 [PersonsDB] First contact via DM: " + partner);
+                    }
+                    personsDb.addInteraction(persons, partner, {
+                        type: "dm",
+                        author: partner,
+                        text: lastPartnerMsg,
+                        sender: "person",
+                        timestamp: new Date().toISOString(),
+                    });
+                    for (var dbl = 0; dbl < bubbles.length; dbl++) {
+                        personsDb.addInteraction(persons, partner, {
+                            type: "dm",
+                            author: "Scott Northwolf",
+                            text: bubbles[dbl],
+                            sender: "bot",
+                            timestamp: new Date().toISOString(),
+                        });
+                    }
+                }
+
                 markHandled(convState, targetConv.name, {
                     lastPreview:    dmReply,         // preview will show our reply once it refreshes
                     lastPartnerMsg: lastPartnerMsg,  // backup: matches preview before it refreshes
@@ -1079,6 +1110,7 @@ async function main() {
     }
 
     var convState = loadState();
+    var persons   = personsDb.loadPersons();
     var browser, context, page, botName;
     var cycle = 0;
 
@@ -1112,7 +1144,7 @@ async function main() {
             console.log("\n[" + ts + "] Poll #" + pollCount + " (" + formatMs(remaining) + " left in active period)");
 
             try {
-                var handled = await pollAndReply(page, botName, convState);
+                var handled = await pollAndReply(page, botName, convState, persons);
                 totalHandled += handled;
                 if (handled === 0 && pollCount > 1) {
                     process.stdout.write("  . no new DMs\n");

@@ -30,6 +30,12 @@ const trainingLog = require("./logger/training_log");
 // splitting is strictly a DM-channel feature (see dm_reply.js).
 const { collapseBubbles, BUBBLE_DELIM } = require("./bubble");
 
+// ── Persons database ────────────────────────────────────────────────────────
+// Tracks all people the bot has interacted with and their full interaction
+// history. Used to (a) skip repeat post replies to known persons and (b)
+// inject prior context into the generation prompt.
+const personsDb = require("./db/persons_db");
+
 const REPLIED_FILE = path.join(__dirname, "replied_posts.json");
 
 // ── Shared reply-generation system prompt builder ──────────────────────────────
@@ -443,7 +449,7 @@ async function alreadyCommented(page, botName) {
     }, botName);
 }
 
-async function generateReply(post) {
+async function generateReply(post, personHistory) {
     console.log("🤖 Classifying post...");
 
     // ── Step 1: Classify the post to determine tone/intent/stage ──
@@ -460,6 +466,12 @@ async function generateReply(post) {
 
     // ── Step 2: Build v5-format user prompt ──
     var userParts = [];
+
+    // Inject prior interaction history if this person is already known
+    if (personHistory) {
+        userParts.push(personHistory);
+        userParts.push("");
+    }
 
     userParts.push("--- POST ---");
     userParts.push("Author: " + post.author);
@@ -986,7 +998,7 @@ function selectComments(classifiedComments) {
     return selected;
 }
 
-async function generateCommentReply(comment) {
+async function generateCommentReply(comment, personHistory) {
     console.log("🤖 Classifying comment by " + comment.author + "...");
 
     // ── Step 1: Classify the comment to determine tone/intent/stage ──
@@ -1005,6 +1017,12 @@ async function generateCommentReply(comment) {
 
     // ── Step 2: Build v5-format user prompt ──
     var userParts = [];
+
+    // Inject prior interaction history if this person is already known
+    if (personHistory) {
+        userParts.push(personHistory);
+        userParts.push("");
+    }
 
     userParts.push("--- POST ---");
     userParts.push("Author: " + (comment.postAuthor || "Unknown"));
@@ -1167,7 +1185,7 @@ async function hasUnreadNotifications(page) {
     });
 }
 
-async function handleNotifications(page, botName, repliedPosts, summary) {
+async function handleNotifications(page, botName, repliedPosts, summary, persons) {
     console.log("🔔 Opening notifications...\n");
 
     // Step 1: Click the REGULAR notification bell (NOT the chat/DM icon)
@@ -1424,7 +1442,15 @@ async function handleNotifications(page, botName, repliedPosts, summary) {
                 postCategory: 'General',
                 thread: notifPostCtx.thread || []
             };
-            var replyText = await generateCommentReply(commentObj);
+            // Build person history context for notification reply
+            var notifPersonHistory = personsDb.formatHistoryForPrompt(
+                personsDb.getPersonHistory(persons, targetComment.target.author)
+            );
+            if (notifPersonHistory) {
+                console.log("    ℹ️  [PersonsDB] Known person — history will be injected into prompt");
+            }
+
+            var replyText = await generateCommentReply(commentObj, notifPersonHistory || undefined);
             // Patch the last log entry type so it shows as a notification reply
             sessionLog.patchLastType("notif-comment");
 
@@ -1435,6 +1461,22 @@ async function handleNotifications(page, botName, repliedPosts, summary) {
             console.log("─".repeat(50) + "\n");
 
             await typeCommentReply(page, { author: targetComment.target.author, text: targetComment.target.text }, replyText);
+
+            // Log the notification comment + Scott's reply to persons DB
+            personsDb.addInteraction(persons, targetComment.target.author, {
+                type: "comment",
+                post_title: commentObj.postTitle || "(no title)",
+                author: targetComment.target.author,
+                text: targetComment.target.text,
+                timestamp: new Date().toISOString(),
+            });
+            personsDb.addInteraction(persons, targetComment.target.author, {
+                type: "scott_reply",
+                post_title: commentObj.postTitle || "(no title)",
+                author: "Scott Northwolf",
+                text: replyText,
+                timestamp: new Date().toISOString(),
+            });
 
             summary.push({ type: "notif-comment", title: targetComment.target.author + "'s reply", author: targetComment.target.author, category_class: "notification" });
             repliedPosts.add('notif|' + notif.href);
@@ -1462,6 +1504,7 @@ async function main() {
     var page = await context.newPage();
     var cycle = 0;
     var repliedPosts = loadRepliedPosts();
+    var persons = personsDb.loadPersons();
     var botName = "";
 
     try {
@@ -1535,7 +1578,16 @@ async function main() {
                         continue;
                     }
 
-                    var replyText = await generateReply(post);
+                    // Persons DB: never reply to a second post from a known person
+                    if (personsDb.personExists(persons, post.author)) {
+                        console.log("⏭️  [PersonsDB] " + post.author + " already in DB — skipping post reply\n");
+                        repliedPosts.add(post.href);
+                        saveRepliedPosts(repliedPosts);
+                        continue;
+                    }
+
+                    // No prior history for new persons — pass undefined so no PERSON HISTORY block is added
+                    var replyText = await generateReply(post, undefined);
 
                     console.log("─".repeat(50));
                     console.log("GENERATED REPLY:");
@@ -1546,6 +1598,22 @@ async function main() {
 
                     await typeReply(page, replyText);
 
+                    // Log this new person + interaction to persons DB
+                    personsDb.addInteraction(persons, post.author, {
+                        type: "post",
+                        author: post.author,
+                        title: post.title,
+                        body: post.body.substring(0, 500),
+                        timestamp: new Date().toISOString(),
+                    });
+                    personsDb.addInteraction(persons, post.author, {
+                        type: "scott_reply",
+                        post_title: post.title,
+                        author: "Scott Northwolf",
+                        text: replyText,
+                        timestamp: new Date().toISOString(),
+                    });
+
                     summary.push({ type: "post", title: post.title, author: post.author, category_class: post.category_class });
                     repliedPosts.add(post.href);
                     saveRepliedPosts(repliedPosts);
@@ -1554,6 +1622,9 @@ async function main() {
                     console.log("💬 Comment by " + item.author + " on: " + item.postTitle);
                     console.log("  Text: " + item.text.substring(0, 200) + (item.text.length > 200 ? "..." : ""));
                     console.log("  📍 Navigating to: " + item.postHref);
+                    if (personsDb.personExists(persons, item.author)) {
+                        console.log("  ℹ️  [PersonsDB] Known person — history will be injected into prompt");
+                    }
                     console.log("");
 
                     // Force a real navigation even if we're already on this URL
@@ -1585,7 +1656,12 @@ async function main() {
                     // If we didn't have a title from feed scrape, use the one from the page
                     if (postCtx.postTitle) item.postTitle = postCtx.postTitle;
 
-                    var replyText = await generateCommentReply(item);
+                    // Build person history context (empty string for new persons)
+                    var commentPersonHistory = personsDb.formatHistoryForPrompt(
+                        personsDb.getPersonHistory(persons, item.author)
+                    );
+
+                    var replyText = await generateCommentReply(item, commentPersonHistory || undefined);
 
                     console.log("─".repeat(50));
                     console.log("GENERATED REPLY TO COMMENT:");
@@ -1595,6 +1671,22 @@ async function main() {
                     console.log("");
 
                     await typeCommentReply(page, item, replyText);
+
+                    // Log the comment + Scott's reply to persons DB
+                    personsDb.addInteraction(persons, item.author, {
+                        type: "comment",
+                        post_title: item.postTitle || "(no title)",
+                        author: item.author,
+                        text: item.text,
+                        timestamp: new Date().toISOString(),
+                    });
+                    personsDb.addInteraction(persons, item.author, {
+                        type: "scott_reply",
+                        post_title: item.postTitle || "(no title)",
+                        author: "Scott Northwolf",
+                        text: replyText,
+                        timestamp: new Date().toISOString(),
+                    });
 
                     summary.push({ type: "comment", title: item.author + "'s comment", author: item.author, category_class: item.category_class });
                     repliedPosts.add(item.commentId);
@@ -1608,7 +1700,7 @@ async function main() {
                         var hasNotifs = await hasUnreadNotifications(page);
                         if (hasNotifs) {
                             console.log("\n🔔 Coin flip: TRUE + notifications detected — checking...\n");
-                            await handleNotifications(page, botName, repliedPosts, summary);
+                            await handleNotifications(page, botName, repliedPosts, summary, persons);
                         } else {
                             console.log("🔔 Coin flip: TRUE but no notifications — continuing\n");
                         }
