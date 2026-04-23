@@ -1,5 +1,9 @@
 require 'json'
 
+def clean_text(str)
+  str.to_s.lstrip.sub(/\A@\S+\s+\S+\s*/, '')
+end
+
 dm_json_path = File.expand_path('../data/dm_classified.json', __dir__)
 thread_json_path = File.expand_path('../data/scott_threads.json', __dir__)
 data_threads = JSON.parse(File.read(thread_json_path))
@@ -14,7 +18,7 @@ data_dm.each do |row|
       datetime: "#{row["Date"]} #{row["Time"]}",
       person: row["Contact"],
       author: row["Speaker"],
-      text: row["Message"],
+      text: clean_text(row["Message"]),
       tags: row["Tags"] || {}
     }
   else
@@ -29,7 +33,7 @@ data_dm.each do |row|
               type: message["type"] || "comment",
               post_id: message["post_id"],
               author: message["author"],
-              text: message["text"],
+              text: clean_text(message["text"]),
               tags: message["tags"] || {}
           }
           end
@@ -40,7 +44,7 @@ data_dm.each do |row|
               type: message["type"] || "comment",
               post_id: message["post_id"],
               author: message["author"],
-              text: message["text"],
+              text: clean_text(message["text"]),
               tags: message["tags"] || {}
             }
           end
@@ -52,7 +56,7 @@ data_dm.each do |row|
       datetime: "#{row["Date"]} #{row["Time"]}",
       person: row["Contact"],
       author: row["Speaker"],
-      text: row["Message"],
+      text: clean_text(row["Message"]),
       tags: row["Tags"] || {}
       }
   end
@@ -71,7 +75,7 @@ data_threads.each do |thread|
         type: thread[0]["type"] || "comment",
         post_id: thread[0]["post_id"],
         author: thread[0]["author"],
-        text: thread[0]["text"],
+        text: clean_text(thread[0]["text"]),
       }]
       thread.each_with_index do |message, idx|
         next if idx == 0
@@ -79,7 +83,7 @@ data_threads.each do |thread|
           type: message["type"] || "comment",
           post_id: message["post_id"],
           author: message["author"],
-          text: message["text"],
+          text: clean_text(message["text"]),
           tags: message["tags"] || {}
         }
       end
@@ -88,7 +92,7 @@ data_threads.each do |thread|
         type: thread[0]["type"] || "comment",
         post_id: thread[0]["post_id"],
         author: thread[0]["author"],
-        text: thread[0]["text"],
+        text: clean_text(thread[0]["text"]),
         tags: thread[0]["tags"] || {}
       }]
       thread.each_with_index do |message, idx|
@@ -97,7 +101,7 @@ data_threads.each do |thread|
           type: message["type"] || "comment",
           post_id: message["post_id"],
           author: message["author"],
-          text: message["text"],
+          text: clean_text(message["text"]),
           tags: message["tags"] || {}
         }
       end
