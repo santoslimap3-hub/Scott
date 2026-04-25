@@ -1,0 +1,38 @@
+[
+  {
+    "type": "post",
+    "postAuthor": "Harry Oram",
+    "postTitle": "Introduction",
+    "postBodyPreview": "1d  • General 💭IntroductionHey everyone — Harry here 👋Apologies for the longest post - but just wanted to introduce myself properly.My background is in acting, storytelling, and directing — I’ve spent years trying to understand characters, audiences… and eventually realised I needed to understand ",
+    "tags": {
+      "tone_tags": [
+        "chit-chat",
+        "bonding-rapport"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "This is a new member introduction post and Jack is welcoming him to the community."
+    },
+    "reply": "We're glad to have you on board, brother. Welcome.",
+    "timestamp": "2026-04-23T14:39:01.345Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Andreas Leijonmarck",
+    "postTitle": "Strategies",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "If your offer is a one liner like \"I take self-improvement coaches from $0 to $10K per month in 42 days with my 'Reverse Engineered $10K Method' or they don't pay\" then you do tell it even to your neighboor because you lose nothing and create massive curiousity by putting it out there every time you",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Scott is giving a valuable insight on how to present your offer."
+    },
+    "reply": "That is treasure all over this group, Scott. This advice is pure gold.",
+    "timestamp": "2026-04-23T14:39:12.300Z"
+  }
+]

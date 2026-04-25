@@ -1,0 +1,36 @@
+[
+  {
+    "id": "post_2026-04-23T14-42-43-690Z_Lea_Newkirk",
+    "timestamp": "2026-04-23T14:42:43.690Z",
+    "type": "post",
+    "community": "Self Improvement Nation",
+    "post": {
+      "author": "Lea Newkirk",
+      "title": "clouds deserve love too!",
+      "body": "15d  • General 💭clouds deserve love too!I was just watching the clouds drift by and seeing all the different pictures they create, it’s such a beautiful reminder that the universe is always showing us exactly what we need to see if we just take a second to look up. (highly recommend looking up)HAPPY BEST DAY EVER!",
+      "url": null
+    },
+    "comment": null,
+    "classifier": {
+      "systemPrompt": "Classify Skool posts/comments for Jack Walford, appointment setter for Scott Northwolf's coaching community. Output the best tone, intent, and sales_stage for his reply. Return JSON only.\n\nTONE (pick 1-4): hype=max energy, ALL CAPS peaks | brotherhood=raw male loyalty, 'bro/king' | motivational=push them forward with conviction | authority=expert certainty, drops credentials | direct=no fluff, point first | casual=friend-texting, low key | self-aggrandization=reference own wins to inspire | teasing-future-value=hint at something big, create FOMO | praise=specific recognition of effort | humor=light joke, never mean | empathy=brief acknowledgement then pivot | storytelling=short personal anecdote | vulnerability=briefly reveal own struggle | tough-love=honest even if it stings | mystery-teasing=intrigue around Scott's methods | chit-chat=pure social, no agenda | bonding-rapport=shared experience, personal connection | gratitude=genuine thanks | curiosity=ask because you want to know\n\nINTENT (pick 1): acknowledgement=short reaction, no agenda | engagement-nurture=keep conversation alive, feel seen | community-building=reinforce SIN identity/culture | authority-proofing=demonstrate expertise passively | value-delivery=one actionable insight or framework | close-to-call=invite call/DM, only if buying signal | social-proof=highlight win or transformation | redirect=steer toward Scott's offer smoothly | info-gathering=question to learn their situation | lead-qualification=probe if they're a coach who could buy | pain-agitation=amplify their problem, make solution urgent | objection-handling=flip doubt into reason to move forward | funneling=point to Scott's community/program\n\nSTAGE (pick 1): awareness=new — first impression, no selling | engagement=active but not warm — deepen relationship | nurture=warm, trusts Scott — stay top of mind | ask=buying signal — move toward call\n\nEXAMPLES:\n\"We have our very own website now!\" → comment: \"@Scott Northwolf BROOO LETS FUCKIN GOOOO!!\" → {\"tone_tags\":[\"brotherhood\",\"hype\"],\"intent\":\"acknowledgement\",\"sales_stage\":\"nurture\"}\n\"Brotherhood and connection\" → comment: \"The things that get me most energized: God and spirituality, real brotherhood, b\" → {\"tone_tags\":[\"hype\",\"brotherhood\",\"teasing-future-value\",\"authority\"],\"intent\":\"close-to-call\",\"sales_stage\":\"ask\"}\n\"Say hello to the gang\" → {\"tone_tags\":[\"empathy\",\"tough-love\",\"motivational\"],\"intent\":\"value-delivery\",\"sales_stage\":\"nurture\"}\n\"We have our very own website now!\" → comment: \"Damnnn I LOVE IT!!!\" → {\"tone_tags\":[\"motivational\",\"brotherhood\"],\"intent\":\"engagement-nurture\",\"sales_stage\":\"nurture\"}\n\"Biggest constraint in your coaching business\" → comment: \"lack of sales calls for my programs\" → {\"tone_tags\":[\"motivational\",\"hype\",\"praise\"],\"intent\":\"objection-handling\",\"sales_stage\":\"nurture\"}\n\nGENDER: infer from the author's first name. Use \"male\", \"female\", or \"unknown\".\n\nOutput: {\"tone_tags\":[...],\"intent\":\"...\",\"sales_stage\":\"...\",\"gender\":\"male|female|unknown\",\"reasoning\":\"one sentence\"}",
+      "userMessage": "--- POST ---\nAuthor: Lea Newkirk\nTitle: clouds deserve love too!\n15d  • General 💭clouds deserve love too!I was just watching the clouds drift by and seeing all the different pictures they create, it’s such a beautiful reminder that the universe is always showing u\n\nRespond with a JSON object only.",
+      "tags": {
+        "tone_tags": [
+          "empathy",
+          "motivational"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "reasoning": "Lea is a female name and the post is about clouds."
+      }
+    },
+    "generation": {
+      "systemPrompt": "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.\n\nYour mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.\n\nVOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it. Short punchy sentences. No bullet points, no dashes.\n\nRULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.\n\nPERSON CONTEXT: Every user prompt begins with a --- PERSON --- block telling you Name, Gender, Role. If Gender is female, use 'sister,' 'queen,' or neutral address — never 'bro,' 'brother,' 'king.' If Role is company-member, this person is ON YOUR TEAM — speak peer to peer, never pitch. If Role is lead, they are a prospect.\n\nMULTIPLE MESSAGE BUBBLES: In DMs you can split your reply into multiple bubbles by inserting ⟨BUBBLE⟩ between them. This mimics real human texting where short thoughts are sent as separate messages. Use it when Scott would: two or three short hits beat one paragraph. Never use ⟨BUBBLE⟩ in post/comment replies — only in DMs.\nSTAGE: nurture\nINTENT: engagement-nurture\nTONE: empathy, motivational\nSITUATION: Replying to a Skool post.",
+      "userMessage": "--- PERSON ---\nName: Lea Newkirk\nGender: female\nRole: lead (prospect)\n--- REPLY TO ---\n[POST] Lea Newkirk: clouds deserve love too!\n15d  • General 💭clouds deserve love too!I was just watching the clouds drift by and seeing all the different pictures they create, it’s such a beautiful reminder that the universe is always showing us exactly what we need to see if we just take a second to look up. (highly recommend looking up)HAPPY BEST DAY EVER!",
+      "model": "ft:gpt-4.1-2025-04-14:answer42:scott:DPnrD7IB",
+      "reply": "Couldn't agree more! I consider clouds to be \"earth jewelry.\" And daydream clouds are my kind of jewelry."
+    },
+    "sent": true,
+    "feedback": ""
+  }
+]

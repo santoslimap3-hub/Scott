@@ -1,172 +1,754 @@
 {
-  "Lucas Premat": [
-    {
-      "type": "comment",
-      "post_title": "Where do you wish to live, now and in the future?",
-      "author": "Lucas Premat",
-      "text": "I long for lattitude. Needs to be near the equator and sea",
-      "timestamp": "2026-04-23T03:36:55.421Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "Where do you wish to live, now and in the future?",
-      "author": "Jack Walford",
-      "text": "Me too, Lucas. Equator and ocean is the dream.",
-      "timestamp": "2026-04-23T03:36:55.425Z"
-    },
-    {
-      "type": "comment",
-      "post_title": "The 24-hour blueprint.",
-      "author": "Lucas Premat",
-      "text": "I know about them, but how do you integrate, can you give advice?",
-      "timestamp": "2026-04-23T03:41:19.690Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "The 24-hour blueprint.",
-      "author": "Jack Walford",
-      "text": "What do you want, brother? . . . and by when?",
-      "timestamp": "2026-04-23T03:41:19.694Z"
-    },
-    {
-      "type": "comment",
-      "post_title": "COMMUNITY CALL COMING SOON....",
-      "author": "Lucas Premat",
-      "text": "Interesting take: DIscipline the inner battle between your new identity and your old one.Anyone agree?",
-      "timestamp": "2026-04-23T04:18:50.309Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "COMMUNITY CALL COMING SOON....",
-      "author": "Dr. Stephen Buscema",
-      "text": "Bang on, brother. You get it.",
-      "timestamp": "2026-04-23T04:18:50.332Z"
-    },
-    {
-      "type": "comment",
-      "post_title": "What are you looking through?",
-      "author": "Lucas Premat",
-      "text": "Perspective is anything.Identity is number one. Seeing things as easy and simplifying has helped me see things in a different way, allowing me to do my deepest, best work.",
-      "timestamp": "2026-04-23T04:19:27.513Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "What are you looking through?",
-      "author": "Dr. Stephen Buscema",
-      "text": "Simple is always better, King!",
-      "timestamp": "2026-04-23T04:19:27.540Z"
-    }
-  ],
-  "Scott Northwolf": [
-    {
-      "type": "post",
-      "author": "Scott Northwolf",
-      "title": "We have our very own website now!",
-      "body": "24d  • The Hero's Journey 🗺️We have our very own website now! I'm really happy to announce that today we built our very own website and we have two more new AMAZING acquisitions in our company, Answer 42.Here's the website, boys, check it out:https://answer42.llc/",
-      "timestamp": "2026-04-23T03:40:24.119Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "We have our very own website now!",
-      "author": "Jack Walford",
-      "text": "You're unstoppable, king! Gonna travel to Bali and Germany nexxt year next year, and then even the Himalayas for that Power-Up footage, so I am constantly traveling around for new adventures acquiring more and more lessons and wisdom. Skool and Answer 42 was 7 months ago literally, it was end of november, with so many lessons inbetween . . . and it hasn't even been a year brother and look how much you grow. . . it's exactly what you said to me one day . . . even the opposite side of your arm is too far and too big of a gap compared to where you want to be . . . it's exactly that, I feel like there are so many bigger and higher levels out there that still need to be unlocked and traversed and that's exactly why I think we've found this journey, it's what we always look for . . . whatever happens we always look for how we can spread ans share everything we discover with that collective, because there's so many lesson and shortcuts that society doesn't want us to know, because it cornflicks with their own hidden interests and this is why communities like The Answer 42 will always exist. . . I want to say I'm glad that my path to self-improvement started in this group, brother, it's not just that the community is relatively small, but it's also personal, very sincere and honest, it allows every person to be who they truly are and who they want to develop into, that's why we love it",
-      "timestamp": "2026-04-23T03:40:24.125Z"
-    },
-    {
-      "type": "comment",
-      "post_title": "🥇Talking about providing value...",
-      "author": "Scott Northwolf",
-      "text": "Scott Northwolf • Feb 2@Life Coach Rob money is made when value is created and value is created when pain is alliviated.",
-      "timestamp": "2026-04-23T03:41:32.093Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "🥇Talking about providing value...",
-      "author": "Jack Walford",
-      "text": "Preach, bro!",
-      "timestamp": "2026-04-23T03:41:32.100Z"
-    }
-  ],
-  "Andreas Leijonmarck": [
-    {
-      "type": "comment",
-      "post_title": "Strategies",
-      "author": "Andreas Leijonmarck",
-      "text": "Northwolf Well put. I've got a straight aim for the cold calls alongside linkedin outreach. As my niche and ICP is very well sniped in, and i had an epic lead book from that first week testing ads at 11bucks daily... The past 10 days has generated none, but playing with video now. Figured continuing",
-      "timestamp": "2026-04-23T03:40:36.764Z"
-    },
-    {
-      "type": "scott_reply",
-      "post_title": "Strategies",
-      "author": "Jack Walford",
-      "text": "Keep us posted about your progress!",
-      "timestamp": "2026-04-23T03:40:36.769Z"
-    }
-  ],
-  "Lea Newkirk": [
+  "_companyMembers": {
+    "Scott Northwolf": "CEO / founder",
+    "Lea Newkirk": "appointment setter",
+    "Lucas Premat": "team member"
+  },
+  "_genders": {
+    "Lea Newkirk": "female",
+    "Lucas Premat": "male",
+    "Scott Northwolf": "male",
+    "Andreas Leijonmarck": "male",
+    "Life Coach Rob": "male",
+    "Harry Oram": "male",
+    "Benjamin S.": "male",
+    "Andreas Leijonmarck": "male",
+    "Lea Newkirk": "female",
+    "Daniel Carter": "male",
+    "Scott Northwolf": "male",
+    "Benjamin S.": "male",
+    "Andrew Brooks": "male",
+    "Daniel Carter": "male",
+    "Blake Henry": "male",
+    "Nikhil D": "male",
+    "Pastor Adil": "male",
+    "Terrence Holman": "male",
+    "Leona Doyld": "female",
+    "Louis Moore III": "male",
+    "Nikita Mayfield": "female",
+    "Sajid Arif": "male",
+    "Ben Matthew": "female",
+    "Matt Miller": "male",
+    "Hans Starkweather": "male",
+    "Kristina Bricknell": "female",
+    "Ruth App": "female",
+    "Rishikesh Poomalaparambil": "male",
+    "Amber Mitchell": "female"
+  },
+  "Lea Newkirk": [
     {
       "type": "post",
       "author": "Lea Newkirk",
-      "title": "Who are you, really?",
-      "body": "12d  • General 💭Who are you, really?It’s wild to realize that so many of the things we call \"just who I am\" are actually just habits we built to feel safe once upon a time. We spend so much energy trying to fix the person we think we are, but maybe the real work is just letting go of the patterns that don't serve the person we’re becoming.",
-      "timestamp": "2026-04-23T03:40:47.052Z"
+      "title": "clouds deserve love too!",
+      "body": "15d  • General 💭clouds deserve love too!I was just watching the clouds drift by and seeing all the different pictures they create, it’s such a beautiful reminder that the universe is always showing us exactly what we need to see if we just take a second to look up. (highly recommend looking up)HAPPY BEST DAY EVER!",
+      "timestamp": "2026-04-23T14:42:58.450Z"
     },
     {
       "type": "scott_reply",
-      "post_title": "Who are you, really?",
-      "author": "Jack Walford",
-      "text": "What you said really hit home. Painful, necessary, but somewhat beautifully so things.",
-      "timestamp": "2026-04-23T03:40:47.058Z"
+      "post_title": "clouds deserve love too!",
+      "author": "Dr. Stephen Buscema",
+      "text": "Couldn't agree more! I consider clouds to be \"earth jewelry.\" And daydream clouds are my kind of jewelry.",
+      "timestamp": "2026-04-23T14:42:58.456Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "Strategies",
+      "author": "Lea Newkirk",
+      "text": "This is really cool. I am still working on making this my 3rd language so still need time to grasp it but it seems amazing and will leave this comment as a reference to learn more, and as a before for when I do, thank you!",
+      "timestamp": "2026-04-23T14:50:11.836Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Strategies",
+      "author": "",
+      "text": "One day you'll see this comment and remember this day as the day when it all began!",
+      "timestamp": "2026-04-23T14:50:11.840Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter I love the conclusion of coming back to the path. Thank you for sharing this.",
+      "timestamp": "2026-04-24T08:38:21.537Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Dr. Stephen Buscema",
+      "text": "@Daniel Carter thank you for being here, brother. it means a lot.",
+      "timestamp": "2026-04-24T08:38:21.579Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "clouds deserve love too!",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter This literally made me melt, so cute.",
+      "timestamp": "2026-04-24T08:40:03.292Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "clouds deserve love too!",
+      "author": "Dr. Stephen Buscema",
+      "text": "So much animal appreciation this week. .",
+      "timestamp": "2026-04-24T08:40:03.315Z"
     },
     {
       "type": "comment",
       "post_title": "Weekly Sync 🧘🏼‍♀️",
       "author": "Lea Newkirk",
       "text": "Leijonmarck heavily feel you on the socializing part, on that topic, how do you end up finding a balance?",
-      "timestamp": "2026-04-23T03:41:09.263Z"
+      "timestamp": "2026-04-24T08:40:41.945Z"
     },
     {
       "type": "scott_reply",
       "post_title": "Weekly Sync 🧘🏼‍♀️",
-      "author": "Jack Walford",
-      "text": "Haha, Andreas, are you actually asking me about balance??! lol",
-      "timestamp": "2026-04-23T03:41:09.267Z"
+      "author": "Dr. Stephen Buscema",
+      "text": "I'm not Swedish enough. . . but I guess all the S.A.D. candles and cozy socks helps.\n​\n​\nmoments like this too.",
+      "timestamp": "2026-04-24T08:40:41.978Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "Strategies",
+      "author": "Lea Newkirk",
+      "text": "This is really cool. I am still working on making this my 3rd language so still need time to grasp it but it seems amazing and will leave this comment as a reference to learn more, and as a before for when I do, thank you!",
+      "timestamp": "2026-04-24T08:52:41.390Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Strategies",
+      "author": "Dr. Stephen Buscema",
+      "text": "You have already started.",
+      "timestamp": "2026-04-24T08:52:41.406Z"
     }
   ],
-  "_companyMembers": {
-    "Scott Northwolf": "CEO",
-    "Lea Newkirk": "appointment setter"
-  },
+  "Lucas Premat": [
+    {
+      "type": "comment",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Lucas Premat",
+      "text": "I know about them, but how do you integrate, can you give advice?",
+      "timestamp": "2026-04-23T14:45:55.308Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "The 24-hour blueprint.",
+      "author": "",
+      "text": "The discipline to do what you planned no matter what is PRIMARY. Then you need to program your environment to help you, not sabotage you. If a person doesn't know what fucks up their motivation, mood and willpower or what gives him strength, it's the first thing he needs to do. Know thyself. After that comes aligned action. Another big one is to understand that you only need to win the internal battle in the moment. To go through the lowest point, deepest darkness... and finish the day on top. It's not about perfection, almost nobody knows how to integrate these habits while living a normal life. I failed soooo many times... Key is to keep coming back to the path and not give up. . . so this is the core of integration. . . what habits would you like to integrate Lucas?",
+      "timestamp": "2026-04-23T14:45:55.342Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Lucas Premat",
+      "text": "I know about them, but how do you integrate, can you give advice?",
+      "timestamp": "2026-04-24T08:37:25.954Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Dr. Stephen Buscema",
+      "text": "Now, that was a good hook.",
+      "timestamp": "2026-04-24T08:37:26.025Z"
+    }
+  ],
+  "Scott Northwolf": [
+    {
+      "type": "post",
+      "author": "Scott Northwolf",
+      "title": "We have our very own website now!",
+      "body": "25d  • The Hero's Journey 🗺️We have our very own website now! I'm really happy to announce that today we built our very own website and we have two more new AMAZING acquisitions in our company, Answer 42.Here's the website, boys, check it out:https://answer42.llc/",
+      "timestamp": "2026-04-23T14:47:32.194Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "We have our very own website now!",
+      "author": "",
+      "text": "Woooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+      "timestamp": "2026-04-23T14:47:32.194Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Scott Northwolf",
+      "text": "Scott Northwolf • Feb 2@Andrew Brooks thank me by applying this relentlessly and coming back to me with the results. Your success is my reward, Andrew.",
+      "timestamp": "2026-04-24T08:37:46.681Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "I love this! ! Thank you, brother.",
+      "timestamp": "2026-04-24T08:37:46.723Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "We have our very own website now!",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter Appreciate your enthusiasm...",
+      "timestamp": "2026-04-24T08:39:00.867Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "We have our very own website now!",
+      "author": "Dr. Stephen Buscema",
+      "text": "Oscar Quiet, always appreciate you, brother, you absolute machine.",
+      "timestamp": "2026-04-24T08:39:00.905Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Scott Northwolf",
+      "text": "Scott Northwolf • Feb 2@Life Coach Rob money is made when value is created and value is created when pain is alliviated.",
+      "timestamp": "2026-04-24T08:42:04.577Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "This world is so full of suffering. . .",
+      "timestamp": "2026-04-24T08:42:04.604Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter tell me a Chuck Norris joke...",
+      "timestamp": "2026-04-24T08:52:12.581Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "Chuck Norris doesn't wear a watch. ⟨BUBBLE⟩ He decides what time it is.",
+      "timestamp": "2026-04-24T08:52:12.590Z"
+    }
+  ],
+  "Andreas Leijonmarck": [
+    {
+      "type": "post",
+      "author": "Andreas Leijonmarck",
+      "title": "Strategies",
+      "body": "Mar 24  • General 💭Strategies1 great video with the proper hooks, 1 great offer in the end of it(do you show your offer before a sales call?). 1 epic video ad - ending with a brief notion of 1 epic offer - and a summoning to \"see if you are qualified for a call\".Thoughts on this thought process ? As contrary to grinding cold paths. I want results, and efficiency. I already have the capacity to back up the clients with high quality work once their in. I just need to open the door for them to ent",
+      "timestamp": "2026-04-24T08:15:29.701Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Strategies",
+      "author": "Dr. Stephen Buscema",
+      "text": "There are no short cuts. If you have something special, it will shine. Just keep being pro-consistent and stay hungry until you will eat the fruits of your labor my brother, and so lopina.",
+      "timestamp": "2026-04-24T08:15:29.715Z"
+    }
+  ],
+  "Lea Newkirk": [
+    {
+      "type": "comment",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter I love the conclusion of coming back to the path. Thank you for sharing this.",
+      "timestamp": "2026-04-24T08:15:55.131Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Dr. Stephen Buscema",
+      "text": "Thank you, queen Lea!",
+      "timestamp": "2026-04-24T08:15:55.142Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "clouds deserve love too!",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter This literally made me melt, so cute.",
+      "timestamp": "2026-04-24T08:16:24.617Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "clouds deserve love too!",
+      "author": "Dr. Stephen Buscema",
+      "text": ".",
+      "timestamp": "2026-04-24T08:16:24.620Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "clouds deserve love too!",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter This literally made me melt, so cute.",
+      "timestamp": "2026-04-24T08:16:53.093Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "clouds deserve love too!",
+      "author": "Dr. Stephen Buscema",
+      "text": "It's that beautiful Taurus energy, Lea. You can't go wrong with it.",
+      "timestamp": "2026-04-24T08:16:53.104Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "clouds deserve love too!",
+      "author": "Lea Newkirk",
+      "text": "@Daniel Carter This literally made me melt, so cute.",
+      "timestamp": "2026-04-24T08:17:21.892Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "clouds deserve love too!",
+      "author": "Dr. Stephen Buscema",
+      "text": "And the fact that this is all said with straight face makes it even better.",
+      "timestamp": "2026-04-24T08:17:21.897Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "Weekly Sync 🧘🏼‍♀️",
+      "author": "Lea Newkirk",
+      "text": "Leijonmarck heavily feel you on the socializing part, on that topic, how do you end up finding a balance?",
+      "timestamp": "2026-04-24T08:29:08.909Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Weekly Sync 🧘🏼‍♀️",
+      "author": "Dr. Stephen Buscema",
+      "text": "I'm honestly still figuring that one out myself, queen Lea.",
+      "timestamp": "2026-04-24T08:29:08.916Z"
+    }
+  ],
+  "Daniel Carter": [
+    {
+      "type": "comment",
+      "post_title": "Waking at 3 am sunday morning",
+      "author": "Daniel Carter",
+      "text": "Monk mode!",
+      "timestamp": "2026-04-24T08:17:46.675Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Waking at 3 am sunday morning",
+      "author": "Dr. Stephen Buscema",
+      "text": "King mode! !",
+      "timestamp": "2026-04-24T08:17:46.688Z"
+    }
+  ],
+  "Scott Northwolf": [
+    {
+      "type": "comment",
+      "post_title": "We have our very own website now!",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter Appreciate your enthusiasm...",
+      "timestamp": "2026-04-24T08:18:18.467Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "We have our very own website now!",
+      "author": "Dr. Stephen Buscema",
+      "text": "Weaving it into existence, making it come alive. . . My friend, what is invisible will one day become visible. . . It's amazing how it's taking shape and becoming a reality.",
+      "timestamp": "2026-04-24T08:18:18.473Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "We have our very own website now!",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter Appreciate your enthusiasm...",
+      "timestamp": "2026-04-24T08:18:45.952Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "We have our very own website now!",
+      "author": "Dr. Stephen Buscema",
+      "text": "It's all thanks to your support, brother.",
+      "timestamp": "2026-04-24T08:18:45.962Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter tell me a Chuck Norris joke...",
+      "timestamp": "2026-04-24T08:19:29.454Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "Whatever you do, don't tell him to tell the one that starts with ''They started this thread with, . . .''",
+      "timestamp": "2026-04-24T08:19:29.467Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Scott Northwolf",
+      "text": "@Daniel Carter tell me a Chuck Norris joke...",
+      "timestamp": "2026-04-24T08:20:29.243Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "Chuck Norris remembers the future.",
+      "timestamp": "2026-04-24T08:20:29.250Z"
+    }
+  ],
   "Benjamin S.": [
     {
       "type": "post",
       "author": "Benjamin S.",
-      "title": "KPI Tracker",
-      "body": "Mar 21  • Money 💰KPI TrackerHey guys, I made this cool KPI Tracker based on what  was being teaching and based on his latest post about setting goals.It has a revenue planner in it, so all you have to do is simply type in your stats based on calls that you've had, and it will tell you exactly how many outreach per day you need in order to achieve your goal.I made it with Claude AI and you can do the same.I will leave both the file and prompt in case if you want to modify for your own needs.isla",
-      "timestamp": "2026-04-23T04:19:01.356Z"
+      "title": "I finally left everything behind and started a new life",
+      "body": "21d  • The Hero's Journey 🗺️I finally left everything behind and started a new lifeI just moved from Turkey to Georgia and honestly… it still feels unreal.For the first time in my life, I am fully on my own. No family safety net, no familiar environment, no excuses. Just me, my decisions, and the results that come from them.Met up with my friends here and we instantly locked in. Same mindset, same focus, same direction. Every day we wake up early, eat simple whole foods, train, and work on our ",
+      "timestamp": "2026-04-24T08:20:03.990Z"
     },
     {
       "type": "scott_reply",
-      "post_title": "KPI Tracker",
+      "post_title": "I finally left everything behind and started a new life",
       "author": "Dr. Stephen Buscema",
-      "text": "Best quote in document, no question.",
-      "timestamp": "2026-04-23T04:19:01.370Z"
+      "text": "Welcome to the new land duties, Ben ... Let's get it.",
+      "timestamp": "2026-04-24T08:20:04.000Z"
     }
   ],
-  "Life Coach Rob": [
+  "Andrew Brooks": [
+    {
+      "type": "comment",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Andrew Brooks",
+      "text": "Andrew Brooks🔥 • Feb 1love this. Thank you.",
+      "timestamp": "2026-04-24T08:39:38.426Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🥇Talking about providing value...",
+      "author": "Dr. Stephen Buscema",
+      "text": "Scott Northwolf: You're welcome, brother.",
+      "timestamp": "2026-04-24T08:39:38.456Z"
+    }
+  ],
+  "Benjamin S.": [
+    {
+      "type": "post",
+      "author": "Benjamin S.",
+      "title": "I finally left everything behind and started a new life",
+      "body": "21d  • The Hero's Journey 🗺️I finally left everything behind and started a new lifeI just moved from Turkey to Georgia and honestly… it still feels unreal.For the first time in my life, I am fully on my own. No family safety net, no familiar environment, no excuses. Just me, my decisions, and the results that come from them.Met up with my friends here and we instantly locked in. Same mindset, same focus, same direction. Every day we wake up early, eat simple whole foods, train, and work on our ",
+      "timestamp": "2026-04-24T08:41:43.463Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "I finally left everything behind and started a new life",
+      "author": "Dr. Stephen Buscema",
+      "text": "Brother, this is hayat.",
+      "timestamp": "2026-04-24T08:41:43.486Z"
+    }
+  ],
+  "Daniel Carter": [
+    {
+      "type": "comment",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Daniel Carter",
+      "text": "Premat The discipline to do what you planned no matter what is PRIMARY. Then you need to program your environment to help you, not sabotage you. If a person doesn't know what fucks up their motivation, mood and willpower or what gives him strength, it's the first thing he needs to do. Know thyself. ",
+      "timestamp": "2026-04-24T08:42:29.228Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "The 24-hour blueprint.",
+      "author": "Dr. Stephen Buscema",
+      "text": "So it seems...",
+      "timestamp": "2026-04-24T08:42:29.243Z"
+    }
+  ],
+  "Life Coach Rob": [
     {
       "type": "comment",
       "post_title": "🥇Talking about providing value...",
       "author": "Life Coach Rob",
       "text": "Life Coach Rob • Feb 1It’s all about providing value!",
-      "timestamp": "2026-04-23T04:19:38.852Z"
+      "timestamp": "2026-04-24T08:43:07.670Z"
     },
     {
       "type": "scott_reply",
       "post_title": "🥇Talking about providing value...",
       "author": "Dr. Stephen Buscema",
-      "text": "Yes it is, king. . .",
-      "timestamp": "2026-04-23T04:19:38.861Z"
+      "text": "Indeed . . .",
+      "timestamp": "2026-04-24T08:43:07.689Z"
+    }
+  ],
+  "Andreas Leijonmarck": [
+    {
+      "type": "post",
+      "author": "Andreas Leijonmarck",
+      "title": "Strategies",
+      "body": "Mar 24  • General 💭Strategies1 great video with the proper hooks, 1 great offer in the end of it(do you show your offer before a sales call?). 1 epic video ad - ending with a brief notion of 1 epic offer - and a summoning to \"see if you are qualified for a call\".Thoughts on this thought process ? As contrary to grinding cold paths. I want results, and efficiency. I already have the capacity to back up the clients with high quality work once their in. I just need to open the door for them to ent",
+      "timestamp": "2026-04-24T08:51:23.684Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Strategies",
+      "author": "Dr. Stephen Buscema",
+      "text": "Anyone who's struggled putting a winning offer together is going to get value from this. Keep dropping gold, brother.",
+      "timestamp": "2026-04-24T08:51:23.698Z"
+    },
+    {
+      "type": "comment",
+      "post_title": "Strategies",
+      "author": "Andreas Leijonmarck",
+      "text": "Northwolf Well put. I've got a straight aim for the cold calls alongside linkedin outreach. As my niche and ICP is very well sniped in, and i had an epic lead book from that first week testing ads at 11bucks daily... The past 10 days has generated none, but playing with video now. Figured continuing",
+      "timestamp": "2026-04-24T08:51:45.846Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Strategies",
+      "author": "Dr. Stephen Buscema",
+      "text": "Your time will come, brother.",
+      "timestamp": "2026-04-24T08:51:45.852Z"
+    }
+  ],
+  "Harry Oram": [
+    {
+      "type": "post",
+      "author": "Harry Oram",
+      "title": "Introduction",
+      "body": "2d  • General 💭IntroductionHey everyone — Harry here 👋Apologies for the longest post - but just wanted to introduce myself properly.My background is in acting, storytelling, and directing — I’ve spent years trying to understand characters, audiences… and eventually realised I needed to understand myself first.If I’m being honest, the thing that pushed me into this space wasn’t inspiration — it was pressure and financial stress, becoming a father, and that constant feeling of “I know I’m capabl",
+      "timestamp": "2026-04-24T08:56:35.570Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Introduction",
+      "author": "Dr. Stephen Buscema",
+      "text": "Great intro Harry. Looking forward to you getting a ton out of this place. . . because I know for a fact that you will.",
+      "timestamp": "2026-04-24T08:56:35.580Z"
+    }
+  ],
+  "Blake Henry": [
+    {
+      "type": "post",
+      "author": "Blake Henry",
+      "title": "Holy Spirit",
+      "body": "Mar 24  • 👨‍👩‍👧‍👦 The Hope FamHoly SpiritSo with my walk with God. If im honest with myself, I havent been 100% Of course im going to fall short and then the lies of the enemy sneak in. . Now that being said. I have a whole different outlook about things. Ive noticed over time and praying, my life has changed. Certain things, I have lost a urge for. The drinking used to be bad now, I dont have the urge or want to. I look at people different, I love being around people and love talking to the",
+      "timestamp": "2026-04-24T09:01:16.632Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Holy Spirit",
+      "author": "Dr. Stephen Buscema",
+      "text": "So much of this man. Respect for opening up and sharing so openly",
+      "timestamp": "2026-04-24T09:01:16.646Z"
+    }
+  ],
+  "Nikhil D": [
+    {
+      "type": "post",
+      "author": "Nikhil D",
+      "title": "🙏Prayer 🙏",
+      "body": "19d  • 👨‍👩‍👧‍👦 The Hope Fam🙏Prayer 🙏Risen Lord, I love You, yet my love needs faith's purification to truly understand You and Your will. As I grasp Your divine mysteries, help my love grow to perfectly imitate the pure love You desire.Jesus, I trust in You.Amen",
+      "timestamp": "2026-04-24T09:01:40.560Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🙏Prayer 🙏",
+      "author": "Dr. Stephen Buscema",
+      "text": "Beautiful words. So much love coming from you. Thank you for sharing this energy with us, brother.",
+      "timestamp": "2026-04-24T09:01:40.567Z"
+    }
+  ],
+  "Pastor Adil": [
+    {
+      "type": "post",
+      "author": "Pastor Adil",
+      "title": "PALM SUNDAY 🌴",
+      "body": "26d  • 👨‍👩‍👧‍👦 The Hope FamPALM SUNDAY 🌴 Happy Palm Sunday! 🌿 Today we remember the triumphant entry of Jesus into Jerusalem, when people welcomed Him with palm branches and joyful praise. May this special day remind us to open our hearts to Christ, walk in humility, and trust in God’s perfect love and salvation. May your life be filled with peace, hope, and the blessings of our Lord as we prepare our hearts for the victory of Easter. ✝️🙏",
+      "timestamp": "2026-04-24T09:02:00.794Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "PALM SUNDAY 🌴",
+      "author": "Dr. Stephen Buscema",
+      "text": "Thank you for sharing this with us, Pastor.",
+      "timestamp": "2026-04-24T09:02:00.798Z"
+    }
+  ],
+  "Terrence Holman": [
+    {
+      "type": "post",
+      "author": "Terrence Holman",
+      "title": "Be Encouraged...The Shepherd is near...",
+      "body": "Mar 11  • 👨‍👩‍👧‍👦 The Hope FamBe Encouraged...The Shepherd is near...Beloved, the Lord is calling His people into a deeper place of discernment in this hour. The voice of the Shepherd is still speaking, and those who belong to Him will not be confused by the noise of the world. It is time to “Be Still and Know”. It is written in the Gospel of John 10:27, “My sheep hear my voice, and I know them, and they follow me.” This is a season where God is sharpening the spiritual hearing of His people",
+      "timestamp": "2026-04-24T09:03:36.496Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Be Encouraged...The Shepherd is near...",
+      "author": "Dr. Stephen Buscema",
+      "text": "This is fire. . . On spot. . . my brotherrr . . .",
+      "timestamp": "2026-04-24T09:03:36.501Z"
+    }
+  ],
+  "Leona Doyld": [
+    {
+      "type": "post",
+      "author": "Leona Doyld",
+      "title": "Salt and Light",
+      "body": "Mar 13  • 👨‍👩‍👧‍👦 The Hope FamSalt and LightI just read Matthew 5:13-15 and I prayed and then I was listening to Focus on the Family...yep... Salt and Light topic. Wow, God you are incredible. And yes I desire to be used by the Lord to let His light shine through me; even as I am currently in great suffering. Anen",
+      "timestamp": "2026-04-24T09:04:11.105Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Salt and Light",
+      "author": "Dr. Stephen Buscema",
+      "text": "Yes, Amen to this.",
+      "timestamp": "2026-04-24T09:04:11.117Z"
+    }
+  ],
+  "Louis Moore III": [
+    {
+      "type": "post",
+      "author": "Louis Moore III",
+      "title": "If you only ate one meal a week…",
+      "body": "Mar 9  • 👨‍👩‍👧‍👦 The Hope FamIf you only ate one meal a week…your body wouldn’t survive.Christians who only feed their spirit once a weekwonder why they struggle to hear God.Scripture isn’t dessert for Sundays.It’s daily bread for your soul.",
+      "timestamp": "2026-04-24T09:04:32.022Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "If you only ate one meal a week…",
+      "author": "Dr. Stephen Buscema",
+      "text": "TRUTH.",
+      "timestamp": "2026-04-24T09:04:32.030Z"
+    }
+  ],
+  "Nikita Mayfield": [
+    {
+      "type": "post",
+      "author": "Nikita Mayfield",
+      "title": "God’s Love",
+      "body": "Mar 20  • 👨‍👩‍👧‍👦 The Hope FamGod’s Love God is with us in both blessings and in trials and tribulations. He allows both to happen in our lives. Even though He allows them, He’s always with us no matter what season we’re in.",
+      "timestamp": "2026-04-24T09:04:52.977Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "God’s Love",
+      "author": "Dr. Stephen Buscema",
+      "text": "Amen!",
+      "timestamp": "2026-04-24T09:04:52.991Z"
+    }
+  ],
+  "Sajid Arif": [
+    {
+      "type": "post",
+      "author": "Sajid Arif",
+      "title": "Needs your prayers",
+      "body": "27d  • 🙏🏾 Prayer RequestNeeds your prayers A humble request for prayers and compassion.Children in Pakistan, especially those in vulnerable and orphan situations, deserve full protection, care, and a safe environment where they can grow without fear or pressure.Every child is innocent and precious, and their rights, dignity, and future must always be protected.We request everyone to:🤍 Pray for all Pakistani children🤍 Support orphan and vulnerable kids🤍 Promote safety, justice, and protectio",
+      "timestamp": "2026-04-24T09:06:18.349Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Needs your prayers",
+      "author": "Dr. Stephen Buscema",
+      "text": "We're all children at heart. Bhai, my prayers are always with you and everyone you love. Ommmmmmmmmmmmmmmmmmmmmmmmmmmmm.",
+      "timestamp": "2026-04-24T09:06:18.359Z"
+    }
+  ],
+  "Ben Matthew": [
+    {
+      "type": "post",
+      "author": "Ben Matthew",
+      "title": "entrepreneurship is a faith walk",
+      "body": "Feb 19  • 👨‍👩‍👧‍👦 The Hope Famentrepreneurship is a faith walkOne thing I’ve been learning on this business journey is that faith isn’t just something we talk about on Sundays… it shows up in how we handle uncertainty, delays, and even success.There are moments when things don’t move as fast as we want, doors don’t open when we expect, or plans don’t work out the way we imagined, And in those moments, trust becomes real.For me, entrepreneurship has been one of the biggest faith-walks God has",
+      "timestamp": "2026-04-24T09:06:36.411Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "entrepreneurship is a faith walk",
+      "author": "Dr. Stephen Buscema",
+      "text": "Yes, it is.",
+      "timestamp": "2026-04-24T09:06:36.429Z"
+    }
+  ],
+  "Matt Miller": [
+    {
+      "type": "post",
+      "author": "Matt Miller",
+      "title": "Gratitude for Good Friday ✝️",
+      "body": "🔥21d  • 👨‍👩‍👧‍👦 The Hope FamGratitude for Good Friday ✝️Good Friday is not just about what Jesus *endured*—it’s about what He *accomplished*.On the cross, Jesus didn’t simply make forgiveness possible; He reconciled us to God. The hostility was removed. The debt was canceled. The relationship was restored. As Paul says, “God was in Christ reconciling the world to Himself, not counting their trespasses against them.”And here’s where it gets personal for us:That same ministry of reconciliatio",
+      "timestamp": "2026-04-24T09:06:59.094Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Gratitude for Good Friday ✝️",
+      "author": "Dr. Stephen Buscema",
+      "text": "Ahh, this is awesome. Thank you brother.",
+      "timestamp": "2026-04-24T09:06:59.099Z"
+    }
+  ],
+  "Hans Starkweather": [
+    {
+      "type": "post",
+      "author": "Hans Starkweather",
+      "title": "Prayer request",
+      "body": "Mar 10 (edited) • 🙏🏾 Prayer RequestPrayer request So I'm out here trucking, decided to layover in a small town. Go for a walk, run into a fellow man whom he too professes Christ. He's been hitchhiking all over Western part of America. And footin it the rest of the time. We talked about Christ for a little bit. But he did let me know his knee has been hurting and I said I'd pray for him. Now I'm asking anyone who reads this if you could do the same. Thank you. His name is Brandon",
+      "timestamp": "2026-04-24T09:07:22.087Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "Prayer request",
+      "author": "Dr. Stephen Buscema",
+      "text": "Love that man. Prayed.",
+      "timestamp": "2026-04-24T09:07:22.093Z"
+    }
+  ],
+  "Kristina Bricknell": [
+    {
+      "type": "comment",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Kristina Bricknell",
+      "text": "Kristina Bricknell • Nov '25I’m ready🙏",
+      "timestamp": "2026-04-24T09:09:09.094Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Dr. Stephen Buscema",
+      "text": "Come now, let us reason together. . .",
+      "timestamp": "2026-04-24T09:09:09.121Z"
+    }
+  ],
+  "Ruth App": [
+    {
+      "type": "comment",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Ruth App",
+      "text": "Ruth App • Nov '25I’m ready🙏🏾",
+      "timestamp": "2026-04-24T09:09:31.000Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Dr. Stephen Buscema",
+      "text": "Glad you’re here, Ruth",
+      "timestamp": "2026-04-24T09:09:31.033Z"
+    }
+  ],
+  "Rishikesh Poomalaparambil": [
+    {
+      "type": "comment",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Rishikesh Poomalaparambil",
+      "text": "Rishikesh Poomalaparambil • Nov '25I'm ready!💫",
+      "timestamp": "2026-04-24T09:09:56.316Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Dr. Stephen Buscema",
+      "text": "Can you FEEL IT. . .",
+      "timestamp": "2026-04-24T09:09:56.333Z"
+    }
+  ],
+  "Amber Mitchell": [
+    {
+      "type": "comment",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Amber Mitchell",
+      "text": "Amber Mitchell • Nov '25I’m ready",
+      "timestamp": "2026-04-24T09:10:17.592Z"
+    },
+    {
+      "type": "scott_reply",
+      "post_title": "🚨NEW MEMBERS START HERE 🚨",
+      "author": "Dr. Stephen Buscema",
+      "text": "lets go",
+      "timestamp": "2026-04-24T09:10:17.599Z"
     }
   ]
 }
