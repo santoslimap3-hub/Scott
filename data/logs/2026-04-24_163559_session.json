@@ -1,0 +1,275 @@
+[
+  {
+    "type": "comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "The 24-hour blueprint.",
+    "commentAuthor": "Lucas Premat",
+    "commentText": "I know about them, but how do you integrate, can you give advice?",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Lucas is asking for advice, so I want to give him some value."
+    },
+    "reply": "Now, that was a good hook.",
+    "timestamp": "2026-04-24T08:37:12.869Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "Scott Northwolf • Feb 2@Andrew Brooks thank me by applying this relentlessly and coming back to me with the results. Your success is my reward, Andrew.",
+    "tags": {
+      "tone_tags": [
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Scott's comment is a motivational push to take action and come back with results."
+    },
+    "reply": "I love this! ! Thank you, brother.",
+    "timestamp": "2026-04-24T08:37:33.597Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "The 24-hour blueprint.",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "@Daniel Carter I love the conclusion of coming back to the path. Thank you for sharing this.",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Lea is expressing gratitude for Daniel's post."
+    },
+    "reply": "@Daniel Carter thank you for being here, brother. it means a lot.",
+    "timestamp": "2026-04-24T08:38:06.966Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "clouds deserve love too!",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "@Daniel Carter This literally made me melt, so cute.",
+    "tags": {
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "This is a light-hearted, playful comment, so the best response is to keep the energy going."
+    },
+    "reply": "I think you just want to melt.",
+    "timestamp": "2026-04-24T08:38:34.701Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "We have our very own website now!",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "@Daniel Carter Appreciate your enthusiasm...",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "brotherhood"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Daniel is a warm lead and this is a great opportunity to nurture him."
+    },
+    "reply": "Oscar Quiet, always appreciate you, brother, you absolute machine.",
+    "timestamp": "2026-04-24T08:38:46.757Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Andrew Brooks",
+    "commentText": "Andrew Brooks🔥 • Feb 1love this. Thank you.",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Andrew is a member of Scott's program and this is a gratitude post."
+    },
+    "reply": "Scott Northwolf: You're welcome, brother.",
+    "timestamp": "2026-04-24T08:39:25.168Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "clouds deserve love too!",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "@Daniel Carter This literally made me melt, so cute.",
+    "tags": {
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Lea is a woman and this is a chit-chat post."
+    },
+    "reply": "So much animal appreciation this week. .",
+    "timestamp": "2026-04-24T08:39:50.008Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "@Daniel Carter tell me a Chuck Norris joke...",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Scott is asking Daniel to tell him a Chuck Norris joke, which is a clear sign of curiosity."
+    },
+    "reply": ". . .",
+    "timestamp": "2026-04-24T08:40:16.057Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "Weekly Sync 🧘🏼‍♀️",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "Leijonmarck heavily feel you on the socializing part, on that topic, how do you end up finding a balance?",
+    "tags": {
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "She's asking a question to keep the conversation going."
+    },
+    "reply": "I'm not Swedish enough. . . but I guess all the S.A.D. candles and cozy socks helps.\n​\n​\nmoments like this too.",
+    "timestamp": "2026-04-24T08:40:26.173Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "@Daniel Carter tell me a Chuck Norris joke...",
+    "tags": {
+      "tone_tags": [
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Scott asked for a joke, so I'm going to give him a joke."
+    },
+    "reply": "Chuck Norris can divide by zero",
+    "timestamp": "2026-04-24T08:41:18.401Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Benjamin S.",
+    "postTitle": "I finally left everything behind and started a new life",
+    "postBodyPreview": "21d  • The Hero's Journey 🗺️I finally left everything behind and started a new lifeI just moved from Turkey to Georgia and honestly… it still feels unreal.For the first time in my life, I am fully on my own. No family safety net, no familiar environment, no excuses. Just me, my decisions, and the r",
+    "tags": {
+      "tone_tags": [
+        "brotherhood",
+        "hype"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "This is a big moment for Ben and I want to celebrate it with him."
+    },
+    "reply": "Brother, this is hayat.",
+    "timestamp": "2026-04-24T08:41:31.430Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "Scott Northwolf • Feb 2@Life Coach Rob money is made when value is created and value is created when pain is alliviated.",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "This is a value bomb and I want to keep the conversation going."
+    },
+    "reply": "This world is so full of suffering. . .",
+    "timestamp": "2026-04-24T08:41:51.298Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "The 24-hour blueprint.",
+    "commentAuthor": "Daniel Carter",
+    "commentText": "Premat The discipline to do what you planned no matter what is PRIMARY. Then you need to program your environment to help you, not sabotage you. If a person doesn't know what fucks up their motivation, mood and willpower or what gives him strength, it's the first thing he needs to do. Know thyself. ",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Daniel is a coach and this is a great opportunity to reinforce his authority."
+    },
+    "reply": "So it seems...",
+    "timestamp": "2026-04-24T08:42:16.796Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Scott Northwolf",
+    "commentText": "@Daniel Carter tell me a Chuck Norris joke...",
+    "tags": {
+      "tone_tags": [
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Scott's comment is a joke and the intent is to keep the conversation alive."
+    },
+    "reply": "Chuck Norris can't fall off the press. He only does power cleans.",
+    "timestamp": "2026-04-24T08:42:42.016Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Scott Northwolf",
+    "postTitle": "🥇Talking about providing value...",
+    "commentAuthor": "Life Coach Rob",
+    "commentText": "Life Coach Rob • Feb 1It’s all about providing value!",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Rob is a coach, so the best approach is to keep him engaged and motivated."
+    },
+    "reply": "Indeed . . .",
+    "timestamp": "2026-04-24T08:42:55.339Z"
+  }
+]

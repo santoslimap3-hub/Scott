@@ -36,6 +36,15 @@ const PERSONS_FILE        = path.join(__dirname, '..', 'persons.json');
 const COMPANY_MEMBERS_KEY = '_companyMembers';
 const GENDERS_KEY         = '_genders';
 
+// ── Name normalization ────────────────────────────────────────────────────────
+// Skool renders names in the DOM with non-breaking spaces (\u00a0) instead of
+// regular spaces. Normalize before any lookup so "Lea\u00a0Newkirk" matches
+// the stored key "Lea Newkirk".
+function normalizeName(name) {
+    if (!name || typeof name !== 'string') return name;
+    return name.replace(/\u00a0/g, ' ').trim();
+}
+
 // ── Load ─────────────────────────────────────────────────────────────────────
 
 function loadPersons() {
@@ -77,7 +86,7 @@ function savePersons(persons) {
 function setPersonGender(persons, name, gender) {
     if (!name || typeof name !== 'string') return;
     if (!gender || gender === 'unknown') return;
-    var key = name.trim();
+    var key = normalizeName(name);
     if (!persons[GENDERS_KEY]) persons[GENDERS_KEY] = {};
     // Don't overwrite a known value with "unknown"
     if (persons[GENDERS_KEY][key] && persons[GENDERS_KEY][key] !== 'unknown') return;
@@ -92,7 +101,7 @@ function getPersonGender(persons, name) {
     if (!name || typeof name !== 'string') return 'unknown';
     var g = persons[GENDERS_KEY];
     if (!g) return 'unknown';
-    return g[name.trim()] || 'unknown';
+    return g[normalizeName(name)] || 'unknown';
 }
 
 // ── Existence check ───────────────────────────────────────────────────────────
@@ -100,7 +109,7 @@ function getPersonGender(persons, name) {
 
 function personExists(persons, name) {
     if (!name || typeof name !== 'string') return false;
-    var key = name.trim();
+    var key = normalizeName(name);
     if (key === COMPANY_MEMBERS_KEY || key === GENDERS_KEY) return false;
     return Object.prototype.hasOwnProperty.call(persons, key);
 }
@@ -109,7 +118,7 @@ function personExists(persons, name) {
 
 function getPersonHistory(persons, name) {
     if (!name || !personExists(persons, name)) return [];
-    return persons[name.trim()] || [];
+    return persons[normalizeName(name)] || [];
 }
 
 // ── Company member helpers ────────────────────────────────────────────────────
@@ -121,7 +130,7 @@ function isCompanyMember(persons, name) {
     if (!name || typeof name !== 'string') return false;
     var cm = persons[COMPANY_MEMBERS_KEY];
     if (!cm) return false;
-    return Object.prototype.hasOwnProperty.call(cm, name.trim());
+    return Object.prototype.hasOwnProperty.call(cm, normalizeName(name));
 }
 
 /**
@@ -130,7 +139,7 @@ function isCompanyMember(persons, name) {
  */
 function getCompanyRole(persons, name) {
     if (!isCompanyMember(persons, name)) return null;
-    return persons[COMPANY_MEMBERS_KEY][name.trim()];
+    return persons[COMPANY_MEMBERS_KEY][normalizeName(name)];
 }
 
 /**
@@ -139,7 +148,7 @@ function getCompanyRole(persons, name) {
  */
 function setCompanyMember(persons, name, role) {
     if (!name || typeof name !== 'string') return;
-    var key = name.trim();
+    var key = normalizeName(name);
     if (!persons[COMPANY_MEMBERS_KEY]) persons[COMPANY_MEMBERS_KEY] = {};
     persons[COMPANY_MEMBERS_KEY][key] = role || 'team member';
     savePersons(persons);
@@ -153,7 +162,7 @@ function removeCompanyMember(persons, name) {
     if (!name || typeof name !== 'string') return;
     var cm = persons[COMPANY_MEMBERS_KEY];
     if (!cm) return;
-    delete cm[name.trim()];
+    delete cm[normalizeName(name)];
     savePersons(persons);
 }
 
@@ -163,7 +172,7 @@ function removeCompanyMember(persons, name) {
 
 function addInteraction(persons, name, interaction) {
     if (!name || typeof name !== 'string') return;
-    var key = name.trim();
+    var key = normalizeName(name);
     if (key === COMPANY_MEMBERS_KEY || key === GENDERS_KEY) return; // guard: never treat reserved keys as persons
 
     if (!persons[key]) {
@@ -251,6 +260,7 @@ function buildPersonContext(persons, name) {
 }
 
 module.exports = {
+    normalizeName:          normalizeName,
     loadPersons:            loadPersons,
     savePersons:            savePersons,
     personExists:           personExists,

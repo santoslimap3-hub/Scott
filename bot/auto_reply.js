@@ -47,6 +47,15 @@ const { guessGender } = require("./util/gender_detector");
 
 const REPLIED_FILE = path.join(__dirname, "replied_posts.json");
 
+// ── Bot identity ───────────────────────────────────────────────────────────────
+// If the Skool account was ever renamed, list the OLD display names here.
+// The bot will skip comments by these names and recognise @-mentions using them.
+// Set via env var as a comma-separated list, or hard-code fallbacks below.
+const BOT_ALT_NAMES = (process.env.BOT_ALT_NAMES || "Daniel Carter")
+    .split(",")
+    .map(function(s) { return s.trim(); })
+    .filter(Boolean);
+
 // ── Shared reply-generation system prompt builder ──────────────────────────────
 // Single definition used by both generateReply and generateCommentReply.
 // Tag descriptions live in classify/tags.js — edit there to update everywhere.
@@ -66,7 +75,7 @@ function buildReplySystemPrompt(tags, situation) {
         "",
         "RULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.",
         "",
-        "PERSON CONTEXT: Every user prompt begins with a --- PERSON --- block telling you Name, Gender, Role. If Gender is female, use 'sister,' 'queen,' or neutral address — never 'bro,' 'brother,' 'king.' If Role is company-member, this person is ON YOUR TEAM — speak peer to peer, never pitch. If Role is lead, they are a prospect.",
+        "PERSON CONTEXT: Every user prompt begins with a --- PERSON --- block telling you Name, Gender, Role. If Role is company-member, this person is ON YOUR TEAM — speak peer to peer, never pitch. If Role is lead, they are a prospect.",
         "",
         "MULTIPLE MESSAGE BUBBLES: In DMs you can split your reply into multiple bubbles by inserting \u27e8BUBBLE\u27e9 between them. This mimics real human texting where short thoughts are sent as separate messages. Use it when Scott would: two or three short hits beat one paragraph. Never use \u27e8BUBBLE\u27e9 in post/comment replies — only in DMs.",
         "STAGE: " + tags.sales_stage,
@@ -80,8 +89,9 @@ const CONFIG = {
     email: process.env.SKOOL_EMAIL,
     password: process.env.SKOOL_PASSWORD,
     communities: [
-        { name: "Self Improvement Nation", url: process.env.SKOOL_COMMUNITY_URL_1 || "https://www.skool.com/self-improvement-nation-3104" },
-        // { name: "Synthesizer", url: process.env.SKOOL_COMMUNITY_URL_2 || "https://www.skool.com/synthesizer" },
+        // { name: "Self Improvement Nation", url: process.env.SKOOL_COMMUNITY_URL_1 || "https://www.skool.com/self-improvement-nation-3104" },
+        { name: "Hope Nation", url: process.env.SKOOL_COMMUNITY_URL_2 || "https://www.skool.com/hope-nation-7999" },
+        // { name: "Synthesizer", url: process.env.SKOOL_COMMUNITY_URL_3 || "https://www.skool.com/synthesizer" },
     ],
     headless: false, // visible so you can watch it
     minPosts: 3, // minimum posts to reply to
@@ -479,9 +489,9 @@ async function generateReply(post, persons, botName) {
     // ── Step 2: Resolve gender and role ──
     var gender = tags.gender !== "unknown" ? tags.gender : guessGender(post.author);
     if (persons) personsDb.setPersonGender(persons, post.author, gender);
-    var role = personsDb.isCompanyMember(persons, post.author)
-        ? "company-member (" + personsDb.getCompanyRole(persons, post.author) + ")"
-        : "lead (prospect)";
+    var role = personsDb.isCompanyMember(persons, post.author) ?
+        "company-member (" + personsDb.getCompanyRole(persons, post.author) + ")" :
+        "lead (prospect)";
 
     // ── Step 3: Build v6-format user prompt ──
     var dbHistory = persons ? personsDb.getPersonHistory(persons, post.author) : [];
@@ -492,7 +502,7 @@ async function generateReply(post, persons, botName) {
 
     var messages = [
         { role: "system", content: systemPrompt },
-        { role: "user",   content: userMessage },
+        { role: "user", content: userMessage },
     ];
 
     console.log("═══════════════ PROMPT BEING SENT ═══════════════");
@@ -523,17 +533,17 @@ async function generateReply(post, persons, botName) {
 
     // ── Append to persistent fine-tuning training log ──
     trainingLog.appendPostEntry({
-        type:      "post",
+        type: "post",
         community: post.community || "Self Improvement Nation",
-        post:      { author: post.author, title: post.title, body: post.body },
-        comment:   null,
+        post: { author: post.author, title: post.title, body: post.body },
+        comment: null,
         classifierSystemPrompt: tagClassifier.SYSTEM_PROMPT,
-        classifierUserMessage:  tagClassifier.buildUserPrompt(classifierContext),
-        tags:      tags,
+        classifierUserMessage: tagClassifier.buildUserPrompt(classifierContext),
+        tags: tags,
         generationSystemPrompt: systemPrompt,
-        generationUserMessage:  userMessage,
-        model:     model,
-        reply:     replyText,
+        generationUserMessage: userMessage,
+        model: model,
+        reply: replyText,
     });
 
     return replyText;
@@ -589,15 +599,71 @@ async function typeReply(page, replyText) {
 }
 
 async function submitReply(page) {
-    // Click the COMMENT button to submit
-    var commentBtn = await page.$('button:has-text("COMMENT"), button:has-text("Comment")');
-    if (!commentBtn) {
-        // Fallback: try finding by text content
-        commentBtn = await page.$('button >> text=COMMENT');
+    // Give Skool a moment to activate the submit button.
+    await sleep(600);
+
+    // Strategy: use evaluate() so we bypass selector/visibility issues.
+    //
+    // Skool shows two patterns:
+    //   a) Inline thread reply  → CANCEL + REPLY buttons side by side
+    //   b) New top-level comment → just a COMMENT button
+    //
+    // We use CANCEL as a landmark: if it's present the active form is the
+    // inline reply box; click its sibling REPLY button.
+    // Otherwise fall back to the COMMENT button.
+    var clickResult = await page.evaluate(function() {
+        function textOf(el) { return (el.textContent || '').trim(); }
+
+        // Walk all clickable elements (button, div[role=button], span[role=button])
+        var candidates = Array.from(document.querySelectorAll(
+            'button, [role="button"], [class*="Button"]'
+        ));
+
+        // --- Path A: inline reply form (CANCEL is the landmark) ---
+        var cancelEl = candidates.find(function(el) {
+            return textOf(el) === 'CANCEL';
+        });
+        if (cancelEl) {
+            // Walk up until we find a container that also holds the REPLY button
+            var node = cancelEl.parentElement;
+            for (var depth = 0; depth < 8 && node && node !== document.body; depth++) {
+                var allInNode = Array.from(node.querySelectorAll(
+                    'button, [role="button"], [class*="Button"]'
+                ));
+                var replyBtn = allInNode.find(function(el) {
+                    return textOf(el) === 'REPLY';
+                });
+                if (replyBtn) {
+                    replyBtn.click();
+                    return 'inline-reply';
+                }
+                node = node.parentElement;
+            }
+        }
+
+        // --- Path B: top-level comment box (COMMENT button) ---
+        var commentBtn = candidates.find(function(el) {
+            var t = textOf(el);
+            return t === 'COMMENT' || t === 'Comment';
+        });
+        if (commentBtn) {
+            commentBtn.click();
+            return 'comment-btn';
+        }
+
+        return null;
+    });
+
+    if (clickResult) {
+        console.log("✅ Reply sent (" + clickResult + ")! Closing in 10 seconds...\n");
+        await sleep(10000);
+        return;
     }
-    if (!commentBtn) throw new Error("Could not find COMMENT button");
-    await commentBtn.click();
-    console.log("✅ Reply sent! Closing in 10 seconds...\n");
+
+    // Last resort: Enter key
+    console.log("  ⚠️  Submit button not found — pressing Enter as fallback");
+    await page.keyboard.press('Enter');
+    console.log("✅ Reply sent (Enter)! Closing in 10 seconds...\n");
     await sleep(10000);
 }
 
@@ -1001,10 +1067,10 @@ async function generateCommentReply(comment, persons, botName) {
     // ── Step 1: Classify the comment to determine tone/intent/stage/gender ──
     var classifierContext = {
         postAuthor: comment.postAuthor || "Unknown",
-        postTitle:  comment.postTitle  || "Unknown",
-        postBody:   comment.postBody   || "",
+        postTitle: comment.postTitle || "Unknown",
+        postBody: comment.postBody || "",
         commentAuthor: comment.author,
-        commentText:   comment.text,
+        commentText: comment.text,
         thread: comment.thread || [],
     };
     var tags = await classifyReply(classifierContext);
@@ -1015,12 +1081,12 @@ async function generateCommentReply(comment, persons, botName) {
     // ── Step 2: Resolve gender and role ──
     var gender = tags.gender !== "unknown" ? tags.gender : guessGender(comment.author);
     if (persons) personsDb.setPersonGender(persons, comment.author, gender);
-    var role = personsDb.isCompanyMember(persons, comment.author)
-        ? "company-member (" + personsDb.getCompanyRole(persons, comment.author) + ")"
-        : "lead (prospect)";
+    var role = personsDb.isCompanyMember(persons, comment.author) ?
+        "company-member (" + personsDb.getCompanyRole(persons, comment.author) + ")" :
+        "lead (prospect)";
 
     // ── Step 3: Build v6-format user prompt ──
-    var dbHistory  = persons ? personsDb.getPersonHistory(persons, comment.author) : [];
+    var dbHistory = persons ? personsDb.getPersonHistory(persons, comment.author) : [];
     var userMessage = promptBuilders.buildCommentUserPrompt(comment, dbHistory, botName, gender, role);
 
     // ── Step 4: Build system prompt ──
@@ -1028,7 +1094,7 @@ async function generateCommentReply(comment, persons, botName) {
 
     var messages = [
         { role: "system", content: systemPrompt },
-        { role: "user",   content: userMessage },
+        { role: "user", content: userMessage },
     ];
 
     console.log("═══════════════ PROMPT BEING SENT ═══════════════");
@@ -1050,35 +1116,35 @@ async function generateCommentReply(comment, persons, botName) {
     // ── Log this entry for client review (session file) ──
     sessionLog.addEntry({
         type: "comment",
-        postAuthor:    comment.postAuthor || "Unknown",
-        postTitle:     comment.postTitle  || "Unknown",
+        postAuthor: comment.postAuthor || "Unknown",
+        postTitle: comment.postTitle || "Unknown",
         commentAuthor: comment.author,
-        commentText:   comment.text.substring(0, 300),
-        tags:  tags,
+        commentText: comment.text.substring(0, 300),
+        tags: tags,
         reply: replyText,
     });
 
     // ── Append to persistent fine-tuning training log ──
     trainingLog.appendPostEntry({
-        type:      comment.type || "comment",
+        type: comment.type || "comment",
         community: comment.community || "Self Improvement Nation",
         post: {
             author: comment.postAuthor || "Unknown",
-            title:  comment.postTitle  || "Unknown",
-            body:   comment.postBody   || "",
+            title: comment.postTitle || "Unknown",
+            body: comment.postBody || "",
         },
         comment: {
             author: comment.author,
-            text:   comment.text,
+            text: comment.text,
             thread: comment.thread || [],
         },
         classifierSystemPrompt: tagClassifier.SYSTEM_PROMPT,
-        classifierUserMessage:  tagClassifier.buildUserPrompt(classifierContext),
-        tags:      tags,
+        classifierUserMessage: tagClassifier.buildUserPrompt(classifierContext),
+        tags: tags,
         generationSystemPrompt: systemPrompt,
-        generationUserMessage:  userMessage,
-        model:     model,
-        reply:     replyText,
+        generationUserMessage: userMessage,
+        model: model,
+        reply: replyText,
     });
 
     return replyText;
@@ -1239,7 +1305,7 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
             var isPostUrl = href && !isChatUrl && /skool\.com\/[^/]+\/[^/]+/.test(href);
             if (isChatUrl) {
                 type = 'dm';
-            } else if (isPostUrl && /replied|commented|mentioned|comment|reply/i.test(text)) {
+            } else if (isPostUrl && !/liked/i.test(text) && /replied|commented|mentioned|comment|reply/i.test(text)) {
                 type = 'comment';
             }
 
@@ -1279,10 +1345,23 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
             "\n    class=" + (n.debugClass || '').substring(0, 80));
     });
 
-    var commentNotifs = notifications.items.filter(function(n) { return n.type === 'comment' && n.href && !repliedPosts.has('notif|' + n.href); });
+    // Deduplicate notifications by base URL (strip ?p=... anchors so multiple
+    // notifications pointing to different comments on the same post count as one).
+    var seenBaseUrls = new Set();
+    var commentNotifsRaw = notifications.items.filter(function(n) {
+        if (n.type !== 'comment' || !n.href) return false;
+        var base = n.href.split('?')[0];
+        if (repliedPosts.has('notif|' + base)) return false;
+        if (seenBaseUrls.has(base)) return false;
+        seenBaseUrls.add(base);
+        // Normalise the href to the base URL so downstream code uses a stable key
+        n.href = base;
+        return true;
+    });
+    var commentNotifs = commentNotifsRaw;
     var totalCommentNotifs = notifications.items.filter(function(n) { return n.type === 'comment' && n.href; }).length;
     var skippedNotifs = totalCommentNotifs - commentNotifs.length;
-    console.log("\n  📬 " + notifications.items.length + " notifications total, " + totalCommentNotifs + " comment replies" + (skippedNotifs > 0 ? " (" + skippedNotifs + " already handled)" : "") + "\n");
+    console.log("\n  📬 " + notifications.items.length + " notifications total, " + totalCommentNotifs + " comment replies (after base-URL dedup: " + commentNotifs.length + " unique)" + (skippedNotifs > 0 ? ", " + skippedNotifs + " already handled" : "") + "\n");
 
     var handled = 0;
 
@@ -1309,7 +1388,23 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
             }
 
             // Find the most recent comment directed at the bot
-            var targetComment = await page.evaluate(function(botDisplayName) {
+            // Pass both current name AND all historical alt names so old @mentions
+            // (e.g. "@Daniel Carter") are still correctly matched.
+            var targetComment = await page.evaluate(function(args) {
+                var botDisplayName = args.botDisplayName;
+                var allBotNames = args.allBotNames; // current + alt names
+
+                function isBotAuthor(name) {
+                    return allBotNames.indexOf(name) !== -1;
+                }
+
+                function mentionsAnyBotName(text) {
+                    for (var n = 0; n < allBotNames.length; n++) {
+                        if (text.includes(allBotNames[n]) || text.includes('@' + allBotNames[n])) return true;
+                    }
+                    return false;
+                }
+
                 var result = { target: null, debug: {} };
 
                 var bubbles = document.querySelectorAll('[class*="CommentItemBubble"], [class*="CommentItemContainer"]');
@@ -1329,9 +1424,9 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
                     result.debug.comments.push({
                         idx: d,
                         author: bAuth || 'UNKNOWN',
-                        isBot: bAuth === botDisplayName,
+                        isBot: isBotAuthor(bAuth),
                         textSnippet: bText.substring(0, 80),
-                        mentionsBot: bText.includes(botDisplayName),
+                        mentionsBot: mentionsAnyBotName(bText),
                         authLinkCount: bAuthLinks.length
                     });
                 }
@@ -1345,9 +1440,9 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
                         var t = authorLinks[j].textContent.trim().replace(/^\d+/, '').trim();
                         if (t && t.length > 1) { author = t; break; }
                     }
-                    if (author === botDisplayName || !author) continue;
-                    // Prefer comments that @-mention the bot
-                    if (text.includes('@' + botDisplayName) || text.includes(botDisplayName)) {
+                    if (isBotAuthor(author) || !author) continue;
+                    // Prefer comments that @-mention any known bot name
+                    if (mentionsAnyBotName(text)) {
                         var content = text;
                         var idx = content.indexOf(author);
                         if (idx !== -1) content = content.substring(idx + author.length).trim();
@@ -1366,7 +1461,7 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
                         var t2 = authorLinks2[m].textContent.trim().replace(/^\d+/, '').trim();
                         if (t2 && t2.length > 1) { author2 = t2; break; }
                     }
-                    if (author2 === botDisplayName || !author2) continue;
+                    if (isBotAuthor(author2) || !author2) continue;
                     var content2 = text2;
                     var idx2 = content2.indexOf(author2);
                     if (idx2 !== -1) content2 = content2.substring(idx2 + author2.length).trim();
@@ -1376,7 +1471,7 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
                     return result;
                 }
                 return result;
-            }, botName);
+            }, { botDisplayName: botName, allBotNames: [botName].concat(BOT_ALT_NAMES) });
 
             // Log comprehensive debug info
             console.log("    🔍 DEBUG: " + targetComment.debug.totalBubbles + " comment bubbles found, botName='" + targetComment.debug.botName + "'");
@@ -1429,6 +1524,7 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
             console.log("─".repeat(50) + "\n");
 
             await typeCommentReply(page, { author: targetComment.target.author, text: targetComment.target.text }, replyText);
+            await submitReply(page);
 
             // Log the notification comment + Scott's reply to persons DB
             personsDb.addInteraction(persons, targetComment.target.author, {
@@ -1454,6 +1550,10 @@ async function handleNotifications(page, botName, repliedPosts, summary, persons
 
         } catch (e) {
             console.log("    ❌ Error handling notification: " + e.message + "\n");
+            // Mark as handled even on failure so this notification is never
+            // retried in subsequent coin-flip checks this cycle.
+            repliedPosts.add('notif|' + notif.href);
+            saveRepliedPosts(repliedPosts);
         }
     }
 
@@ -1564,6 +1664,7 @@ async function main() {
                     console.log("");
 
                     await typeReply(page, replyText);
+                    await submitReply(page);
 
                     // Log this new person + interaction to persons DB
                     personsDb.addInteraction(persons, post.author, {
@@ -1633,6 +1734,7 @@ async function main() {
                     console.log("");
 
                     await typeCommentReply(page, item, replyText);
+                    await submitReply(page);
 
                     // Log the comment + Scott's reply to persons DB
                     personsDb.addInteraction(persons, item.author, {
@@ -1694,7 +1796,7 @@ async function main() {
                 console.log("  " + (j + 1) + ". [" + s.type.toUpperCase() + "] [" + s.category_class.toUpperCase() + "] " + s.title.substring(0, 45) + " — by " + s.author);
             }
             console.log("═".repeat(50));
-            console.log("✅ Cycle " + cycle + " complete — no replies were submitted.\n");
+            console.log("✅ Cycle " + cycle + " complete.\n");
 
             // Wait before next cycle
             // var cycleDelay = randomBetween(CONFIG.cycleDelayMin, CONFIG.cycleDelayMax);
@@ -1703,10 +1805,13 @@ async function main() {
         } // end while(true)
 
     } catch (err) {
-        console.error("❌ Error:", err.message);
+        console.error("❌ Fatal error:", err);
     } finally {
         await browser.close();
     }
 }
 
-main();
+main().catch(function(err) {
+    console.error("❌ Unhandled error:", err);
+    process.exit(1);
+});
