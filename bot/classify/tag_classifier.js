@@ -16,6 +16,9 @@ require("dotenv").config();
 const { TONE_TAGS, INTENTS, SALES_STAGES } = require("./tags");
 const EXAMPLES = require("./examples");
 
+// ── Module-scope OpenAI client (created once, not per-call) ───────────────────
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 // ── Build prompts once at startup (not on every call) ─────────────────────────
 
 const SYSTEM_PROMPT = buildSystemPrompt();
@@ -168,8 +171,6 @@ function buildUserPrompt(context) {
  * @returns {Promise<{ tone_tags: string[], intent: string, sales_stage: string, reasoning: string }>}
  */
 async function classifyReply(context) {
-    var openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
     try {
         // Use gpt-4o-mini for cheaper classification; falls back to OPENAI_MODEL if not set
         // Change CLASSIFIER_MODEL in your .env to override (e.g. CLASSIFIER_MODEL=gpt-4o)
