@@ -1,0 +1,163 @@
+[
+  {
+    "type": "post",
+    "postAuthor": "Alicia Co",
+    "postTitle": "It’s a Win ✨ for me! Now where can I post my offer?",
+    "postBodyPreview": "16h  • Personal WinsIt’s a Win ✨ for me! Now where can I post my offer?I did it!! I’m honestly so excited and proud of myself right now 🙌🏽I followed what Arlan said in the challenge..reaching out to people I’ve either helped before or who I know could truly benefit from my services… and it worked.",
+    "tags": {
+      "tone_tags": [
+        "praise"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Alicia is celebrating a win, so praise is the best tone."
+    },
+    "reply": "So cool to see. So proud of you, let's keep the momentum.",
+    "timestamp": "2026-04-26T09:34:30.119Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Estasy Mi",
+    "postTitle": "I need feedback",
+    "commentAuthor": "Estasy Mi",
+    "commentText": "@Daniel Carter thank you!!!✨",
+    "tags": {
+      "tone_tags": [
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "She is already a member of the community, so the goal is to keep her engaged and motivated."
+    },
+    "reply": "You've just hit the tip of the iceberg.",
+    "timestamp": "2026-04-26T09:34:54.653Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Branco De Souza",
+    "postTitle": "Fear of being seen…",
+    "commentAuthor": "Estasy Mi",
+    "commentText": "@Daniel Carter thank you so much bro😭 i will!!",
+    "tags": {
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Estasy is a woman and this is a supportive comment."
+    },
+    "reply": "We're excited to see your progress Daisy!",
+    "timestamp": "2026-04-26T09:35:24.018Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Nicole Henderson",
+    "postTitle": "Clarity",
+    "postBodyPreview": "19h  • Personal DevelopmentClarity This will be long, but it’s therapeutic for me.Hubby was listening to Les Brown this morning and I heard him say, “Be unstoppable” then I heard him say, “You MUST believe in what you are selling”.This morning before I heard that I woke up questioning my $100 offer,",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Nicole is a warm lead and this is a motivational post."
+    },
+    "reply": "Let's go !",
+    "timestamp": "2026-04-26T09:35:57.172Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Evolve Benton",
+    "postTitle": "A Lesson in Turning Panic into Profit",
+    "postBodyPreview": "2d  • Personal WinsA Lesson in Turning Panic into ProfitWanted to share a real-world case study from my business this week, with a huge assist from Authority X Pro.The Scenario: 5 days until a live workshop. 0 seats sold.Instead of canceling, I worked with AXP to build and execute a \"go-time\" sales ",
+    "tags": {
+      "tone_tags": [
+        "praise"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "unknown",
+      "reasoning": "This is a celebration of a win, so the best response is to acknowledge it and praise the author."
+    },
+    "reply": "Valuable lesson here. . . thanks for sharing.",
+    "timestamp": "2026-04-26T09:36:21.035Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Lucy Moore",
+    "postTitle": "Getting more comfortable posting on you tube",
+    "postBodyPreview": "11h  • Personal DevelopmentGetting more comfortable posting on you tube Personal growthBefore I came to YF5K, I had never posted a live video. Now that's all I do. Also I was terrified as to how I look, and most of what I would sound like because I am originally from the island of St. Lucia where we",
+    "tags": {
+      "tone_tags": [
+        "praise",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Lucy is a member of Scott's community and this is a post about her progress."
+    },
+    "reply": "Keep going Lucy! This is amazing!",
+    "timestamp": "2026-04-26T09:36:53.367Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dorine Ballard",
+    "postTitle": "I stayed teachable, NOW look at my WINS",
+    "commentAuthor": "Dorine Ballard",
+    "commentText": "Robinson I've already got 1k views in just a matter of hours, I'm interested in where it'll be by tomorrow night 🙏🏽🙌🏽",
+    "tags": {
+      "tone_tags": [
+        "hype",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Dorine is a warm lead and this is a big win for her, so I want to keep the energy high and keep her engaged."
+    },
+    "reply": "That's amazing, Dorine . . . And it's only the beginning.",
+    "timestamp": "2026-04-26T09:37:16.979Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Krystale Janel",
+    "postTitle": "Your First 5K Challenge",
+    "postBodyPreview": "9h  • Product Help DiscussionYour First 5K ChallengeOn Day 4 of the Y5K Challenge and I’m mind blown. So many gems dropped, but my question is I know Arlan has always recommended YouTube as one of the best social media platforms, but I was just wondering thoughts on Facebook? I’m monetized, and the ",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Krystale is actively posting and engaging in Scott's community, so the goal is to keep her engaged and motivated."
+    },
+    "reply": "Congrats Krystale. . . pumpin' out that strong energy. Keep it up.",
+    "timestamp": "2026-04-26T09:37:42.775Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Dana LeDonne",
+    "postTitle": "😲 I Did Something Crazy with My Unsubscribe's",
+    "postBodyPreview": "17h (edited) • General discussion😲 I Did Something Crazy with My Unsubscribe'sI have a very small list. I had a few unsubscribe- one was a potential high ticket client.So I did an experiment.Since I had their phone numbers, I sent a courtesy text to confirm it was not a mistake- stating they would ",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Dana is expressing gratitude for the value she has received from the community."
+    },
+    "reply": "Brilliant. Step outside the box and only look back to admire the square. . .",
+    "timestamp": "2026-04-26T09:38:24.113Z"
+  }
+]

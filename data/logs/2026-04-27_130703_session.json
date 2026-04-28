@@ -1,0 +1,186 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "Julius Santos",
+    "postTitle": "hello everyone",
+    "commentAuthor": "Julius Santos",
+    "commentText": "@Daniel Carter Wow! Good to hear Daniel! I will definetly smash it! 🔥",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Julius is already in the program and is showing up with a lot of energy, so I want to match it and keep him going."
+    },
+    "reply": "Time to rise up!",
+    "timestamp": "2026-04-27T05:07:29.350Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Kevin De Garcia",
+    "postTitle": "YouTube - Faceless vs Talking Head",
+    "commentAuthor": "Mary Wilmer",
+    "commentText": "@Daniel Carter\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "I'm curious what this means."
+    },
+    "reply": "Genius responds well to experimentation 🌟",
+    "timestamp": "2026-04-27T05:07:56.270Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dean Graziosi",
+    "postTitle": "DAY 2: What Was Your Biggest Breakthrough? 🚀",
+    "commentAuthor": "Craig Walker",
+    "commentText": "Great day of training I currently use AI with insurance through Mach five and I help doctors offices and small clinics in surgeons with AI appeal. Also, I work with a company called Lcard. Kevin Harrington from Shark Tank is one of our most notable customers.This is gonna help me tremendously to def",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "lead-qualification",
+      "sales_stage": "engagement",
+      "gender": "male",
+      "reasoning": "I'm asking a question to see if he is a coach who could buy."
+    },
+    "reply": "Hey Craig, would be wonderful to hear more about what you are doing if you want to connect sometime soon.",
+    "timestamp": "2026-04-27T05:09:23.829Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Evonne Jefferson",
+    "postTitle": "Your First $100 Offer",
+    "commentAuthor": "Evonne Jefferson",
+    "commentText": "• just now@Daniel Carter Thanks! My product is launched! Yay!",
+    "tags": {
+      "tone_tags": [
+        "praise",
+        "hype"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Evonne is celebrating a win, so praise and hype are the best tone tags to use."
+    },
+    "reply": "Congratulations, Evonne! Time to pop the champagne! 🍾",
+    "timestamp": "2026-04-27T05:09:52.506Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dean Graziosi",
+    "postTitle": "DAY 2: What Was Your Biggest Breakthrough? 🚀",
+    "commentAuthor": "Dawn Menard",
+    "commentText": "George a step-by-step process to what",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement",
+      "gender": "female",
+      "reasoning": "I'm curious what she means by this."
+    },
+    "reply": "What course is that?",
+    "timestamp": "2026-04-27T05:10:25.033Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Rachel Carrothers",
+    "postTitle": "Intro",
+    "commentAuthor": "Rachel Carrothers",
+    "commentText": "not sure what all I can achieve with AI yet",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "info-gathering",
+      "sales_stage": "engagement",
+      "gender": "female",
+      "reasoning": "Rachel is new to the community and hasn't shared much about her background or goals yet."
+    },
+    "reply": "What do you do currently? . . . or if you don't have an offer yet what topic are you most passionate about?",
+    "timestamp": "2026-04-27T05:10:50.223Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dean Graziosi",
+    "postTitle": "DAY 2: What Was Your Biggest Breakthrough? 🚀",
+    "commentAuthor": "Nikianna Manousaki",
+    "commentText": "Mirza So true, so true! I don’t know why that touched me so much, but I literally 😭bawled my eyes out when I heard Dean say that…but I am excited about trying it out for our next meal. 🎉What resonated for you?",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "gender": "female",
+      "reasoning": "I'm asking a question to keep the conversation going."
+    },
+    "reply": "I'm actually pretty curious to hear your answer to that too, Mirza. . .",
+    "timestamp": "2026-04-27T05:11:18.179Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Mike Campbell",
+    "postTitle": "Hello, My name is Mike and I'm new to AI",
+    "postBodyPreview": "1h  • Community SupportHello, My name is Mike and I'm new to AIHi, I consider myself a total newbie. I hurt myself and have been off work for some time now and I cannot consider returning to the physical grind. I am strongly considering something different that gives me the ability to experience tim",
+    "tags": {
+      "tone_tags": [
+        "empathy",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "gender": "male",
+      "reasoning": "Mike is new to the community and I want to make him feel welcome."
+    },
+    "reply": "Wishing you a fast recovery Mike and I'm absolutely certain that you will find freedom and fulfillment through Ai. May you make the “impossible” possible!",
+    "timestamp": "2026-04-27T05:11:44.121Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dean Graziosi",
+    "postTitle": "DAY 2: What Was Your Biggest Breakthrough? 🚀",
+    "commentAuthor": "Jeff F",
+    "commentText": "Johnson that’s fantastic. Congratulations. I will be spending time learning how to do that.I love your bio description: “Entrepreneur & wellness advocate blending health, creativity, & marketing to inspire trust & authentic connection”.",
+    "tags": {
+      "tone_tags": [
+        "praise"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Jeff is congratulating Johnson on his breakthrough and complimenting his bio."
+    },
+    "reply": "I love seeing such genuine words of encouragement. Thank you for making this space better Jeff.",
+    "timestamp": "2026-04-27T05:12:13.168Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Dean Graziosi",
+    "postTitle": "DAY 2: What Was Your Biggest Breakthrough? 🚀",
+    "commentAuthor": "Kitoko Ehl",
+    "commentText": "Very insightful. I love the part about \"time is love\", it helps remove some fears around AI. As a postpartum fitness coach, I've been really hesitant to use AI. But since I started using it to refine my offer and lighten the load of work, it's been a game changer.More mothers who are in alignment wi",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype",
+        "brotherhood"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Kitoko is a warm lead and this is a great opportunity to keep the conversation going."
+    },
+    "reply": "Happy to have you on this journey with us Kitoko. Welcome to the Answer42 Nation :)",
+    "timestamp": "2026-04-27T05:12:42.082Z"
+  }
+]

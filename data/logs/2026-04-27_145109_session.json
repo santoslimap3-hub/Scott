@@ -1,0 +1,76 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "Julius Santos",
+    "postTitle": "hello everyone",
+    "commentAuthor": "Julius Santos",
+    "commentText": "@Daniel Carter Wow! Good to hear Daniel! I will definetly smash it! 🔥",
+    "tags": {
+      "tone_tags": [
+        "hype",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Julius is excited to be here and I want to keep the energy high."
+    },
+    "reply": "LET'S GOOO",
+    "timestamp": "2026-04-27T06:51:38.500Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "Weekly Sync 🧘🏼‍♀️",
+    "commentAuthor": "Andreas Leijonmarck",
+    "commentText": "Continous grind is the one thing on the list, besides staying in touch with feeling the body-minds needs of basics like movement, recovery/downtime in real time. But I should start making more time for socializing IRL right now ive noticed - thats easier to miss i find if its not around in the house",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "I'm asking a question to keep the conversation going and learn more about his situation."
+    },
+    "reply": "What i found working for me is doing 1hr/1hr or 2hr/2hr blocks of wake up/stay up &rest/sleep time. This makes quite 5-6 block instead of the typical, sleep all night, and then stay awake all day on a different timeschedule. Def easier to be \"supernatural\" with the first option, but then the night and evening socializing becomes less possible.",
+    "timestamp": "2026-04-27T06:53:25.203Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Jeff Sprinkel",
+    "postTitle": "Marvin the Mole is Alive!",
+    "commentAuthor": "FrancE Desrosiers",
+    "commentText": "@Daniel Carter - I’ve had ideas and tried to write in the past - but ideas to actual story end up a frustrating hodge podge I put aside. All the asides seem similar as the idea remains, however, I’m thinking of SCRAPPING all and starting anew once I’ve learned AI, get comfortable, then let it flow. ",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "value-delivery",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "FrancE is a female name, and the post is about writing and AI."
+    },
+    "reply": "It’s easier to edit a hodge podge than a blank page.",
+    "timestamp": "2026-04-27T06:54:06.887Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "Weekly Sync 🧘🏼‍♀️",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "Leijonmarck heavily feel you on the socializing part, on that topic, how do you end up finding a balance?",
+    "tags": {
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Lea is asking a question to keep the conversation going and learn more about Andreas."
+    },
+    "reply": "Want to synch schedules this week for hanging out?",
+    "timestamp": "2026-04-27T06:54:54.192Z"
+  }
+]

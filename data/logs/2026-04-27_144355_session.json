@@ -1,0 +1,94 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "Julius Santos",
+    "postTitle": "hello everyone",
+    "commentAuthor": "Chris Fletcher",
+    "commentText": "@Daniel Carter ❤️",
+    "tags": {
+      "tone_tags": [
+        "brotherhood"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Chris is a guy and this is a brotherhood."
+    },
+    "reply": "Welcome to the brotherhood Chris — glad to have you here.",
+    "timestamp": "2026-04-27T06:44:30.535Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Mike Campbell",
+    "postTitle": "Hello, My name is Mike and I'm new to AI",
+    "commentAuthor": "Chris Fletcher",
+    "commentText": "@Daniel Carter ❤️",
+    "tags": {
+      "tone_tags": [
+        "brotherhood",
+        "motivational"
+      ],
+      "intent": "community-building",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Chris is a guy and this is a community-building post."
+    },
+    "reply": "Man! Seeing this here makes my soul happy. . .",
+    "timestamp": "2026-04-27T06:45:05.615Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Evonne Jefferson",
+    "postTitle": "Your First $100 Offer",
+    "commentAuthor": "Evonne Jefferson",
+    "commentText": "@Daniel Carter Actually, it's time to make a sale!😆",
+    "tags": {
+      "tone_tags": [
+        "motivational",
+        "hype"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Evonne is a woman and she's on fire right now, so let's keep her energy high."
+    },
+    "reply": "That's the spirit trainings complete when you close that first sale!",
+    "timestamp": "2026-04-27T06:45:39.646Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Kevin De Garcia",
+    "postTitle": "YouTube - Faceless vs Talking Head",
+    "commentAuthor": "Mary Wilmer",
+    "commentText": "@Daniel Carter what are you working on?",
+    "tags": {
+      "tone_tags": [
+        "curiosity"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Mary is asking Daniel a question to learn more about his situation."
+    },
+    "reply": "DM me the word SCALE and I'll walk you through exactly what we do. . .",
+    "timestamp": "2026-04-27T06:46:20.397Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Karina Aagaard",
+    "postTitle": "Meet Noah",
+    "commentAuthor": "Karina Aagaard",
+    "commentText": "@Daniel Carter - Haha, honestly the only thing I’ve really used it for so far — besides short tests for my posts — is creating personalized bedtime stories for my kids 😄And I have to say… it’s amazing at that. Way more creative than me at 8pm when I’m running out of ideas!",
+    "tags": {
+      "tone_tags": [
+        "humor"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Karina is a female name and the best tone is humor because she is talking about AI writing bedtime stories for her kids."
+    },
+    "reply": "That’s so smart!",
+    "timestamp": "2026-04-27T06:46:53.577Z"
+  }
+]

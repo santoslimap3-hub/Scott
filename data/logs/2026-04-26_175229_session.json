@@ -1,0 +1,55 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "The 24-hour blueprint.",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "@Daniel Carter I love the conclusion of coming back to the path. Thank you for sharing this.",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Lea is expressing gratitude for Daniel's comment."
+    },
+    "reply": "Love to have you here.",
+    "timestamp": "2026-04-26T09:52:53.438Z"
+  },
+  {
+    "type": "notif-comment",
+    "postAuthor": "Lea Newkirk",
+    "postTitle": "clouds deserve love too!",
+    "commentAuthor": "Lea Newkirk",
+    "commentText": "@Daniel Carter This literally made me melt, so cute.",
+    "tags": {
+      "tone_tags": [
+        "chit-chat"
+      ],
+      "intent": "close-to-call",
+      "sales_stage": "ask",
+      "gender": "female",
+      "reasoning": "Lea is a female name and this is a chit-chat post."
+    },
+    "reply": "I'm glad you liked it!",
+    "timestamp": "2026-04-26T09:53:25.177Z"
+  },
+  {
+    "type": "post",
+    "postAuthor": "Sherra Groover",
+    "postTitle": "5k challenge anniversary ?",
+    "postBodyPreview": "10h  • $100 Offer 5-Day Challenge5k challenge anniversary ?Where can I find relay for the 5k challenge year anniversary?",
+    "tags": {
+      "tone_tags": [
+        "empathy"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "awareness",
+      "gender": "female",
+      "reasoning": "Sherra is a female name and the comment is a simple acknowledgement."
+    },
+    "reply": "Keep it up Sherra! We're rooting for you.",
+    "timestamp": "2026-04-26T09:55:30.410Z"
+  }
+]

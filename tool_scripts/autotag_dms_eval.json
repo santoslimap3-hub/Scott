@@ -1,0 +1,2476 @@
+{
+  "eval_size": 130,
+  "few_shots_used": 50,
+  "model": "gpt-4o",
+  "accuracy": {
+    "sales_stage": 0.676923076923077,
+    "intent": 0.45384615384615384,
+    "intent_canonical": 0.45384615384615384,
+    "dm_stage": 0.6923076923076923,
+    "nonsales": 0.7076923076923077
+  },
+  "tone_jaccard": 0.23476254514716044,
+  "rule_hits": 15,
+  "llm_role_breakdown": {
+    "in-program-or-personal": 86,
+    "unknown": 29
+  },
+  "per_source_error_stats": {
+    "llm:in-program-or-personal": {
+      "count": 86,
+      "field_errors": 127
+    },
+    "rule:decline-redirect": {
+      "count": 1,
+      "field_errors": 0
+    },
+    "rule:call-imminent": {
+      "count": 3,
+      "field_errors": 6
+    },
+    "llm:unknown": {
+      "count": 29,
+      "field_errors": 51
+    },
+    "rule:media-omitted": {
+      "count": 4,
+      "field_errors": 0
+    },
+    "rule:short-ack": {
+      "count": 2,
+      "field_errors": 2
+    },
+    "rule:meet-link": {
+      "count": 2,
+      "field_errors": 2
+    },
+    "rule:call-pitch": {
+      "count": 3,
+      "field_errors": 3
+    }
+  },
+  "confusion": {
+    "sales_stage": {
+      "nurture -> nurture": 79,
+      "engagement -> nurture": 27,
+      "ask -> nurture": 10,
+      "ask -> ask": 5,
+      "engagement -> engagement": 4,
+      "nurture -> ask": 3,
+      "nurture -> engagement": 1,
+      "awareness -> nurture": 1
+    },
+    "intent": {
+      "engagement-nurture -> engagement-nurture": 45,
+      "acknowledgement -> engagement-nurture": 12,
+      "authority-proofing -> engagement-nurture": 11,
+      "info-gathering -> engagement-nurture": 8,
+      "close-to-call -> engagement-nurture": 7,
+      "value-delivery -> engagement-nurture": 7,
+      "community-building -> engagement-nurture": 6,
+      "acknowledgement -> acknowledgement": 5,
+      "close-to-call -> close-to-call": 5,
+      "engagement-nurture -> acknowledgement": 5,
+      "funneling -> engagement-nurture": 4,
+      "redirect -> redirect": 3,
+      "redirect -> engagement-nurture": 3,
+      "pain-agitation -> engagement-nurture": 2,
+      "engagement-nurture -> authority-proofing": 1,
+      "info-gathering -> info-gathering": 1,
+      "objection-handling -> engagement-nurture": 1,
+      "community-building -> close-to-call": 1,
+      "engagement-nurture -> close-to-call": 1,
+      "community-building -> acknowledgement": 1,
+      "lead-qualification -> close-to-call": 1
+    },
+    "intent_canonical": {
+      "engagement-nurture -> engagement-nurture": 45,
+      "acknowledgement -> engagement-nurture": 12,
+      "authority-proofing -> engagement-nurture": 11,
+      "info-gathering -> engagement-nurture": 10,
+      "close-to-call -> engagement-nurture": 7,
+      "value-delivery -> engagement-nurture": 7,
+      "community-building -> engagement-nurture": 6,
+      "acknowledgement -> acknowledgement": 5,
+      "close-to-call -> close-to-call": 5,
+      "engagement-nurture -> acknowledgement": 5,
+      "redirect -> engagement-nurture": 4,
+      "funneling -> engagement-nurture": 4,
+      "redirect -> redirect": 3,
+      "engagement-nurture -> authority-proofing": 1,
+      "info-gathering -> info-gathering": 1,
+      "community-building -> close-to-call": 1,
+      "engagement-nurture -> close-to-call": 1,
+      "community-building -> acknowledgement": 1,
+      "info-gathering -> close-to-call": 1
+    },
+    "dm_stage": {
+      "null -> null": 86,
+      "share-authority -> null": 7,
+      "frame-outcome -> null": 7,
+      "send-calendly -> null": 6,
+      "gather-intel -> null": 5,
+      "nurture-free -> null": 5,
+      "connect -> null": 3,
+      "offer-call -> offer-call": 3,
+      "send-calendly -> send-calendly": 1,
+      "offer-call -> send-calendly": 1,
+      "null -> share-authority": 1,
+      "connect -> gather-intel": 1,
+      "nurture-free -> offer-call": 1,
+      "null -> send-calendly": 1,
+      "offer-call -> null": 1,
+      "frame-outcome -> offer-call": 1
+    },
+    "nonsales": {
+      "true -> true": 84,
+      "false -> true": 36,
+      "false -> false": 8,
+      "true -> false": 2
+    }
+  },
+  "sample_diffs": [
+    {
+      "correction_id": "7__I_m_looking_forward_to_it_brother_Infi",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "gratitude",
+          "bonding-rapport",
+          "casual",
+          "brotherhood",
+          "self-aggrandization"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "brotherhood",
+          "gratitude",
+          "bonding-rapport",
+          "chit-chat",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "I’m looking forward to it, brother. Infinite gratitude for this moment. We both live here now, we are going to be seeing each other a lot. I feel like we have still so much to talk about. I hope you frequent Tribal, I’m spellbound to that place, its energy, its people…",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "3__it_is_a_fucking_grind",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "casual",
+          "bonding-rapport",
+          "empathy",
+          "direct"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "casual",
+          "brotherhood",
+          "hype"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "it is a fucking grind",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "12__I_m_sorry_I_had_to_sent_them_your_way_bu",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual",
+          "empathy",
+          "gratitude",
+          "chit-chat"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "empathy",
+          "authority",
+          "self-aggrandization",
+          "hype"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "I'm sorry I had to sent them your way but there was no faster way and Tropipay wasn't working with Hassan, we are going to set up a new way soon for this upcoming month...\nyou have to do what you have to do... sometimes we have to pay a heavy price for doing business, but it's worth it all in the end. Fucking Paypal. 🥲",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "14__100_you_should_He_s_killing_it_I_got",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "casual",
+          "bonding-rapport",
+          "praise"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "chit-chat",
+          "humor",
+          "storytelling",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "100%, you should! He's killing it!\nI got to practice Italian.\nI was talking to Francesco the other day and it was so funny, because he was speaking to me in Italian and I was responding to him in Spanish and we actually had a full conversation without getting lost or anything but I want to speak fluently in Italian.\nMy ex is writting me now... says that she misses me and says she´s smoking while listening to the songs I used to listen with her when we were together. Fuck, coudn´t she pick up a good habit from me instead?\nof course I´m not responding and I´m not going to.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "2__I_ll_see_you_in_9_minutes_bro_",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "authority"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "questions"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask",
+        "dm_stage": "send-calendly",
+        "nonsales": false
+      },
+      "scott_reply": "I'll see you in 9 minutes, bro.",
+      "source": "rule:call-imminent"
+    },
+    {
+      "correction_id": "3__So_you_re_not_going_back_to_your_old_job",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "curiosity",
+          "questions"
+        ],
+        "intent": "pain-agitation",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "curiosity",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "So you're not going back to your old job, right?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "9__Cool_They_are_doing_what_they_think_is_b",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "teasing-future-value",
+          "authority",
+          "direct",
+          "bonding-rapport",
+          "motivational"
+        ],
+        "intent": "redirect",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "authority",
+          "tough-love",
+          "casual",
+          "hype"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Cool\nThey are doing what they think is best for you… but most of the times parents don’t have a fucking clue of what’s actually best for their children since they don’t know what’s best for themselves or they’d have their life figured out, they’d be rich, happy, fulfilled, healthy and basically perfect or at least consistently making progress in their own lives.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "11__Definetely_I_m_going_to_lock_in_with_the",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "authority"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Definetely I'm going to lock in with the free community funnel and start upsales from there...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "13__Great_Stephen_is_awesome_Right_now_I_m",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual",
+          "direct",
+          "chit-chat"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "direct",
+          "authority",
+          "self-aggrandization"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Great, Stephen is awesome. Right now I'm working in sales, my community is not generating anything right now. I'm also more focused on a longer term project I'm developing with it.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "14__Meeting_with_Vlad_Monday_2_Feb_16_00_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "direct",
+          "casual"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "teasing-future-value",
+          "authority",
+          "self-aggrandization",
+          "mystery-teasing",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Meeting with Vlad Monday, 2 Feb · 16:00 – 17:00 Canggu Pinpoint Rooms View details and RSVP https://calendar.app.google/Drp2MCxbE3X9N9RLA\nThe location is included in the description. It’s my favorite rooftop here in Canggu.\nhttps://www.youtube.com/watch?v=G6Rf774GCIc\nListen carefully to these words... they encompass my \"ideology\"... it's something you feel it in your blood and no amount of empty words or abstractions could ever describe this primal and overwhelming energy.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "16__The_fairy_dust_is_within_you_it_s_not",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "praise",
+          "motivational"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "storytelling",
+          "empathy",
+          "motivational"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "The fairy dust is within you... it's not in her... she's is within you... every moment you shared with her is imprinted in your soul...",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "17__I_just_posted_it_and_boosted_the_fuck_ou",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "direct",
+          "hype",
+          "curiosity"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "direct",
+          "self-aggrandization",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "I just posted it and boosted the fuck out of it to get maximum reach, it's going to show up on Instagram and will be pin to the top of the fee on Nomeo: https://nomeo.io/m/4GRzo\nRead it and let me know what you think...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "3__Thanks_bro_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "gratitude",
+          "hype"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "gratitude",
+          "casual"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Thanks, bro!",
+      "source": "rule:short-ack"
+    },
+    {
+      "correction_id": "4__Siebe_how_s_business_coming_along_bro_",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "questions",
+          "curiosity"
+        ],
+        "intent": "pain-agitation",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "questions",
+          "brotherhood"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Siebe, how's business coming along, bro?\nYou've got the methodology already?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "9__Yes_I_m_looking_forward_to_Friday_man_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "hype",
+          "self-aggrandization",
+          "motivational",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "motivational",
+          "casual",
+          "direct",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Yes, I'm looking forward to Friday, man. You know I like to implement at the speed of light. There's no time to waste.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "11__When_you_have_the_right_perspective_anyw",
+      "expected": {
+        "dm_stage": "connect",
+        "nonsales": false,
+        "tone_tags": [
+          "authority",
+          "motivational",
+          "storytelling",
+          "bonding-rapport",
+          "teasing-future-value",
+          "self-aggrandization"
+        ],
+        "intent": "funneling",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "storytelling",
+          "casual",
+          "bonding-rapport",
+          "chit-chat"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "When you have the right perspective anywhere in the world is a wonderful place and you learn to appreciate it as it is. But Malaysia it's pretty cool. I like it a lot. I have lived for a month in Kuala Lumpur, the capital and now here on Malacca, right by the beach. Both are pretty awesome places. In the capital you get to meet a lot of cool people and life moves so fast, and here you get to relax, focus on your self-improvement, on healthy living, on swimming at the ocean and gridning at your work.\nThis is my whatsapp, I'm more active there because it's where I talk to my gang and manage my clients, shoot me a text and I'll add you: +60 1167761397",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "12__Wow_you_got_a_lot_of_subs_and_views_An",
+      "expected": {
+        "dm_stage": "gather-intel",
+        "nonsales": false,
+        "tone_tags": [
+          "curiosity",
+          "praise",
+          "questions",
+          "casual"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "curiosity",
+          "questions",
+          "praise",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Wow, you got a lot of subs and views.\nAnd on a faceless channel... that's pretty good.\nAre you making money with it right now?\nDo you have any high ticket offer? I imagine you do have at least a low ticket one...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "13__bro_Ad_tivity_s_payment_came_my_way_im",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "brotherhood",
+          "chit-chat"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "bro\nAd-tivity’s payment came my way. ‎image omitted",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "16__Bro_you_there_Read_this_I_just_had_th",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "self-aggrandization",
+          "authority",
+          "motivational",
+          "hype",
+          "direct",
+          "teasing-future-value",
+          "mystery-teasing"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "self-aggrandization",
+          "authority",
+          "motivational",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Bro, you there?\nRead this…\nI just had this genius idea. I actually told Andrea to implement it but he was too fearful and untrained on social skills to even try. But I could pull it off myself! I could go to the local High Schools around here, talk to teachers and as long as they can speak good English I could hire them to do online tutoring! Working full-time as online tutors they could be generating easily 1 to 2K per month. Dollars! Let me do the math real quick…\nAlright, let’s say we charge students 24$ per hour. Which it’s fair for professional teachers, international experts! That’s how I’ll market them! Andrea and I will get 40% for ourselves. 15% to him, 15% to me and 10% for the company’s fund, to have cashflow and be able to reinvest. 60% for the teacher.\nT x % : 100 = t\n24$ x 60% : 100 = t\n14,4$ = t\nThe teachers would be making 14,4$ per hour. That’s 60 RM per hour. That’s a lot for them (I hope, I believe, and on top of that online! With their own hours, they decide, well, kind of, I’ll be a flexible and cool boss).\nAlright. Let’s say these teachers in the beginning are afraid of leaving their normal jobs and going full-blown online mode. And they decided to do 3 hours daily. Which is feasible even with a 9 to 5.\n3 hours 5 days per week. That’s 210$ per week. In 4 weeks that make up a month that’s… 840$ in a month! Just working 3 fucking hours daily and only 5 days per week!!! Now imagine if they were to actually work 9 hours per day, 5 days per week!!! $2.5K per month!!! That’s millionaire status here in Malaysia! They could have a butler at home even!!! How much is that in RM!? 10K RM!!! Fucking huge!!! They could travel through the South Asian East and even to the Caribbean and South American for the holidays with that kind of money!!! And they would be making that money online!!!\nHow much do Andrea and I make from one teacher by the way?\nAlright! Let’s do the full math!!!\nWorking only 3 hours per day, at 24$ per hour, 5 days per week… that’s 1440$ per month.\n40% of that would be?\n576$ per month.\n15%?\n216$ per month for Andrea and the same for me.\n144$ monthly for the fund.\nNow multiply that by 3 if that teacher goes full-time with us?\n648$ per month for Andrea and the same for me.\nAnd that’s with only one teacher!!! Fuck!!! I’ll hire 10!!!\nImagine just getting 3… one for Math, one for Physics and one for English or programming or something like that. Full-time all of them!!!\n$1.9K per month without having to lift a finger after the whole system it’s set up. Fuck!!! That’s pretty good. If I hire 10 I hit $6K per month!!! I got to do this shit…",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "18__Are_you_working_at_something_at_the_mome",
+      "expected": {
+        "dm_stage": "gather-intel",
+        "nonsales": false,
+        "tone_tags": [
+          "curiosity",
+          "questions",
+          "direct"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "curiosity",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Are you working at something at the moment? Like a 9 to 5 or something like that or are you at your parents house?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "22__image_omitted_Contact_card_omitted",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "chit-chat"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "image omitted\nContact card omitted",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "26__Fucking_G_That_s_how_it_s_done_How_was",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "praise",
+          "hype",
+          "authority",
+          "teasing-future-value",
+          "empathy",
+          "motivational"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "praise",
+          "casual",
+          "supportive-helpful",
+          "motivational",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Fucking G! That’s how it’s done! How was the walk? Relaxing right? I won’t judge you if you listened to music on the way but the best way is to be alone with your thoughts on these kinds of walks, the best ideas come on such moments.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "28__No_worries_brother_Are_you_home_alread",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "questions",
+          "empathy"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "brotherhood",
+          "questions",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "No worries, brother.\nAre you home already?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "30__That_s_chatgpt_talking_shit_I_don_t_lik",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "hype",
+          "authority",
+          "tough-love",
+          "direct",
+          "self-aggrandization",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "authority",
+          "motivational",
+          "teasing-future-value",
+          "direct",
+          "questions"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "engagement",
+        "dm_stage": "share-authority",
+        "nonsales": false
+      },
+      "scott_reply": "That's chatgpt talking shit. I don't like it's offer.\nThis is my latest version son far: Grand Slam Offer Version 1.2: Imagine working 3 hours per day instead of 10 and achieving 10x the results you're getting now? Imagine instead of feeling 90 years old actually having energy, motivation and excitement about your life, like if you were 9 years old again all of the sudden. We'll go through a 5 days bootcamp for productivity in which I'll teach you how to 10x your productivity free up your time and gain back the excitement and motivation about life that you have lost along the way. Deep Work Method + Mindful Awareness + Flow State on command. This is how you unlock your full potential! I got 5 spots left for the group sessions that start tomorrow at 10 AM every day for 5 days. If you're curios about it hit me up in the DMs.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "31__yes_it_s_fire_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "praise",
+          "hype"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "yes, it's fire!",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "33__So_basically_I_ll_do_holistic_self_impr",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions",
+          "praise",
+          "curiosity",
+          "direct",
+          "storytelling",
+          "vulnerability",
+          "motivational",
+          "authority"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "self-aggrandization",
+          "humor",
+          "authority",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "So, basically I'll do holistic self-improvement coaching (focus on the three key aspects, body, mind and soul, workouts [and nutrition, health maxing in depth on more advanced modules], reading and meditation) and online business consulting for\neducational content creators.\nI teach them to scale up their brand, start making money with coaching (on their niche) even with a very small following and some of my clients have been asking me a lot for sales training... WTF?! I'm getting sales training here with you, guys! 🤣\nI might make a course on my specific method, though. But I'm already starting to think...\nwith the kind of results I'm getting for my clients...\nbro, I could charge even higher prices! I've been literally thinking about chatging 10K per month per client. I'm not even kidding...\nI got this client that has a thematic event's planning business and is kind of IG famous, almost 5K followers on one account made only a 4 months ago. These events get sometimes 700+ people. 700+ people paying 50 bucks per entrance that's 35K on one event, and she does this with sponsor's money, not even investing herself! I got her as a client and I'm going to turn her business from event planning to high ticket coaching for thematic events planners. But while I was thinking about it... I realize, if I want to do this I might need feedback or help from a real pro at sales, so I thought of you.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "34__do_you_have_100_euros_on_wise_and_I_send",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "casual",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "do you have 100 euros on wise and I send it over to you as soon as I get paid?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "35__Rob",
+      "expected": {
+        "dm_stage": "gather-intel",
+        "nonsales": false,
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Rob",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "37__This_is_not_ordinary_ritual_performed_at",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "self-aggrandization",
+          "motivational",
+          "teasing-future-value",
+          "authority"
+        ],
+        "intent": "redirect",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "mystery-teasing",
+          "authority",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "This is not ordinary ritual performed at home in the disgrace of the tained modern world that surrounds us.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "38__Good_morning_Lea_That_s_actually_prett",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "praise",
+          "gratitude",
+          "motivational",
+          "hype",
+          "supportive-helpful"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "supportive-helpful",
+          "motivational",
+          "direct",
+          "authority",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Good morning, Lea.\nThat's actually pretty good! You're asking! Now, the more you ask the more natural it will come to you. Don't worry about it. This guy? Well... you can use one of your weekly DMs and DM him directly to signal real intent and actual interest. Why? Because the last two sentences of your comment sound kind of forced, but like I said... that's normal.\nThe more you repeat the better you'll get.\nDo not worry about \"fucking up\". There's infinite prospects out there...\nI repeat...\nDO NOT WORRY ABOUT \"FUCKING UP\".\nThere's not such a thing.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "41__Social_life_here_in_Canggu_is_anything_b",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "self-aggrandization",
+          "authority",
+          "teasing-future-value",
+          "mystery-teasing"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Social life here in Canggu is anything but scarse.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "42__Several_What_s_the_idea_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions",
+          "curiosity",
+          "direct",
+          "mystery-teasing"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "curiosity",
+          "questions",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Several…\nWhat’s the idea?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "0__11_hours_from_now_",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "questions"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "11 hours from now?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "1__Oh_it_s_the_free_community_funnel_ho",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "questions",
+          "curiosity"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Oh, it's the free community funnel... how do you turn them after that into paying customers?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "2__Marco_and_Nicola_were_never_part_of_that",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "casual",
+          "empathy"
+        ],
+        "intent": "objection-handling",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "brotherhood",
+          "empathy",
+          "casual",
+          "bonding-rapport"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Marco and Nicola were never part of that equation, bro. It is Maša, Francesco and me so far.\nNo, bro, don’t worry, I completely get it and I believe you are 100% right. I would have probably made exactly the same decision in your shoes. I know the risk of having Maša on the equation. It’s volatile as fuck. But I got to take the risk to move forward my plans right now, it’s just useful for my aims. And with regards to my hours… my hours are actually supposed to be right now waking up at 4 AM and going to bed at 6 PM. I was hoping you’d keep me accountable to that. But do not worry at all. We might still get to share a place at some point. This will only be for a month… maybe two or three. It won’t last long. I know that.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "4__Awesome_Did_you_spoke_to_Kobe_already_a",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Awesome! Did you spoke to Kobe already about it?",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "8__what_s_the_work_he_is_trying_to_get_cons",
+      "expected": {
+        "dm_stage": "gather-intel",
+        "nonsales": false,
+        "tone_tags": [
+          "questions",
+          "curiosity"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "what's the work he is trying to get consistent at?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "10__Perfect_I_ll_change_it_on_our_schedule_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "casual"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Perfect, I'll change it on our schedule.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "13__lol_incoming_https_meet_google_com_wdh",
+      "expected": {
+        "dm_stage": "nurture-free",
+        "nonsales": false,
+        "tone_tags": [
+          "humor",
+          "hype",
+          "brotherhood"
+        ],
+        "intent": "community-building",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "casual"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask",
+        "dm_stage": "offer-call",
+        "nonsales": false
+      },
+      "scott_reply": "lol\nincoming\nhttps://meet.google.com/wdh-bobn-zuq\nhttps://meet.google.com/zhs-skvj-xyr\n====calendly_link=====\nOur weekly call Google Calendar Event: https://calendar.app.google/UBHawAnzknAWohP68\nMy whatsapp: +60 1167761397\nWelcome to Self-Improvement Nation, J'son! Really glad to have you here with us. Why don't you start by introducing yourself to the community here (https://www.skool.com/self-improvement-nation-3104/say-hello-to-the-gang-start-here)? We are having a community call this Saturday and as always it's gonna be truly epic, here's the info for joining (https://www.skool.com/self-improvement-nation-3104/community-call-coming-up). Looking forward to seeing you there, brother!\nJason",
+      "source": "rule:meet-link"
+    },
+    {
+      "correction_id": "17__then_it_must_be_work_or_self_improvement",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "motivational",
+          "bonding-rapport",
+          "direct",
+          "authority"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "authority",
+          "direct",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "then it must be work or self-improvement...\nOnly those three things...",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "18__Cool_bro_Shoot_me_a_text_whenever_you_",
+      "expected": {
+        "dm_stage": "nurture-free",
+        "nonsales": false,
+        "tone_tags": [
+          "supportive-helpful",
+          "brotherhood",
+          "empathy",
+          "casual",
+          "bonding-rapport",
+          "authority"
+        ],
+        "intent": "funneling",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "brotherhood",
+          "supportive-helpful"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Cool, bro. Shoot me a text whenever you want, if I'm around for sure we can chat. Whathever you need, I'm here.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "21__You_worried_me_there_for_a_moment_If_th",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "teasing-future-value",
+          "humor",
+          "self-aggrandization",
+          "tough-love",
+          "motivational"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "humor",
+          "casual",
+          "chit-chat"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "You worried me there for a moment. If there’s a skool for Westerners around here I would have had to gather the boys, get some torches and go burn that shit to the ground…",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "23__Sounds_amazing_What_would_we_have_to_do",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "hype",
+          "chit-chat",
+          "curiosity",
+          "questions",
+          "direct"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Sounds amazing! What would we have to do exactly?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "0__From_heaven_You_are_doing_an_amazi",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "praise",
+          "gratitude",
+          "mystery-teasing",
+          "humor",
+          "casual",
+          "motivational"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "questions"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask",
+        "dm_stage": "send-calendly",
+        "nonsales": false
+      },
+      "scott_reply": "From heaven... 😉\nYou are doing an amazing job, Lea. It's an incentive to reward your efforts. Keep going. Ogi didn't close, but he's very interested on the offer, it is highly probable that he jumps on the offer and does the down payment in a month or two from now when he has the money.\nI'll see you in 5 minutes.\nOn the sales' performance tracker you can check out later when you have some time the call to see how it went.",
+      "source": "rule:call-imminent"
+    },
+    {
+      "correction_id": "1__Awesome_Let_s_make_it_happen_then_",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "hype",
+          "direct"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Awesome! Let's make it happen, then!",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "2__Because_I_stayed_in_the_phone_for_4_hour",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "self-aggrandization",
+          "storytelling",
+          "authority"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Because I stayed in the phone for 4 hours with that guy until I closed him. I sent him the contract and the payment link for 750$ and he signed and paid.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "3__Sure_let_s_talk_about_it_on_the_call_P",
+      "expected": {
+        "dm_stage": "offer-call",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "mystery-teasing",
+          "casual"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Sure, let’s talk about it on the call.\nPerfect, it’s confirmed.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "4__Bro_yes_those_clients_are_for_my_coachi",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "authority",
+          "self-aggrandization",
+          "chit-chat",
+          "casual",
+          "direct",
+          "storytelling"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Bro, yes those clients are for my coaching program.\nI recently started charging 1K per month per client, this other coach I was talking to a couple of days ago opened up my eyes...\nI was charging too little! And I was getting better results with my clients than him! And he was charging 1K, I was literally charging pennies!\nBut when it truly hit me was when I said confindently my new price (1K) on a discovery call to one prospect. They guy was already so impressed by me (for some reason) that he agreed immediatly!\nThat was quite a \"holy fuck!\" moment for me...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "5__Of_course_But_it_is_our_responsibility_",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "self-aggrandization",
+          "tough-love",
+          "authority",
+          "motivational",
+          "bonding-rapport",
+          "teasing-future-value"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Of course. But it is our responsibility to change the world by first changing ourselves and then having a meaningful impact through our actions. That’s why I’m building what I’m building.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "11__Hey_Calvin_how_s_it_going_brother_I_",
+      "expected": {
+        "dm_stage": "connect",
+        "nonsales": false,
+        "tone_tags": [
+          "chit-chat",
+          "brotherhood",
+          "casual",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Hey, Calvin, how's it going, brother? I haven't seen you in a while... what are you up to?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "13__Yesterday_two_guys_sent_me_their_website",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "storytelling",
+          "authority",
+          "self-aggrandization"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Yesterday two guys sent me their websites for me to take a look at it and give them some marketing advice on their offer. I proposed to them to talk about my offer to see how I could help them through my program or through a lower ticket consultation call. I was super hyped up about it, especially because one of the guys directly told me he was more interested on my full program than on the consultation call and he scheduled right away a call with me to talk about that today, but today when I woke up he said that he had an urgency and couldn't do the call and the other guy is coming to Bali in a week or so, so until then I don't really know what will happen with that. Honestly at this point that little disappointment felt heavier than usual and hitting my KPIs today is something I haven't managed to do so far. I'm feeling extremely demotivated and all that shit, but I know feelings are temporary and they bring meaning to this story, without struggle there's no meaningful win in the end, I'm enjoying even this part, the fear, the uncertainty, the challenges... I'm grateful for it all. I just got to keep working until I win or the clock runs out and I die or something...\nI couldn't agree more.\nAt least the community keeps growing consistently no matter what which is fucking dope.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "14__But_for_travel_vlogs_and_that_kind_of_st",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "chit-chat",
+          "direct",
+          "teasing-future-value"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "But for travel vlogs and that kind of stuff good editing is important. Editing like this guy...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "16__Yeah_we_talked_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual",
+          "direct"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Yeah, we talked.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "20__Epic_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "hype",
+          "motivational"
+        ],
+        "intent": "community-building",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "gratitude",
+          "casual"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Epic!",
+      "source": "rule:short-ack"
+    },
+    {
+      "correction_id": "21__Jae_Are_you_available_now_for_a_quick_ca",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Jae\nAre you available now for a quick call?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "24__Bro_I_have_always_been_fascinated_by_my",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "teasing-future-value",
+          "authority",
+          "motivational",
+          "vulnerability",
+          "bonding-rapport",
+          "self-aggrandization",
+          "storytelling"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "storytelling",
+          "casual",
+          "bonding-rapport",
+          "questions",
+          "hype"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Bro, I have always been fascinated by my family and my father and I have always been digging about family history because we have a lot of records, old letters, documents and all the good stuff so we had a lot of material to go through on many of my family's branches. Even on my mother's part we have some information (not as much, but still some good stuff).\nMy great grand father, my mother's grandfather was a German who went to the Caribbean after the war with his wife (she was from Norway, so I have Norwegian blood from my mother's side and from my father at the same time). He literally NEVER spoke about the war or anything like that. He bought a big chunk of land and built a villa and set up a business selling and repairing Harley Davidsons, you know, cool motorcycles. After his death his sons and daughters dug out a metal box he had burry beneath a big tree in the villa. On the box they found a uniform of the SS, a luger and a Hitlerian Youth's knife. He was a captain of the SS. Funny enough his daughter, my grandmother married a Russian soldier trained at the KGB that went on to become a General during the cold war times and fought in Afghanistan during the Soviet occupation and on many black ops in Africa.\nThat's a truly FUCKING long story. Have you heard about Sæmingr?\nMost Hålogaland Jarls descend from him. Like I said that's a very long story but I do love to talk about it, let me know when you're up for it...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "25__See_you_soon_brother_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "brotherhood",
+          "chit-chat",
+          "casual"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "brotherhood",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "See you soon, brother.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "26__Of_course_Sorry_for_the_late_response_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "authority",
+          "direct",
+          "curiosity",
+          "hype"
+        ],
+        "intent": "community-building",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Of course!\nSorry for the late response, brother, I'm working, but shoot.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "29__How_much_do_you_need_brother_I_m_start",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions",
+          "supportive-helpful",
+          "brotherhood",
+          "empathy"
+        ],
+        "intent": "community-building",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "brotherhood",
+          "casual",
+          "teasing-future-value"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "How much do you need, brother?\nI'm starting the trip to Ubud now, bro, I'll see you soon.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "31__Thank_you_for_joining_me_Kerry_It_was_",
+      "expected": {
+        "dm_stage": "nurture-free",
+        "nonsales": false,
+        "tone_tags": [
+          "gratitude",
+          "praise",
+          "empathy",
+          "bonding-rapport"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Thank you for joining me, Kerry. It was an absolute pleasure.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "33__What_hour_",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "questions"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "What hour?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "34__Pedro",
+      "expected": {
+        "dm_stage": "connect",
+        "nonsales": false,
+        "tone_tags": [
+          "chit-chat",
+          "mystery-teasing"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Pedro",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "36__Yeah_but_you_said_you_didn_t_want_us_to",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "authority",
+          "empathy",
+          "supportive-helpful",
+          "direct"
+        ],
+        "intent": "redirect",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Yeah, but you said you didn’t want us to do the same thing. What I did today besides getting us Kobe and actually doing the interview and reviewing his CV was joining 5 groups of online tutoring in Malaysia…\nRight now, regardless of what we want to be or whatever reality is that what I’m doing which is decision making, setting the frame and direction of the company and managing all the moving parts, setting the strategy and structure, it’s basically what the CEO does. I also share with you the COO’s role managing day to day operations and making sure our employees do their work, doing the interviews approving them or not for the role, handling payments and setting up the payment structure. And then you are 100% the CTO because you are the technical chief of operations, the one who trains (through the course I basically forces you to make to sale on skool, thank God for that, because if not you’d be spending hours a day talking and teaching the teachers 😂) the teachers on how to do their job and makes sure the service is good and gets delivered as well as handles the traffic and acts as a sales development representative. Did I get that right?\nThat’s what we are doing right now… the only other thing I can on top to speed up our company’s growth is to join more Facebook groups and start posting as well to get more teachers and students leads. Do you want me to do that? I’m already starting to join the groups in case you need the support on that (I’m always thinking ahead, I started joining them hours before we even started talking about all of this and wrote down the names of the groups and the date I joined to be able to do the math on when I can start posting). ‎<This message was edited>\nkelvin nyajina (1).pdf • ‎2 pages ‎document omitted\nThe new resume. Let me know if you approve and if it’s better than the previous…\nDid you post already looking for students for Kobe? How many groups so far?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "37__I_m_building_a_tribe_of_digital_nomads_",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "bonding-rapport",
+          "self-aggrandization",
+          "motivational",
+          "hype",
+          "teasing-future-value"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "awareness"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "I'm building a tribe of digital nomads, men into self-improvement. We are buying a ship and making educational content online, selling courses and high ticket coaching while we train together leveling up body (by working out and taking care of our nutrition), mind (by reading consistently and acquiring knowledge and skills) and soul (by meditating and doing gratitude journaling). We aim at becoming a full-blown independent nation eventually, a child of Western Civilization that shall withstand the collapse of this decadent society we live in, a life denying death cult (no judgment, it's just the way it goes, the cycles of civilizations, nations rise and fall like the winter wheat, it's just the course of life).",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "41__Well_it_all_depends_on_how_important_is",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "supportive-helpful",
+          "brotherhood",
+          "bonding-rapport",
+          "motivational",
+          "hype",
+          "self-aggrandization",
+          "direct",
+          "teasing-future-value"
+        ],
+        "intent": "community-building",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Well, it all depends on how important is for him the success of this. I am 1000% committed to help you because you are my friend but taking in this responsibility with such little time to prepare everything, especially marketing is at the very least reckless, but I'll take the risk if I can be of help to you.\nThanks!",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "42__Yeah_don_t_worry_I_think_I_ll_go_to_sl",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "humor",
+          "direct",
+          "empathy",
+          "casual",
+          "brotherhood",
+          "curiosity",
+          "questions",
+          "vulnerability",
+          "storytelling",
+          "tough-love",
+          "chit-chat",
+          "authority",
+          "teasing-future-value"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Yeah, don’t worry. I think I’ll go to sleep. I’ll keep trying tomorrow… it’s 04:13 AM. I need to sleep.\nReady?\nThe link is in your inbox...\nI guess you're not showing up today. This is very unlike you, bro. What's going on? Is this Japanese girl our Yoko Ono? Are you turning into John Lennon? That would make me Paul McArty! What's going on?!?!?! Anywyas, I'll see you tomorrow. Please keep me updated about the Paypal biz verification, I'm running out of time, I need to pay the visa guy two weeks before buying the plain ticket and the closer to the actual day I'm flying I buy it the more expensive it gets, also, I got to be out of this airbnb by the 14th of July...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "43__https_youtu_be_6wG7DeJXAow_si_e1N14et0",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "direct"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "questions"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "https://youtu.be/6wG7DeJXAow?si=e1N14et0KAYhQi5j\nhttps://youtu.be/rrQ_Pw2IkAg?si=EX_ewguItOoc7gIa\nhttps://youtu.be/uuHF8BLKJWI?si=vVenIyMlYNXh_aYR\nScott Northwolf Self Transcendence Document v1.1.pdf ‎document omitted\nhttps://drive.google.com/drive/folders/1a3fhNrk0PzMa3i8k8XnzjrLeqx57eA2V?ths=true",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "44__that_s_the_real_root_cause_of_all_proble",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "tough-love",
+          "authority",
+          "supportive-helpful"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "that's the real root cause of all problems young men experience",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "45__I_ll_soon_explain_you_the_criteria_for_a",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "direct",
+          "casual",
+          "brotherhood",
+          "motivational"
+        ],
+        "intent": "acknowledgement",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "I'll soon explain you the criteria for approving members and you can do it yourself, don't worry.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "46__Are_you_sure_Probably_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Are you sure?\nProbably…",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "47__You_talk_to_Fabio_the_Italian_singer_h",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "casual",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "supportive-helpful",
+          "brotherhood"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "You talk to Fabio (the Italian singer, he's not pro or anything, the only pros are Doina and her musicians, so it's fine, it's just 3 or 4 songs that Fabio is going to sing). It's chill...\nyeap...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "49__I_don_t_know_man_I_know_for_a_fact_Jac",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "brotherhood",
+          "motivational",
+          "authority",
+          "self-aggrandization",
+          "direct",
+          "teasing-future-value",
+          "bonding-rapport",
+          "storytelling",
+          "questions",
+          "mystery-teasing"
+        ],
+        "intent": "lead-qualification",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "direct",
+          "motivational"
+        ],
+        "intent": "close-to-call",
+        "sales_stage": "ask",
+        "dm_stage": "offer-call",
+        "nonsales": false
+      },
+      "scott_reply": "I don’t know, man. I know for a fact Jack and Emanuele are coming. Hopefully they will tempt you to come as well when you see them here. I’ve been trying to talk to Antonio, he says he got himself a girlfriend and wanted me to talk to both of them for some reason, but he’s very inconsistent with scheduling and never shows up when we try to schedule a call. I’ll have to just call him directly whenever I see the hour is right in Spain.\nYou know the reason I’m running this offer?",
+      "source": "rule:call-pitch"
+    },
+    {
+      "correction_id": "51__GOATED_Bro_can_you_help_me_out_by_openi",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "vulnerability",
+          "brotherhood",
+          "hype",
+          "motivational",
+          "chit-chat",
+          "curiosity",
+          "questions"
+        ],
+        "intent": "community-building",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "GOATED\nBro, can you help me out by opening an account on Wise with this link: https://wise.com/invite/ihpn/antoniof2444\nThis is the new account on Wise that I bought for 350 euros. With KYC and all, but since it’s a legit bank account I can’t add money to it through my virtual debit card… that card it’s kind of cursed! 😂\nBut if I manage to get 3 people to sign up with my link I’ll get 90 euros on my account, so I can try making some small payments with it and see how well it works.\nI’ll be receiving most of my payments in here from now on… hopefully this is an upgrade…",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "53__This_feels_like_cheating_or_something_bu",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "direct",
+          "vulnerability",
+          "chit-chat",
+          "hype",
+          "brotherhood",
+          "authority",
+          "teasing-future-value",
+          "questions",
+          "motivational",
+          "self-aggrandization",
+          "bonding-rapport",
+          "storytelling",
+          "mystery-teasing"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "This feels like cheating or something but they get results, I am happy (of course, the money bring happiness indeed) and they are happy because they also make more money and their lives improve dramatically!\nFuck! This is insane! How is it even working!?\nI hadn't told this to anyone so far, I didn't really had no one to tell or no one who would actually even understand.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "55__Take_a_look_at_what_I_wrote_you_on_the_l",
+      "expected": {
+        "dm_stage": "frame-outcome",
+        "nonsales": false,
+        "tone_tags": [
+          "supportive-helpful",
+          "motivational",
+          "brotherhood",
+          "empathy",
+          "authority",
+          "mystery-teasing",
+          "self-aggrandization",
+          "teasing-future-value"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Take a look at what I wrote you on the long ass paragraph and let me know if you got around to implement it. If you want to talk more about it or have any questions, man, just let me know and I'll get back to you as soon as I can. I know it will be a game changer for you, man. Trust me...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "56__Purely_by_interacting_in_the_communities",
+      "expected": {
+        "dm_stage": "nurture-free",
+        "nonsales": false,
+        "tone_tags": [
+          "teasing-future-value",
+          "brotherhood",
+          "supportive-helpful",
+          "authority",
+          "direct",
+          "casual"
+        ],
+        "intent": "funneling",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "bonding-rapport",
+          "authority",
+          "self-aggrandization",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Purely by interacting in the communities aligned with my vision and values and talking to people sharing as much value as possible with them.\nYeah, don't worries about that, my community is not meant to mentor anyone on anything, it's just a place for us, self-improvement coaches to stick together, a community for people like-minded who are pushing themselves to grow in life and business as self-improvement coaches. That's it. Not planning on giving unsolicited advice with the exceptions perhaps of my posts for whoever wants to read them and follow along my journey and story here in Bali.",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "57__With_regards_to_yesterday_we_ll_go_over_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "self-aggrandization",
+          "empathy",
+          "brotherhood",
+          "motivational",
+          "hype",
+          "supportive-helpful",
+          "chit-chat",
+          "mystery-teasing",
+          "teasing-future-value",
+          "direct",
+          "storytelling",
+          "bonding-rapport"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "With regards to yesterday we'll go over the calls I closed soon to give you some training on closing since you really want to do that and I'll explain you how we will proceed with that. You'll see just how fun it is! I can't wait to show you... just analyzed two main mistakes I did with the first prospect (update and spoiler alert, I didn't collect payment right on that call and he got cold feet before our second call to finish up the process, everything is explained on the post I made with my second account on a community you are not part of right now, so I'll just share the text here):\nthis was the post:\nBroooooooooo, what's going on?!?\nLet me tell you the story with details...\nSo yesterday I had 2 sales' calls scheduled alongside with my 2 coaching calls and with my call with my newly hired appointment setter (yeah, I had to hire someone to handle sooooo many leads coming into my community).\nSo I jumped on my first call.\nMistakes of the first call?\n1-I failed to drive back the conversation to the sale and even the prospect realized and pointed out that I was not cutting him off when he was drifting away (he's really smart, appreciate his inputs tremendously).\n2-After he decided to jump on the program and do the down payment we were running out of time because it had taken so long and he had other commitments so I left him off the hook to jump on a second call a couple of hours later to do the payment and sign the contract and I sent him the contract in confidence that he was certain already but as soon as he had time to basically overthink about the decision he simply got cold feet (I feel like I failed him more than anything, at this rhythm I'm not worried about \"losing\" a client, but more worried about them missing out on the opportunity of their lives with my offer, but that's fine, sometimes we can't help everyone).\nWhat I did extremely well?\n-Objection handling with logic and emotional reasurance. It went wonderfully and I increased his level of certainty about the offer to the point that he almost closed.\nSo I thought I had closed the first one of the day and I had right after that one the second one.\nMy levels of confidence were through the roof... so on the second call I jumped in knowing perfectly that I had to help my boy with this EXTREMELY painful problem he has been struggling for so long, and I could see the mistake he was about to make and I managed to show it to him without confronting his ego, from a place of genuine care and love. So he saw that clearly and heeled to me and immedietely did the down payment (here I did managed to correct my previous mistake even though I hadn't yet realized that I had lost the previous client yet).\nLater the first prospect reached back to me letting me know that he had made the decision to not move forward but was open to it in the future.\nWho knows? Maybe we'll sync at some other point and get the amazing experience of working together. I really think this guy is amazing and has such incredible potential that I'd be thrilled to work together on my program, I know just how successful he'd be on it. Anyways... that's pretty much the story...\nOne client closed and another one that almost closed but gave me a massive boost of confidence and made me pretty happy to see just how much I can help people change radically their lives and just how much interest there's out there for something as valuable as my offer.\nHope this helps you guys and feel free to let me know what you think about it.\nCan't really share more details to protect the privacy of my prospects and clients.\nPS: Charlie, if you're reading this, brother, I cannot thank you enough. Now I'm also taking a look at your mentor's stuff, probably you'll recognize the hint to it, lol! Man, truly, you have done a GREAT service to this industry and I can't wait to see you on Easy Grow and Nirvana. I'll be there soon... graduation is near!",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "54__However_you_prefer_I_trust_your_instinc",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "motivational",
+          "praise",
+          "direct",
+          "casual"
+        ],
+        "intent": "community-building",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual",
+          "supportive-helpful"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "However you prefer. I trust your instincts.",
+      "source": "llm:unknown"
+    },
+    {
+      "correction_id": "61__No_I_don_t_at_least_as_far_as_I_know_",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "questions",
+          "curiosity",
+          "direct"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "No, I don't, at least as far as I know.\nIs that like an app?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "63__I_ll_invite_you_to_the_community_so_you_",
+      "expected": {
+        "dm_stage": "nurture-free",
+        "nonsales": false,
+        "tone_tags": [
+          "supportive-helpful",
+          "brotherhood",
+          "direct",
+          "casual",
+          "authority",
+          "empathy"
+        ],
+        "intent": "funneling",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "I'll invite you to the community so you can start checking it out...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "66__Are_you_working_at_something_at_the_mome",
+      "expected": {
+        "dm_stage": "gather-intel",
+        "nonsales": false,
+        "tone_tags": [
+          "questions",
+          "curiosity"
+        ],
+        "intent": "info-gathering",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "questions",
+          "curiosity",
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "engagement",
+        "dm_stage": null,
+        "nonsales": true
+      },
+      "scott_reply": "Are you working at something at the moment? Like a 9 to 5 or something like that or are you at your parents house?",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "67__It_s_the_meaning_of_life_",
+      "expected": {
+        "dm_stage": "share-authority",
+        "nonsales": false,
+        "tone_tags": [
+          "self-aggrandization",
+          "mystery-teasing",
+          "authority"
+        ],
+        "intent": "authority-proofing",
+        "sales_stage": "engagement"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "It's the meaning of life...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "68__I_ll_get_back_to_you_soon_I_got_to_jump",
+      "expected": {
+        "dm_stage": "send-calendly",
+        "nonsales": false,
+        "tone_tags": [
+          "authority",
+          "brotherhood",
+          "direct"
+        ],
+        "intent": "community-building",
+        "sales_stage": "ask"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "I'll get back to you soon, I got to jump on another sales' call now...",
+      "source": "llm:in-program-or-personal"
+    },
+    {
+      "correction_id": "71__Why_not_It_s_all_in_the_mind_bro_If_y",
+      "expected": {
+        "dm_stage": null,
+        "nonsales": true,
+        "tone_tags": [
+          "tough-love",
+          "authority",
+          "motivational",
+          "questions",
+          "teasing-future-value",
+          "direct",
+          "hype"
+        ],
+        "intent": "value-delivery",
+        "sales_stage": "nurture"
+      },
+      "predicted": {
+        "tone_tags": [
+          "casual"
+        ],
+        "intent": "engagement-nurture",
+        "sales_stage": "nurture",
+        "dm_stage": null,
+        "nonsales": true,
+        "_fallback": true
+      },
+      "scott_reply": "Why not? It’s all in the mind, bro. If you believe you can’t you won’t. Just try it!\nThe universe is mental, man! All is mind!!!",
+      "source": "llm:in-program-or-personal"
+    }
+  ]
+}

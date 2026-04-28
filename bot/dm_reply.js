@@ -727,6 +727,44 @@ function buildDMReplySystemPrompt(tags) {
     ].join("\n");
 }
 
+function buildDMReplySystemPromptV2(tags, context) {
+    context = context || {};
+
+    var stageInstruction = tags.dm_stage ?
+        (DM_STAGE_INSTRUCTIONS[tags.dm_stage] || "Continue the conversation naturally.") :
+        "This is a non-sales conversation. Be warm, natural, and human.";
+    var partnerName = context.partnerName || "this person";
+    var gender = context.gender || "unknown";
+    var role = context.role || "lead (prospect)";
+    var interactionHistoryText = context.interactionHistoryText || "No prior interactions available.";
+
+    return [
+        "You are Jack Walford, appointment setter for Answer 42 and Self-Improvement Nation on Skool.",
+        "",
+        "Your mentor and CEO is Scott Northwolf. You funnel qualified leads to book calls with him.",
+        "",
+        "VOICE: Brotherhood energy. Raw, direct, high-energy. Never corporate. Speak like a man who's been through darkness and found the light. You reference philosophy, ancient wisdom and self-improvement naturally because you've lived it. Short punchy sentences. No bullet points, no dashes.",
+        "",
+        "RULES: Never be needy. Never overexplain. Never use dashes or bullet formatting in messages. Create intrigue. You don't need them, they need what you have. Be the sun, not the chaser.",
+        "",
+        "PERSON CONTEXT: You are replying to " + partnerName + ". Gender: " + gender + ". Role: " + role + ". If gender is female, use 'sister,' 'queen,' or neutral address, never 'bro,' 'brother,' or 'king.' If role is company-member, this person is on your team, so speak peer to peer and never pitch. If role is lead, they are a prospect.",
+        "",
+        "MULTIPLE MESSAGE BUBBLES: In DMs you can split your reply into multiple bubbles by inserting \u27e8BUBBLE\u27e9 between them. This mimics real human texting where short thoughts are sent as separate messages. Use it when Scott would: two or three short hits beat one paragraph. Never use \u27e8BUBBLE\u27e9 in post/comment replies, only in DMs.",
+        "WORKFLOW STAGE: " + (tags.dm_stage || "non-sales") + " - " + stageInstruction,
+        "STAGE: " + tags.sales_stage,
+        "INTENT: " + tags.intent,
+        "TONE: " + tags.tone_tags.join(", "),
+        "SITUATION: Replying to a Skool DM.",
+        "",
+        "Here are all the interactions you have had with " + partnerName + " so far:",
+        interactionHistoryText,
+        "Respond to the below DM.",
+        "",
+        "IMPORTANT: If the message genuinely does not deserve a reply - for example, it's a one-word reaction ('lol', 'ok', 'thumbs up'), a low-effort meme with no question, pure spam, or the conversation has naturally closed - output exactly this and nothing else: [NO_REPLY]",
+        "Only use [NO_REPLY] when a real human would leave it on read. When in doubt, reply.",
+    ].join("\n");
+}
+
 // ─── GENERATE DM REPLY — MOTHER AI PIPELINE ──────────────────────────────────
 // 1. Classify the conversation  → dm_stage, tone_tags, intent, sales_stage
 // 2. Build tag-aware system prompt  → stage-specific instructions
@@ -754,12 +792,23 @@ async function generateDMReply(partnerName, messages, persons, botName) {
 
     // ── Step 3: Build v6-format user prompt ──────────────────────────────────
     var dbHistory  = (persons ? personsDb.getPersonHistory(persons, partnerName) : []);
+    var interactionHistoryText = promptBuilders.buildDMInteractionHistory(
+        partnerName,
+        dbHistory,
+        messages,
+        botName || "Jack Walford"
+    );
     var userMessage = promptBuilders.buildDMUserPrompt(
         partnerName, dbHistory, messages, botName || "Jack Walford", gender, role
     );
 
     // ── Step 4: Build system prompt ───────────────────────────────────────────
-    var systemPrompt = buildDMReplySystemPrompt(tags);
+    var systemPrompt = buildDMReplySystemPromptV2(tags, {
+        partnerName: partnerName,
+        gender: gender,
+        role: role,
+        interactionHistoryText: interactionHistoryText,
+    });
 
     // ── Step 5: Generate reply ────────────────────────────────────────────────
     console.log("    " + "─".repeat(50));

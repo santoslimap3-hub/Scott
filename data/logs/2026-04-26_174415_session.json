@@ -1,0 +1,93 @@
+[
+  {
+    "type": "comment",
+    "postAuthor": "TL Robinson",
+    "postTitle": "Changes and challenges",
+    "commentAuthor": "Laura Hart",
+    "commentText": "Laura Hart • Oct '25https://www.skool.com/yourfirst5k/youtube-faceless-vs-talking-head?p=64c595a0 <--- Kevin's post on this topic 💡",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Laura is sharing a resource and Tanya is expressing gratitude."
+    },
+    "reply": "Great resource Laura! Thank you for sharing!",
+    "timestamp": "2026-04-26T09:46:08.648Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "TL Robinson",
+    "postTitle": "Changes and challenges",
+    "commentAuthor": "Laura Hart",
+    "commentText": "Laura Hart • Aug '25@Vanessa C You can be faceless - Arlan has posted about and created some resources for us, on how to do it. 🫣😊",
+    "tags": {
+      "tone_tags": [
+        "authority"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Laura is responding to Vanessa's concern about being faceless and is providing reassurance and information about available resources."
+    },
+    "reply": "This is soooooooo neededright now . . . Thanks Laura . . .",
+    "timestamp": "2026-04-26T09:46:32.795Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "TL Robinson",
+    "postTitle": "Changes and challenges",
+    "commentAuthor": "Vanessa C",
+    "commentText": "Vanessa C • Aug '25Congratulations I can relate on the part you said about fear I am camera shy so I'm trying to find my niche. I'm thankful for this community it's exactly what I need. I love to hear all the wins it motivates me thank you. 🙏✨️",
+    "tags": {
+      "tone_tags": [
+        "empathy",
+        "motivational"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "Vanessa is already in the program, so this is just to keep her engaged and motivated."
+    },
+    "reply": "Keep pushing Vanessa you'll get there.",
+    "timestamp": "2026-04-26T09:46:57.032Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Arlan Hamilton",
+    "postTitle": "Part 2: How Many Points Do You Need to Level Up?",
+    "commentAuthor": "Maawa Mh",
+    "commentText": "I don’t know anything anyyyyyyyy 😭😭😭",
+    "tags": {
+      "tone_tags": [
+        "empathy"
+      ],
+      "intent": "engagement-nurture",
+      "sales_stage": "nurture",
+      "gender": "female",
+      "reasoning": "She is expressing frustration and needs to feel seen."
+    },
+    "reply": "Been there",
+    "timestamp": "2026-04-26T09:47:49.047Z"
+  },
+  {
+    "type": "comment",
+    "postAuthor": "Arlan Hamilton",
+    "postTitle": "Part 2: How Many Points Do You Need to Level Up?",
+    "commentAuthor": "Thomas James",
+    "commentText": "Hamilton thank you for this opportunity to level up",
+    "tags": {
+      "tone_tags": [
+        "gratitude"
+      ],
+      "intent": "acknowledgement",
+      "sales_stage": "nurture",
+      "gender": "male",
+      "reasoning": "Thomas is expressing gratitude to Arlan, so the best response is to mirror his energy."
+    },
+    "reply": "I'm reflecting gratitude back to you, brother.",
+    "timestamp": "2026-04-26T09:48:12.609Z"
+  }
+]

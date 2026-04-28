@@ -1,96 +1,14 @@
-// ── Prompt Builders ───────────────────────────────────────────────────────────
-// Builds the user-turn messages sent to the fine-tuned model.
-//
-// All three formats (post reply, comment reply, DM reply) follow the same
-// structure matching the v6 training data format:
-//
-//   --- PERSON ---
-//   Name: X
-//   Gender: male|female|unknown
-//   Role: lead (prospect) | company-member (CEO)
-//   --- HISTORY ---
-//   [COMMENT] Author: text
-//   [POST] Author: title\nbody
-//   [DM] Author: text
-//   --- REPLY TO ---
-//   [COMMENT|POST|DM] Author: text
+"use strict";
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-/**
- * Convert persons DB history entries to formatted history lines.
- * For post/comment context: includes post, comment, and scott_reply entries.
- *   DM entries are skipped (DMs are injected directly from the current session).
- * For DM context (includeDMs=true): also includes prior DM entries.
- */
-function dbHistoryToLines(dbHistory, botName, includeDMs) {
-    var lines = [];
-    if (!dbHistory || dbHistory.length === 0) return lines;
-
-    for (var i = 0; i < dbHistory.length; i++) {
-        var h = dbHistory[i];
-        switch (h.type) {
-            case "post":
-                lines.push("[POST] " + (h.author || "Unknown") + ": " + (h.title || "(no title)"));
-                if (h.body) lines.push((h.body || "").substring(0, 300));
-                break;
-            case "comment":
-                lines.push("[COMMENT] " + (h.author || "Unknown") + ": " + (h.text || "").substring(0, 300));
-                break;
-            case "scott_reply":
-                lines.push("[COMMENT] " + (h.author || botName || "Jack Walford") + ": " + (h.text || "").substring(0, 300));
-                break;
-            case "dm":
-                if (includeDMs) {
-                    var dmAuthor = h.sender === "bot"
-                        ? (h.author || botName || "Jack Walford")
-                        : (h.author || "Unknown");
-                    lines.push("[DM] " + dmAuthor + ": " + (h.text || "").substring(0, 300));
-                }
-                break;
-        }
-    }
-    return lines;
+function clipText(text, maxLen) {
+    var value = typeof text === "string" ? text.trim() : "";
+    if (!value) return "";
+    if (!maxLen || value.length <= maxLen) return value;
+    return value.substring(0, maxLen).trim();
 }
-
-/**
- * Convert scraped thread comment objects to [COMMENT] lines.
- */
-function threadToLines(thread) {
-    var lines = [];
-    if (!thread || thread.length === 0) return lines;
-    for (var i = 0; i < thread.length; i++) {
-        var t = thread[i];
-        if (t.author && t.text) {
-            lines.push("[COMMENT] " + t.author + ": " + t.text.substring(0, 300));
-        }
-    }
-    return lines;
-}
-
-/**
- * Convert DM session messages to [DM] lines.
- * All messages EXCEPT the last one (which becomes REPLY TO).
- */
-function dmMessagesToHistoryLines(messages, partnerName, botName) {
-    var lines = [];
-    if (!messages || messages.length < 2) return lines; // last message goes to REPLY TO
-    var toInclude = messages.slice(0, messages.length - 1);
-    for (var i = 0; i < toInclude.length; i++) {
-        var m = toInclude[i];
-        var author = m.role === "bot"
-            ? (botName || "Jack Walford")
-            : (partnerName || "Unknown");
-        lines.push("[DM] " + author + ": " + (m.text || "").substring(0, 300));
-    }
-    return lines;
-}
-
-// ── Block builders ────────────────────────────────────────────────────────────
 
 function buildPersonBlock(name, gender, role) {
     return [
-        "--- PERSON ---",
         "Name: " + (name || "Unknown"),
         "Gender: " + (gender || "unknown"),
         "Role: " + (role || "lead (prospect)"),
@@ -98,123 +16,120 @@ function buildPersonBlock(name, gender, role) {
 }
 
 function buildHistoryBlock(lines) {
-    if (!lines || lines.length === 0) return "";
-    return "--- HISTORY ---\n" + lines.join("\n");
+    return (lines || []).join("\n");
 }
 
 function buildReplyToBlock(tag, author, text) {
-    // tag: "COMMENT" | "POST" | "DM"
-    return "--- REPLY TO ---\n[" + tag + "] " + (author || "Unknown") + ": " + (text || "");
+    return "[" + (tag || "MESSAGE") + "] " + (author || "Unknown") + ": " + (text || "");
 }
 
-// ── Full user prompt builders ─────────────────────────────────────────────────
+function dbHistoryToLines(dbHistory, botName, includeDMs) {
+    var lines = [];
+    if (!dbHistory || dbHistory.length === 0) return lines;
 
-/**
- * Build user prompt for a POST reply.
- *
- * HISTORY = prior DB interactions (comments/posts/scott_replies from other threads)
- * REPLY TO = the post itself
- */
-function buildPostUserPrompt(post, dbHistory, botName, gender, role) {
-    var blocks = [];
+    for (var i = 0; i < dbHistory.length; i++) {
+        var h = dbHistory[i];
+        if (!h || !h.type) continue;
 
-    // --- PERSON ---
-    blocks.push(buildPersonBlock(post.author, gender, role));
-
-    // --- HISTORY --- (prior DB interactions only; no thread on a new post)
-    var historyLines = dbHistoryToLines(dbHistory, botName, false);
-    var historyBlock = buildHistoryBlock(historyLines);
-    if (historyBlock) blocks.push(historyBlock);
-
-    // --- REPLY TO ---
-    var replyBody = [post.title || "(no title)"];
-    if (post.body) replyBody.push(post.body.substring(0, 500));
-    blocks.push("--- REPLY TO ---\n[POST] " + (post.author || "Unknown") + ": " + replyBody.join("\n"));
-
-    return blocks.join("\n");
-}
-
-/**
- * Build user prompt for a COMMENT reply.
- *
- * HISTORY = prior DB interactions + current post as [POST] entry
- * REPLY TO = the specific comment being replied to
- *
- * The thread is included in HISTORY to give the model conversation context.
- */
-function buildCommentUserPrompt(comment, dbHistory, botName, gender, role) {
-    var blocks = [];
-
-    // --- PERSON ---
-    blocks.push(buildPersonBlock(comment.author, gender, role));
-
-    // --- HISTORY ---
-    var historyLines = dbHistoryToLines(dbHistory, botName, false);
-
-    // Append the current post as a [POST] entry for context
-    if (comment.postTitle || comment.postBody) {
-        var postLine = "[POST] " + (comment.postAuthor || "Unknown") + ": " + (comment.postTitle || "(no title)");
-        if (comment.postBody) postLine += "\n" + comment.postBody.substring(0, 300);
-        historyLines.push(postLine);
+        switch (h.type) {
+            case "post":
+                lines.push("[POST] " + (h.author || "Unknown") + ": " + clipText(h.title || "(no title)", 200));
+                if (h.body) lines.push(clipText(h.body, 400));
+                break;
+            case "comment":
+                lines.push("[COMMENT] " + (h.author || "Unknown") + ": " + clipText(h.text, 300));
+                break;
+            case "scott_reply":
+                lines.push("[COMMENT] " + (h.author || botName || "Jack Walford") + ": " + clipText(h.text, 300));
+                break;
+            case "dm":
+                if (includeDMs) {
+                    var dmAuthor = h.sender === "bot"
+                        ? (h.author || botName || "Jack Walford")
+                        : (h.author || "Unknown");
+                    lines.push("[DM] " + dmAuthor + ": " + clipText(h.text, 300));
+                }
+                break;
+        }
     }
 
-    // Append the scraped thread (gives comment exchange context)
-    if (comment.thread && comment.thread.length > 0) {
-        var threadLines = threadToLines(comment.thread);
-        historyLines = historyLines.concat(threadLines);
-    }
-
-    var historyBlock = buildHistoryBlock(historyLines);
-    if (historyBlock) blocks.push(historyBlock);
-
-    // --- REPLY TO ---
-    blocks.push(buildReplyToBlock("COMMENT", comment.author, (comment.text || "").substring(0, 400)));
-
-    return blocks.join("\n");
+    return lines;
 }
 
-/**
- * Build user prompt for a DM reply.
- *
- * HISTORY = prior DB community interactions (no DMs to avoid duplication)
- *           + current DM conversation messages (all except the last)
- * REPLY TO = the last DM message from the person
- */
-function buildDMUserPrompt(partnerName, dbHistory, currentMessages, botName, gender, role) {
-    var blocks = [];
+function threadToLines(thread) {
+    var lines = [];
+    if (!thread || thread.length === 0) return lines;
 
-    // --- PERSON ---
-    blocks.push(buildPersonBlock(partnerName, gender, role));
+    for (var i = 0; i < thread.length; i++) {
+        var item = thread[i];
+        if (!item || !item.author || !item.text) continue;
+        lines.push("[COMMENT] " + item.author + ": " + clipText(item.text, 300));
+    }
 
-    // --- HISTORY ---
-    // Part A: prior community interactions from DB (comments/posts — skip prior DMs to avoid duplication)
-    var historyLines = dbHistoryToLines(dbHistory, botName, false);
+    return lines;
+}
 
-    // Part B: current DM conversation (all messages except the last)
-    var dmHistLines = dmMessagesToHistoryLines(currentMessages, partnerName, botName);
-    historyLines = historyLines.concat(dmHistLines);
+function dmMessagesToHistoryLines(messages, partnerName, botName) {
+    var lines = [];
+    if (!messages || messages.length < 2) return lines;
 
-    var historyBlock = buildHistoryBlock(historyLines);
-    if (historyBlock) blocks.push(historyBlock);
+    var priorMessages = messages.slice(0, messages.length - 1);
+    for (var i = 0; i < priorMessages.length; i++) {
+        var message = priorMessages[i];
+        var author = message.role === "bot"
+            ? (botName || "Jack Walford")
+            : (partnerName || "Unknown");
+        lines.push("[DM] " + author + ": " + clipText(message.text, 300));
+    }
 
-    // --- REPLY TO --- (last message from the partner)
-    var lastMsg = currentMessages && currentMessages.length > 0
+    return lines;
+}
+
+function buildInteractionHistoryText(lines) {
+    return lines && lines.length > 0
+        ? lines.join("\n")
+        : "No prior interactions available.";
+}
+
+function buildCommentInteractionHistory(dbHistory, botName) {
+    return buildInteractionHistoryText(dbHistoryToLines(dbHistory, botName, true));
+}
+
+function buildDMInteractionHistory(partnerName, dbHistory, currentMessages, botName) {
+    var lines = dbHistoryToLines(dbHistory, botName, true)
+        .concat(dmMessagesToHistoryLines(currentMessages, partnerName, botName));
+    return buildInteractionHistoryText(lines);
+}
+
+function buildPostUserPrompt(post) {
+    var parts = [];
+    if (post && post.title) parts.push(clipText(post.title, 300));
+    if (post && post.body) parts.push(clipText(post.body, 1200));
+    return parts.join("\n\n").trim() || "(no post text)";
+}
+
+function buildCommentUserPrompt(comment) {
+    return clipText(comment && comment.text, 600) || "(no comment text)";
+}
+
+function buildDMUserPrompt(partnerName, dbHistory, currentMessages) {
+    var lastMessage = currentMessages && currentMessages.length > 0
         ? currentMessages[currentMessages.length - 1]
         : null;
-    var replyText = lastMsg ? (lastMsg.text || "") : "";
-    blocks.push(buildReplyToBlock("DM", partnerName, replyText.substring(0, 400)));
-
-    return blocks.join("\n");
+    return clipText(lastMessage && lastMessage.text, 600) || "(no message text)";
 }
 
 module.exports = {
-    buildPersonBlock:        buildPersonBlock,
-    buildHistoryBlock:       buildHistoryBlock,
-    buildReplyToBlock:       buildReplyToBlock,
-    dbHistoryToLines:        dbHistoryToLines,
-    threadToLines:           threadToLines,
+    buildPersonBlock: buildPersonBlock,
+    buildHistoryBlock: buildHistoryBlock,
+    buildReplyToBlock: buildReplyToBlock,
+    dbHistoryToLines: dbHistoryToLines,
+    threadToLines: threadToLines,
     dmMessagesToHistoryLines: dmMessagesToHistoryLines,
-    buildPostUserPrompt:     buildPostUserPrompt,
-    buildCommentUserPrompt:  buildCommentUserPrompt,
-    buildDMUserPrompt:       buildDMUserPrompt,
+    buildInteractionHistoryText: buildInteractionHistoryText,
+    buildCommentInteractionHistory: buildCommentInteractionHistory,
+    buildDMInteractionHistory: buildDMInteractionHistory,
+    buildPostUserPrompt: buildPostUserPrompt,
+    buildCommentUserPrompt: buildCommentUserPrompt,
+    buildDMUserPrompt: buildDMUserPrompt,
 };
