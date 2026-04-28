@@ -78,6 +78,17 @@ function buildEngagementPrompt(engagement) {
     };
 }
 
+function logPrompt(prompt, label) {
+    console.log("=".repeat(60));
+    console.log((label || "OPENAI PROMPT").toUpperCase());
+    console.log("[SYSTEM]");
+    console.log(prompt.system);
+    console.log("");
+    console.log("[USER]");
+    console.log(prompt.user);
+    console.log("=".repeat(60));
+}
+
 async function generateReply(openai, post, modelName) {
     modelName = modelName || process.env.OPENAI_MODEL || "gpt-4o";
 
@@ -85,6 +96,8 @@ async function generateReply(openai, post, modelName) {
     var prompt = label === "hook"
         ? buildHookPrompt(post)
         : buildValuePrompt(post);
+
+    logPrompt(prompt, "POST REPLY PROMPT");
 
     var completion = await openai.chat.completions.create({
         model: modelName,
@@ -105,6 +118,7 @@ async function generateEngagementReply(openai, engagement, modelName) {
     modelName = modelName || process.env.OPENAI_MODEL || "gpt-4o";
 
     var prompt = buildEngagementPrompt(engagement);
+    logPrompt(prompt, "ENGAGEMENT REPLY PROMPT");
     var completion = await openai.chat.completions.create({
         model: modelName,
         max_completion_tokens: 150,
