@@ -73,6 +73,39 @@ function extractPartnerMessageFromNotif(text) {
     return text.trim();
 }
 
+// Build the @-mention patterns the partner would use when replying to us.
+// Skool auto-prepends "@<full display name>" when you click Reply, so a
+// partner message that mentions us by name is reliably a reply to us
+// (and not a reply to one of seven other people in the same thread).
+function botMentionPatterns(allBotNames) {
+    var pats = [];
+    (allBotNames || []).forEach(function(n) {
+        if (!n) return;
+        pats.push(n);
+        var first = n.split(/\s+/)[0];
+        if (first && first !== n) pats.push(first);
+    });
+    return pats;
+}
+
+// Reduce the scraped thread to only the messages that are actually part of
+// the bot ↔ partner exchange. Drop partner replies aimed at other people.
+function filterHistoryToExchange(history, allBotNames) {
+    var pats = botMentionPatterns(allBotNames).map(function(p) { return ("@" + p).toLowerCase(); });
+    var filtered = (history || []).filter(function(h) {
+        if (h.isBot) return true;  // bot's own comments form the other half
+        var lc = (h.text || "").toLowerCase();
+        return pats.some(function(p) { return lc.indexOf(p) !== -1; });
+    });
+    // Safety net: if filtering wiped out all partner messages but they did
+    // exist, fall back to the full scrape so the LLM at least sees something.
+    var partnerHits = filtered.filter(function(h) { return !h.isBot; }).length;
+    if (partnerHits === 0 && (history || []).some(function(h) { return !h.isBot; })) {
+        return history;
+    }
+    return filtered;
+}
+
 // ---- Phase A ---------------------------------------------------------------
 
 async function runNotifPhase(page, ctx) {
@@ -181,9 +214,17 @@ async function runNotifPhase(page, ctx) {
                     var history = await browser.scrapeThreadHistoryWith(page, rec.author, allBotNames);
                     var partnerMsgs = (history || []).filter(function(h) { return h.isPartner; });
                     if (partnerMsgs.length > 0) {
-                        // Take the most recent message from this partner (last in DOM order)
-                        fullReply = (partnerMsgs[partnerMsgs.length - 1].text || "").trim();
-                        info("  -> scraped reply text (" + fullReply.length + " chars): " + fullReply.substring(0, 120) + (fullReply.length > 120 ? "..." : ""));
+                        // Prefer the most recent partner message that actually
+                        // @-mentions the bot (i.e. is replying TO us, not to
+                        // one of seven other people in the same thread).
+                        var pats = botMentionPatterns(allBotNames).map(function(p) { return ("@" + p).toLowerCase(); });
+                        var atUs = partnerMsgs.filter(function(h) {
+                            var lc = (h.text || "").toLowerCase();
+                            return pats.some(function(p) { return lc.indexOf(p) !== -1; });
+                        });
+                        var pick = atUs.length > 0 ? atUs[atUs.length - 1] : partnerMsgs[partnerMsgs.length - 1];
+                        fullReply = (pick.text || "").trim();
+                        info("  -> scraped reply text (" + fullReply.length + " chars" + (atUs.length > 0 ? ", @-mention match" : ", DOM-order fallback") + "): " + fullReply.substring(0, 120) + (fullReply.length > 120 ? "..." : ""));
                     } else {
                         info("  [warn] no partner messages found on post page -- falling back to dropdown snippet");
                     }
@@ -259,8 +300,11 @@ async function runNotifPhase(page, ctx) {
 
             // Scrape thread history
             info("Scraping thread history with " + cand.author + " ...");
-            var history = await browser.scrapeThreadHistoryWith(page, cand.author, allBotNames);
-            info("Thread messages collected: " + history.length);
+            var rawHistory = await browser.scrapeThreadHistoryWith(page, cand.author, allBotNames);
+            // Trim out partner replies that were directed at other people in
+            // the same thread -- only keep the bot ↔ partner exchange.
+            var history = filterHistoryToExchange(rawHistory, allBotNames);
+            info("Thread messages collected: " + rawHistory.length + " raw -> " + history.length + " kept (bot + @-mentions)");
             history.forEach(function(h, i) {
                 console.log("    [" + (i + 1) + "] " + (h.isBot ? "[BOT] " : "[" + cand.author + "] ") + (h.text || "").substring(0, 140));
             });
