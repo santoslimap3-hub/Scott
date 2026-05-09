@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FounderFlow Engine</title>
+<HTA:APPLICATION ID="app" APPLICATIONNAME="FounderFlow Engine" WINDOWSTATE="normal" BORDER="thin" CAPTION="yes" SHOWINTASKBAR="yes" SINGLEINSTANCE="yes" />
+<style>
+body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #0a0a14; color: #e2e8f0; }
+.container { max-width: 500px; margin: 40px auto; padding: 0 24px; }
+h1 { font-size: 22px; color: #a5f3fc; margin: 0 0 4px 0; font-weight: 700; }
+.sub { color: #64748b; font-size: 13px; margin: 0 0 28px 0; }
+.step { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 10px; margin-bottom: 6px; background: #14142a; border: 1px solid transparent; }
+.step.done { background: #0a2e1a; border-color: #1a4a2a; }
+.step.active { background: #1a1a3e; border-color: #7c3aed; }
+.step.fail { background: #2e0a0a; border-color: #4a1a1a; }
+.step .num { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #2a2a4a; color: #94a3b8; flex-shrink: 0; }
+.step.done .num { background: #22c55e; color: white; }
+.step.active .num { background: #7c3aed; color: white; }
+.step.fail .num { background: #ef4444; color: white; }
+.step .label { flex: 1; font-size: 13px; }
+.step .status { font-size: 11px; color: #64748b; }
+.step.done .status { color: #22c55e; }
+.step.fail .status { color: #ef4444; }
+.done-screen { display: none; text-align: center; padding: 40px 0; }
+.done-screen h2 { color: #22c55e; font-size: 20px; margin: 0 0 8px 0; }
+.done-screen p { color: #94a3b8; font-size: 13px; margin: 0 0 4px 0; }
+.done-screen .btn { display: inline-block; margin-top: 20px; padding: 10px 36px; background: #7c3aed; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+.error-screen { display: none; text-align: center; padding: 40px 0; }
+.error-screen h2 { color: #ef4444; font-size: 20px; }
+</style>
+<script language="JavaScript">
+/* ============================================================
+   FounderFlow Engine — setup wizard
+   Fixes vs. previous version:
+     1. npm/npx are called as .cmd executables (not piped through node.exe)
+     2. shell.Run exit codes are checked on every step
+     3. Path is decoded with decodeURIComponent (handles spaces in usernames)
+     4. Each step yields to the event loop via setTimeout so the UI repaints
+     5. Portable Node downloads the full .zip (not bare node.exe), so npm.cmd
+        and npx.cmd are present
+     6. PATH is prepended with nodeDir for every shell call so npm/npx/node
+        all resolve consistently regardless of system vs. portable install
+     7. START.vbs existence is checked before the auto-start step
+     8. window.close() used explicitly
+   ============================================================ */
+
+var shell, fso, dir, nodeDir;
+
+function $(id) { return document.getElementById(id); }
+
+function setStep(id, state) {
+    var el = $(id);
+    if (!el) return;
+    el.className = 'step ' + state;
+    var num = el.querySelector('.num');
+    var status = el.querySelector('.status');
+    if (state === 'done') { num.innerText = '✓'; status.innerText = 'Done'; }
+    else if (state === 'active') { status.innerText = 'Running...'; }
+    else if (state === 'fail') { num.innerText = '✗'; status.innerText = 'Failed'; }
+}
+
+function setStatus(id, text) {
+    var el = $(id);
+    if (el) el.querySelector('.status').innerText = text;
+}
+
+function showError(msg) {
+    $('steps').style.display = 'none';
+    $('error-msg').innerText = msg;
+    $('error-screen').style.display = 'block';
+}
+
+/* Decode the HTA's own path (handles %20 etc.) and strip the filename. */
+function getDir() {
+    var p = decodeURIComponent(document.location.pathname);
+    p = p.replace(/^\//, '').replace(/\//g, '\\');
+    var lastSlash = p.lastIndexOf('\\');
+    return lastSlash > -1 ? p.substring(0, lastSlash) : p;
+}
+
+/* Run a shell command synchronously and return { rc, err }.
+   visible: true => visible cmd window, false/undefined => hidden.
+   shell.Run returns the child's exit code when bWaitOnReturn=true, but it
+   only THROWS for COM-level errors (e.g. invalid command path), so we
+   must inspect the return value to detect npm/npx failures. */
+function runCmd(command, visible) {
+    var windowStyle = visible ? 1 : 0;
+    try {
+        var rc = shell.Run('cmd /c ' + command, windowStyle, true);
+        return { rc: rc, err: null };
+    } catch (e) {
+        return { rc: -1, err: e.message };
+    }
+}
+
+/* Wrap an inner cmd command with PATH prepend + cd. Ensures npm.cmd,
+   npx.cmd and node.exe all resolve from nodeDir regardless of whether
+   we found a system install or downloaded a portable one. */
+function withNodePath(inner) {
+    return 'set "PATH=' + nodeDir + ';%PATH%" && cd /d "' + dir + '" && ' + inner;
+}
+
+/* Locate a usable Node directory containing both node.exe AND npm.cmd.
+   Checks portable-node\node-v*-win-x64\ first, then system PATH. */
+function findNodeDir() {
+    /* 1. Portable extracted distribution. */
+    var portableRoot = dir + '\\portable-node';
+    if (fso.FolderExists(portableRoot)) {
+        var folder = fso.GetFolder(portableRoot);
+        var sub = new Enumerator(folder.SubFolders);
+        for (; !sub.atEnd(); sub.moveNext()) {
+            var sf = sub.item();
+            if (fso.FileExists(sf.Path + '\\node.exe') &&
+                fso.FileExists(sf.Path + '\\npm.cmd')) {
+                return sf.Path;
+            }
+        }
+    }
+    /* 2. System Node — `where node` returns full path(s). */
+    var probe = dir + '\\_nodecheck.txt';
+    try {
+        shell.Run('cmd /c where node >"' + probe + '" 2>nul', 0, true);
+        if (fso.FileExists(probe)) {
+            var text = fso.OpenTextFile(probe, 1).ReadAll();
+            try { fso.DeleteFile(probe); } catch (e) {}
+            var lines = text.split(/\r?\n/);
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].replace(/^\s+|\s+$/g, '');
+                if (line && fso.FileExists(line)) {
+                    var lastSlash = line.lastIndexOf('\\');
+                    if (lastSlash > -1) {
+                        var nDir = line.substring(0, lastSlash);
+                        if (fso.FileExists(nDir + '\\npm.cmd')) return nDir;
+                    }
+                }
+            }
+        }
+    } catch (e) {}
+    return null;
+}
+
+function downloadNode(callback) {
+    setStatus('nodejs', 'Downloading Node.js (~30 MB)...');
+    var portableRoot = dir + '\\portable-node';
+    if (!fso.FolderExists(portableRoot)) fso.CreateFolder(portableRoot);
+    var zipPath = dir + '\\node.zip';
+    var url = 'https://nodejs.org/dist/v20.18.3/node-v20.18.3-win-x64.zip';
+    var ps =
+        'powershell -NoProfile -ExecutionPolicy Bypass -Command ' +
+        '"$ProgressPreference=\'SilentlyContinue\';' +
+        ' Invoke-WebRequest -Uri \'' + url + '\' -OutFile \'' + zipPath + '\';' +
+        ' Expand-Archive -Path \'' + zipPath + '\' -DestinationPath \'' + portableRoot + '\' -Force;' +
+        ' Remove-Item \'' + zipPath + '\' -Force"';
+    var r = runCmd(ps);
+    if (r.rc !== 0) {
+        setStep('nodejs', 'fail');
+        showError('Failed to download Node.js (exit ' + r.rc +
+            (r.err ? ': ' + r.err : '') + '). Check your internet connection and try again.');
+        return;
+    }
+    var nDir = findNodeDir();
+    if (!nDir) {
+        setStep('nodejs', 'fail');
+        showError('Node.js was downloaded but could not be located after extraction.');
+        return;
+    }
+    nodeDir = nDir;
+    setStep('nodejs', 'done');
+    setStatus('nodejs', 'Installed');
+    setTimeout(callback, 50);
+}
+
+function stepDeps(next) {
+    setStep('deps', 'active');
+    setTimeout(function() {
+        var r = runCmd(withNodePath('npm install'));
+        if (r.rc !== 0) {
+            setStep('deps', 'fail');
+            showError('npm install failed (exit ' + r.rc + (r.err ? ': ' + r.err : '') + ')');
+            return;
+        }
+        setStep('deps', 'done');
+        setTimeout(next, 50);
+    }, 50);
+}
+
+function stepBrowser(next) {
+    setStep('browser', 'active');
+    setTimeout(function() {
+        var r = runCmd(withNodePath('npx playwright install chromium'));
+        if (r.rc !== 0) {
+            setStep('browser', 'fail');
+            showError('Playwright install failed (exit ' + r.rc + ')');
+            return;
+        }
+        setStep('browser', 'done');
+        setTimeout(next, 50);
+    }, 50);
+}
+
+function stepLogin(next) {
+    setStep('login', 'active');
+    setStatus('login', 'A browser will open — log in to Instagram, then close it');
+    setTimeout(function() {
+        var r = runCmd(withNodePath('node login.cjs'), true);
+        if (r.rc !== 0) {
+            setStep('login', 'fail');
+            showError('Login script failed (exit ' + r.rc + ')');
+            return;
+        }
+        if (!fso.FolderExists(dir + '\\sessions\\Default')) {
+            setStep('login', 'fail');
+            showError('Instagram login was not completed. Run START.hta again to retry.');
+            return;
+        }
+        setStep('login', 'done');
+        setTimeout(next, 50);
+    }, 50);
+}
+
+function stepStart(next) {
+    setStep('start', 'active');
+    setTimeout(function() {
+        try {
+            /* Background launch — bWaitOnReturn=false. start /B suppresses the
+               console window; cmd /c exits immediately after start dispatches. */
+            shell.Run('cmd /c ' + withNodePath('start /B node start.cjs auto'), 0, false);
+            setStep('start', 'done');
+            setTimeout(next, 50);
+        } catch (e) {
+            setStep('start', 'fail');
+            showError('Failed to start engine: ' + e.message);
+        }
+    }, 50);
+}
+
+function stepAutostart(next) {
+    setStep('autostart', 'active');
+    setTimeout(function() {
+        var vbs = dir + '\\START.vbs';
+        if (!fso.FileExists(vbs)) {
+            setStep('autostart', 'fail');
+            showError('Auto-start failed: START.vbs is missing from ' + dir);
+            return;
+        }
+        try {
+            var startup = shell.ExpandEnvironmentStrings('%APPDATA%') +
+                '\\Microsoft\\Windows\\Start Menu\\Programs\\Startup';
+            fso.CopyFile(vbs, startup + '\\FounderFlow Engine.vbs', true);
+            setStep('autostart', 'done');
+            setTimeout(next, 50);
+        } catch (e) {
+            setStep('autostart', 'fail');
+            showError('Failed to register auto-start: ' + e.message);
+        }
+    }, 50);
+}
+
+function finishUp() {
+    $('steps').style.display = 'none';
+    $('done-screen').style.display = 'block';
+}
+
+function setup() {
+    shell = new ActiveXObject('WScript.Shell');
+    fso = new ActiveXObject('Scripting.FileSystemObject');
+    dir = getDir();
+
+    setStep('nodejs', 'active');
+    setStatus('nodejs', 'Checking...');
+
+    var pipeline = function() {
+        stepDeps(function() {
+            stepBrowser(function() {
+                stepLogin(function() {
+                    stepStart(function() {
+                        stepAutostart(finishUp);
+                    });
+                });
+            });
+        });
+    };
+
+    var found = findNodeDir();
+    if (found) {
+        nodeDir = found;
+        setStep('nodejs', 'done');
+        setStatus('nodejs', 'Found');
+        setTimeout(pipeline, 50);
+    } else {
+        downloadNode(pipeline);
+    }
+}
+
+/* Fast path: if everything is already installed and logged in, just relaunch
+   the engine in the background and close. Runs at script-parse time, so the
+   wizard UI is skipped entirely on subsequent launches. */
+function checkAndRun() {
+    try {
+        shell = new ActiveXObject('WScript.Shell');
+        fso = new ActiveXObject('Scripting.FileSystemObject');
+        dir = getDir();
+        if (fso.FolderExists(dir + '\\node_modules') &&
+            fso.FolderExists(dir + '\\sessions\\Default')) {
+            var nDir = findNodeDir();
+            if (!nDir) return;
+            nodeDir = nDir;
+            shell.Run('cmd /c ' + withNodePath('start /B node start.cjs auto'), 0, false);
+            window.close();
+        }
+    } catch (e) { /* fall through to setup() on any error */ }
+}
+
+window.onload = function() { setTimeout(setup, 100); };
+checkAndRun();
+</script>
+</head>
+<body>
+<div class="container">
+<h1>FounderFlow Engine</h1>
+<p class="sub">One-time setup &mdash; installing and configuring your outreach engine.</p>
+<div id="steps">
+<div class="step" id="nodejs"><div class="num">0</div><div><div class="label">Node.js</div><div class="status">Checking...</div></div></div>
+<div class="step" id="deps"><div class="num">1</div><div><div class="label">Install dependencies</div><div class="status">Waiting...</div></div></div>
+<div class="step" id="browser"><div class="num">2</div><div><div class="label">Install Playwright browser</div><div class="status">Waiting...</div></div></div>
+<div class="step" id="login"><div class="num">3</div><div><div class="label">Instagram login</div><div class="status">Waiting...</div></div></div>
+<div class="step" id="start"><div class="num">4</div><div><div class="label">Start engine</div><div class="status">Waiting...</div></div></div>
+<div class="step" id="autostart"><div class="num">5</div><div><div class="label">Register auto-start</div><div class="status">Waiting...</div></div></div>
+</div>
+<div id="done-screen" class="done-screen">
+<h2>&#9989; Setup Complete</h2>
+<p>The engine is running in the background.</p>
+<p>Open your dashboard to monitor and control.</p>
+<button class="btn" onclick="window.close()">Close</button>
+</div>
+<div id="error-screen" class="error-screen">
+<h2>&#10060; Setup Failed</h2>
+<p id="error-msg"></p>
+<button class="btn" onclick="window.close()" style="background:#ef4444">Close</button>
+</div>
+</div>
+</body>
+</html>

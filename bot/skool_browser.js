@@ -835,6 +835,387 @@ async function markNotificationsRead(page) {
     await sleep(300);
 }
 
+// ── Agentic-rework primitives ────────────────────────────────────────────────
+// Added for the agentic auto_reply rework. See agentic/notif_phase.js +
+// agentic/value_phase.js for usage.
+
+// Click a notification item from the OPEN dropdown. The dropdown must already
+// be open (call clickNotificationBell first). The item argument is one of the
+// objects returned by getNotificationItems -- we match by href + leading text.
+//
+// Returns the URL we navigated to, or null on failure.
+async function clickNotificationItem(page, item) {
+    if (!item || !item.href) return null;
+
+    var matchedHref = await page.evaluate(function(want) {
+        function norm(s) { return (s || "").replace(/\s+/g, " ").trim(); }
+        var anchors = Array.from(document.querySelectorAll('a[href]'));
+        var wantHref = (want.href || "").split("?")[0];
+        var wantTextHead = norm(want.text || "").substring(0, 60);
+        for (var i = 0; i < anchors.length; i++) {
+            var a = anchors[i];
+            if (!a.href) continue;
+            if (a.href.split("?")[0] !== wantHref) continue;
+            // Confirm the visible text overlaps the notification snippet
+            var aText = norm(a.textContent).substring(0, 60);
+            if (wantTextHead && aText && aText !== wantTextHead && aText.indexOf(wantTextHead.substring(0, 30)) === -1 && wantTextHead.indexOf(aText.substring(0, 30)) === -1) {
+                continue;
+            }
+            a.scrollIntoView({ block: "center" });
+            a.click();
+            return a.href;
+        }
+        return null;
+    }, { href: item.href, text: item.text || "" });
+
+    if (!matchedHref) {
+        // Fallback: navigate directly via page.goto
+        try {
+            await page.goto(item.href, { waitUntil: "domcontentloaded", timeout: 30000 });
+            await sleep(1500);
+            return item.href;
+        } catch (_) {
+            return null;
+        }
+    }
+
+    try {
+        await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    } catch (_) {}
+    await sleep(1500);
+    return matchedHref;
+}
+
+// Scrape the comment thread on the currently-loaded post page and return only
+// the comments authored by either the bot (any of botNames) or `partnerName`.
+//
+// Result: [{ author, text, isBot, isPartner, idx }, ...] in DOM order.
+//
+// Robust to Skool's status-emoji decorations (🔥, 💎, 👑, ⭐) that get glued
+// directly onto the author name in the comment header (e.g. "Jeremiah Bergeron🔥"),
+// to leading level-badge digits ("3Pedro Lima"), and to nested-reply wrappers
+// that use class "CommentOrReply" instead of "CommentItemContainer".
+async function scrapeThreadHistoryWith(page, partnerName, botNames) {
+    var allBotNames = (Array.isArray(botNames) ? botNames : [botNames]).filter(Boolean);
+    var partner = partnerName || "";
+
+    var result = await page.evaluate(function(args) {
+        function stripDecorations(s) {
+            // Strip emoji blocks Skool uses for status flair (🔥 💎 👑 ⭐ etc.)
+            // plus zero-width joiner / variation selector codepoints.
+            return (s || "")
+                .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}]/gu, "")
+                .replace(/[‍️]/g, "");
+        }
+        function norm(s) {
+            return (s || "")
+                .replace(/Â/g, "")
+                .replace(/[   ]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+        function cleanAuthor(s) {
+            // The author link's textContent on Skool can look like
+            //   "3Pedro Lima"           (leading level-badge digit)
+            //   "Jeremiah Bergeron🔥"   (trailing status emoji)
+            //   "Andrew Kirby⭐"
+            // Strip the leading digits AND the decorative emojis before
+            // comparing names.
+            var s2 = stripDecorations(s || "").replace(/^\d+/, "");
+            return norm(s2);
+        }
+        function eqName(a, b) {
+            var na = cleanAuthor(a).toLowerCase();
+            var nb = cleanAuthor(b).toLowerCase();
+            if (!na || !nb) return false;
+            if (na === nb) return true;
+            // Tolerate trailing decorations that survived stripping
+            if (na.indexOf(nb) === 0 || nb.indexOf(na) === 0) return true;
+            return false;
+        }
+
+        // Multi-strategy author-link finder.
+        // Skool has used several URL patterns for user profile links over
+        // time: /@username (legacy + still-current), /-/users/<id>,
+        // /users/<id>, /u/<id>, /profile/<id>.
+        //
+        // CRITICAL: each comment renders TWO <a> tags pointing at the same
+        // profile -- one wrapping the level-badge digit ("7"), one wrapping
+        // the visible name ("Billy Harcourt"). querySelector returns the
+        // badge anchor first; its textContent is just digits, which
+        // cleanAuthor reduces to empty. We must scan ALL matches and pick
+        // the first whose text is actually a name (has letters).
+        function hasNameText(el) {
+            if (!el) return false;
+            var t = (el.textContent || "").trim();
+            if (!t) return false;
+            // Strip leading level-badge digits + status-flair emojis
+            var c = t.replace(/^\d+/, "")
+                     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}]/gu, "")
+                     .trim();
+            return c.length >= 2 && /[A-Za-z]/.test(c);
+        }
+        function findAuthorLink(container) {
+            var hrefSelectors = [
+                'a[href*="/@"]',
+                'a[href*="/-/users/"]',
+                'a[href*="/users/"]',
+                'a[href*="/u/"]',
+                'a[href*="/profile/"]',
+            ];
+            for (var hi = 0; hi < hrefSelectors.length; hi++) {
+                var hits = container.querySelectorAll(hrefSelectors[hi]);
+                for (var hj = 0; hj < hits.length; hj++) {
+                    if (hasNameText(hits[hj])) return hits[hj];
+                }
+            }
+            // Class-hint fallback for styled author elements
+            var classCandidates = container.querySelectorAll(
+                'a[class*="UserName"], a[class*="UserLink"], a[class*="userLink"], ' +
+                'a[class*="UserHandle"], a[class*="Author"], ' +
+                '[class*="UserName"], [class*="UserHandle"], [class*="AuthorName"]'
+            );
+            for (var ck = 0; ck < classCandidates.length; ck++) {
+                if (hasNameText(classCandidates[ck])) return classCandidates[ck];
+            }
+            // Last resort: first anchor with text that looks like a person's name
+            var anchors = container.querySelectorAll("a");
+            for (var aj = 0; aj < anchors.length; aj++) {
+                var t = (anchors[aj].textContent || "").trim().replace(/^\d+/, "").trim();
+                if (!t || t.length < 2) continue;
+                if (/^(Like|Reply|Edit|Delete|Report|Share|See more|Comment)$/i.test(t)) continue;
+                if (/^[A-Z]/.test(t) && hasNameText(anchors[aj])) return anchors[aj];
+            }
+            return null;
+        }
+
+        var bots    = (args.botNames || []).filter(Boolean);
+        var partner = args.partner || "";
+
+        // Skool uses two distinct wrapper classes in the comment tree:
+        //   * CommentItemContainer  -- top-level comments
+        //   * CommentOrReply        -- nested replies
+        // Either may host the author header + the reply text we want.
+        var containers = Array.from(document.querySelectorAll(
+            '[class*="CommentItemContainer"], [class*="CommentOrReply"]'
+        ));
+
+        // Dedupe -- if a CommentItemContainer transitively contains a
+        // CommentOrReply for the same comment, we'd otherwise visit it twice.
+        var seen = [];
+        containers = containers.filter(function(el) {
+            if (seen.indexOf(el) !== -1) return false;
+            seen.push(el);
+            return true;
+        });
+
+        var history = [];
+        var seenAuthors = [];   // for debug output
+
+        for (var i = 0; i < containers.length; i++) {
+            var c = containers[i];
+            var authorLink = findAuthorLink(c);
+            if (!authorLink) continue;
+            var rawAuthor = (authorLink.textContent || "").trim();
+            var author = cleanAuthor(rawAuthor);
+            if (!author) continue;
+            if (seenAuthors.indexOf(author) === -1) seenAuthors.push(author);
+
+            var isBot     = bots.some(function(b) { return eqName(author, b); });
+            var isPartner = partner && eqName(author, partner);
+            if (!isBot && !isPartner) continue;
+
+            // Find the comment text node -- usually a sibling RichText / ql-editor
+            var textEl = c.querySelector(
+                '.ql-editor, [class*="RichText"], [class*="CommentBody"], ' +
+                '[class*="commentBody"], [class*="CommentContent"], ' +
+                '[class*="CommentText"], [class*="commentText"]'
+            );
+            var text = "";
+            if (textEl) {
+                text = (textEl.innerText || textEl.textContent || "").trim();
+            } else {
+                // Fallback: container's text minus the author name
+                var raw = (c.innerText || c.textContent || "").trim();
+                text = raw.replace(rawAuthor, "").trim();
+            }
+
+            // Drop trailing "Like Reply" UI affordances
+            text = text.replace(/\b(Like|Reply|Edit|Delete|Report)\b\s*$/i, "").trim();
+            text = text.replace(/\s+/g, " ");
+
+            history.push({
+                author:    author,
+                isBot:     isBot,
+                isPartner: !!isPartner,
+                text:      text,
+                idx:       i,
+            });
+        }
+
+        // Diagnostic snapshot: if we found containers but couldn't extract any
+        // authors, sample the first container's anchor inventory + class names
+        // so the operator can see what selectors need to be updated for the
+        // current Skool DOM.
+        var snapshot = null;
+        if (containers.length > 0 && seenAuthors.length === 0) {
+            var first = containers[0];
+            var sampleAnchors = Array.from(first.querySelectorAll("a")).slice(0, 8).map(function(a) {
+                return {
+                    href: (a.getAttribute("href") || "").substring(0, 100),
+                    text: (a.textContent || "").trim().substring(0, 50),
+                    cls:  (a.className || "").toString().substring(0, 80),
+                };
+            });
+            snapshot = {
+                firstContainerClass: (first.className || "").toString().substring(0, 120),
+                anchorCount:         first.querySelectorAll("a").length,
+                anchors:             sampleAnchors,
+            };
+        }
+
+        return {
+            history: history,
+            debug: {
+                containerCount: containers.length,
+                seenAuthors:    seenAuthors,
+                snapshot:       snapshot,
+            },
+        };
+    }, { partner: partner, botNames: allBotNames });
+
+    if (result && result.debug) {
+        var d = result.debug;
+        var matched = (result.history || []).length;
+        if (matched === 0 && d.containerCount > 0) {
+            console.log(
+                "    [thread-scrape] no match for partner=\"" + partner + "\". " +
+                "Saw " + d.containerCount + " comment container(s) with authors: " +
+                JSON.stringify(d.seenAuthors)
+            );
+            if (d.snapshot) {
+                console.log("    [thread-scrape] No authors extracted from any container. First container inventory:");
+                console.log("      class      : " + d.snapshot.firstContainerClass);
+                console.log("      anchorCount: " + d.snapshot.anchorCount);
+                d.snapshot.anchors.forEach(function(a, ai) {
+                    console.log("      a[" + ai + "] href=" + JSON.stringify(a.href) + " text=" + JSON.stringify(a.text) + " cls=" + JSON.stringify(a.cls));
+                });
+            }
+        } else {
+            console.log(
+                "    [thread-scrape] containers=" + d.containerCount +
+                " matched=" + matched +
+                " partner=\"" + partner + "\""
+            );
+        }
+    }
+    return (result && result.history) || [];
+}
+
+// Scroll the community feed N times (each scroll ≈ one viewport "page") and
+// return the same shape getAllPosts returns. Skool's feed is infinite-scroll,
+// so this is the closest analog to "the last N pages".
+async function scrapeFeedNPages(page, communityUrl, n) {
+    var pages = (typeof n === "number" && n > 0) ? n : 3;
+    console.log("📋 Scraping last " + pages + " 'pages' (~scrolls) of " + communityUrl + " ...");
+    await page.goto(communityUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(4000);
+
+    // Scroll N times, waiting between each so lazy-loaded posts can render.
+    for (var s = 0; s < pages; s++) {
+        await page.evaluate(function() {
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+        await sleep(1800);
+    }
+    // Settle
+    await sleep(800);
+
+    var allPosts = await page.evaluate(function() {
+        var wrappers = Array.from(document.querySelectorAll('[class*="PostItemWrapper"]'));
+        var posts = [];
+        for (var i = 0; i < wrappers.length; i++) {
+            var w = wrappers[i];
+            if (w.textContent.includes("Pinned") || w.querySelector('[class*="Pinned"], [class*="pinned"]')) continue;
+
+            var authorEl   = w.querySelector(
+                '[class*="PostAuthor"] a[href*="/@"], ' +
+                '[class*="Author"] a[href*="/@"], ' +
+                '[class*="postHeader"] a[href*="/@"], ' +
+                'a[href*="/@"]'
+            );
+            var categoryEl = w.querySelector('[class*="GroupFeedLinkLabel"]');
+            var contentEl  = w.querySelector('[class*="PostItemCardContent"]');
+            var postLinks  = Array.from(w.querySelectorAll("a")).filter(function(a) {
+                var href = a.href || "";
+                return href.includes("/post/") || (href.split("/").length > 4 && !href.includes("/@") && !href.includes("?c=") && !href.includes("?p="));
+            });
+            var titleLink = postLinks.find(function(a) { return a.textContent.trim().length > 3; });
+            if (!titleLink) continue;
+
+            var rawAuthor = authorEl ? authorEl.textContent.trim() : "";
+            rawAuthor = rawAuthor
+                .replace(/^\d+/, "")
+                .replace(/Â/g, "")
+                .replace(/[   ]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+
+            var rawTitle = titleLink.textContent.trim();
+            var rawBody  = contentEl ? contentEl.textContent.trim() : "";
+
+            // Fallback: when the author selector misses (common after the
+            // infinite-scroll re-renders feed items), the author name is
+            // still embedded in the post-card body text in the form
+            //   "<like-count><Author Name><timestamp like '5d'/'8h'/'51m'> • <category>..."
+            // e.g.  "5Paul Galbreath5d • 🤑 Monetization..."
+            //       "7Allan R.51m • 🤝Networking..."
+            //       "9Andrew Kirby⭐3d • 🍆Fun..."
+            // We strip a leading number, then capture everything up to the
+            // timestamp ("123d", "12h", "51m", "1y" or "Nov '21" style).
+            if (!rawAuthor && rawBody) {
+                var m = rawBody.match(/^\d+(.+?)(?:\d+\s*[smhdwy]\b|[A-Z][a-z]{2,}\s+'?\d{2,4})/);
+                if (m && m[1]) {
+                    rawAuthor = m[1]
+                        .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}⭐🔥💎🤑]/gu, "")  // strip emojis/symbols
+                        .replace(/\s+/g, " ")
+                        .trim();
+                }
+            }
+            if (!rawAuthor) rawAuthor = "Unknown";
+
+            var commentCount = 0;
+            var countEl = w.querySelector('[class*="CommentsCount"], [class*="commentCount"], [class*="CommentCount"]');
+            if (countEl) {
+                var n = parseInt(countEl.textContent.trim(), 10);
+                if (!isNaN(n)) commentCount = n;
+            }
+
+            posts.push({
+                author:       rawAuthor,
+                title:        rawTitle,
+                category:     categoryEl ? categoryEl.textContent.trim() : "General",
+                body:         rawBody,
+                href:         titleLink.href,
+                commentCount: commentCount,
+            });
+        }
+
+        // Dedup by href (infinite-scroll can render the same wrapper twice)
+        var seen = {}, out = [];
+        for (var p = 0; p < posts.length; p++) {
+            var key = (posts[p].href || "").split("?")[0];
+            if (!key || seen[key]) continue;
+            seen[key] = true;
+            out.push(posts[p]);
+        }
+        return out;
+    });
+
+    console.log("📋 Scraped " + allPosts.length + " unique non-pinned posts across " + pages + " scrolls\n");
+    return allPosts;
+}
+
 module.exports = {
     sleep,
     login,
@@ -848,4 +1229,8 @@ module.exports = {
     clickNotificationBell,
     getNotificationItems,
     markNotificationsRead,
+    // Agentic-rework primitives
+    clickNotificationItem,
+    scrapeThreadHistoryWith,
+    scrapeFeedNPages,
 };
