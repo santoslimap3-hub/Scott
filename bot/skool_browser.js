@@ -1040,6 +1040,13 @@ async function scrapeThreadHistoryWith(page, partnerName, botNames) {
                 text = raw.replace(rawAuthor, "").trim();
             }
 
+            // Strip the comment-header noise that prefixes the actual message
+            // when we read .innerText off the wrapper:
+            //   "5 • 4h "  ==> level badge + bullet + relative timestamp
+            // Skool timestamps are short-form (4h, 2d, 1w, 3mo, 5y).
+            text = text.replace(/^\s*\d+\s*[•·]\s*\d+\s*(?:mo|[smhdwy])\b\s*/i, "").trim();
+            // Strip a trailing standalone reaction-count digit ("...new product! 0")
+            text = text.replace(/\s+\d+\s*$/, "").trim();
             // Drop trailing "Like Reply" UI affordances
             text = text.replace(/\b(Like|Reply|Edit|Delete|Report)\b\s*$/i, "").trim();
             text = text.replace(/\s+/g, " ");
