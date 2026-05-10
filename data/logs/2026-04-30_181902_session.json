@@ -1,0 +1,20 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "",
+    "postTitle": "",
+    "postBodyPreview": "",
+    "postHref": "https://www.skool.com/self-improvement-nation-3104/weekly-sync",
+    "commentAuthor": "Andreas Leijonmarck",
+    "commentText": "• 2h@Daniel Carter have you as me through like me not had an effortless time sleeping through whole nights?",
+    "tags": {
+      "tone_tags": [],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "reasoning": "question about sleep patterns",
+      "ack_template": null
+    },
+    "reply": "oh, hell, no. effortless? I wish. . .",
+    "timestamp": "2026-04-30T10:19:57.814Z"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "type": "notif-comment",
+    "postAuthor": "",
+    "postTitle": "",
+    "postBodyPreview": "",
+    "postHref": "https://www.skool.com/self-improvement-nation-3104/strategies",
+    "commentAuthor": "Andreas Leijonmarck",
+    "commentText": "• 5m@Daniel Carter word up. Cold calling is actually all thats up now, til 15k steady flowing in. Data points this to ..",
+    "tags": {
+      "tone_tags": [],
+      "intent": "engagement-nurture",
+      "sales_stage": "engagement",
+      "reasoning": "message contains real content and context",
+      "ack_template": null
+    },
+    "reply": "Let's fucking go, bro.",
+    "timestamp": "2026-04-28T06:01:11.705Z"
+  }
+]
