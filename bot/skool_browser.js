@@ -219,6 +219,53 @@ async function openPostAndGetBody(page, post) {
     await page.goto(post.href, { waitUntil: "domcontentloaded", timeout: 30000 });
     await sleep(3000);
 
+    // ── EXPAND TRUNCATED POST BODY ────────────────────────────────────────────
+    // Skool collapses long post bodies behind a "See more" toggle. Without a
+    // click, our scraper picks up the truncated body PLUS the literal string
+    // "See more" trailing it (e.g. "...and I did... See more"). We click any
+    // such toggle that is NOT inside a comment (we only want the post body
+    // expanded, not every comment).
+    //
+    // Looped: we sometimes have to click multiple times if the post body is
+    // also wrapped in nested truncations. We cap at 4 attempts to prevent any
+    // theoretical loop (e.g. clicking a Show less toggle).
+    for (var attempt = 0; attempt < 4; attempt++) {
+        var clickedAny = await page.evaluate(function() {
+            function isVisible(el) {
+                if (!el) return false;
+                var style = window.getComputedStyle(el);
+                if (style.display === "none" || style.visibility === "hidden") return false;
+                var rect = el.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0;
+            }
+            // Skool renders the toggle as a clickable span/button with the
+            // exact text "See more" (sometimes with a leading space/ellipsis).
+            // Match conservatively — exact-text match, length cap to avoid
+            // hitting buttons whose label happens to *contain* "see more".
+            var nodes = Array.from(document.querySelectorAll(
+                'button, a, span, div[role="button"], [class*="SeeMore"], [class*="seeMore"], [class*="ReadMore"], [class*="readMore"]'
+            ));
+            var clicked = false;
+            for (var i = 0; i < nodes.length; i++) {
+                var el = nodes[i];
+                if (!isVisible(el)) continue;
+                var t = (el.textContent || "").trim().toLowerCase();
+                if (t !== "see more" && t !== "...see more" && t !== "… see more" && t !== "...show more" && t !== "show more") continue;
+                // Skip if this toggle lives inside a comment — we only want
+                // to expand the post body itself.
+                if (el.closest('[class*="CommentsSection"], [class*="CommentsList"], [class*="CommentsListWrapper"], [class*="CommentItemContainer"], [class*="CommentOrReply"], [class*="CommentItem"], [class*="CommentBody"]')) continue;
+                try {
+                    el.scrollIntoView({ block: "center" });
+                    el.click();
+                    clicked = true;
+                } catch (_) {}
+            }
+            return clicked;
+        });
+        if (!clickedAny) break;
+        await sleep(500);
+    }
+
     var scraped = await page.evaluate(function() {
         var result = { body: "", title: "", author: "" };
 
@@ -1119,107 +1166,223 @@ async function scrapeThreadHistoryWith(page, partnerName, botNames) {
     return (result && result.history) || [];
 }
 
-// Scroll the community feed N times (each scroll ≈ one viewport "page") and
-// return the same shape getAllPosts returns. Skool's feed is infinite-scroll,
-// so this is the closest analog to "the last N pages".
+// Scrape the first N paginated pages of the community feed. Skool uses
+// classic numbered pagination at the bottom of the feed (Previous / 1 2 3 ...
+// 630 / Next, "1-30 of 18,890"), NOT infinite scroll, so we navigate page by
+// page and accumulate posts.
+//
+// We click the "Next" button rather than mutating ?p= directly because Skool
+// re-renders the feed via SPA navigation and the URL scheme has changed
+// before. To detect that the new page has loaded we watch for the post
+// wrappers to be replaced (their hrefs change) -- we capture the current set
+// of href keys before clicking, then poll until at least one new href has
+// appeared.
 async function scrapeFeedNPages(page, communityUrl, n) {
     var pages = (typeof n === "number" && n > 0) ? n : 3;
-    console.log("📋 Scraping last " + pages + " 'pages' (~scrolls) of " + communityUrl + " ...");
+    console.log("📋 Scraping last " + pages + " 'pages' of " + communityUrl + " ...");
     await page.goto(communityUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
     await sleep(4000);
 
-    // Scroll N times, waiting between each so lazy-loaded posts can render.
-    for (var s = 0; s < pages; s++) {
-        await page.evaluate(function() {
-            window.scrollTo(0, document.body.scrollHeight);
+    // ── Helper: scrape every PostItemWrapper currently in DOM ─────────────────
+    async function extractCurrentPosts() {
+        return await page.evaluate(function() {
+            var wrappers = Array.from(document.querySelectorAll('[class*="PostItemWrapper"]'));
+            var posts = [];
+            for (var i = 0; i < wrappers.length; i++) {
+                var w = wrappers[i];
+                if (w.textContent.includes("Pinned") || w.querySelector('[class*="Pinned"], [class*="pinned"]')) continue;
+
+                var authorEl   = w.querySelector(
+                    '[class*="PostAuthor"] a[href*="/@"], ' +
+                    '[class*="Author"] a[href*="/@"], ' +
+                    '[class*="postHeader"] a[href*="/@"], ' +
+                    'a[href*="/@"]'
+                );
+                var categoryEl = w.querySelector('[class*="GroupFeedLinkLabel"]');
+                var contentEl  = w.querySelector('[class*="PostItemCardContent"]');
+                var postLinks  = Array.from(w.querySelectorAll("a")).filter(function(a) {
+                    var href = a.href || "";
+                    return href.includes("/post/") || (href.split("/").length > 4 && !href.includes("/@") && !href.includes("?c=") && !href.includes("?p="));
+                });
+                var titleLink = postLinks.find(function(a) { return a.textContent.trim().length > 3; });
+                if (!titleLink) continue;
+
+                var rawAuthor = authorEl ? authorEl.textContent.trim() : "";
+                rawAuthor = rawAuthor
+                    .replace(/^\d+/, "")
+                    .replace(/Â/g, "")
+                    .replace(/[   ]/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim();
+
+                var rawTitle = titleLink.textContent.trim();
+                var rawBody  = contentEl ? contentEl.textContent.trim() : "";
+
+                // Fallback: when the author selector misses (common after the
+                // infinite-scroll re-renders feed items), the author name is
+                // still embedded in the post-card body text in the form
+                //   "<like-count><Author Name><timestamp like '5d'/'8h'/'51m'> • <category>..."
+                if (!rawAuthor && rawBody) {
+                    var m = rawBody.match(/^\d+(.+?)(?:\d+\s*[smhdwy]\b|[A-Z][a-z]{2,}\s+'?\d{2,4})/);
+                    if (m && m[1]) {
+                        rawAuthor = m[1]
+                            .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}⭐🔥💎🤑]/gu, "")
+                            .replace(/\s+/g, " ")
+                            .trim();
+                    }
+                }
+                if (!rawAuthor) rawAuthor = "Unknown";
+
+                var commentCount = 0;
+                var countEl = w.querySelector('[class*="CommentsCount"], [class*="commentCount"], [class*="CommentCount"]');
+                if (countEl) {
+                    var nn = parseInt(countEl.textContent.trim(), 10);
+                    if (!isNaN(nn)) commentCount = nn;
+                }
+
+                posts.push({
+                    author:       rawAuthor,
+                    title:        rawTitle,
+                    category:     categoryEl ? categoryEl.textContent.trim() : "General",
+                    body:         rawBody,
+                    href:         titleLink.href,
+                    commentCount: commentCount,
+                });
+            }
+            return posts;
         });
-        await sleep(1800);
     }
-    // Settle
-    await sleep(800);
 
-    var allPosts = await page.evaluate(function() {
-        var wrappers = Array.from(document.querySelectorAll('[class*="PostItemWrapper"]'));
-        var posts = [];
-        for (var i = 0; i < wrappers.length; i++) {
-            var w = wrappers[i];
-            if (w.textContent.includes("Pinned") || w.querySelector('[class*="Pinned"], [class*="pinned"]')) continue;
-
-            var authorEl   = w.querySelector(
-                '[class*="PostAuthor"] a[href*="/@"], ' +
-                '[class*="Author"] a[href*="/@"], ' +
-                '[class*="postHeader"] a[href*="/@"], ' +
-                'a[href*="/@"]'
-            );
-            var categoryEl = w.querySelector('[class*="GroupFeedLinkLabel"]');
-            var contentEl  = w.querySelector('[class*="PostItemCardContent"]');
-            var postLinks  = Array.from(w.querySelectorAll("a")).filter(function(a) {
-                var href = a.href || "";
-                return href.includes("/post/") || (href.split("/").length > 4 && !href.includes("/@") && !href.includes("?c=") && !href.includes("?p="));
-            });
-            var titleLink = postLinks.find(function(a) { return a.textContent.trim().length > 3; });
-            if (!titleLink) continue;
-
-            var rawAuthor = authorEl ? authorEl.textContent.trim() : "";
-            rawAuthor = rawAuthor
-                .replace(/^\d+/, "")
-                .replace(/Â/g, "")
-                .replace(/[   ]/g, " ")
-                .replace(/\s+/g, " ")
-                .trim();
-
-            var rawTitle = titleLink.textContent.trim();
-            var rawBody  = contentEl ? contentEl.textContent.trim() : "";
-
-            // Fallback: when the author selector misses (common after the
-            // infinite-scroll re-renders feed items), the author name is
-            // still embedded in the post-card body text in the form
-            //   "<like-count><Author Name><timestamp like '5d'/'8h'/'51m'> • <category>..."
-            // e.g.  "5Paul Galbreath5d • 🤑 Monetization..."
-            //       "7Allan R.51m • 🤝Networking..."
-            //       "9Andrew Kirby⭐3d • 🍆Fun..."
-            // We strip a leading number, then capture everything up to the
-            // timestamp ("123d", "12h", "51m", "1y" or "Nov '21" style).
-            if (!rawAuthor && rawBody) {
-                var m = rawBody.match(/^\d+(.+?)(?:\d+\s*[smhdwy]\b|[A-Z][a-z]{2,}\s+'?\d{2,4})/);
-                if (m && m[1]) {
-                    rawAuthor = m[1]
-                        .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}⭐🔥💎🤑]/gu, "")  // strip emojis/symbols
-                        .replace(/\s+/g, " ")
-                        .trim();
+    // ── Helper: capture the set of href keys currently in the feed ─────────
+    // We use this both for accumulating posts across pages AND as the
+    // "navigation completed" signal: once the wrapper hrefs differ from the
+    // pre-click set, we know Skool has rendered the next page.
+    async function getCurrentHrefSet() {
+        return await page.evaluate(function() {
+            var wrappers = document.querySelectorAll('[class*="PostItemWrapper"]');
+            var keys = [];
+            for (var i = 0; i < wrappers.length; i++) {
+                var links = wrappers[i].querySelectorAll("a");
+                for (var j = 0; j < links.length; j++) {
+                    var h = links[j].href || "";
+                    if (h.indexOf("/post/") !== -1 || (h.split("/").length > 4 && h.indexOf("/@") === -1 && h.indexOf("?c=") === -1 && h.indexOf("?p=") === -1)) {
+                        keys.push(h.split("?")[0]);
+                        break;
+                    }
                 }
             }
-            if (!rawAuthor) rawAuthor = "Unknown";
+            return keys;
+        });
+    }
 
-            var commentCount = 0;
-            var countEl = w.querySelector('[class*="CommentsCount"], [class*="commentCount"], [class*="CommentCount"]');
-            if (countEl) {
-                var n = parseInt(countEl.textContent.trim(), 10);
-                if (!isNaN(n)) commentCount = n;
+    // ── Helper: click the "Next" button in the paginator ────────────────────
+    // Returns true if the click landed, false if no Next button is present
+    // (i.e. we're on the last page).
+    async function clickNextPage() {
+        return await page.evaluate(function() {
+            function isVisible(el) {
+                if (!el) return false;
+                var style = window.getComputedStyle(el);
+                if (style.display === "none" || style.visibility === "hidden") return false;
+                var rect = el.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0;
             }
+            // Look at every clickable element near the bottom of the page.
+            // Skool's paginator renders Previous / 1 2 3 ... / Next as
+            // separate buttons or anchors. Match by exact text "Next" --
+            // case-insensitive, but only standalone (length cap to avoid
+            // hitting "Next steps" buttons elsewhere on the page).
+            var candidates = Array.from(document.querySelectorAll(
+                'button, a, [role="button"], [class*="Pagination"] *, [class*="pagination"] *'
+            )).filter(isVisible);
+            for (var i = 0; i < candidates.length; i++) {
+                var el = candidates[i];
+                var t  = (el.textContent || "").trim();
+                if (t.length > 8) continue;            // "Next" not "Next steps"
+                if (!/^next$/i.test(t)) continue;
+                // Skip disabled state -- Skool greys out Next on the last page
+                if (el.getAttribute("aria-disabled") === "true") continue;
+                if (el.disabled) continue;
+                var cls = (el.className || "").toString();
+                if (/disabled/i.test(cls)) continue;
+                // Click the closest anchor/button so we don't click an inner span
+                var clickTarget = el.closest("button, a, [role=\"button\"]") || el;
+                try {
+                    clickTarget.scrollIntoView({ block: "center" });
+                    clickTarget.click();
+                    return true;
+                } catch (_) {}
+            }
+            return false;
+        });
+    }
 
-            posts.push({
-                author:       rawAuthor,
-                title:        rawTitle,
-                category:     categoryEl ? categoryEl.textContent.trim() : "General",
-                body:         rawBody,
-                href:         titleLink.href,
-                commentCount: commentCount,
-            });
+    // ── Helper: wait until the visible href set differs from the pre-click set
+    async function waitForFeedChange(prevKeys, timeoutMs) {
+        var start    = Date.now();
+        var prevSet  = {};
+        for (var i = 0; i < prevKeys.length; i++) prevSet[prevKeys[i]] = true;
+
+        while (Date.now() - start < timeoutMs) {
+            var nowKeys = await getCurrentHrefSet();
+            if (nowKeys.length > 0) {
+                // Consider the feed "changed" once at least one href is new.
+                for (var k = 0; k < nowKeys.length; k++) {
+                    if (!prevSet[nowKeys[k]]) return true;
+                }
+            }
+            await sleep(400);
+        }
+        return false;
+    }
+
+    // ── Accumulator + initial scrape ─────────────────────────────────────────
+    var collectedByHref = {};
+    function mergePosts(batch) {
+        for (var i = 0; i < batch.length; i++) {
+            var p = batch[i];
+            var key = (p.href || "").split("?")[0];
+            if (!key || collectedByHref[key]) continue;
+            collectedByHref[key] = p;
+        }
+    }
+    mergePosts(await extractCurrentPosts());
+    console.log("  [scrape] page 1 posts: " + Object.keys(collectedByHref).length);
+
+    // ── Pagination loop ─────────────────────────────────────────────────────
+    // We've already scraped page 1. Click Next (pages-1) more times to walk
+    // through pages 2..N. Stop early if Next is missing or disabled.
+    var pagesCompleted = 1;
+    for (var s = 1; s < pages; s++) {
+        var prevKeys = await getCurrentHrefSet();
+
+        var clicked = await clickNextPage();
+        if (!clicked) {
+            console.log("  [paginate] No 'Next' button found / disabled -- assuming last page reached. Stopping.");
+            break;
         }
 
-        // Dedup by href (infinite-scroll can render the same wrapper twice)
-        var seen = {}, out = [];
-        for (var p = 0; p < posts.length; p++) {
-            var key = (posts[p].href || "").split("?")[0];
-            if (!key || seen[key]) continue;
-            seen[key] = true;
-            out.push(posts[p]);
+        // Wait for Skool to render the new page. SPA navigation usually
+        // settles in 1-3s; we give it up to 10s to be safe.
+        var changed = await waitForFeedChange(prevKeys, 10000);
+        if (!changed) {
+            console.log("  [paginate] Page " + (s + 1) + ": Next clicked but the feed never changed within 10s. Stopping.");
+            break;
         }
-        return out;
-    });
 
-    console.log("📋 Scraped " + allPosts.length + " unique non-pinned posts across " + pages + " scrolls\n");
+        // Let lazy elements (avatars, comment counts) finish so the scrape
+        // captures the full card.
+        await sleep(800);
+
+        var beforeCount = Object.keys(collectedByHref).length;
+        mergePosts(await extractCurrentPosts());
+        var afterCount  = Object.keys(collectedByHref).length;
+        console.log("  [paginate] page " + (s + 1) + " posts: " + beforeCount + " -> " + afterCount + " (added " + (afterCount - beforeCount) + ")");
+        pagesCompleted++;
+    }
+
+    var allPosts = Object.keys(collectedByHref).map(function(k) { return collectedByHref[k]; });
+    console.log("📋 Scraped " + allPosts.length + " unique non-pinned posts across " + pagesCompleted + " paginator pages (target=" + pages + ")\n");
     return allPosts;
 }
 
