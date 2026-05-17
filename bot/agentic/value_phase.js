@@ -23,6 +23,7 @@ const browser = require("../skool_browser");
 const dedup   = require("./dedup");
 const rag     = require("./rag_picker");
 const { callPicker, callWriter } = require("./anthropic_client");
+const { stripAllMentions, stripMentionsAndChrome } = require("./text_sanitizer");
 
 // SIN_COMMUNITY_URL controls which community the RAG layer treats as "Scott's
 // own community" (Self-Improvement Nation). Anything else is treated as
@@ -130,7 +131,7 @@ async function runValuePhase(page, ctx) {
     var pickerUserPrompt = (config.value_picker.snippet ? (config.value_picker.snippet + "\n\n") : "")
         + "Here is a list of posts. Find posts by people who look like they would be a good fit for scott's program 'I take self-improvement coaches from 0 to 10k in 42 days or they don't pay' to leave value comments under.\n\n"
         + JSON.stringify(candidates.map(function(c) {
-            return { id: c.id, author: c.author, category: c.category, title: c.title, body: c.body };
+            return { id: c.id, author: c.author, category: c.category, title: c.title, body: stripAllMentions(c.body) };
         }), null, 2);
 
     var pick = await callPicker({
@@ -174,7 +175,7 @@ async function runValuePhase(page, ctx) {
             var ragQuery =
                 "Post title: " + rag.safeTruncate(fullPost.title || cand.title || "", 300) + "\n" +
                 "Post author: " + (fullPost.author || cand.author || "") + "\n" +
-                "Post body:  " + rag.safeTruncate(fullBody, 800);
+                "Post body:  " + rag.safeTruncate(stripAllMentions(fullBody), 800);
             var ragExamples = "";
             try {
                 ragExamples = await rag.getExamplesBlock(ragQuery, { inSin: inSin, k: 4 });
@@ -187,7 +188,7 @@ async function runValuePhase(page, ctx) {
                 + "Here is a post/comment you chose to reply to, leave a value comment under it using the knowledge above.\n\n"
                 + "Author: " + (fullPost.author || cand.author) + "\n"
                 + "Title: " + (fullPost.title || cand.title) + "\n\n"
-                + fullBody;
+                + stripAllMentions(fullBody);
 
             var commentText = await callWriter({
                 label:     "value_commenter (" + (fullPost.author || cand.author) + ")",
@@ -334,7 +335,7 @@ async function replyToIcpCommentsUnderPost(page, args) {
         + "(self-improvement coach / wanna-be coach, growth mindset, main character energy, "
         + "money/freedom/discipline focus). Skip generic 'great post', emojis-only, and one-word replies.\n\n"
         + JSON.stringify(candidates.map(function(c) {
-            return { id: c.id, author: c.author, text: c.text };
+            return { id: c.id, author: c.author, text: stripAllMentions(c.text) };
         }), null, 2);
 
     var pick = await callPicker({
@@ -376,7 +377,7 @@ async function replyToIcpCommentsUnderPost(page, args) {
             var ragQuery =
                 "Post title: " + rag.safeTruncate(post.title || "", 300) + "\n" +
                 "Post author: " + (post.author || "") + "\n" +
-                "Comment by " + c.author + ":\n" + rag.safeTruncate(c.text || "", 600);
+                "Comment by " + c.author + ":\n" + rag.safeTruncate(stripAllMentions(c.text) || "", 600);
             var ragExamples = "";
             try {
                 ragExamples = await rag.getExamplesBlock(ragQuery, { inSin: inSin, k: 4 });
@@ -391,7 +392,7 @@ async function replyToIcpCommentsUnderPost(page, args) {
                 + " under the post titled \"" + (post.title || "(untitled)") + "\" by "
                 + (post.author || "(unknown)") + ". Reply directly to this commenter with a value-add "
                 + "reply using the knowledge above. Speak to THEM, not to the original post author.\n\n"
-                + "Comment by " + c.author + ":\n" + (c.text || "");
+                + "Comment by " + c.author + ":\n" + stripAllMentions(c.text || "");
 
             var replyText = await callWriter({
                 label:     "value_commenter [reply to " + c.author + "]",

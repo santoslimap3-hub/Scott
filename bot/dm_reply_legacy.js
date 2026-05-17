@@ -818,7 +818,7 @@ async function generateDMReply(partnerName, messages, persons, botName) {
     console.log(userMessage.split("\n").map(function(l){ return "      " + l; }).join("\n"));
     console.log("    " + "─".repeat(50));
     console.log("    Generating reply (" + messages.length + " messages in context)...");
-    var model = process.env.OPENAI_MODEL || "gpt-4o";
+    var model = process.env.OPENAI_MODEL || "opus-4.7";
     var completion = await openai.chat.completions.create({
         model: model,
         max_tokens: 300,

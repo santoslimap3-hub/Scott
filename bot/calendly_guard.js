@@ -100,7 +100,7 @@ async function llmGreenLightCheck(payload) {
 
     try {
         var completion = await openai.chat.completions.create({
-            model:       process.env.PRE_CLASSIFIER_MODEL || "gpt-4o-mini",
+            model:       process.env.PRE_CLASSIFIER_MODEL || "opus-4.7",
             max_tokens:  60,
             temperature: 0.1,
             messages: [

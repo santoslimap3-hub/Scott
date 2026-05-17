@@ -189,7 +189,7 @@ async function classifyInbound(input) {
     }
 
     try {
-        var model = process.env.PRE_CLASSIFIER_MODEL || "gpt-4o-mini";
+        var model = process.env.PRE_CLASSIFIER_MODEL || "opus-4.7";
 
         var completion = await openai.chat.completions.create({
             model:       model,

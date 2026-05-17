@@ -405,7 +405,7 @@ function logPrompt(prompt, label) {
 // ── Convenience generation wrappers ──────────────────────────────────────────
 
 async function generateReply(openai, post, modelName) {
-    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "gpt-4o";
+    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
     var label = post.label || "value-flex";
 
@@ -499,7 +499,7 @@ async function callPostReply(openai, modelName, prompt, temperature) {
 }
 
 async function generateEngagementReply(openai, engagement, modelName) {
-    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "gpt-4o";
+    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
     var examples = await safeRetrieve("retrievePostComment", {
         commentText: engagement && engagement.commentText,
@@ -530,7 +530,7 @@ async function generateEngagementReply(openai, engagement, modelName) {
 }
 
 async function generateDmOpener(openai, payload, modelName) {
-    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "gpt-4o";
+    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
     // For openers, retrieve from the DM corpus filtered to "general-dm" sub-stage
     // (Scott's first-touch DMs that aren't qualifies, floats, or drops). Query
@@ -571,7 +571,7 @@ async function generateDmOpener(openai, payload, modelName) {
  *   anything else → qualify (safe default)
  */
 async function generateDmReply(openai, payload, modelName) {
-    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "gpt-4o";
+    modelName = modelName || process.env.GENERATION_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
     var dmStage = payload && payload.dmStage;
 

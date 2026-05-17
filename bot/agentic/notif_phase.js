@@ -26,6 +26,7 @@ const browser = require("../skool_browser");
 const dedup   = require("./dedup");
 const rag     = require("./rag_picker");
 const { callPicker, callWriter } = require("./anthropic_client");
+const { stripAllMentions, stripMentionsAndChrome } = require("./text_sanitizer");
 
 // Notifications come from whichever community the bot is engaging in. For the
 // current deployment that's always external (Imperium Academy / Synthesizer),
@@ -265,8 +266,8 @@ async function runNotifPhase(page, ctx) {
             return {
                 id:           c.id,
                 author:       c.author,
-                notification: c.notification,
-                reply_text:   c.reply_text,
+                notification: stripMentionsAndChrome(c.notification),
+                reply_text:   stripAllMentions(c.reply_text),
             };
         }), null, 2);
 
@@ -337,7 +338,7 @@ async function runNotifPhase(page, ctx) {
                 historyBlock = "Conversation so far in this thread between you and " + cand.author + ":\n\n"
                     + history.map(function(h) {
                         var who = h.isBot ? "You" : cand.author;
-                        return who + ": " + h.text;
+                        return who + ": " + stripAllMentions(h.text);
                     }).join("\n\n");
             } else {
                 historyBlock = "(prior thread history could not be scraped from the page -- only the message that triggered the notification is shown below)";
@@ -350,10 +351,10 @@ async function runNotifPhase(page, ctx) {
             // produce an unpaired UTF-16 surrogate in the request body.
             var ragQuery =
                 "Reply situation: " + cand.author + " has just sent the message below.\n" +
-                "Latest message:\n" + rag.safeTruncate(partnerLatest || "(no text)", 800) + "\n\n" +
+                "Latest message:\n" + rag.safeTruncate(stripAllMentions(partnerLatest) || "(no text)", 800) + "\n\n" +
                 (history.length > 0
                     ? "Prior thread:\n" + history.slice(-4).map(function(h) {
-                          return (h.isBot ? "You" : cand.author) + ": " + rag.safeTruncate(h.text || "", 400);
+                          return (h.isBot ? "You" : cand.author) + ": " + rag.safeTruncate(stripAllMentions(h.text) || "", 400);
                       }).join("\n")
                     : "");
             var ragExamples = "";
@@ -368,7 +369,7 @@ async function runNotifPhase(page, ctx) {
                 + "You are replying to a comment from " + cand.author + " in a Skool thread.\n\n"
                 + historyBlock + "\n\n"
                 + cand.author + "'s latest message (the one you must reply to):\n"
-                + (partnerLatest || "(text could not be captured)") + "\n\n"
+                + stripAllMentions(partnerLatest || "(text could not be captured)") + "\n\n"
                 + "Now write your reply to " + cand.author + ".";
 
             info("Partner latest message (" + (step4Scraped ? "from page" : "from notif snippet") + "): " + partnerLatest.substring(0, 160) + (partnerLatest.length > 160 ? "..." : ""));

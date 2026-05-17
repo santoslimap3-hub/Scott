@@ -144,7 +144,7 @@ async function classifyDM(partnerName, messages) {
     var openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     try {
-        var model = process.env.CLASSIFIER_MODEL || "gpt-4o-mini";
+        var model = process.env.CLASSIFIER_MODEL || "opus-4.7";
 
         var completion = await openai.chat.completions.create({
             model:       model,

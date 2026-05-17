@@ -399,7 +399,7 @@ async function classifyPosts(posts) {
     }).join("\n");
 
     var completion = await openai.chat.completions.create({
-        model: process.env.OPENAI_MODEL || "gpt-4o",
+        model: process.env.OPENAI_MODEL || "opus-4.7",
         max_completion_tokens: 1200,
         response_format: { type: "json_object" },
         messages: [{
@@ -1488,7 +1488,7 @@ async function classifyComments(comments) {
 
         try {
             var completion = await openai.chat.completions.create({
-                model: process.env.OPENAI_MODEL || "gpt-4o",
+                model: process.env.OPENAI_MODEL || "opus-4.7",
                 max_completion_tokens: 1000,
                 response_format: { type: "json_object" },
                 messages: [{

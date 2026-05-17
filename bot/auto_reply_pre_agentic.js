@@ -30,7 +30,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const CONFIG = {
     email:    process.env.SKOOL_EMAIL,
     password: process.env.SKOOL_PASSWORD,
-    model:    process.env.OPENAI_MODEL || "gpt-4o",
+    model:    process.env.OPENAI_MODEL || "opus-4.7",
 
     community: {
         name: process.env.COMMUNITY_NAME || "Hope Nation",

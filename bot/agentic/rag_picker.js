@@ -26,6 +26,7 @@
 const fs   = require("fs");
 const path = require("path");
 const Anthropic = require("@anthropic-ai/sdk");
+const { stripAllMentions } = require("./text_sanitizer");
 
 const DATA_FILE  = path.join(__dirname, "..", "..", "data", "scott_threads.json");
 const POOL_SIZE  = parseInt(process.env.RAG_POOL_SIZE  || "15", 10);  // pre-filter size
@@ -144,9 +145,9 @@ function loadPool() {
                     var ctx =
                         "Post title: " + safeTruncate(postTitle, 200) + "\n" +
                         "Post author: " + normalizeAuthor(postAuthor) + "\n" +
-                        "Post body:  " + safeTruncate(postText, 400) + "\n" +
+                        "Post body:  " + safeTruncate(stripAllMentions(postText), 400) + "\n" +
                         "Comment by " + normalizeAuthor(lastNonScott.author) + ":\n" +
-                        safeTruncate(lastNonScott.text || "", 600);
+                        safeTruncate(stripAllMentions(lastNonScott.text || ""), 600);
                     var reply = scrubOrphanSurrogates((item.text || "").trim());
                     if (!reply) continue;
                     examples.push({

@@ -27,7 +27,7 @@ const { OpenAI } = require('openai');
 
 // ── CONFIG ─────────────────────────────────────────────────────────────────────
 const INPUT_PATH  = process.argv[2] || path.join(__dirname, '../data/dm_classified.json');
-const MODEL       = process.env.CLASSIFIER_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini';
+const MODEL       = process.env.CLASSIFIER_MODEL || process.env.OPENAI_MODEL || 'opus-4.7';
 const CONCURRENCY = parseInt(process.env.CONCURRENCY || '5', 10);
 const SAVE_EVERY  = 25;  // save to disk every N completions
 

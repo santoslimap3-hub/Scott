@@ -172,9 +172,9 @@ function buildUserPrompt(context) {
  */
 async function classifyReply(context) {
     try {
-        // Use gpt-4o-mini for cheaper classification; falls back to OPENAI_MODEL if not set
-        // Change CLASSIFIER_MODEL in your .env to override (e.g. CLASSIFIER_MODEL=gpt-4o)
-        var model = process.env.CLASSIFIER_MODEL || process.env.OPENAI_MODEL || "gpt-4o-mini";
+        // Use opus-4.7 for classification by default; falls back to OPENAI_MODEL if not set
+        // Change CLASSIFIER_MODEL in your .env to override (e.g. CLASSIFIER_MODEL=opus-4.7)
+        var model = process.env.CLASSIFIER_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
         var completion = await openai.chat.completions.create({
             model:       model,

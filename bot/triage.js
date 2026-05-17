@@ -441,7 +441,7 @@ function pickDeepTriageCandidates(posts, limit) {
 
 async function triagePosts(openai, posts, modelName, options) {
     if (!posts || posts.length === 0) return posts || [];
-    modelName = modelName || "gpt-4o";
+    modelName = modelName || "opus-4.7";
     options = options || {};
 
     var contextLabel = options.contextLabel ? " (" + options.contextLabel + ")" : "";
