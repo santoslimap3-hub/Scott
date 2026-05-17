@@ -8,7 +8,7 @@
  *   2. Passes through all DM examples and already-tagged post/comment examples unchanged
  *   3. For each untagged post/comment example (SITUATION: Replying to a Skool post, no STAGE:):
  *      - Extracts post title, reply-to text, history context, and Scott's actual reply
- *      - Calls gpt-4o-mini to classify STAGE / INTENT / TONE
+ *      - Calls opus-4.7 to classify STAGE / INTENT / TONE
  *      - Injects the tags into the system prompt before the SITUATION: line
  *   4. Writes finetune_data_v11.jsonl (full dataset, 3130 examples)
  *   5. Writes autotag_audit_log.json (121 entries for human spot-check)
@@ -179,7 +179,7 @@ async function classifyExample(userContent, scottReply, openai) {
     ].join("\n");
 
     try {
-        var model = process.env.CLASSIFIER_MODEL || "gpt-4o-mini";
+        var model = process.env.CLASSIFIER_MODEL || "opus-4.7";
         var completion = await openai.chat.completions.create({
             model:       model,
             max_tokens:  200,

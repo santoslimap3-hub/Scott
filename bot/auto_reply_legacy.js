@@ -712,7 +712,7 @@ async function generateReply(post, persons, botName) {
     });
     console.log("═════════════════════════════════════════════════\n");
 
-    var model = process.env.OPENAI_MODEL || "gpt-4o";
+    var model = process.env.OPENAI_MODEL || "opus-4.7";
     var completion = await openai.chat.completions.create({
         model: model,
         max_completion_tokens: 300,
@@ -1653,7 +1653,7 @@ async function generateCommentReply(comment, persons, botName) {
     });
     console.log("═════════════════════════════════════════════════\n");
 
-    var model = process.env.OPENAI_MODEL || "gpt-4o";
+    var model = process.env.OPENAI_MODEL || "opus-4.7";
     var completion = await openai.chat.completions.create({
         model: model,
         max_completion_tokens: 300,

@@ -30,7 +30,7 @@
  *                                                          # contacts already
  *                                                          # in the file)
  *
- * Cost: ~370 contacts × ~600 tokens prompt + ~50 tokens response with gpt-4o
+ * Cost: ~370 contacts × ~600 tokens prompt + ~50 tokens response with opus-4.7
  * is ≈ $0.50 for a full pass. Re-run when new contacts are added.
  */
 
@@ -81,7 +81,7 @@ const DATA_DIR        = path.join(__dirname, "../data");
 const CLASSIFIED_PATH = path.join(DATA_DIR, "dm_classified.json");
 const ROLES_PATH      = path.join(DATA_DIR, "contact_roles.json");
 
-const MODEL       = process.env.ROLE_MODEL || "gpt-4o";
+const MODEL       = process.env.ROLE_MODEL || "opus-4.7";
 const TEMPERATURE = 0;
 const CONCURRENCY = 6;
 const SAVE_EVERY  = 25;

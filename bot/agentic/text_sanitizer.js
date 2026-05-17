@@ -59,7 +59,23 @@ function stripMentionsAndChrome(text) {
     return out.replace(/\s+/g, " ").trim();
 }
 
+function stripSkoolCommentMeta(text) {
+    if (!text) return "";
+    var out = String(text).trim();
+    out = stripMentionsAndChrome(out);
+
+    // Remove leading Skool feed/comment UI prefixes like
+    // "7Ayaan Ashfaq • 1d" or "8Michael Pluszek🔥 • 2d".
+    out = out.replace(/^\s*\d+\s*/, "");
+    out = out.replace(/^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’\-\.\s]{1,100}\s*[·•—–-]\s*\d+\s*[smhdw]\s*/i, "");
+
+    // Remove any residual leading author-like prefix such as "Name:".
+    out = out.replace(/^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’\-\.\s]{1,100}\s*[:\-–—]\s*/i, "");
+    return out.replace(/\s+/g, " ").trim();
+}
+
 module.exports = {
     stripAllMentions: stripAllMentions,
     stripMentionsAndChrome: stripMentionsAndChrome,
+    stripSkoolCommentMeta: stripSkoolCommentMeta,
 };

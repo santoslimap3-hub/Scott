@@ -1238,6 +1238,9 @@ async function scrapeCommentsOnCurrentPage(page, options) {
             var raw  = bodyEl ? bodyEl.textContent : el.textContent;
             var text = cleanText(raw);
 
+            // Remove leading numeric/comment-count prefixes and then strip the author prefix.
+            text = text.replace(/^\s*\d+\s*/, "");
+
             // Strip the author prefix that often leaks into el.textContent
             if (text.toLowerCase().indexOf(aLower) === 0) {
                 text = text.substring(author.length).replace(/^[\s•·•\-:|]+/, "").trim();

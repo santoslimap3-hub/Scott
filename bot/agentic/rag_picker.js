@@ -26,17 +26,32 @@
 const fs   = require("fs");
 const path = require("path");
 const Anthropic = require("@anthropic-ai/sdk");
+const OpenAI = require("openai");
 const { stripAllMentions } = require("./text_sanitizer");
 
 const DATA_FILE  = path.join(__dirname, "..", "..", "data", "scott_threads.json");
 const POOL_SIZE  = parseInt(process.env.RAG_POOL_SIZE  || "15", 10);  // pre-filter size
 const PICK_TARGET = parseInt(process.env.RAG_PICK_K     || "4",  10); // final picks (3-5 range)
-const PICKER_MODEL = process.env.RAG_PICKER_MODEL || "claude-haiku-4-5";
+const PICKER_MODEL = process.env.RAG_PICKER_MODEL || process.env.OPENAI_MODEL || "opus-4.7";
 
 var anthropic = null;
-function getClient() {
+var openai = null;
+function getAnthropicClient() {
     if (!anthropic) anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     return anthropic;
+}
+
+function getOpenAIClient() {
+    if (!openai && process.env.OPENAI_API_KEY) openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    return openai;
+}
+
+function hasOpenAIKey() {
+    return !!process.env.OPENAI_API_KEY;
+}
+
+function hasAnthropicKey() {
+    return !!process.env.ANTHROPIC_API_KEY;
 }
 
 // Stop words ripped from the existing /rag retriever; same list keeps behaviour
@@ -276,18 +291,46 @@ async function llmPickBest(queryText, candidates, k) {
 
         var safeSystem = scrubOrphanSurrogates(system);
         var safeUser   = scrubOrphanSurrogates(lines.join("\n"));
-        var resp = await getClient().messages.create({
-            model:       PICKER_MODEL,
-            max_tokens:  512,
-            system:      safeSystem,
-            tools:       [tool],
-            tool_choice: { type: "tool", name: "submit_chosen" },
-            messages:    [{ role: "user", content: safeUser }],
-        });
+        var resp;
+        var chosen = [];
 
-        var toolUse = (resp.content || []).find(function(b) { return b.type === "tool_use" && b.name === "submit_chosen"; });
-        var chosen  = (toolUse && Array.isArray(toolUse.input && toolUse.input.chosen_ids))
-            ? toolUse.input.chosen_ids : [];
+        if (hasOpenAIKey()) {
+            resp = await getOpenAIClient().chat.completions.create({
+                model:       PICKER_MODEL,
+                max_tokens:  512,
+                temperature: 0.0,
+                messages: [
+                    { role: "system", content: safeSystem + "\n\nRespond with ONLY a JSON object in the form {\"chosen_ids\": [\"id1\",\"id2\",...]} and nothing else." },
+                    { role: "user", content: safeUser },
+                ],
+            });
+            var text = (resp.choices && resp.choices[0] && resp.choices[0].message && resp.choices[0].message.content) || "";
+            var match = text.match(/\{[\s\S]*\}/);
+            if (match) {
+                try {
+                    var parsed = JSON.parse(match[0]);
+                    if (parsed && Array.isArray(parsed.chosen_ids)) {
+                        chosen = parsed.chosen_ids.filter(function(id) { return ids.indexOf(id) !== -1; });
+                    }
+                } catch (_) {
+                    chosen = [];
+                }
+            }
+        } else if (hasAnthropicKey()) {
+            resp = await getAnthropicClient().messages.create({
+                model:       PICKER_MODEL,
+                max_tokens:  512,
+                system:      safeSystem,
+                tools:       [tool],
+                tool_choice: { type: "tool", name: "submit_chosen" },
+                messages:    [{ role: "user", content: safeUser }],
+            });
+            var toolUse = (resp.content || []).find(function(b) { return b.type === "tool_use" && b.name === "submit_chosen"; });
+            chosen = (toolUse && Array.isArray(toolUse.input && toolUse.input.chosen_ids))
+                ? toolUse.input.chosen_ids : [];
+        } else {
+            return candidates.slice(0, k);
+        }
 
         try {
             run_logger.recordCall({
@@ -297,7 +340,7 @@ async function llmPickBest(queryText, candidates, k) {
                 phase:     "RAG",
                 system:    system_log,
                 user:      user_log,
-                response:  { chosen_ids: chosen, stop_reason: resp.stop_reason, usage: resp.usage },
+                response:  { chosen_ids: chosen, stop_reason: resp && resp.choices && resp.choices[0] ? resp.choices[0].finish_reason : resp && resp.stop_reason, usage: resp && resp.usage },
                 durationMs: Date.now() - startedAt,
             });
         } catch (_) {}

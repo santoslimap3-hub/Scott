@@ -1,7 +1,7 @@
 /**
  * tool_scripts/autotag_dms.js
  *
- * Auto-tags all 4,016 Scott messages in data/dm_classified.json using GPT-4o-mini
+ * Auto-tags all 4,016 Scott messages in data/dm_classified.json using opus-4.7
  * with Scott's own 183 hand-corrected DMs (data/scott_dm_corrections.json) as ground
  * truth + few-shot examples, plus deterministic hard rules for the obvious cases.
  *
@@ -13,7 +13,7 @@
  *      stamps `scott_validated=true`. These FROZEN messages never go to the LLM.
  *   4. Applies a deterministic hard-rule pass (calendly/voice/sticker/single-emoji ack).
  *   5. For remaining Scott messages, sends conversation context (prev 5 msgs) to
- *      gpt-4o-mini with 25 stratified few-shots from the corrections.
+ *      opus-4.7 with 25 stratified few-shots from the corrections.
  *   6. Validates output against allowed tag values; retries on schema fail.
  *   7. Writes tags back to data/dm_classified.json (after a timestamped backup).
  *   8. Saves an audit log for spot-checking.
@@ -85,11 +85,11 @@ const AUDIT_PATH      = path.join(__dirname, "autotag_dms_audit.json");
 const EVAL_REPORT_PATH = path.join(__dirname, "autotag_dms_eval.json");
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-// Phase 1 fix (2026-04-27): bumped from gpt-4o-mini → gpt-4o. The 4o-mini failure
+// Phase 1 fix (2026-04-27): bumped from gpt-4o-mini → opus-4.7. The 4o-mini failure
 // mode "collapse to engagement-nurture/acknowledgement when uncertain" is a
 // small-model symptom that goes away at 4o. Cost on a 4,016-message run is
 // ~$8 vs ~$1 — irrelevant for a one-time tagging pass.
-const MODEL       = process.env.AUTOTAG_MODEL || "gpt-4o";
+const MODEL       = process.env.AUTOTAG_MODEL || "opus-4.7";
 const TEMPERATURE = 0;        // deterministic classification
 const CONCURRENCY = 6;
 const SAVE_EVERY  = 25;
