@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-05-17T13:59:12.767Z",
+  "env": {
+    "startedAt": "2026-05-17T13:59:12.766Z",
+    "dry_run": false,
+    "headless": false,
+    "model": "claude-sonnet-4-5",
+    "communities": [
+      {
+        "url": "https://www.skool.com/synthesizer",
+        "name": "Synthesizer"
+      },
+      {
+        "url": "https://www.skool.com/academy",
+        "name": "Imperium Academy"
+      }
+    ],
+    "pages_to_scrape": 3,
+    "max_picks_per_phase": 15,
+    "max_comment_replies_per_post": 5
+  },
+  "cycles": [
+    {
+      "n": 1,
+      "startedAt": "2026-05-17T13:59:19.232Z",
+      "communityUrl": "https://www.skool.com/synthesizer",
+      "communityName": "Synthesizer",
+      "calls": []
+    }
+  ],
+  "calls": []
+}
