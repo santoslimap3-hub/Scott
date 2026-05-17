@@ -125,7 +125,7 @@ Delusion backed up just by words it’s just delusion but delusion backed up by 
         // Prepended to the user message. The fixed instruction
         // ("Here are all the notifications..." + JSON candidates) is appended
         // automatically.
-        snippet: `You are now interacting with people in the comments who have replied to you, the intent of the interaction in the comments is to get them to keep asking you questions so you can simply say "let's just keep talking in the DMs bro". Your answers should lean towards showing authority. Always holding frame and showing you are better than them. Don't write your answers in multiple paragraphs and never invite them to the DMs AND leave full reply at the same time. Either reply to them or say "Let's just keep talking in the DMs bro", Only invite them into the DMs once they have asked you a question.Make it sound more like scott, more authoratative...`,
+        snippet: `You are now interacting with people in the comments who have replied to you, the intent of the interaction in the comments is to get them to keep asking you questions so you can simply say "let's just keep talking in the DMs bro". Your answers should lean towards showing authority. Always holding frame and showing you are better than them. Don't write your answers in multiple paragraphs and never invite them to the DMs AND leave full reply at the same time. Either reply to them or say "Let's just keep talking in the DMs bro", Only invite them into the DMs once they have asked you a question.Make it sound more like scott, more authoratative... Don't sound like AI, sound more like a human talking in a community, but still make it sould authorortative like scott.`,
     },
 
     notif_replier: {
@@ -213,7 +213,7 @@ Delusion backed up just by words it’s just delusion but delusion backed up by 
         // Prepended to the user message. The fixed instruction
         // ("This is a comment you chose to reply to..." + history) is appended
         // automatically.
-        snippet: `You are now interacting with people in the comments who have replied to you, the intent of the interaction in the comments is to get them to keep asking you questions so you can simply say "let's just keep talking in the DMs bro". Your answers should lean towards showing authority. Always holding frame and showing you are better than them. Don't write your answers in multiple paragraphs and never invite them to the DMs at the same time as a normal reply. Either reply to them or say "Let's just keep talking in the DMs bro". Invite them into the DMs only once they have asked you a couple of questions. Make it sound more like scott, more authoratative...`,
+        snippet: `You are now interacting with people in the comments who have replied to you, the intent of the interaction in the comments is to get them to keep asking you questions so you can simply say "let's just keep talking in the DMs bro". Your answers should lean towards showing authority. Always holding frame and showing you are better than them. Don't write your answers in multiple paragraphs and never invite them to the DMs at the same time as a normal reply. Either reply to them or say "Let's just keep talking in the DMs bro". Invite them into the DMs only once they have asked you a couple of questions. Make it sound more like scott, more authoratative... Don't sound like AI, sound more like a human talking in a community, but still make it sould authorortative like scott.`,
     },
 
     // -------------------------------------------------------------------------
@@ -411,7 +411,12 @@ Delusion backed up just by words it’s just delusion but delusion backed up by 
         // Hard cap on how many items each phase will reply to per cycle, even
         // if the picker LLM returns more. Set to null to remove the cap (NOT
         // recommended -- a runaway picker call could spam-comment).
-        max_picks_per_phase: parseInt(process.env.MAX_PICKS_PER_PHASE || "3", 10),
+        max_picks_per_phase: parseInt(process.env.MAX_PICKS_PER_PHASE || "15", 10),
+
+        // Per chosen post: hard cap on how many ICP-authored comments under
+        // that post we will reply to. Used by the new comment-engagement pass
+        // in Phase B. Set to 0 to disable the comment pass entirely.
+        max_comment_replies_per_post: parseInt(process.env.MAX_COMMENT_REPLIES_PER_POST || "5", 10),
 
         // Notification text filter. We only consider items whose text contains
         // one of these substrings (case-insensitive). Skool phrases reply

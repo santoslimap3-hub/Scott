@@ -24,7 +24,15 @@
 
 const browser = require("../skool_browser");
 const dedup   = require("./dedup");
+const rag     = require("./rag_picker");
 const { callPicker, callWriter } = require("./anthropic_client");
+
+// Notifications come from whichever community the bot is engaging in. For the
+// current deployment that's always external (Imperium Academy / Synthesizer),
+// so we hard-code inSin=false for the RAG picker. If you ever run the bot
+// inside SIN, flip this via the SIN_COMMUNITY_URL convention used in
+// value_phase.js.
+const NOTIF_IN_SIN = false;
 
 // ---- Helpers ---------------------------------------------------------------
 
@@ -335,7 +343,28 @@ async function runNotifPhase(page, ctx) {
                 historyBlock = "(prior thread history could not be scraped from the page -- only the message that triggered the notification is shown below)";
             }
 
+            // RAG few-shots, community-matched. External by default since
+            // notifications arrive from the external communities the bot
+            // engages in. All inbound strings go through rag.safeTruncate /
+            // rag.scrubOrphanSurrogates so emoji-bearing thread content can't
+            // produce an unpaired UTF-16 surrogate in the request body.
+            var ragQuery =
+                "Reply situation: " + cand.author + " has just sent the message below.\n" +
+                "Latest message:\n" + rag.safeTruncate(partnerLatest || "(no text)", 800) + "\n\n" +
+                (history.length > 0
+                    ? "Prior thread:\n" + history.slice(-4).map(function(h) {
+                          return (h.isBot ? "You" : cand.author) + ": " + rag.safeTruncate(h.text || "", 400);
+                      }).join("\n")
+                    : "");
+            var ragExamples = "";
+            try {
+                ragExamples = await rag.getExamplesBlock(ragQuery, { inSin: NOTIF_IN_SIN, k: 4 });
+            } catch (ragErr) {
+                info("[rag] picker failed for notif (continuing without few-shots): " + ragErr.message);
+            }
+
             var replierUserPrompt = (config.notif_replier.snippet ? (config.notif_replier.snippet + "\n\n") : "")
+                + (ragExamples ? (ragExamples + "\n\n") : "")
                 + "You are replying to a comment from " + cand.author + " in a Skool thread.\n\n"
                 + historyBlock + "\n\n"
                 + cand.author + "'s latest message (the one you must reply to):\n"

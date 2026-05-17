@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto-Reply Bot · LLM Call Dashboard</title>
+<style>
+  :root {
+    --bg:      #0e1116;
+    --bg2:     #161b22;
+    --bg3:     #1e252e;
+    --border:  #30363d;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+    --accent:  #58a6ff;
+    --good:    #2ea043;
+    --warn:    #d29922;
+    --bad:     #f85149;
+    --pickerA: #d29922;
+    --pickerB: #58a6ff;
+    --writer:  #2ea043;
+    --rag:     #bc8cff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.45; }
+  header { padding: 18px 24px; background: var(--bg2); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+  header h1 { margin: 0 0 4px 0; font-size: 18px; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  .meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px; margin-bottom: 18px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;
+  }
+  .meta .item .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  .meta .item .v { font-weight: 600; font-size: 14px; word-break: break-word; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .toolbar input, .toolbar select {
+    background: var(--bg2); color: var(--text); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 13px;
+  }
+  .toolbar input { flex: 1; min-width: 220px; }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+
+  .cycle {
+    margin-bottom: 22px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+  }
+  .cycle-head {
+    padding: 10px 14px; background: var(--bg3); border-bottom: 1px solid var(--border);
+    border-top-left-radius: 8px; border-top-right-radius: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .cycle-head .left  { display: flex; gap: 12px; align-items: center; }
+  .cycle-head .right { color: var(--muted); }
+  .cycle-num { font-weight: 700; }
+
+  .call {
+    border-top: 1px solid var(--border); padding: 12px 14px;
+  }
+  .call:first-of-type { border-top: 0; }
+  .call-head {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    font-size: 12px; color: var(--muted); margin-bottom: 8px;
+  }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 11px;
+    background: var(--bg3); border: 1px solid var(--border);
+  }
+  .badge.kind-picker { color: var(--pickerB); border-color: var(--pickerB); }
+  .badge.kind-writer { color: var(--writer);  border-color: var(--writer); }
+  .badge.phase-A     { color: var(--pickerA); border-color: var(--pickerA); }
+  .badge.phase-B     { color: var(--pickerB); border-color: var(--pickerB); }
+  .badge.phase-RAG   { color: var(--rag);     border-color: var(--rag);    }
+  .call .label { color: var(--text); font-weight: 600; font-size: 13px; }
+  .call .model { color: var(--muted); font-size: 12px; }
+  .call .ts    { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  details { margin-top: 6px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; }
+  details > summary { padding: 8px 12px; cursor: pointer; user-select: none; color: var(--muted); font-size: 12px; }
+  details > summary:hover { color: var(--text); }
+  details[open] > summary { color: var(--text); border-bottom: 1px solid var(--border); }
+  details pre {
+    margin: 0; padding: 12px 14px;
+    white-space: pre-wrap; word-wrap: break-word;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px; line-height: 1.5;
+    background: var(--bg); color: var(--text); max-height: 480px; overflow: auto;
+  }
+  details pre.tight { max-height: 320px; }
+  .response-text {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px 14px; margin-top: 8px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px; line-height: 1.5;
+    white-space: pre-wrap; word-wrap: break-word;
+  }
+  .empty {
+    padding: 60px 20px; text-align: center; color: var(--muted);
+    border: 1px dashed var(--border); border-radius: 8px;
+  }
+  .empty code { background: var(--bg2); padding: 2px 6px; border-radius: 4px; color: var(--text); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Auto-Reply Bot · LLM Call Dashboard</h1>
+    <div class="sub">Reads <code>bot/logs/runs/latest.js</code> · refresh the page after the bot writes a new call</div>
+  </header>
+  <div class="container">
+    <div id="meta" class="meta"></div>
+    <div class="toolbar">
+      <input id="search" placeholder="Filter by text in label, prompt, or response..." />
+      <select id="kindFilter">
+        <option value="">All kinds</option>
+        <option value="picker">Picker only</option>
+        <option value="writer">Writer only</option>
+      </select>
+      <select id="phaseFilter">
+        <option value="">All phases</option>
+        <option value="A">Phase A (notif)</option>
+        <option value="B">Phase B (value)</option>
+        <option value="RAG">RAG picker</option>
+      </select>
+      <span id="count" class="count"></span>
+    </div>
+    <div id="body"></div>
+  </div>
+
+<script src="logs/runs/latest.js" onerror="window.__RUN_LOAD_FAILED = true;"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  };
+  var fmtResponse = function (r) {
+    if (r == null) return "(null)";
+    if (typeof r === "string") return r;
+    try { return JSON.stringify(r, null, 2); } catch (e) { return String(r); }
+  };
+  var fmtTs = function (iso) {
+    if (!iso) return "";
+    try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
+  };
+
+  var run = window.RUN;
+  if (window.__RUN_LOAD_FAILED || !run) {
+    $("body").innerHTML =
+      '<div class="empty">' +
+      "<p>No run log found yet.</p>" +
+      "<p>Launch the bot — it will create <code>bot/logs/runs/latest.js</code> and the dashboard will populate after the first LLM call.</p>" +
+      "</div>";
+    return;
+  }
+
+  // ---- Meta block --------------------------------------------------------
+  var env = run.env || {};
+  var totalCalls = (run.calls || []).length;
+  var pickerCalls = (run.calls || []).filter(function (c) { return c.kind === "picker"; }).length;
+  var writerCalls = (run.calls || []).filter(function (c) { return c.kind === "writer"; }).length;
+  var commsLabel = "(unspecified)";
+  if (Array.isArray(env.communities)) {
+    commsLabel = env.communities.map(function (c) { return c.name || c.url; }).join("  ↔  ");
+  }
+  var metaItems = [
+    ["Run started",        fmtTs(run.startedAt)],
+    ["Dry run",            env.dry_run === false ? "false (LIVE)" : "true"],
+    ["Writer model",       env.model || "?"],
+    ["Communities",        commsLabel],
+    ["Cycles so far",      (run.cycles || []).length],
+    ["LLM calls",          totalCalls + "  (picker " + pickerCalls + " · writer " + writerCalls + ")"],
+    ["Pages / cycle",      env.pages_to_scrape != null ? env.pages_to_scrape : "?"],
+    ["Picks cap",          env.max_picks_per_phase != null ? env.max_picks_per_phase : "?"],
+    ["Comment replies cap", env.max_comment_replies_per_post != null ? env.max_comment_replies_per_post : "?"],
+  ];
+  $("meta").innerHTML = metaItems.map(function (kv) {
+    return '<div class="item"><div class="k">' + esc(kv[0]) + '</div><div class="v">' + esc(kv[1]) + '</div></div>';
+  }).join("");
+
+  // ---- Filters -----------------------------------------------------------
+  var matches = function (c, q, kind, phase) {
+    if (kind  && c.kind  !== kind)  return false;
+    if (phase && c.phase !== phase) return false;
+    if (!q) return true;
+    q = q.toLowerCase();
+    return (c.label  || "").toLowerCase().indexOf(q) !== -1
+        || (c.model  || "").toLowerCase().indexOf(q) !== -1
+        || (c.system || "").toLowerCase().indexOf(q) !== -1
+        || (c.user   || "").toLowerCase().indexOf(q) !== -1
+        || fmtResponse(c.response).toLowerCase().indexOf(q) !== -1;
+  };
+
+  var render = function () {
+    var q     = $("search").value.trim();
+    var kind  = $("kindFilter").value;
+    var phase = $("phaseFilter").value;
+    var cycles = run.cycles || [];
+    if (cycles.length === 0) {
+      // Fall back to a single synthetic cycle so we still render something.
+      cycles = [{ n: 0, calls: run.calls || [], communityName: "", communityUrl: "" }];
+    }
+    var html = "";
+    var shown = 0;
+    cycles.forEach(function (cy) {
+      var visible = (cy.calls || []).filter(function (c) { return matches(c, q, kind, phase); });
+      if (visible.length === 0) return;
+      shown += visible.length;
+      html += '<div class="cycle">';
+      html += '  <div class="cycle-head">';
+      html += '    <div class="left">';
+      html += '      <span class="cycle-num">CYCLE ' + esc(cy.n) + '</span>';
+      if (cy.communityName) html += '      <span>' + esc(cy.communityName) + '</span>';
+      if (cy.communityUrl)  html += '      <a href="' + esc(cy.communityUrl) + '" target="_blank" style="color:var(--accent);text-decoration:none;font-size:12px">' + esc(cy.communityUrl) + '</a>';
+      html += '    </div>';
+      html += '    <div class="right">' + esc(fmtTs(cy.startedAt)) + ' · ' + visible.length + ' call' + (visible.length === 1 ? '' : 's') + '</div>';
+      html += '  </div>';
+      visible.forEach(function (c, i) {
+        var resp = fmtResponse(c.response);
+        var sysTrunc = (c.system || "");
+        html += '<div class="call">';
+        html += '  <div class="call-head">';
+        html += '    <span class="badge kind-' + esc(c.kind) + '">' + esc((c.kind || "?").toUpperCase()) + '</span>';
+        html += '    <span class="badge phase-' + esc(c.phase) + '">PHASE ' + esc(c.phase) + '</span>';
+        html += '    <span class="label">' + esc(c.label) + '</span>';
+        html += '    <span class="model">· ' + esc(c.model) + '</span>';
+        if (c.durationMs != null) html += '<span class="model">· ' + esc(c.durationMs) + 'ms</span>';
+        html += '    <span class="ts">' + esc(fmtTs(c.ts)) + '</span>';
+        html += '  </div>';
+        html += '  <details><summary>System prompt (' + sysTrunc.length + ' chars)</summary><pre class="tight">' + esc(sysTrunc) + '</pre></details>';
+        html += '  <details open><summary>User prompt (' + (c.user || "").length + ' chars)</summary><pre>' + esc(c.user || "") + '</pre></details>';
+        html += '  <div style="margin-top:8px;font-size:12px;color:var(--muted)">Response</div>';
+        html += '  <div class="response-text">' + esc(resp) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    if (shown === 0) {
+      html = '<div class="empty">No LLM calls match the current filters.</div>';
+    }
+    $("body").innerHTML = html;
+    $("count").textContent = shown + " of " + totalCalls + " call" + (totalCalls === 1 ? "" : "s") + " shown";
+  };
+
+  $("search").addEventListener("input", render);
+  $("kindFilter").addEventListener("change", render);
+  $("phaseFilter").addEventListener("change", render);
+  render();
+})();
+</script>
+</body>
+</html>

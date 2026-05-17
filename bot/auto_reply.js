@@ -16,7 +16,10 @@
 
 "use strict";
 
-require("dotenv").config();
+const path = require("path");
+// Always load the .env that lives next to this file (bot/.env),
+// no matter what cwd the script is launched from.
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const { chromium } = require("playwright");
 const browser_mod  = require("./skool_browser");
@@ -24,6 +27,7 @@ const browser_mod  = require("./skool_browser");
 const config        = require("./agentic/config");
 const { runNotifPhase } = require("./agentic/notif_phase");
 const { runValuePhase } = require("./agentic/value_phase");
+const run_logger    = require("./agentic/run_logger");
 
 // ---- env / defaults ---------------------------------------------------------
 
@@ -31,8 +35,27 @@ const { runValuePhase } = require("./agentic/value_phase");
 const DRY_RUN  = process.env.DRY_RUN !== "false";
 const HEADLESS = process.env.HEADLESS === "true";
 
-const COMMUNITY_URL  = process.env.SKOOL_COMMUNITY_URL_2 || process.env.SKOOL_COMMUNITY_URL || "https://www.skool.com/hope-nation-7999";
-const COMMUNITY_NAME = process.env.COMMUNITY_NAME || "Hope Nation";
+// Community from .env (bot/.env -> COMMUNITY=...). Falls back to synthesizer.
+const ENV_COMMUNITY_URL = process.env.COMMUNITY
+    || process.env.SKOOL_COMMUNITY_URL_2
+    || process.env.SKOOL_COMMUNITY_URL
+    || "https://www.skool.com/synthesizer";
+
+function nameFromUrl(u) {
+    try {
+        var slug = String(u).replace(/\/+$/, "").split("/").pop() || "";
+        if (!slug) return u;
+        return slug.split("-").map(function (w) {
+            return w ? w[0].toUpperCase() + w.slice(1) : w;
+        }).join(" ");
+    } catch (_) { return u; }
+}
+
+// Alternating community rotation. Cycle 1 = first entry, cycle 2 = second, etc.
+const COMMUNITIES = [
+    { url: ENV_COMMUNITY_URL,                  name: process.env.COMMUNITY_NAME || nameFromUrl(ENV_COMMUNITY_URL) },
+    { url: "https://www.skool.com/academy",    name: "Imperium Academy" },
+];
 
 const SKOOL_EMAIL    = process.env.SKOOL_EMAIL;
 const SKOOL_PASSWORD = process.env.SKOOL_PASSWORD;
@@ -56,11 +79,29 @@ function envCheck() {
 (async function main() {
     envCheck();
 
+    // Initialize the per-run logger. Every LLM call (picker, writer, RAG)
+    // from this point on is recorded to bot/logs/runs/run_<ts>.json AND
+    // bot/logs/runs/latest.js (which the dashboard at bot/dashboard.html
+    // loads via a <script> tag, no server needed).
+    run_logger.init({
+        startedAt:    new Date().toISOString(),
+        dry_run:      DRY_RUN,
+        headless:     HEADLESS,
+        model:        config.runtime.anthropic_model,
+        communities:  COMMUNITIES,
+        pages_to_scrape:      config.runtime.pages_to_scrape,
+        max_picks_per_phase:  config.runtime.max_picks_per_phase,
+        max_comment_replies_per_post: config.runtime.max_comment_replies_per_post,
+    });
+
     console.log("\n" + bar("#"));
     console.log("# AGENTIC AUTO-REPLY BOT");
     console.log("# DRY_RUN     : " + DRY_RUN + (DRY_RUN ? "  (no replies will be submitted)" : "  (LIVE -- replies WILL be posted)"));
     console.log("# HEADLESS    : " + HEADLESS);
-    console.log("# COMMUNITY   : " + COMMUNITY_NAME + "  -- " + COMMUNITY_URL);
+    console.log("# COMMUNITIES : alternating each cycle --");
+    COMMUNITIES.forEach(function (c, i) {
+        console.log("#               [" + (i + 1) + "] " + c.name + "  -- " + c.url);
+    });
     console.log("# MODEL       : " + config.runtime.anthropic_model);
     console.log("# PAGES SCRAPE: " + config.runtime.pages_to_scrape);
     console.log("# PICK CAP    : " + (config.runtime.max_picks_per_phase == null ? "none" : config.runtime.max_picks_per_phase) + " per phase");
@@ -90,14 +131,22 @@ function envCheck() {
     var phaseCtx = {
         botName:      botName,
         config:       config,
-        communityUrl: COMMUNITY_URL,
+        communityUrl: COMMUNITIES[0].url, // overwritten per-cycle below
         dryRun:       DRY_RUN,
     };
 
     var cycle = 1;
     while (true) {
+        // Alternate community each cycle.
+        var current = COMMUNITIES[(cycle - 1) % COMMUNITIES.length];
+        phaseCtx.communityUrl  = current.url;
+        phaseCtx.communityName = current.name;
+
+        run_logger.beginCycle(cycle, current.url, current.name);
+
         console.log("\n" + bar("#"));
         console.log("# CYCLE " + cycle + (DRY_RUN ? "  [DRY RUN]" : ""));
+        console.log("# COMMUNITY  : " + current.name + "  -- " + current.url);
         console.log(bar("#"));
 
         // Per-phase try/catch: a Phase A failure must not block Phase B,

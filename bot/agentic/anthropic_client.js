@@ -15,8 +15,48 @@
 "use strict";
 
 const Anthropic = require("@anthropic-ai/sdk");
+const run_logger = require("./run_logger");
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+// Defensive scrub for lone UTF-16 surrogates. Skool post/comment text often
+// contains emojis, and any code path that truncates with .substring() can
+// leave a lone high or low surrogate at the cut boundary. The Anthropic API
+// rejects such bodies with: 400 invalid_request_error "no low surrogate in
+// string". We strip orphans right before the request leaves the process so
+// no upstream caller has to remember to do it.
+function scrubSurrogates(s) {
+    if (typeof s !== "string" || s.length === 0) return s == null ? "" : s;
+    var out = "";
+    for (var i = 0; i < s.length; i++) {
+        var c = s.charCodeAt(i);
+        if (c >= 0xD800 && c <= 0xDBFF) {
+            var next = (i + 1 < s.length) ? s.charCodeAt(i + 1) : 0;
+            if (next >= 0xDC00 && next <= 0xDFFF) {
+                out += s.charAt(i) + s.charAt(i + 1);
+                i++;
+            }
+            // else: orphan high surrogate -- drop it
+        } else if (c >= 0xDC00 && c <= 0xDFFF) {
+            // orphan low surrogate -- drop it
+        } else {
+            out += s.charAt(i);
+        }
+    }
+    return out;
+}
+
+// Light convenience: derive the phase from the picker/writer label so the
+// dashboard can group calls without callers having to pass an explicit phase.
+function derivePhase(label) {
+    if (!label) return "?";
+    var l = String(label).toLowerCase();
+    if (l.indexOf("notif")          !== -1) return "A";
+    if (l.indexOf("value_picker")   !== -1) return "B";
+    if (l.indexOf("value_commenter")!== -1) return "B";
+    if (l.indexOf("rag")            !== -1) return "RAG";
+    return "?";
+}
 
 // ---- Logging ---------------------------------------------------------------
 
@@ -59,16 +99,29 @@ function logResponse(label, payload) {
 async function callPicker(opts) {
     var label    = opts.label || "picker";
     var model    = opts.model;
-    var system   = opts.system;
-    var user     = opts.user;
+    var system   = scrubSurrogates(opts.system);
+    var user     = scrubSurrogates(opts.user);
     var ids      = Array.isArray(opts.candidateIds) ? opts.candidateIds : [];
 
     logCall(label, model, system, user);
 
     if (ids.length === 0) {
         console.log("[picker] No candidates supplied -- skipping LLM call, returning empty pick.\n");
+        try {
+            run_logger.recordCall({
+                label:    label,
+                model:    model,
+                kind:     "picker",
+                phase:    derivePhase(label),
+                system:   system,
+                user:     user,
+                response: { chosen_ids: [], note: "no candidates supplied" },
+                durationMs: 0,
+            });
+        } catch (_) {}
         return { chosen_ids: [] };
     }
+    var __startedAt = Date.now();
 
     var tool = {
         name: "submit_chosen",
@@ -119,6 +172,25 @@ async function callPicker(opts) {
         usage:             resp.usage,
     });
 
+    try {
+        run_logger.recordCall({
+            label:    label,
+            model:    model,
+            kind:     "picker",
+            phase:    derivePhase(label),
+            system:   system,
+            user:     user,
+            response: {
+                raw_chosen:        chosen,
+                validated_chosen:  validated,
+                dropped_unknown:   dropped,
+                stop_reason:       resp.stop_reason,
+                usage:             resp.usage,
+            },
+            durationMs: Date.now() - __startedAt,
+        });
+    } catch (_) {}
+
     return { chosen_ids: validated };
 }
 
@@ -129,11 +201,12 @@ async function callPicker(opts) {
 async function callWriter(opts) {
     var label  = opts.label || "writer";
     var model  = opts.model;
-    var system = opts.system;
-    var user   = opts.user;
+    var system = scrubSurrogates(opts.system);
+    var user   = scrubSurrogates(opts.user);
     var maxTok = opts.maxTokens || 400;
 
     logCall(label, model, system, user);
+    var __wStartedAt = Date.now();
 
     var resp = await client.messages.create({
         model:      model,
@@ -149,6 +222,20 @@ async function callWriter(opts) {
         .trim();
 
     logResponse(label, text);
+
+    try {
+        run_logger.recordCall({
+            label:    label,
+            model:    model,
+            kind:     "writer",
+            phase:    derivePhase(label),
+            system:   system,
+            user:     user,
+            response: text,
+            durationMs: Date.now() - __wStartedAt,
+        });
+    } catch (_) {}
+
     return text;
 }
 

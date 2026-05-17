@@ -1177,6 +1177,84 @@ async function scrapeThreadHistoryWith(page, partnerName, botNames) {
 // wrappers to be replaced (their hrefs change) -- we capture the current set
 // of href keys before clicking, then poll until at least one new href has
 // appeared.
+// ── Scrape every visible comment on the currently-open post page ───────────
+//
+// Returns an array of { author, text } objects. Filters out the bot's own
+// comments and (optionally) the post author's self-replies. Picks up BOTH
+// top-level comments and nested replies, because both render with
+// CommentOrReply / CommentItemContainer wrappers on Skool.
+//
+// Caller must have already navigated to the post page (e.g. via
+// openPostAndGetBody). This helper does not navigate.
+async function scrapeCommentsOnCurrentPage(page, options) {
+    options = options || {};
+    var botName     = options.botName    || "";
+    var postAuthor  = options.postAuthor || "";
+    var maxComments = options.maxComments || 80;
+
+    return await page.evaluate(function(args) {
+        function cleanName(s) {
+            return (s || "")
+                .replace(/^\d+/, "")
+                .replace(/Â/g, "")
+                .replace(/[   ]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+        function cleanText(s) {
+            return (s || "")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+        var bot        = (args.botName    || "").trim().toLowerCase();
+        var postAuthor = (args.postAuthor || "").trim().toLowerCase();
+        var max        = args.maxComments;
+
+        var nodes = Array.from(document.querySelectorAll(
+            '[class*="CommentItemContainer"], [class*="CommentOrReply"]'
+        ));
+        var seen = {};
+        var out  = [];
+        for (var i = 0; i < nodes.length && out.length < max; i++) {
+            var el = nodes[i];
+
+            // Author — first /@-link inside this comment block
+            var authorLinks = el.querySelectorAll('a[href*="/@"]');
+            var author = "";
+            for (var j = 0; j < authorLinks.length; j++) {
+                var t = cleanName(authorLinks[j].textContent);
+                if (t && t.length > 1) { author = t; break; }
+            }
+            if (!author) continue;
+            var aLower = author.toLowerCase();
+            if (bot        && aLower === bot)        continue;  // skip bot's own
+            if (postAuthor && aLower === postAuthor) continue;  // skip post author's self-replies
+
+            // Body
+            var bodyEl = el.querySelector(
+                '[class*="CommentBody"], [class*="commentBody"], ' +
+                '[class*="RichText"], .ql-editor'
+            );
+            var raw  = bodyEl ? bodyEl.textContent : el.textContent;
+            var text = cleanText(raw);
+
+            // Strip the author prefix that often leaks into el.textContent
+            if (text.toLowerCase().indexOf(aLower) === 0) {
+                text = text.substring(author.length).replace(/^[\s•·•\-:|]+/, "").trim();
+            }
+            if (!text || text.length < 5) continue;
+
+            // De-dupe near-duplicates (same author + same text head)
+            var key = aLower + "::" + text.substring(0, 60).toLowerCase();
+            if (seen[key]) continue;
+            seen[key] = true;
+
+            out.push({ author: author, text: text });
+        }
+        return out;
+    }, { botName: botName, postAuthor: postAuthor, maxComments: maxComments });
+}
+
 async function scrapeFeedNPages(page, communityUrl, n) {
     var pages = (typeof n === "number" && n > 0) ? n : 3;
     console.log("📋 Scraping last " + pages + " 'pages' of " + communityUrl + " ...");
@@ -1403,4 +1481,6 @@ module.exports = {
     clickNotificationItem,
     scrapeThreadHistoryWith,
     scrapeFeedNPages,
+    scrapeCommentsOnCurrentPage,
+    clickCommentReplyButton,
 };
