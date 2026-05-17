@@ -132,6 +132,88 @@
         "dryRun": false,
         "reason": "already-commented-dom"
       }
+    },
+    "https://www.skool.com/synthesizer/just-hit-100-members-in-my-community": {
+      "leftAt": "2026-05-17T11:59:08.315Z",
+      "url": "https://www.skool.com/synthesizer/just-hit-100-members-in-my-community",
+      "meta": {
+        "author": "Harrison Todd",
+        "commentLen": 248
+      }
+    },
+    "https://www.skool.com/synthesizer/entrepreneurs-dont-have-business-problems": {
+      "leftAt": "2026-05-17T12:01:45.528Z",
+      "url": "https://www.skool.com/synthesizer/entrepreneurs-dont-have-business-problems",
+      "meta": {
+        "author": "Harry Montford",
+        "commentLen": 510
+      }
+    },
+    "https://www.skool.com/synthesizer/you-dont-need-to-work-so-hard-2": {
+      "leftAt": "2026-05-17T12:01:59.929Z",
+      "url": "https://www.skool.com/synthesizer/you-dont-need-to-work-so-hard-2",
+      "meta": {
+        "author": "Andrew Kirby",
+        "dryRun": false,
+        "reason": "already-commented-dom"
+      }
+    },
+    "https://www.skool.com/synthesizer/what-actually-flipped-the-switch": {
+      "leftAt": "2026-05-17T12:02:10.982Z",
+      "url": "https://www.skool.com/synthesizer/what-actually-flipped-the-switch",
+      "meta": {
+        "author": "Auðunn Hartmannsson",
+        "dryRun": false,
+        "reason": "already-commented-dom"
+      }
+    },
+    "https://www.skool.com/synthesizer/running-but-not-actually-moving": {
+      "leftAt": "2026-05-17T12:02:51.659Z",
+      "url": "https://www.skool.com/synthesizer/running-but-not-actually-moving",
+      "meta": {
+        "author": "Carlos Aguillon",
+        "commentLen": 689
+      }
+    },
+    "https://www.skool.com/synthesizer/the-hardest-part-of-trying-to-grow-isnt-the-work-its-the-people-who-dont-understand-why-youre-doing-it": {
+      "leftAt": "2026-05-17T12:03:35.485Z",
+      "url": "https://www.skool.com/synthesizer/the-hardest-part-of-trying-to-grow-isnt-the-work-its-the-people-who-dont-understand-why-youre-doing-it",
+      "meta": {
+        "author": "Hassan Naveed",
+        "commentLen": 768
+      }
+    },
+    "https://www.skool.com/synthesizer/the-rest-of-2026": {
+      "leftAt": "2026-05-17T12:05:36.530Z",
+      "url": "https://www.skool.com/synthesizer/the-rest-of-2026",
+      "meta": {
+        "author": "Dylan Murray",
+        "commentLen": 509
+      }
+    },
+    "https://www.skool.com/synthesizer/my-first-organic-skool-paid-member": {
+      "leftAt": "2026-05-17T12:06:06.707Z",
+      "url": "https://www.skool.com/synthesizer/my-first-organic-skool-paid-member",
+      "meta": {
+        "author": "Riley ghiles Ikni",
+        "commentLen": 408
+      }
+    },
+    "https://www.skool.com/synthesizer/my-inner-program-kept-destroying-it-all": {
+      "leftAt": "2026-05-17T12:06:57.564Z",
+      "url": "https://www.skool.com/synthesizer/my-inner-program-kept-destroying-it-all",
+      "meta": {
+        "author": "Michael Pluszek",
+        "commentLen": 855
+      }
+    },
+    "https://www.skool.com/synthesizer/i-keep-seeing-this": {
+      "leftAt": "2026-05-17T12:07:30.262Z",
+      "url": "https://www.skool.com/synthesizer/i-keep-seeing-this",
+      "meta": {
+        "author": "Michael Pluszek",
+        "commentLen": 460
+      }
     }
   }
 }
