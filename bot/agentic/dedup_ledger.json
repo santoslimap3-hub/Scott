@@ -214,6 +214,39 @@
         "author": "Michael Pluszek",
         "commentLen": 460
       }
+    },
+    "https://www.skool.com/synthesizer/the-greatest-solution": {
+      "leftAt": "2026-05-17T13:52:45.707Z",
+      "url": "https://www.skool.com/synthesizer/the-greatest-solution",
+      "meta": {
+        "author": "Lucas Alexander",
+        "commentLen": 771
+      }
+    },
+    "https://www.skool.com/synthesizer/the-identity-you-protect-might-just-be-a-role-you-forgot-to-take-off": {
+      "leftAt": "2026-05-17T13:53:03.668Z",
+      "url": "https://www.skool.com/synthesizer/the-identity-you-protect-might-just-be-a-role-you-forgot-to-take-off",
+      "meta": {
+        "author": "John Fuchs",
+        "dryRun": false,
+        "reason": "already-commented-dom"
+      }
+    },
+    "https://www.skool.com/synthesizer/youre-not-aligned-with-your-goal": {
+      "leftAt": "2026-05-17T13:53:39.652Z",
+      "url": "https://www.skool.com/synthesizer/youre-not-aligned-with-your-goal",
+      "meta": {
+        "author": "Ignas Kaikaris",
+        "commentLen": 597
+      }
+    },
+    "https://www.skool.com/synthesizer/does-the-plan-suck-or-do-you-suck-at-sticking-to-the-plan": {
+      "leftAt": "2026-05-17T13:54:26.491Z",
+      "url": "https://www.skool.com/synthesizer/does-the-plan-suck-or-do-you-suck-at-sticking-to-the-plan",
+      "meta": {
+        "author": "Austin Kunkle",
+        "commentLen": 812
+      }
     }
   }
 }
